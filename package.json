@@ -1,0 +1,82 @@
+{
+  "name": "gcmfb-cib",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fortawesome/free-regular-svg-icons": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@headlessui/react": "^1.7.7",
+    "@heroicons/react": "^2.0.13",
+    "@material-tailwind/react": "^1.2.5",
+    "@mui/material": "^5.11.4",
+    "@tailwindcss/forms": "^0.5.3",
+    "@tanstack/react-query": "^4.23.0",
+    "@tanstack/react-query-devtools": "^4.23.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "ariakit": "^2.0.0-next.43",
+    "axios": "^1.2.3",
+    "chart.js": "^4.1.2",
+    "classnames": "^2.3.2",
+    "csv-xlsx-to-json": "^0.0.2",
+    "faker": "^6.6.6",
+    "nprogress": "^0.2.0",
+    "papaparse": "^5.3.2",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.1.0",
+    "react-content-loader": "^6.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.42.1",
+    "react-router-dom": "^6.6.1",
+    "react-scripts": "5.0.1",
+    "react-select": "^5.7.0",
+    "react-spinners": "^0.13.8",
+    "react-toastify": "^9.1.1",
+    "react-tooltip": "^5.7.0",
+    "styled-components": "^5.3.6",
+    "web-vitals": "^2.1.4",
+    "xlsx": "^0.18.5",
+    "zustand": "^4.3.2"
+
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix",
+    "format": "prettier --write './**/*.{js,jsx,css,md,json}' --config ./.prettierrc"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "autoprefixer": "^10.4.13",
+    "eslint": "^7.11.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.11",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.1.0",
+    "postcss": "^8.4.20",
+    "prettier": "^2.8.1",
+    "tailwindcss": "^3.2.4"
+  },
+  "proxy":"https://gcmb.herokuapp.com"
+}
