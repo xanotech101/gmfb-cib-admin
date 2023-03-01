@@ -1,6 +1,7 @@
+// import { useCallback } from 'react';
+import { Avatar } from 'components/Avatar/Avatar';
 import { Link } from 'react-router-dom';
 import { Tooltip } from 'react-tooltip';
-import { generateBgColor } from 'utils';
 
 export const MandateRuleTable = ({ mandates, setMandate }) => {
   return (
@@ -36,7 +37,7 @@ export const MandateRuleTable = ({ mandates, setMandate }) => {
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                     >
-                      Authorizers
+                      Verifier
                     </th>
                     <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
                       <span className="sr-only">Edit</span>
@@ -56,23 +57,9 @@ export const MandateRuleTable = ({ mandates, setMandate }) => {
                         {mandate.maxAmount}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        <div className="isolate flex -space-x-1 overflow-hidden">
-                          {(mandate.AuthorizerID ?? []).slice(0, 4).map((authorizer, index) => {
-                            const color = generateBgColor(index);
-                            return (
-                              <span
-                                className={`relative z-30 inline-flex h-8 w-8 items-center justify-center rounded-full ${color}`}
-                                key={index}
-                                id="ttt"
-                                data-tooltip-content="Adenuga Tunmise"
-                              >
-                                <span className="text-xs font-medium leading-none text-white">
-                                  TW
-                                </span>
-                              </span>
-                            );
-                          })}
-                        </div>
+                        <Avatar
+                          name={`${mandate?.verifier?.firstName} ${mandate?.verifier?.lastName}`}
+                        />
                       </td>
                       <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                         <a

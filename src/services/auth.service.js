@@ -5,12 +5,12 @@ class AuthService {
   async login(payload) {
     try {
       const { data } = await http.post('/api/auth/login', { ...payload });
-      if (data.data?.token) {
-        localStorage.setItem('token', data.data?.token);
-        http.defaults.headers.common['Authorization'] = `Bearer ${data.data?.token}`;
+      if (data?.token) {
+        localStorage.setItem('token', data?.token);
+        http.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
       }
       notification(data?.message ?? 'Login successful');
-      return data.data;
+      return data;
     } catch (error) {
       notification(error.response.data.message, 'error');
       throw new Error(error);
@@ -21,16 +21,16 @@ class AuthService {
       const response = await http.post('/api/auth/send_password_reset_link', {
         email
       });
-      return response.data;
+      return response;
     } catch (error) {
       throw new Error(error);
     }
   }
   async resetPassword(payload) {
     try {
-      const { data } = await http.post('/api/auth/reset_password', { ...payload });
-      notification(data.message);
-      return data;
+      const response = await http.post('/api/auth/reset_password', { ...payload });
+      notification(response.message);
+      return response;
     } catch (error) {
       throw new Error(error);
     }
@@ -40,6 +40,7 @@ class AuthService {
       const response = await http.post(`/api/auth/register_confirmation/${token}`);
       return response.data;
     } catch (error) {
+      notification(error.response.data.message ?? 'Something went wrong', 'error');
       throw new Error(error);
     }
   }

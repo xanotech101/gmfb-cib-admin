@@ -1,32 +1,21 @@
-// TODO: refactor navigation
+
 
 import { Dialog, Transition, Menu } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { Logo } from 'components/Logo/Logo';
 import {
   Bars3BottomLeftIcon,
-  HomeIcon,
   XMarkIcon,
   BellIcon,
-  CogIcon,
-  BriefcaseIcon,
-  DocumentMagnifyingGlassIcon,
-  ChartPieIcon,
-  ArrowLeftOnRectangleIcon,
-  RocketLaunchIcon,
-  UserIcon,
-  BanknotesIcon,
 } from '@heroicons/react/24/outline';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import { NavLink } from './NavLink';
 import { useQuery } from '@tanstack/react-query';
 import { userService } from 'services';
-import { useStore } from 'hooks';
-import { DropDown } from 'components/DropDown/DropDown';
-import { DropDownItems } from 'components/DropDown/DropDownItems';
+import { useNotifications,useStore } from 'hooks';
+import { Notification } from 'components/Notification/Notification';
 import { Link } from 'react-router-dom';
 
-export const Sidebar = () => {
+export const Sidebar = ({mobile,desktop}) => {
   const token = localStorage.getItem('token');
   useQuery({
     queryKey: ['userProfile'],
@@ -37,14 +26,18 @@ export const Sidebar = () => {
     }
   });
 
+  // fetch notifications
+  useNotifications();
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
   }
   const userNavigation = [
-    { name: 'Your Profile', href: '#' },
-    { name: 'Settings', href: '#' },
-    { name: 'Sign out', href: '#' }
+    { name: 'Your Profile', href: 'profile' },
+    { name: 'Settings', href: 'settings' },
+    { name: 'Sign out', href: '/' }
   ];
   return (
     <div className="z-10">
@@ -93,58 +86,7 @@ export const Sidebar = () => {
                   <Logo className="filt" />
                 </div>
                 <div className="mt-5 h-0 flex-1 overflow-y-auto">
-                  <nav className="flex-1 space-y-1 px-2 pb-4">
-                    <NavLink to="/dashboard" name="Dashboard" icon={<HomeIcon />} current={true} />
-                    <DropDown
-                      title="Request"
-                      icon={
-                        <BanknotesIcon
-                          className="mr-3 h-6 w-6 flex-shrink-0 text-white"
-                          aria-hidden="true"
-                        />
-                      }>
-                      <DropDownItems classNames={classNames}>
-                        <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
-                        <Link to="/transaction-requests">My Requests</Link>
-                      </DropDownItems>
-                      <DropDownItems classNames={classNames}>
-                        <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
-                        <Link to="/transaction-requests">Initiate Request</Link>
-                      </DropDownItems>
-                    </DropDown>
-                    <NavLink to="/reports" icon={<ChartPieIcon />} name="Reports" current={false} />
-                    <NavLink
-                      to="/audit"
-                      icon={<DocumentMagnifyingGlassIcon />}
-                      name="Audit trail"
-                      current={false}
-                    />
-                    <NavLink
-                      to="/corperate"
-                      icon={<BriefcaseIcon />}
-                      name="Corperate Account"
-                      current={false}
-                    />
-                    <NavLink
-                      to="/mandate-rule"
-                      icon={<RocketLaunchIcon />}
-                      name="Mandate Rule"
-                      current={false}
-                    />
-                    <NavLink to="/profile" icon={<UserIcon />} name="Profile" current={false} />
-                    <NavLink
-                      to="/settings"
-                      icon={<CogIcon />}
-                      name="Account Settings"
-                      current={false}
-                    />
-                    <NavLink
-                      to="/"
-                      icon={<ArrowLeftOnRectangleIcon />}
-                      name="Logout"
-                      current={false}
-                    />
-                  </nav>
+                  {mobile}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -188,7 +130,13 @@ export const Sidebar = () => {
                 type="button"
                 className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                 <span className="sr-only">View notifications</span>
-                <BellIcon className="h-6 w-6" aria-hidden="true" />
+                <BellIcon
+                  className="h-6 w-6"
+                  aria-hidden="true"
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                />
               </button>
 
               {/* Profile dropdown */}
@@ -215,14 +163,14 @@ export const Sidebar = () => {
                     {userNavigation.map((item) => (
                       <Menu.Item key={item.name}>
                         {({ active }) => (
-                          <a
-                            href={item.href}
+                          <Link
+                            to={item.href}
                             className={classNames(
                               active ? 'bg-gray-100' : '',
                               'block px-4 py-2 text-sm text-gray-700'
                             )}>
                             {item.name}
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                     ))}
@@ -241,49 +189,10 @@ export const Sidebar = () => {
             <Logo className="filt" />
           </div>
           <div className="mt-5 flex flex-1 flex-col">
-            <nav className="flex-1 space-y-1 px-2 pb-4">
-              <NavLink to="/dashboard" name="Dashboard" icon={<HomeIcon />} current={true} />
-              <DropDown
-                title="Request"
-                icon={
-                  <BanknotesIcon
-                    className="mr-3 h-6 w-6 flex-shrink-0 text-white"
-                    aria-hidden="true"
-                  />
-                }>
-                <DropDownItems classNames={classNames}>
-                  <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
-                  <Link to="/transaction-requests">My Requests</Link>
-                </DropDownItems>
-                <DropDownItems classNames={classNames}>
-                        <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
-                        <Link to="/transaction-requests">Initiate Request</Link>
-                      </DropDownItems>
-              </DropDown>
-              <NavLink to="/reports" icon={<ChartPieIcon />} name="Reports" current={false} />
-              <NavLink
-                to="/audit"
-                icon={<DocumentMagnifyingGlassIcon />}
-                name="Audit trail"
-                current={false}
-              />
-              <NavLink
-                to="/corperate"
-                icon={<BriefcaseIcon />}
-                name="Corperate Account"
-                current={false}
-              />
-              <NavLink
-                to="/mandate-rule"
-                icon={<RocketLaunchIcon />}
-                name="Mandate Rule"
-                current={false}
-              />
-              <NavLink to="/profile" icon={<UserIcon />} name="Profile" current={false} />
-              <NavLink to="/settings" icon={<CogIcon />} name="Account Settings" current={false} />
-            </nav>
+             {desktop}
           </div>
         </div>
+        <Notification open={open} setOpen={setOpen} />
       </div>
     </div>
   );

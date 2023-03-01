@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import { Button } from 'components/Button/Button';
@@ -9,12 +9,14 @@ import { mandateService } from 'services';
 import { MandateRuleTable } from './MandateRuleTable';
 import { useModal } from 'hooks/useModal';
 import { MandateDetails } from './MandateRuleDetails/MandateRuleDetails';
+import { EmptyState } from 'components/EmptyState/EmptyState';
 
 export const MandateRule = () => {
+  const navigate = useNavigate();
   const [currentMandate, setCurrentMandate] = useState(null);
   const { showModal, Modal } = useModal();
 
-  const { data, isFetching } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['mandateRule'],
     queryFn: mandateService.getAll
   });
@@ -22,6 +24,29 @@ export const MandateRule = () => {
   const setMandate = (mandate) => {
     setCurrentMandate(mandate);
     showModal();
+  };
+
+  const RenderData = () => {
+    if (data?.mandates?.length === 0) {
+      return (
+        <EmptyState
+          title="No mandate rule found"
+          description="You have not created any mandate rule yet. Click the button below to create one."
+          action={{
+            label: 'Create mandate rule',
+            onClick: () => navigate('/mandate-rule/create')
+          }}
+        />
+      );
+    } else {
+      return (
+        <MandateRuleTable
+          mandates={data?.mandates ?? []}
+          isLoading={isLoading}
+          setMandate={setMandate}
+        />
+      );
+    }
   };
 
   return (
@@ -46,22 +71,18 @@ export const MandateRule = () => {
             <Input placeholder="Search..." type="search" />
           </div>
 
-          {isFetching ? (
+          {isLoading ? (
             <div className="mt-5">
               <ContentLoader viewBox="0 0 380 70">
                 <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
               </ContentLoader>
             </div>
           ) : (
-            <MandateRuleTable
-              mandates={data?.mandate ?? []}
-              isLoading={isFetching}
-              setMandate={setMandate}
-            />
+            <RenderData />
           )}
+          {Modal({ children: <MandateDetails mandate={currentMandate} />, size: 'lg' })}
         </div>
       </Container>
-      {Modal({ children: <MandateDetails mandate={currentMandate} />, size: 'lg' })}
     </div>
   );
 };

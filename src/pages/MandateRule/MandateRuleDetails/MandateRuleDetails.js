@@ -1,12 +1,4 @@
-const team = [
-  {
-    name: 'Leslie Alexander',
-    handle: 'lesliealexander',
-    role: 'Co-Founder / CEO',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-  }
-];
+import { Avatar } from 'components/Avatar/Avatar';
 
 export const MandateDetails = ({ mandate }) => {
   return (
@@ -36,18 +28,23 @@ export const MandateDetails = ({ mandate }) => {
             <dt className="text-sm font-medium text-gray-500">Authorizers</dt>
             <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
               <div className="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-1">
-                {mandate?.AuthorizerID?.map((authorizer) => (
+                {mandate?.authorisers?.map((authorizer) => (
                   <div
                     key={authorizer}
                     className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-pink-500 focus-within:ring-offset-2 hover:border-gray-400"
                   >
                     <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={team[0]?.imageUrl} alt="" />
+                      <Avatar
+                        bgColor="bg-pink-500"
+                        name={`${authorizer.firstName} ${authorizer.lastName}`}
+                      />
                     </div>
                     <div className="min-w-0 flex-1">
                       <a href="#" className="focus:outline-none">
                         <span className="absolute inset-0" aria-hidden="true" />
-                        <p className="text-sm font-medium text-gray-900">{team[0]?.name}</p>
+                        <p className="text-sm font-medium text-gray-900">
+                          {authorizer?.firstName} {authorizer?.lastName}
+                        </p>
                       </a>
                     </div>
                   </div>
@@ -56,6 +53,26 @@ export const MandateDetails = ({ mandate }) => {
             </dd>
           </div>
         </dl>
+        <div className="pb-4 sm:grid sm:grid-cols-2 sm:gap-4 sm:py-5 sm:px-6">
+          <dt className="text-sm font-medium text-gray-500">Verifier</dt>
+          <dd className="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0">
+            <div className="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-1">
+              <div className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-pink-500 focus-within:ring-offset-2 hover:border-gray-400">
+                <div className="flex-shrink-0">
+                  <Avatar name={`${mandate.verifier?.firstName} ${mandate.verifier?.lastName}`} />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <a href="#" className="focus:outline-none">
+                    <span className="absolute inset-0" aria-hidden="true" />
+                    <p className="text-sm font-medium text-gray-900">
+                      {mandate.verifier?.firstName} {mandate.verifier?.lastName}
+                    </p>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </dd>
+        </div>
       </div>
     </div>
   );

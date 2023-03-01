@@ -5,6 +5,7 @@ import { Input } from 'components/Form/Input/Input';
 import { Button } from 'components/Button/Button';
 import { useMutation } from '@tanstack/react-query';
 import { authService } from 'services';
+import { Container } from 'components/Container/Container';
 
 export const Security = () => {
   const {
@@ -24,7 +25,8 @@ export const Security = () => {
   const onSubmit = (data) => mutate(data);
 
   return (
-    <div>
+    <div className=''>
+      <Container>
       <SubHeading>Security Settings</SubHeading>
       <p className="flex items-center my-6 gap-2 text-md">
         Update Password
@@ -69,6 +71,7 @@ export const Security = () => {
           </Button>
         </div>
       </form>
+      </Container>
     </div>
   );
 };

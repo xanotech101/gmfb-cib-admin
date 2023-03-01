@@ -1,19 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Drop } from './dp';
 import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
   Title,
   Tooltip,
   Legend,
-  ArcElement
+  ArcElement,
+  LineElement,
+  PointElement
 } from 'chart.js';
-import { Bar, Pie } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
+import { Container } from 'components/Container/Container';
+import { SubHeading } from 'components/Common/Header/SubHeading';
+import { Button } from 'components/Button/Button';
+import { ChevronDownIcon, CreditCardIcon } from '@heroicons/react/24/outline';
+import { Heading } from 'components/Common/Header/Heading';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(CategoryScale, LinearScale, LineElement, Title, Tooltip, Legend, PointElement);
 
 export const options = {
   responsive: true,
@@ -23,23 +30,36 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Transaction Requests'
+      text: 'Transaction History'
     }
   }
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
 
 export const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
+      label: 'Previous',
       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(255, 99, 132, 0.5)'
+      backgroundColor: '#891c69'
     },
     {
-      label: 'Dataset 2',
+      label: 'Recent',
       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
       backgroundColor: 'rgba(53, 162, 235, 0.5)'
     }
@@ -59,7 +79,9 @@ export const data2 = {
         'rgba(255, 206, 86, 0.2)',
         'rgba(75, 192, 192, 0.2)',
         'rgba(153, 102, 255, 0.2)',
-        'rgba(255, 159, 64, 0.2)'
+        'rgba(255, 159, 64, 0.2)',
+        '#891c69',
+        '#974d7b'
       ],
       borderColor: [
         'rgba(255, 99, 132, 1)',
@@ -74,20 +96,39 @@ export const data2 = {
   ]
 };
 
-export const PieChart = () => {
-  return (
-    <div>
-      <h1 className={`font-medium text-xl pb-3`}>Header One</h1>
-      <Pie data={data2} />
-    </div>
-  );
-};
+const isDashboard = /dashboard/i.test(window.location.pathname);
 
-export const Chart2 = (prop) => {
+export const Chart = (prop) => {
   return (
-    <>
-      <h1 className={`font-medium text-xl pb-3 ${prop.margin}`}>Reporting</h1>
-      <Bar className="ch" options={options} data={data} />;
+    <Container>
+      <div className="-mt-6 flex items-center justify-between pt-5">
+        {isDashboard ? (
+          <Heading>Financial statistics</Heading>
+        ) : (
+          <SubHeading>Financial statistics</SubHeading>
+        )}
+      </div>
+      <div className="flex items-center justify-between mt-5">
+        <div>
+          <p className="text-xl mb-3">Today, Feb 28</p>
+          <p className="text-3xl tracking-tight font-medium flex items-center">
+            <span>
+              <img src="https://cdn-icons-png.flaticon.com/512/32/32974.png" width="24px" />
+            </span>
+            36,670.90
+          </p>
+        </div>
+        <div className="flex items-center gap-4">
+          <Button>
+            <CreditCardIcon className="mt-0.3 mr-2" width="20px" /> Income{' '}
+            <ChevronDownIcon className="mt-0.3 ml-2" width="20px" />
+          </Button>
+          <div>
+            <Drop />
+          </div>
+        </div>
+      </div>
+      <Line className="ch" options={options} data={data} />;
       <div className="mt-6">
         <Link
           to="/reports"
@@ -95,6 +136,6 @@ export const Chart2 = (prop) => {
           View all
         </Link>
       </div>
-    </>
+    </Container>
   );
 };

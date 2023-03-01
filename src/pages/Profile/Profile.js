@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { useStore } from 'hooks';
 import { Avatar } from './Avatar';
+import { Audit } from 'pages/AuditTrail/AuditTrail';
 
 export const Profile = () => {
   const { user } = useStore();
@@ -28,6 +29,7 @@ export const Profile = () => {
           name={'Admin Officer'}
         />
         <ProfileDetails data={user}></ProfileDetails>
+        <Audit style="py-5 pl-2 pr-2" />
       </Container>
     </div>
   );

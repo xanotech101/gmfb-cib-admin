@@ -5,8 +5,7 @@ import { Input } from 'components/Form/Input/Input';
 import { mandateService, userService } from 'services';
 import { useNavigate } from 'react-router-dom';
 import { Select } from 'components/Form/Select/Select';
-
-const options = [{ value: '63d03913dbf02914bfeb8ac7', label: 'Adenuga Tunmise' }];
+import { useCallback } from 'react';
 
 export const MandateRuleForm = ({ defaultValues = {}, type = 'create' }) => {
   const navigate = useNavigate();
@@ -19,12 +18,28 @@ export const MandateRuleForm = ({ defaultValues = {}, type = 'create' }) => {
     defaultValues: { ...defaultValues }
   });
 
-  const { data } = useQuery({
-    queryKey: ['branchUsers'],
-    queryFn: () => userService.getBranchUsers()
+  const { data: authorizers } = useQuery({
+    queryKey: ['authorizers'],
+    queryFn: () =>
+      userService.getBranchUsers({
+        privilege: 'authoriser'
+      })
   });
 
-  console.log('🚀 ~ file: MandateRuleForm.js:26 ~ MandateRuleForm ~ data', data);
+  const { data: verifiers } = useQuery({
+    queryKey: ['verifiers'],
+    queryFn: () =>
+      userService.getBranchUsers({
+        privilege: 'verifier'
+      })
+  });
+
+  const transformData = useCallback((data) => {
+    return data.map((user) => ({
+      label: `${user.firstName} ${user.lastName}`,
+      value: user._id
+    }));
+  }, []);
 
   const { isLoading, mutate } = useMutation(
     (data) => (type === 'create' ? mandateService.create(data) : mandateService.update(data)),
@@ -40,7 +55,8 @@ export const MandateRuleForm = ({ defaultValues = {}, type = 'create' }) => {
       name: data.name,
       minAmount: data.minAmount,
       maxAmount: data.maxAmount,
-      AuthorizerID: data.authorizers.map((authorizer) => authorizer.value)
+      authorisers: data.authorisers.map((authorizer) => authorizer.value),
+      verifier: data.verifier.value
     };
     mutate(payload);
   };
@@ -67,11 +83,18 @@ export const MandateRuleForm = ({ defaultValues = {}, type = 'create' }) => {
       />
       <Select
         label="Authorizers"
-        name="authorizers"
+        name="authorisers"
         control={control}
-        options={options}
+        options={transformData(authorizers ?? [])}
         isMulti
-        error={errors.authorizers && 'Authorizers are required'}
+        error={errors.authorisers && 'authorisers are required'}
+      />
+      <Select
+        label="Verifier"
+        name="verifier"
+        control={control}
+        options={transformData(verifiers ?? [])}
+        error={errors.verifiers && 'Verifier are required'}
       />
       <div className="pt-5">
         <Button type="submit" variant="primary" disabled={isLoading} isFullWidth>

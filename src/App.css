@@ -59,11 +59,17 @@ body {
 .grooming-color2:hover {
   background-color: #974d7b;
 }
+.grooming-color3{
+  background-color: #974d7b;
+}
 .grooming-text{
   color: #891c69;
 }
 .filt{
   filter: brightness(0) invert(1);
+}
+.w-400{
+  width: 600px;
 }
 @media screen and (max-width: 769px) {
   .Home {

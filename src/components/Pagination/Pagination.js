@@ -1,42 +1,29 @@
-import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
+import './Pagination.css';
 
-const PER_PAGE = 5;
+const PER_PAGE = 2;
 
-export const Pagination = ({ total, paginate, currentPage }) => {
-  const pageNumbers = [];
+function Pagination({ itemsPerPage = PER_PAGE, totalItems, handlePageClick }) {
+  const pageCount = Math.ceil(totalItems / itemsPerPage);
 
-  for (let i = 1; i <= Math.ceil(total / PER_PAGE); i++) {
-    pageNumbers.push(i);
-  }
+  return totalItems > itemsPerPage ? (
+    <ReactPaginate
+      breakLabel="..."
+      nextLabel={<ChevronRightIcon className="h-5 w-5" aria-hidden="true" />}
+      onPageChange={({ selected }) => handlePageClick(selected + 1)}
+      pageRangeDisplayed={5}
+      pageCount={pageCount}
+      previousLabel={<ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />}
+      renderOnZeroPageCount={null}
+      containerClassName="pagination"
+      pageClassName="pagination__item"
+      previousClassName="pagination__item-previous"
+      nextClassName="pagination__item-next"
+      breakClassName="pagination__item"
+      activeClassName="active"
+    />
+  ) : null;
+}
 
-  const isLastPage = pageNumbers[pageNumbers.length - 1] === currentPage;
-  const isFirstPage = pageNumbers[0] === currentPage;
-  const toShow = useMemo(() => {
-    pageNumbers.slice(currentPage, 5);
-  }, [currentPage, pageNumbers]);
-
-  return (
-    <nav>
-      <ul className="pagination">
-        <li className={`page-item ${isFirstPage ? 'disabled' : ''}`}>
-          <Link to="#" className="page-link" onClick={() => paginate(currentPage - 1)}>
-            Previous
-          </Link>
-        </li>
-        {toShow.map((number) => (
-          <li key={number} className="page-item">
-            <Link to="#" onClick={() => paginate(number)} className="page-link">
-              {number}
-            </Link>
-          </li>
-        ))}
-        <li className={`page-item ${isLastPage ? 'disabled' : ''}`}>
-          <Link to="#" className="page-link" onClick={() => paginate(currentPage + 1)}>
-            Next
-          </Link>
-        </li>
-      </ul>
-    </nav>
-  );
-};
+export default Pagination;

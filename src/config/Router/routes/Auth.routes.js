@@ -2,7 +2,7 @@ import { ForgotPassword } from 'pages/Auth/ForgotPassword/ForgotPassword';
 import { ResetPassword } from 'pages/Auth/ResetPassword/ResetPassword';
 import { Login } from 'pages/Auth/Login/Login';
 import { VerifyAccount } from 'pages/Auth/VerifyAccount/VerifyAccount';
-
+import { DeleteCorperateAuth } from 'pages/Auth/DeleteCorperate/DeleteCorperateAuth';
 const routes = [
   {
     path: '/',
@@ -19,6 +19,10 @@ const routes = [
   {
     path: 'verify-account/:token',
     element: <VerifyAccount />
+  },
+  {
+    path: 'deletecorperateauth',
+    element: <DeleteCorperateAuth/>
   }
 ];
 

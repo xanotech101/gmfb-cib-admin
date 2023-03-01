@@ -5,7 +5,7 @@ class MandateService {
   async create(payload) {
     try {
       const response = await http.post('/api/mandate/create', { ...payload });
-      notification(response.data?.message ?? 'Mandate created successfully', 'success');
+      notification(response?.message ?? 'Mandate created successfully', 'success');
       return response.data;
     } catch (error) {
       notification(
@@ -19,7 +19,7 @@ class MandateService {
     try {
       const response = await http.post('/api/mandate/update', { ...payload });
       notification('Mandate updated successfully');
-      return response.data;
+      return response;
     } catch (error) {
       notification(
         error?.response?.data?.message ?? 'Something went wrong, please try again',
@@ -30,8 +30,8 @@ class MandateService {
   }
   async getAll() {
     try {
-      const response = await http.get('/api/mandate/all');
-      return response.data;
+      const { data } = await http.get('/api/mandate/all');
+      return data;
     } catch (error) {
       throw new Error(error);
     }
@@ -39,7 +39,7 @@ class MandateService {
   async getOne(id) {
     try {
       const response = await http.get(`/api/mandate/${id}`);
-      return response.data;
+      return response;
     } catch (error) {
       throw new Error(error);
     }
