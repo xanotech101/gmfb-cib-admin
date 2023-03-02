@@ -22,24 +22,35 @@ export const NavItem = () => {
     <div>
       <nav className="flex-1 space-y-1 px-2 pb-4">
         <NavLinks to="/dashboard" name="Dashboard" icon={<HomeIcon />} current={true} isActive />
-        <NavLink
-          to="transaction-requests">
+        <NavLink to="transaction-requests">
           <DropDown
             title="Request"
             icon={
               <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0 text-white" aria-hidden="true" />
             }>
-               <DropDownItems classNames={classNames} flex="flex">
+            <DropDownItems classNames={classNames} flex="flex">
               <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
-              <Link to="/transaction-requests" className={({ isActive }) => (isActive ? 'grooming-text mt-4' : 'mt-4')}>All Request</Link>
+              <Link
+                to="/transaction-requests"
+                className={({ isActive }) => (isActive ? 'grooming-text mt-4' : 'mt-4')}>
+                All Request
+              </Link>
             </DropDownItems>
             <DropDownItems classNames={classNames} flex="flex">
               <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
-              <Link to="/transaction-requests/initiated"className={({ isActive }) => (isActive ? 'grooming-text mt-4' : 'mt-4')}>Initiated Request</Link>
+              <Link
+                to="/transaction-requests/initiated"
+                className={({ isActive }) => (isActive ? 'grooming-text mt-4' : 'mt-4')}>
+                Initiated Request
+              </Link>
             </DropDownItems>
             <DropDownItems classNames={classNames} flex="flex">
               <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
-              <Link to="/transaction-requests/assigned" className={({ isActive }) => (isActive ? 'grooming-text mt-4' : 'mt-4')}>Assigned Requests</Link>
+              <Link
+                to="/transaction-requests/assigned"
+                className={({ isActive }) => (isActive ? 'grooming-text mt-4' : 'mt-4')}>
+                Assigned Requests
+              </Link>
             </DropDownItems>
           </DropDown>
         </NavLink>
