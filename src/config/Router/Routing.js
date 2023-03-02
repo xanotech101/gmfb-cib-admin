@@ -67,9 +67,9 @@ export const Routing = () => {
           <Route path="emptystate" element={<EmptyState />} />
           <Route path="reports" element={<Report />} />
           <Route path="batchupload" element={<BatchUpload />} />
-          <Route path="/profile">
+          <Route path="profile">
             <Route index element={<Profile />} />
-            <Route path="/edit-profile" element={<EditProfile />} />
+            <Route path="edit-profile" element={<EditProfile />} />
           </Route>
           <Route path="/createmandate" element={<CreateMandateRule />} />
           <Route path="mandate-rule">
