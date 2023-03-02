@@ -19,7 +19,7 @@ export const Profile = () => {
           <Heading>
             <h1>Profile Information</h1>
           </Heading>
-          <Link to="/editprofile" className="border p-3 rounded-full  inline-block">
+          <Link to="/profile/edit-profile" className="border p-3 rounded-full  inline-block">
             Edit Profile
             <FontAwesomeIcon icon={faUserEdit} className="grooming-text cursor-pointer ml-1" />
           </Link>

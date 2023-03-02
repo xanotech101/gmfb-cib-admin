@@ -45,7 +45,7 @@ export const Requests = () => {
   return (
     <div>
       <Container>
-        <div className=" pb-3 flex justify-between items-center">
+        <div className=" pb-3 flex gap-2 flex-col lg:flex-col md:flex-col sm:flex-col justify-between">
           <h1 className="font-medium text-xl">Recent Transaction Requests</h1>
           <p>
             <Link to="/" className="text-indigo-500 mr-4 font-medium">

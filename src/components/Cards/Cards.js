@@ -46,7 +46,7 @@ export const Cards = () => {
               className="relative overflow-hidden rounded-lg bg-white px-4 pt-5 pb-12 shadow sm:px-6 sm:pt-6">
               <dt>
                 <div className="absolute rounded-md grooming-color3 p-3">
-                  <item.icon className="h-6 w-6 grooming-text" aria-hidden="true" />
+                  <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
                 <p className="ml-16 truncate text-sm font-medium text-gray-500">{item.name}</p>
               </dt>

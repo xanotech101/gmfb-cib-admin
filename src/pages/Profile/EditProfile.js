@@ -15,7 +15,7 @@ export const EditProfile = () => {
   const { showModal, Modal } = useModal();
   return (
     <div className="Dash my-8 lg:ml-8 px-4 lg:px-0">
-      <LinkButton to="/profile">Back</LinkButton>
+      <LinkButton to="/profile">Profile</LinkButton>
       <Container>
         <Heading>Edit Personal Info</Heading>
         <p className="text-sm">Update your photo and personal details here.</p>

@@ -54,7 +54,10 @@ export const Routing = () => {
             </Route>
           </Route>
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="createcorperateuser" element={<CreateCorperateUser />} />
+          <Route path="corperate">
+            <Route index element={<Corperate />} />
+            <Route path="create" element={<CreateCorperateUser />} />
+          </Route>
           <Route path="transaction-requests">
             <Route index element={<TransactionRequest />} />
             <Route path=":id" element={<TransactionDetails />} />
@@ -62,11 +65,12 @@ export const Routing = () => {
           </Route>
           <Route path="audit" element={<Audit />} />
           <Route path="emptystate" element={<EmptyState />} />
-          <Route path="corperate" element={<Corperate />} />
           <Route path="reports" element={<Report />} />
           <Route path="batchupload" element={<BatchUpload />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="editprofile" element={<EditProfile />} />
+          <Route path="profile">
+            <Route index element={<Profile />} />
+            <Route path="edit-profile" element={<EditProfile />} />
+          </Route>
           <Route path="/createmandate" element={<CreateMandateRule />} />
           <Route path="mandate-rule">
             <Route index element={<MandateRule />} />

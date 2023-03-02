@@ -1,4 +1,4 @@
-import { Logo } from "components/Logo/Logo";
+import { Logo } from 'components/Logo/Logo';
 
 export const Auth = ({ bannerSrc, children, title }) => {
   return (
@@ -7,7 +7,7 @@ export const Auth = ({ bannerSrc, children, title }) => {
         <div className="mx-auto w-full max-w-sm lg:w-96">
           <div>
             <div>
-             <Logo/>
+              <Logo />
               <div className="mt-6 text-3xl font-bold tracking-tight text-gray-900">{title}</div>
             </div>
           </div>
@@ -16,7 +16,7 @@ export const Auth = ({ bannerSrc, children, title }) => {
           </div>
         </div>
       </div>
-      <div className="relative w-0 flex-1 lg:block">
+      <div className=" relative w-0 flex-1 lg:block sm:hidden md:hidden hidden">
         <img
           className="absolute inset-0 h-full w-full object-cover"
           src={

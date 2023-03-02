@@ -67,7 +67,7 @@ export const MandateRule = () => {
             </div>
           </div>
 
-          <div className="w-1/4 mt-5">
+          <div className="md:w-full lg:w-3/5 sm:w-full w-full mt-5">
             <Input placeholder="Search..." type="search" />
           </div>
 

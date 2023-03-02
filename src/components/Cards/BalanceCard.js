@@ -1,7 +1,7 @@
 import { BanknotesIcon } from '@heroicons/react/20/solid';
 export default function BalanceCard() {
   return (
-    <div className="pb-1 h">
+    <div className="pb-1 ">
       <h3 className="text-lg font-medium leading-6 text-gray-900">Grooming Centre</h3>
 
       <div className="overflow-hidden rounded-lg bg-white shadow mt-5">

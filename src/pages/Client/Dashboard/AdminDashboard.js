@@ -48,8 +48,8 @@ export const Dashboard = () => {
           </Button>
         </Link>
       </Header>
-      <div className="py-8 card2 px-5">
-        <div>
+      <div className="py-8 lg:grid md:block sm:block block gap-5 grid-cols-12 pl-6 pr-4">
+        <div className='col-span-8'>
           <Container>
             <div className="">
               <div className="py-4 ">
@@ -61,11 +61,9 @@ export const Dashboard = () => {
             </div>
           </Container>
         </div>
-        <div className="">
+        <div className=" col-span-4 pt-5 md:pt-5 sm:pt-5 lg:pt-0">
           <Container>
-            <div className="">
               <BalanceCard />
-            </div>
           </Container>
           <div className="mt-5">
             <Cards stats={stats1} />

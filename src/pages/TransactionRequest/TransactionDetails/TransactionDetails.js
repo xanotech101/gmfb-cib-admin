@@ -31,13 +31,12 @@ export const TransactionDetails = () => {
 
   return (
     <>
-      <div className="grid grid-cols-12 gap-8 px-8 mt-8">
+      <div className="lg:grid md:block sm:block block grid-cols-12 gap-5 px-8 mt-8 pb-6">
         <div className="col-span-12 flex justify-between items-center">
-          <div>
-            <SubHeading>TransactionRequest Details</SubHeading>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam</p>
+          <div className='mb-4'>
+            <SubHeading>Transaction Request Details</SubHeading>
           </div>
-          <div className="flex space-x-2">
+          <div className="flex space-x-2 mb-4">
             <Button variant="success">Approve</Button>
             {handleShowDeclineButton() && (
               <Button variant="danger" onClick={showModal}>
@@ -51,7 +50,7 @@ export const TransactionDetails = () => {
             <TransactionDetailsList details={data} />
           </Container>
         </div>
-        <div className="col-span-4">
+        <div className="col-span-4 mt-5 sm:mt-5 md:mt-5 lg:mt-0">
           <Container>
             <TransactionTimeLime
               authorizers={data?.authorizerID ?? []}

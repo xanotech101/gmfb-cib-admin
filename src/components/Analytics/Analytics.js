@@ -101,14 +101,14 @@ const isDashboard = /dashboard/i.test(window.location.pathname);
 export const Chart = (prop) => {
   return (
     <Container>
-      <div className="-mt-6 flex items-center justify-between pt-5">
+      <div className="-mt-6 flex  items-center justify-between pt-5">
         {isDashboard ? (
           <Heading>Financial statistics</Heading>
         ) : (
           <SubHeading>Financial statistics</SubHeading>
         )}
       </div>
-      <div className="flex items-center justify-between mt-5">
+      <div className="flex lg:items-center gap-7 md:gap-7 flex-col sm:flex-col md:flex-col lg:flex-row justify-between mt-5">
         <div>
           <p className="text-xl mb-3">Today, Feb 28</p>
           <p className="text-3xl tracking-tight font-medium flex items-center">

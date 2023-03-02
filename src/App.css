@@ -1,10 +1,14 @@
-.Home {
+
+ .Home {
   margin-left: 250px;
   background-color: #f1f1f1;
 }
 body {
   overflow-x: hidden;
   background-color: #f1f1f1;
+}
+* {
+  scroll-behavior: smooth;
 }
 .Dash {
   display: grid;
@@ -34,6 +38,9 @@ body {
 }
 .filter {
   min-height: 330px;
+}
+.border-bottom{
+  border-bottom: 2px solid #891c69;
 }
 .wd {
   width: 50%;

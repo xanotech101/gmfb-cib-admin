@@ -44,14 +44,14 @@ export const CreateCorperateUser = () => {
   };
 
   return (
-    <div className="w-full lg:w-[70%]">
+    <div className="w-full lg:w-[80%] p-5">
       <Container>
         <div className="mb-8 pb-2 border-b">
           <Heading>Create corporate User</Heading>
           <p className="font-medium">Fill in corporate details below</p>
         </div>
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <div className="grid grid-cols-2 gap-6">
+          <div className=" lg:grid gap-5 md:flex sm:flex flex flex-col gap-4 grid-cols-2 gap-6">
             <Input
               label="First name"
               id="max_amount"
@@ -66,7 +66,7 @@ export const CreateCorperateUser = () => {
               error={errors.lastName && 'Last name is required'}
             />
           </div>
-          <div className="grid grid-cols-2 gap-6">
+          <div className="lg:grid gap-5 md:flex sm:flex flex flex-col gap-4 grid-cols-2 gap-6">
             <Input
               label="Email"
               id="email"
@@ -85,7 +85,7 @@ export const CreateCorperateUser = () => {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div className="lg:grid gap-5 md:flex sm:flex flex flex-col gap-4 grid-cols-2 gap-6">
             <Input
               label="Password"
               type="password"
