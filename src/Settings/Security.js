@@ -29,7 +29,7 @@ export const Security = () => {
       <Container>
       <SubHeading>Security Settings</SubHeading>
       <p className="flex items-center my-6 gap-2 text-md">
-       Kindly Update Password
+        Update Password
         <KeyIcon width="20px" />
       </p>
       <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>

@@ -1,8 +1,9 @@
-import { Chart} from 'components/Analytics/Analytics';
+import { Chart } from 'components/Analytics/Analytics';
 import { TransactionHistoryTable } from '../TransactionHistory/TransactionHistoryTable';
 import { Cards } from 'components/Cards/Cards';
 import { Heading } from 'components/Common/Header/Heading';
-import { Container } from 'components/Container/Container';
+import { CheckCircleIcon, UserGroupIcon, XCircleIcon} from '@heroicons/react/20/solid';
+// import { Container } from 'components/Container/Container';
 import React from 'react';
 const transactions = [
   {
@@ -71,19 +72,55 @@ const transactions = [
     time: '12:39:12'
   }
 ];
+const stats1 = [
+  {
+    id: 1,
+    name: 'Total Request',
+    stat: '71,897',
+    icon: UserGroupIcon,
+    change: '122',
+    changeType: 'increase'
+  },
+];
+const stats2 = [
+  {
+    id: 2,
+    name: 'Declined Request',
+    stat: '71,897',
+    icon: XCircleIcon,
+    change: '122',
+    changeType: 'increase'
+  }
+];
+const stats3 = [
+  {
+    id: 3,
+    name: 'Approved Request',
+    stat: '71,897',
+    icon: CheckCircleIcon,
+    change: '122',
+    changeType: 'increase'
+  }
+];
+
 export const Report = () => {
   return (
     <div className="my-7 ml-2 px-5">
       <div className="py-5">
         <div className="">
-          <Container>
-            <div className="mb-5">
-              <Heading>Reporting Transaction</Heading>
-            </div>
-            <Cards />
-            <Chart hidden="hidden" margin="mt-0" />
-            <TransactionHistoryTable transactions={transactions} />
-          </Container>
+          {/* <Container> */}
+          <div className="mb-5">
+            <Heading>Reporting Transaction</Heading>
+            
+          </div>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-7">
+            <Cards stats={stats1} />
+            <Cards stats={stats2} />
+            <Cards stats={stats3} />
+          </div>
+          <Chart hidden="hidden" margin="mt-0" />
+          <TransactionHistoryTable transactions={transactions} />
+          {/* </Container> */}
         </div>
       </div>
     </div>

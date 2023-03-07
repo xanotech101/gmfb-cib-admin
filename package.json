@@ -29,6 +29,7 @@
     "react": "^18.2.0",
     "react-chartjs-2": "^5.1.0",
     "react-content-loader": "^6.2.0",
+    "react-datepicker": "^4.10.0",
     "react-dnd": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.42.1",

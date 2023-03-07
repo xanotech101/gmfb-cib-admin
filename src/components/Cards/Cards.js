@@ -1,51 +1,20 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid';
-import { XCircleIcon, UserGroupIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { Container } from 'components/Container/Container';
-
-const stats = [
-  {
-    id: 1,
-    name: 'Total Request',
-    stat: '71,897',
-    icon: UserGroupIcon,
-    change: '122',
-    changeType: 'increase'
-  },
-  {
-    id: 2,
-    name: 'Total Approved',
-    stat: '58.16%',
-    icon: CheckCircleIcon,
-    change: '5.4%',
-    changeType: 'increase'
-  },
-  {
-    id: 3,
-    name: 'Total Declined',
-    stat: '24.57%',
-    icon: XCircleIcon,
-    change: '3.2%',
-    changeType: 'decrease'
-  }
-];
+// import { Container } from 'components/Container/Container'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-export const Cards = () => {
+export const Cards = ({ stats }) => {
   return (
-    <div className="mb-4">
-      <Container>
-        <h3 className="text-lg font-medium leading-6 text-gray-900">Last 30 days</h3>
-
-        <dl className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="">
+      <dl className="mt-2">
+        <Container>
           {stats.map((item) => (
-            <div
-              key={item.id}
-              className="relative overflow-hidden rounded-lg bg-white px-4 pt-5 pb-12 shadow sm:px-6 sm:pt-6">
+            <div key={item.id} className="relative overflow-hidden">
               <dt>
-                <div className="absolute rounded-md grooming-color3 p-3">
+                <div className="absolute rounded-md grooming-color p-3">
                   <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
                 </div>
                 <p className="ml-16 truncate text-sm font-medium text-gray-500">{item.name}</p>
@@ -75,19 +44,19 @@ export const Cards = () => {
                   </span>
                   {item.change}
                 </p>
-                <div className="absolute inset-x-0 bottom-0 bg-gray-50 px-4 py-4 sm:px-6">
-                  <div className="text-sm">
-                    <a href="#" className="font-medium grooming-text hover:text-indigo-500">
-                      {' '}
-                      View all<span className="sr-only"> {item.name} stats</span>
-                    </a>
-                  </div>
-                </div>
               </dd>
+              <div className=" inset-x-0 border rounded   bg-gray-50 px-4 py-4 sm:px-6">
+                <div className="text-sm">
+                  <a href="#" className="font-medium grooming-text hover:text-indigo-500">
+                    {' '}
+                    View all<span className="sr-only"> {item.name} stats</span>
+                  </a>
+                </div>
+              </div>
             </div>
           ))}
-        </dl>
-      </Container>
+        </Container>
+      </dl>
     </div>
   );
 };

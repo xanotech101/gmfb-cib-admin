@@ -1,11 +1,11 @@
 /* eslint-disable react/no-children-prop */
 import { Route, Routes, Outlet } from 'react-router-dom';
-import { Dashboard } from 'pages/Client/Dashboard/AdminDashboard';
+import { Dashboard } from 'pages/Home/Dashboard';
 import { TransactionRequest } from 'pages/TransactionRequest/TransactionRequest';
 import { TransactionDetails } from 'pages/TransactionRequest/TransactionDetails/TransactionDetails';
-import { Corperate } from 'pages/Client/corperate';
+import { Corporate } from 'pages/Corporate/corperate';
 import { Report } from 'pages/Reporting/Reports/Reports';
-import { Settings } from 'pages/Settings/Settings';
+import { Settings } from 'Settings/Settings';
 import { InitiateRequest } from 'pages/TransactionRequest/Initiate/InitiateRequest';
 import { AuthLayout } from '../../components/Layout/AuthLayout';
 import { BatchUpload } from 'pages/TransactionRequest/BatchUpload/BatchUpload';
@@ -13,17 +13,17 @@ import { MandateRule } from 'pages/MandateRule/MandateRule';
 import { CreateMandateRule } from 'pages/MandateRule/CreateMandateRule/CreateMandateRule';
 import { UpdateMandateRule } from 'pages/MandateRule/UpdateMandateRule/UpdateMandateRule';
 import { EditProfile } from 'pages/Profile/EditProfile';
-import { CreateCorperateUser } from 'pages/Settings/User/CreateCorperateUser';
+import { CreateCorperateUser } from 'Settings/User/CreateCorperateUser';
 import { Profile } from 'pages/Profile/Profile';
-import { EditUser } from 'pages/Settings/User/EditUser';
+import { EditUser } from 'Settings/User/EditUser';
 import { ErrorPage } from 'pages/Auth/ErrorPage/ErrorPage';
 import { Audit } from 'pages/AuditTrail/AuditTrail';
 import { authRoutes } from 'config/Router/routes/Auth.routes';
 import { EmptyState } from 'components/EmptyState/EmptyState';
-import { Security } from 'pages/Settings/Security';
-import { CorporateUsers } from 'pages/Settings/User/CorporateUsers';
-import { UserSettings } from 'pages/Settings/User/UserSettings';
-import { SettingsWrapper } from 'pages/Settings/SettingsWrapper';
+import { Security } from 'Settings/Security';
+import { CorporateUsers } from 'Settings/User/CorporateUsers';
+import { UserSettings } from 'Settings/User/UserSettings';
+import { SettingsWrapper } from 'Settings/SettingsWrapper';
 //import { PrivateOutlet } from './PrivateOutLet';
 
 export const Routing = () => {
@@ -55,7 +55,7 @@ export const Routing = () => {
           </Route>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="corperate">
-            <Route index element={<Corperate />} />
+            <Route index element={<Corporate />} />
             <Route path="create" element={<CreateCorperateUser />} />
           </Route>
           <Route path="transaction-requests">

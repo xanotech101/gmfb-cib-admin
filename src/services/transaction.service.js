@@ -28,9 +28,9 @@ class TransactionService {
       throw new Error(error);
     }
   }
-  async getAuthorizerTransactions() {
+  async getAssignedRequests() {
     try {
-      const { data } = await http.get('/api/requests/authoriser');
+      const { data } = await http.get('/api/requests/assigned');
       return data;
     } catch (error) {
       throw new Error(error);
@@ -44,10 +44,12 @@ class TransactionService {
       throw new Error(error);
     }
   }
-  async getTransactionRequests() {
+  async getTransactionPerOrganization(params) {
     try {
-      const response = await TransactionService.getAllInitiatedRequests();
-      return response;
+      const { data } = await http.get('/api/requests/all', {
+        params
+      });
+      return data;
     } catch (error) {
       throw new Error(error);
     }

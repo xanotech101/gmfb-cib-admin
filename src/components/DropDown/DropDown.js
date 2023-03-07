@@ -14,7 +14,7 @@ export const DropDown = ({ title, icon, children }) => {
           'group flex items-center px-2 py-2 text-sm font-medium rounded-md w-full'
         )}>
         <span>{icon}</span>
-        <a>{title}</a>
+        <span>{title}</span>
       </Menu.Button>
 
       <Transition

@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 import { Drop } from '../../../components/Analytics/dp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faNairaSign } from '@fortawesome/free-solid-svg-icons';
+import { Badge } from 'components/Badge/Badge';
 export const TransactionHistoryTable= ({transactions}) => {
   return (
     <div className=" mt-6">
       <Container>
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
-            <SubHeading>Transaction History</SubHeading>
+            <SubHeading>Ongoing Request</SubHeading>
           </div>
           <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <Button>Export</Button>
@@ -70,7 +71,7 @@ export const TransactionHistoryTable= ({transactions}) => {
                   </td>
                   <td className="px-6 py-4 border-l">
                     <div className="flex items-center gap-3 justify-center">
-                      <p>{user.status}</p>
+                    <Badge status={user?.status}>{user?.status}</Badge>
                       <p>
                         <Drop />
                       </p>

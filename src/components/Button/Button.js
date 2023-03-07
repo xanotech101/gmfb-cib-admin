@@ -21,6 +21,7 @@ export const Button = (props) => {
           'bg-gray text-black border-indigo border-2': variant === 'secondary',
           'bg-red-600 text-white hover:bg-red-500': variant === 'danger',
           'bg-green-600 text-white hover:bg-green-500': variant === 'success',
+          'bg-gray-700 text-white': variant === 'black',
           'w-full': isFullWidth
         }
       )}

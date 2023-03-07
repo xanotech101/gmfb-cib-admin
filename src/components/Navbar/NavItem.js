@@ -29,7 +29,7 @@ export const NavItem = () => {
               <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0 text-white" aria-hidden="true" />
             }>
             <DropDownItems classNames={classNames} flex="flex">
-              <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
+              
               <Link
                 to="/transaction-requests"
                 className={({ isActive }) => (isActive ? 'grooming-text mt-4' : 'mt-4')}>
@@ -37,7 +37,6 @@ export const NavItem = () => {
               </Link>
             </DropDownItems>
             <DropDownItems classNames={classNames} flex="flex">
-              <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
               <Link
                 to="/transaction-requests/initiated"
                 className={({ isActive }) => (isActive ? 'grooming-text mt-4' : 'mt-4')}>
@@ -45,7 +44,6 @@ export const NavItem = () => {
               </Link>
             </DropDownItems>
             <DropDownItems classNames={classNames} flex="flex">
-              <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
               <Link
                 to="/transaction-requests/assigned"
                 className={({ isActive }) => (isActive ? 'grooming-text mt-4' : 'mt-4')}>

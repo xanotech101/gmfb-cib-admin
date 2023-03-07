@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { transactionService } from 'services';
 import { TransactionRequestTable } from './TransactionRequestTable';
-
+import { Heading } from 'components/Common/Header/Heading';
 export const TransactionRequest = () => {
   const { data, isFetching } = useQuery({
     queryKey: ['transaction-requests'],
@@ -18,7 +18,7 @@ export const TransactionRequest = () => {
         <Container>
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
-              <h1 className="text-xl font-semibold text-gray-900">Transaction Requests</h1>
+              <Heading>Transaction Requests</Heading>
               <p className="text-sm text-gray-700">
                 List of transaction requests within the system.
               </p>

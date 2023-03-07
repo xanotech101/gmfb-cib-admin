@@ -1,8 +1,43 @@
 import { Avatar } from 'components/Avatar/Avatar';
 import { SplitButton } from 'components/Button/SplitButton';
+import { useModal } from 'hooks';
+import { useState } from 'react';
+import SwitchRoles from './SwitchRoles/SwitchRoles';
+const users = [
+  {
+    firstName: 'Lindsay',
+    lastName: 'walton',
+    email: 'lindsay.walton@example.com',
+    role: 'Member',
+    gender: 'male'
+  },
+  {
+    firstName: 'Adenuga',
+    lastName: 'Tunmise',
+    email: 'hosiv4456@gmail.com',
+    role: 'Admin',
+    gender: 'male'
+  },
+  {
+    firstName: 'Great',
+    lastName: 'DevOPs',
+    email: 'hosiv7456@gmail.com',
+    role: 'Admin',
+    gender: 'male'
+  },
+  {
+    firstName: 'Adeola',
+    lastName: 'Tracy',
+    email: 'hosiv4856@gmail.com',
+    role: 'user',
+    gender: 'female'
+  }
+];
 
-export const UsersTable = ({ users, disable }) => {
-  const actionItems = [
+export const UsersTable = ({ disable }) => {
+  const { Modal, showModal } = useModal();
+  const [userDetails, setUserDetails] = useState(null);
+  const actionItems = (details) => [
     {
       name: 'Edit',
       action: () => {}
@@ -10,6 +45,13 @@ export const UsersTable = ({ users, disable }) => {
     {
       name: 'Disable',
       action: disable
+    },
+    {
+      name: 'Manage priveledge',
+      action: () => {
+        setUserDetails(details);
+        showModal();
+      }
     }
   ];
   return (
@@ -22,26 +64,22 @@ export const UsersTable = ({ users, disable }) => {
                 <tr>
                   <th
                     scope="col"
-                    className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
-                  >
+                    className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                     Name
                   </th>
                   <th
                     scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Email
                   </th>
                   <th
                     scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Gender
                   </th>
                   <th
                     scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Role
                   </th>
                   <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
@@ -72,7 +110,7 @@ export const UsersTable = ({ users, disable }) => {
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       <SplitButton
                         buttonText="View"
-                        items={actionItems}
+                        items={actionItems(`${user.firstName} ${user.lastName}`)}
                         mainButtonAction={() => {}}
                       />
                     </td>
@@ -82,6 +120,10 @@ export const UsersTable = ({ users, disable }) => {
             </table>
           </div>
         </div>
+        {Modal({
+          children: <SwitchRoles userName={userDetails} avatar={<Avatar name={userDetails} />} />,
+          showCloseIcon: true
+        })}
       </div>
     </div>
   );

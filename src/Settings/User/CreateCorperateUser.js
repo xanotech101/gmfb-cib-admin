@@ -51,7 +51,7 @@ export const CreateCorperateUser = () => {
           <p className="font-medium">Fill in corporate details below</p>
         </div>
         <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
-          <div className=" lg:grid gap-5 md:flex sm:flex flex flex-col gap-4 grid-cols-2 gap-6">
+          <div className="lg:grid gap-5 md:flex sm:flex flex flex-col gap-4 grid-cols-2  gap-6">
             <Input
               label="First name"
               id="max_amount"

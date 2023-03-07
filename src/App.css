@@ -1,15 +1,30 @@
-
- .Home {
+.Home {
   margin-left: 250px;
-  background-color: #f1f1f1;
+  margin-top: 70px;
 }
 body {
   overflow-x: hidden;
-  background-color: #f1f1f1;
+  background-color: #f8f9fa;
 }
-* {
-  scroll-behavior: smooth;
+body::-webkit-scrollbar {
+  width: 0.4em;
 }
+body::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+body::-webkit-scrollbar-thumb {
+  background-color:#891c69;
+  outline: 1px solid slategrey;
+  }
+.side-bar::-webkit-scrollbar {
+  width: 0.3em;
+}
+
+.side-bar::-webkit-scrollbar-thumb {
+  background-color:transparent;
+  border-top:70px solid #FFF ;
+ 
+  }
 .Dash {
   display: grid;
   grid-template-columns: 8fr 3fr;
@@ -19,8 +34,8 @@ body {
   display: grid;
   grid-template-columns: 8fr 4fr;
 }
-.min-h{
-    min-height: 100vh;
+.min-h {
+  min-height: 100vh;
 }
 .gray {
   border-radius: 10px;
@@ -39,8 +54,8 @@ body {
 .filter {
   min-height: 330px;
 }
-.border-bottom{
-  border-bottom: 2px solid #891c69;
+.g-border{
+  border:2px solid #891c69;
 }
 .wd {
   width: 50%;
@@ -66,16 +81,19 @@ body {
 .grooming-color2:hover {
   background-color: #974d7b;
 }
-.grooming-color3{
+.grooming-color3 {
   background-color: #974d7b;
 }
-.grooming-text{
+.grooming-text {
   color: #891c69;
 }
-.filt{
+.border-bottom {
+  border-bottom: 2px solid #891c69;
+}
+.filt {
   filter: brightness(0) invert(1);
 }
-.w-400{
+.w-400 {
   width: 600px;
 }
 @media screen and (max-width: 769px) {
@@ -88,6 +106,9 @@ body {
   .card {
     display: block;
   }
+}
+.white{
+  background-color:rgba(128, 128, 128, 0.527);
 }
 @media screen and (max-width: 1200px) {
   .card {
