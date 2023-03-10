@@ -13,7 +13,7 @@ export const TransactionRequest = () => {
   });
 
   return (
-    <div className="mt-10 overflow-auto px-5 lg:px-0">
+    <div className="pt-6 overflow-auto px-5 lg:px-0">
       <div className="lg:pl-6 lg:pr-4 md:pr-0 md:pl-0">
         <Container>
           <div className="sm:flex sm:items-center">

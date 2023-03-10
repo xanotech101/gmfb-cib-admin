@@ -4,7 +4,7 @@ import { MandateRuleForm } from '../MandateRuleForm/MandateRuleForm';
 
 export const CreateMandateRule = () => {
   return (
-    <div className="card px-8 mt-9 gap-5">
+    <div className="lg:w-[70%] w-full p-6">
       <LinkButton to="/mandate-rule">Mandate Rule</LinkButton>
       <Container>
         <h2 className="text-2xl font-bold tracking-tight text-gray-900">Mandate Rule</h2>

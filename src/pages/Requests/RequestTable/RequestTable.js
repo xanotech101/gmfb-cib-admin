@@ -9,7 +9,7 @@ export const RequestTable = ({ trails }) => {
         <EmptyState title="No request created yet" action={()=>{}} description="Add request" />
       ) : (
         <div>
-          <div className="flex justify-end  align-start lg:align-center flex-col lg:flex-row mb-4">
+          <div className="flex justify-end my-5  align-start lg:align-center flex-col lg:flex-row ">
            <Link to="/requests/add-request">
             <Button>Add Request</Button>
            </Link>

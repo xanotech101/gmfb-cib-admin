@@ -50,7 +50,7 @@ export const MandateRule = () => {
   };
 
   return (
-    <div className="px-6 mt-10">
+    <div className="px-6 py-6">
       <Container>
         <div className="p-3">
           <div className="sm:flex sm:items-center">

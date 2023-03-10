@@ -1,35 +1,38 @@
 import React from 'react';
 import { useModal } from 'hooks';
-import {useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { SplitButton } from 'components/Button/SplitButton';
 import { DeleteCorperate } from './DeleteCorporateUser';
 import { Avatar } from 'components/Avatar/Avatar';
-import { DeclineTransactionForm } from 'pages/TransactionRequest/TransactionDetails/DeclineTransactionForm';
+import SwitchRoles from 'pages/Settings/User/SwitchRoles/SwitchRoles';
 export const CorperateTable = ({ CorperateData }) => {
   const navigate = useNavigate();
   const { Modal, showModal } = useModal();
-  const [roles,setRoles]=useState(false)
+  const [roles, setRoles] = useState(false);
+  const [details, setDetails] = useState(null);
 
-  const actionItems = () => [
+  const actionItems = (details) => [
     {
       name: 'Edit',
       action: () => {
-        navigate("/corporate/edit-user")
+        navigate('/corporate/edit-user');
       }
     },
     {
       name: 'Delete',
       action: () => {
         showModal();
-        setRoles(false)
+        setRoles(false);
+        setDetails("")
       }
     },
     {
       name: 'Assign Roles',
       action: () => {
-       showModal()
-       setRoles(true)
+        showModal();
+        setRoles(true);
+         setDetails(details);
       }
     }
   ];
@@ -84,7 +87,10 @@ export const CorperateTable = ({ CorperateData }) => {
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
-                    <Avatar name={`${data.name.firstName} ${data.name.lastName}`}/> <span className='ml-2'>{data.name.firstName} {data.name.lastName}</span>
+                    <Avatar name={`${data.name.firstName} ${data.name.lastName}`} />{' '}
+                    <span className="ml-2">
+                      {data.name.firstName} {data.name.lastName}
+                    </span>
                   </td>
                   <td className="px-6 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
                     {data.email}
@@ -92,7 +98,7 @@ export const CorperateTable = ({ CorperateData }) => {
                   <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                     <SplitButton
                       buttonText="View"
-                      items={actionItems()}
+                      items={actionItems(`${data.name.firstName} ${data.name.lastName}`)}
                       mainButtonAction={() => {}}
                     />
                   </td>
@@ -101,8 +107,13 @@ export const CorperateTable = ({ CorperateData }) => {
             </tbody>
           </table>
           {Modal({
-            children: roles===true?<DeclineTransactionForm/>:<DeleteCorperate deleteUser={() => navigate('/delete-corperate')} />,
-            size: 'lg'
+            children:
+              roles === true ? (
+                <SwitchRoles userName={details} />
+              ) : (
+                <DeleteCorperate deleteUser={() => navigate('/delete-corperate')} />
+              ),
+            size: 'md'
           })}
         </div>
       </div>

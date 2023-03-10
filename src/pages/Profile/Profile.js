@@ -13,7 +13,7 @@ export const Profile = () => {
   const { user } = useStore();
 
   return (
-    <div className="Dash my-8 lg:ml-8 px-4 lg:px-0">
+    <div className="p-6 w-full lg:w-[75%]">
       <Container>
         <div className="lg:flex md:block justify-between mt-2">
           <Heading>

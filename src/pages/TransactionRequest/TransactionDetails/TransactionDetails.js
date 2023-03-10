@@ -31,7 +31,7 @@ export const TransactionDetails = () => {
 
   return (
     <>
-      <div className="lg:grid md:block sm:block block grid-cols-12 gap-5 px-8 mt-8 pb-6">
+      <div className="lg:grid md:block sm:block block grid-cols-12 gap-5 px-8 py-6 pb-6">
         <div className="col-span-12 flex justify-between items-center">
           <div className='mb-4'>
             <SubHeading>Transaction Request Details</SubHeading>
