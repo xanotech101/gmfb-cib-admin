@@ -25,6 +25,17 @@ body::-webkit-scrollbar-thumb {
   border-top:70px solid #FFF ;
  
   }
+  .fit{
+    width: fit-content;
+  }
+  .after::after{
+    content: "";
+    position: absolute;
+    bottom: -14px;
+    left: 0;
+    width: 100%;
+    border-bottom: 2px solid #891c69;
+  }
 .Dash {
   display: grid;
   grid-template-columns: 8fr 3fr;

@@ -1,9 +1,31 @@
 import React from 'react';
 import { BuildingOfficeIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import { useStore } from 'hooks';
+
 export default function Header({ children, title }) {
+  const { user } = useStore();
+  let greetingMsg 
+  const greeting = () => {
+    const date = new Date();
+    const hour = +date.getHours();
+
+   
+   greetingMsg = 'Good Evening';
+
+    if (hour < 12) {
+      greetingMsg = 'Good Morning';
+    }
+
+    if (hour >= 12 && hour < 17) {
+      greetingMsg = 'Good Afternoon';
+    }
+
+    return greetingMsg;
+  };
+
   return (
     <div className="bg-white shadow">
-      <div className="px-4 sm:px-6">
+      <div className="px-4 sm:px-6 -mt-2">
         <div className="py-6 md:flex md:items-center md:justify-between lg:border-t lg:border-gray-200">
           <div className="min-w-0 flex-1">
             <div className="flex items-center">
@@ -24,7 +46,7 @@ export default function Header({ children, title }) {
                     />
                   </div>
                   <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:leading-9">
-                    Good morning, Emilia Birch
+                    {greeting()}, {user?.firstName}
                   </h1>
                 </div>
                 <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">

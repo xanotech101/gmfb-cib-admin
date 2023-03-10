@@ -21,7 +21,7 @@ const routes = [
     element: <VerifyAccount />
   },
   {
-    path: 'deletecorperateauth',
+    path: 'delete-corperate',
     element: <DeleteCorperateAuth/>
   }
 ];

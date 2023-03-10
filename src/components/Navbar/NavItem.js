@@ -8,51 +8,40 @@ import {
   ArrowLeftOnRectangleIcon,
   RocketLaunchIcon,
   UserIcon,
-  BanknotesIcon
+  BanknotesIcon,
+  ClockIcon,
+  HandThumbUpIcon
 } from '@heroicons/react/24/outline';
 import { NavLinks } from './NavLink';
 import { DropDown } from 'components/DropDown/DropDown';
 import { DropDownItems } from 'components/DropDown/DropDownItems';
-import { Link, NavLink } from 'react-router-dom';
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
+import { Link } from 'react-router-dom';
+
 export const NavItem = () => {
   return (
-    <div>
+    <div className="h-[90%] overflow-y-auto side-bar">
       <nav className="flex-1 space-y-1 px-2 pb-4">
-        <NavLinks to="/dashboard" name="Dashboard" icon={<HomeIcon />} current={true} isActive />
-        <NavLink to="transaction-requests">
-          <DropDown
-            title="Request"
-            icon={
-              <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0 text-white" aria-hidden="true" />
-            }>
-            <DropDownItems classNames={classNames} flex="flex">
-              
-              <Link
-                to="/transaction-requests"
-                className={({ isActive }) => (isActive ? 'grooming-text mt-4' : 'mt-4')}>
-                All Request
-              </Link>
-            </DropDownItems>
-            <DropDownItems classNames={classNames} flex="flex">
-              <Link
-                to="/transaction-requests/initiated"
-                className={({ isActive }) => (isActive ? 'grooming-text mt-4' : 'mt-4')}>
-                Initiated Request
-              </Link>
-            </DropDownItems>
-            <DropDownItems classNames={classNames} flex="flex">
-              <Link
-                to="/transaction-requests/assigned"
-                className={({ isActive }) => (isActive ? 'grooming-text mt-4' : 'mt-4')}>
-                Assigned Requests
-              </Link>
-            </DropDownItems>
-          </DropDown>
-        </NavLink>
-        <NavLinks to="/reports" icon={<ChartPieIcon />} name="Reports" current={false} isActive />
+        <NavLinks to="/dashboard" name="Dashboard" icon={<HomeIcon />} current={true} />
+        <DropDown
+          title="Request"
+          text="text-white  mt-5"
+          icon={
+            <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0 text-white" aria-hidden="true" />
+          }>
+          <DropDownItems flex="flex">
+            <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
+            <Link to="/transaction-requests/all">All Request</Link>
+          </DropDownItems>
+          <DropDownItems flex="flex">
+            <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
+            <Link to="/transaction-requests/initiated">Initiated Requests</Link>
+          </DropDownItems>
+          <DropDownItems flex="flex">
+            <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
+            <Link to="/transaction-requests/assigned">Assigned Requests</Link>
+          </DropDownItems>
+        </DropDown>
+        <NavLinks to="/reports" icon={<ChartPieIcon />} name="Reports" current={false} />
         <NavLinks
           to="/audit"
           icon={<DocumentMagnifyingGlassIcon />}
@@ -60,23 +49,31 @@ export const NavItem = () => {
           current={false}
           isActive
         />
+        <NavLinks to="/requests" icon={<HandThumbUpIcon />} name="Request" current={false} />
         <NavLinks
-          to="/corperate/create"
+          to="/transaction-history"
+          icon={<ClockIcon />}
+          name="Transaction History"
+          current={false}
+        />
+
+        <NavLinks
+          to="/corporate"
           icon={<BriefcaseIcon />}
           name="Corporate Account"
           current={false}
           isActive
         />
         <NavLinks
-          to="/mandate-rule"
+          to="mandate-rule"
           icon={<RocketLaunchIcon />}
           name="Mandate Rule"
           current={false}
           isActive
         />
-        <NavLinks to="/profile" icon={<UserIcon />} name="Profile" current={false} isActive />
+        <NavLinks to="profile" icon={<UserIcon />} name="Profile" current={false} isActive />
         <NavLinks
-          to="/settings"
+          to="settings"
           icon={<CogIcon />}
           name="Account Settings"
           current={false}

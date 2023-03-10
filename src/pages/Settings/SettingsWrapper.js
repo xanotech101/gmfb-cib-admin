@@ -10,34 +10,24 @@ export const SettingsWrapper = ({ children }) => {
           Settings
           <p className="text-sm text-gray-500 mt-2">Kindly make your changes below.</p>
         </Heading>
-        <div className="flex gap-3 font-medium capitalize mt-4">
+        <div className="flex gap-4 font-medium capitalize my-4 border py-3 fit rounded shadow bg-gray-100">
           <NavLink
             to="settings/general"
-            className={({ isActive }) =>
-              isActive ? 'grooming-text border-bottom' : ''
-            }
-          >
+            className={({ isActive }) => (isActive ? 'after relative px-2' : 'px-2')}>
             General
           </NavLink>
           <NavLink
             to="settings/security"
-            className={({ isActive }) =>
-              isActive ? 'grooming-text border-bottom ' : ''
-            }
-          >
+            className={({ isActive }) => (isActive ? 'after relative px-2' : 'px-2')}>
             Security
           </NavLink>
 
           <NavLink
             to="settings/corporate-users"
-            className={({ isActive }) =>
-              isActive ? 'grooming-text border-bottom' : ''
-            }
-          >
+            className={({ isActive }) => (isActive ? 'after relative px-2' : 'px-2')}>
             Corporate user
           </NavLink>
         </div>
-        <hr></hr>
         <div>{children}</div>
       </Container>
     </div>

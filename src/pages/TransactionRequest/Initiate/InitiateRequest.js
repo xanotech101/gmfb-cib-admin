@@ -4,7 +4,7 @@ import { InitiateRequestForm } from './InitiateRequestForm';
 
 export const InitiateRequest = () => {
   return (
-    <div className="px-4 sm:px-6 lg:px-8 mt-10 ml-2 w-full lg:w-4/6">
+    <div className="lg:w-[70%] w-full py-6 pr-10 pl-5">
       <Container>
         <div className="mb-10 border-b pb-2">
           <h1 className="text-2xl font-medium leading-6 text-gray-900 mb-3">Initiate Request</h1>

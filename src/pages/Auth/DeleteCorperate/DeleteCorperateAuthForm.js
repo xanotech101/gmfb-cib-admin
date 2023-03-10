@@ -11,7 +11,7 @@ export const DeleteCorperateAuthForm = () => {
            <div className='mb-5'>
            <Input type="text" label={<p className='flex items-center gap-2'>Enter Password <KeyIcon width="15px"/></p>}/>
            </div>
-            <Button isFullWidth onClick={()=>navigate("/corperate")}>Submit</Button>
+            <Button isFullWidth onClick={()=>navigate("/corporate")}>Submit</Button>
         </form>
     </div>
   )

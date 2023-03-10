@@ -10,12 +10,15 @@ const ListContainer = ({ children }) => {
   );
 };
 
-const ListItem = ({ icon, title }) => {
+const ListItem = ({ icon, title,  variant ='text-gray-500', children}) => {
   return (
-    <div className="flex items-center">
-      <p className="icon mr-2 text-gray">{icon}</p>
+    <div>
+    <div className={`flex items-center relative ${variant}`}>
+      <p className="icon mr-2">{icon}</p>
       <p className="icon">{title}</p>
     </div>
+    <div className="text-sm mt-3 text-gray-500 font-normal">{children}</div>
+  </div>
   );
 };
 

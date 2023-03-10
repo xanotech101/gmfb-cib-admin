@@ -1,4 +1,4 @@
-
+// TODO: refactor navigation
 
 import { Dialog, Transition, Menu } from '@headlessui/react';
 import { Fragment, useState } from 'react';
@@ -11,7 +11,7 @@ import {
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { useQuery } from '@tanstack/react-query';
 import { userService } from 'services';
-import { useNotifications,useStore } from 'hooks';
+import { useNotifications, useStore } from 'hooks';
 import { Notification } from 'components/Notification/Notification';
 import { Link } from 'react-router-dom';
 
@@ -40,7 +40,7 @@ export const Sidebar = ({mobile,desktop}) => {
     { name: 'Sign out', href: '/' }
   ];
   return (
-    <div className="z-10">
+    <div className="z-50">
       <Transition.Root show={sidebarOpen} as={Fragment}>
         <Dialog as="div" className="relative z-40 md:hidden" onClose={setSidebarOpen}>
           <Transition.Child
@@ -51,7 +51,7 @@ export const Sidebar = ({mobile,desktop}) => {
             leave="transition-opacity ease-linear duration-300"
             leaveFrom="opacity-100"
             leaveTo="opacity-0">
-            <div className="fixed inset-0 bg-gray-600 bg-opacity-75" />
+            <div className="fixed -z-50 inset-0 bg-gray-600 bg-opacity-75" />
           </Transition.Child>
 
           <div className="fixed inset-0 z-40 flex">
@@ -85,7 +85,7 @@ export const Sidebar = ({mobile,desktop}) => {
                 <div className="flex flex-shrink-0 items-center px-4">
                   <Logo className="filt" />
                 </div>
-                <div className="mt-5 h-0 flex-1 overflow-y-auto">
+                <div className="mt-5 h-0 flex-1 pr-2">
                   {mobile}
                 </div>
               </Dialog.Panel>
@@ -96,14 +96,14 @@ export const Sidebar = ({mobile,desktop}) => {
           </div>
         </Dialog>
       </Transition.Root>
-      <div className="flex flex-1 flex-col md:pl-64">
+      <div className="flex flex-1 flex-col md:pl-64 fixed w-full z-40 top-0">
         <div className="sticky top-0 z-10 flex h-16 flex-shrink-0 bg-white shadow">
           <button
             type="button"
             className="border-r border-gray-200 px-4 text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500 md:hidden"
             onClick={() => setSidebarOpen(true)}>
             <span className="sr-only">Open sidebar</span>
-            <Bars3BottomLeftIcon className="h-6 w-6" aria-hidden="true" />
+            <Bars3BottomLeftIcon className="h-6 w-6 grooming-text" aria-hidden="true" />
           </button>
           <div className="flex flex-1 justify-between px-4">
             <div className="flex flex-1">
@@ -184,7 +184,7 @@ export const Sidebar = ({mobile,desktop}) => {
       {/* Static sidebar for desktop */}
       <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
         {/* Sidebar component, swap this element with another sidebar if you like */}
-        <div className="flex flex-grow flex-col overflow-y-auto grooming-color pt-5">
+        <div className="flex flex-grow flex-col grooming-color pt-5 pr-2">
           <div className="flex flex-shrink-0 items-center px-4">
             <Logo className="filt" />
           </div>

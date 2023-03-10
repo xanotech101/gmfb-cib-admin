@@ -44,7 +44,7 @@ export const CreateCorperateUser = () => {
   };
 
   return (
-    <div className="w-full lg:w-[80%] p-5">
+    <div className="w-full lg:w-[70%] p-5">
       <Container>
         <div className="mb-8 pb-2 border-b">
           <Heading>Create corporate User</Heading>
