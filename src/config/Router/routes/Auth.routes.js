@@ -2,7 +2,7 @@ import { ForgotPassword } from 'pages/Auth/ForgotPassword/ForgotPassword';
 import { ResetPassword } from 'pages/Auth/ResetPassword/ResetPassword';
 import { Login } from 'pages/Auth/Login/Login';
 import { VerifyAccount } from 'pages/Auth/VerifyAccount/VerifyAccount';
-import { DeleteCorperateAuth } from 'pages/Auth/DeleteCorperate/DeleteCorperateAuth';
+import { DeleteCorperateAuth } from 'pages/DeleteCorperate/DeleteCorperateAuth';
 const routes = [
   {
     path: '/',

@@ -2,6 +2,10 @@ import { Badge } from 'components/Badge/Badge';
 import { Link } from 'react-router-dom';
 
 export const TransactionRequestTable = ({ transactions }) => {
+  console.log(
+    '🚀 ~ file: TransactionRequestTable.js:5 ~ TransactionRequestTable ~ transactions:',
+    transactions
+  );
   return (
     <div className="flex flex-col">
       <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -14,7 +18,7 @@ export const TransactionRequestTable = ({ transactions }) => {
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    Customer Name
+                    Id
                   </th>
                   <th
                     scope="col"
@@ -26,27 +30,27 @@ export const TransactionRequestTable = ({ transactions }) => {
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    Bank Name
+                    Reference
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    Account Name
+                    Date
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    Account Number
+                    Balance
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    Status
+                    Type
                   </th>
-                  <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
+                  <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6 hidden">
                     <span className="sr-only">Edit</span>
                   </th>
                 </tr>
@@ -55,24 +59,28 @@ export const TransactionRequestTable = ({ transactions }) => {
                 {transactions.map((transaction) => (
                   <tr key={transaction?._id}>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.customerName}
+                      {transaction?.Id}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.amount}
+                      {transaction?.Amount}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.bankName}
+                      {transaction?.ReferenceID}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.accountName}
+                      {transaction?.TransactionDateString}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.accountNumber}
+                      {transaction?.Balance}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      <Badge status={transaction?.status}>{transaction?.status}</Badge>
+                      <Badge
+                        status={transaction?.RecordType === 'Credit' ? 'approved' : 'declined'}
+                      >
+                        {transaction?.RecordType}
+                      </Badge>
                     </td>
-                    <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                    <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 hidden">
                       <Link
                         to={`/transaction-requests/${encodeURIComponent(transaction._id)}`}
                         className="text-primary hover:text-indigo-900 ml-4"

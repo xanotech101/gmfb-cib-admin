@@ -6,7 +6,8 @@ import { TransactionRequestTable } from './TransactionRequestTable';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 
 const RenderData = (data) => {
-  if (data?.requests?.length === 0) {
+  console.log('🚀 ~ file: TransactionHistory.js:9 ~ RenderData ~ data:', data);
+  if (data?.data?.Message?.length === 0) {
     return (
       <EmptyState
         title="No transaction history found"
@@ -14,7 +15,7 @@ const RenderData = (data) => {
       />
     );
   } else {
-    return <TransactionRequestTable transactions={data?.requests ?? []} />;
+    return <TransactionRequestTable transactions={data?.data?.Message ?? []} />;
   }
 };
 
@@ -24,6 +25,7 @@ export const TransactionHistory = () => {
     queryFn: accountService.getTransactionHistory
   });
 
+  console.log('🚀 ~ file: TransactionHistory.js:26 ~ TransactionHistory ~ data:', data);
 
   return (
     <div className="pt-6 overflow-auto px-5 lg:px-0">

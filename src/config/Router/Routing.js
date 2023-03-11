@@ -16,7 +16,7 @@ import { EditProfile } from 'pages/Profile/EditProfile';
 import { CreateCorperateUser } from 'pages/Settings/User/CreateCorperateUser';
 import { Profile } from 'pages/Profile/Profile';
 import { EditUser } from 'pages/Settings/User/EditUser';
-import { ErrorPage } from 'pages/Auth/ErrorPage/ErrorPage';
+import { ErrorPage } from 'pages/ErrorPage/ErrorPage';
 import { Audit } from 'pages/AuditTrail/AuditTrail';
 import { authRoutes } from 'config/Router/routes/Auth.routes';
 import { EmptyState } from 'components/EmptyState/EmptyState';

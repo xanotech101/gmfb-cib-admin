@@ -5,8 +5,11 @@ import { Button } from 'components/Button/Button';
 import { Auth } from 'components/Layout';
 import { useEffect } from 'react';
 import { authService } from 'services';
+import { useModal } from 'hooks';
+import { Heading } from 'components/Common/Header/Heading';
 
-export const VerifyAccount = () => {
+export const BulkVerification = () => {
+  const { Modal, showModal } = useModal();
   const { token } = useParams();
   const navigate = useNavigate();
 
@@ -26,10 +29,24 @@ export const VerifyAccount = () => {
             <span className="flex items-center justify-between">Verifying Account ...</span>
           )}
           {isError && (
-            <span className="flex items-center justify-between">
-              Account Verification Failed
-              <XCircleIcon className="text-red-500 w-12 h-12 flex-shrink-0" />
-            </span>
+            <div className="flex items-center flex-col justify-between">
+              {Modal({
+                children: (
+                  <>
+                    <div>
+                      <Heading>Verification Failed</Heading>
+                      <XCircleIcon className="w-8 h-8 text-red-500" />
+                    </div>
+                    <div className="mt-5">
+                      <Button onClick={showModal} isFullWidth>
+                        close
+                      </Button>
+                    </div>
+                  </>
+                ),
+                showCloseIcon: false
+              })}
+            </div>
           )}
           {isSuccess && (
             <span className="flex items-center justify-between">
