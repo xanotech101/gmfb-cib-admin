@@ -42,7 +42,7 @@ const OnboardingForm = () => {
           email: data.Message.Email,
           customerId: data.Message.CustomerId
         });
-        setValue('email', data.Message.email);
+        setValue('account_email', data.Message.email);
       }
     },
     enabled: debouncedValue.length > 0
@@ -66,7 +66,7 @@ const OnboardingForm = () => {
         accountNumber,
         accountName: accountInfo.name,
         customerID: accountInfo.customerId,
-        email: accountInfo.email
+        email: data.account_email
       },
       admin: {
         firstName: data.firstName,
@@ -118,7 +118,7 @@ const OnboardingForm = () => {
             <Input
               label="Account Email"
               id="account_email"
-              {...register('email', { required: true })}
+              {...register('account_email', { required: true })}
               defaultValue={accountInfo.email}
             />
             <Button isFullWidth onClick={() => setFormState(formStateOptions.adminDetails)}>
