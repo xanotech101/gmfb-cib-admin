@@ -56,7 +56,7 @@ export const MandateRule = () => {
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
               <h1 className="text-xl font-semibold text-gray-900">Mandate Rules</h1>
-              <p className="text-sm text-gray-700">List of mandate rules within the system.</p>
+              <p className="text-sm text-gray-700 mt-1">List of mandate rules within the system.</p>
             </div>
             <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
               <Link to="/mandate-rule/create">

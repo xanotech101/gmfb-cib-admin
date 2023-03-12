@@ -32,7 +32,7 @@ export const TransactionHistory = () => {
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
               <h1 className="text-xl font-semibold text-gray-900">Transaction History</h1>
-              <p className="text-sm text-gray-700">
+              <p className="text-sm text-gray-700 mt-1">
                 List of transaction history within the system.
               </p>
             </div>
