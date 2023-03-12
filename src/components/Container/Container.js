@@ -1,7 +1,3 @@
 export const Container = ({ children }) => {
-  return (
-    <div className="bg-white p-10 rounded-md shadow ring-1 ring-black ring-opacity-5">
-      {children}
-    </div>
-  );
+  return <div className="bg-white rounded-[8px] border border-[#dadce0] p-6">{children}</div>;
 };

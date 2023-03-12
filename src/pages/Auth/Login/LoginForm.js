@@ -17,15 +17,12 @@ export const LoginForm = ({ successCb, errorCb }) => {
       successCb({ email: payload.email, questions: res.secretQuestion });
     },
     onError: (err, payload) => {
-      console.log(
-        '🚀 ~ file: LoginForm.js:28 ~ const{mutate,isLoading}=useMutation ~ payload:',
-        err
-      );
       if (err?.message === 'User has not set up secret questions') {
         errorCb(payload.email);
       }
     }
   });
+ 
 
   const onSubmit = (data) => mutate(data);
 

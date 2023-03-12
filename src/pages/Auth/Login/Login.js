@@ -11,7 +11,6 @@ export const Login = () => {
   const [email, setEmail] = useState('');
   const [question, setQuestion] = useState('');
   const { Modal, showModal } = useModal();
-  // console.log('🚀 ~ file: Login.js:12 ~ Login ~ email:', email, question);
 
   const handleLoginError = (err) => {
     if (err?.message === 'Incorrect answer') {

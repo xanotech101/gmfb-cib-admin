@@ -29,11 +29,12 @@ http.interceptors.request.use(
   }
 );
 
-axios.interceptors.response.use(
+http.interceptors.response.use(
   (response) => response.data,
   (error) => {
     if (error.response.status === 401) {
       localStorage.removeItem('token');
+      window.location.href = '/';
     }
     return Promise.reject(error);
   }

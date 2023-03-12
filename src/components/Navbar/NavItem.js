@@ -58,7 +58,7 @@ export const NavItem = () => {
         />
 
         <NavLinks
-          to="/corporate"
+          to="/corporate-account"
           icon={<BriefcaseIcon />}
           name="Corporate Account"
           current={false}

@@ -4,14 +4,14 @@ import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
 import { Button } from 'components/Button/Button';
 import { Auth } from 'components/Layout';
 import { useEffect } from 'react';
-import { authService } from 'services';
+import { accountService } from 'services';
 
-export const VerifyAccount = () => {
+export const AdminVerifyAccount = () => {
   const { token } = useParams();
   const navigate = useNavigate();
 
   const { mutate, isSuccess, isError, isIdle, isLoading } = useMutation({
-    mutationFn: () => authService.verifyAccount(token)
+    mutationFn: () => accountService.verifyAccount(token)
   });
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export const VerifyAccount = () => {
       {isSuccess && (
         <div className="pt-3">
           <Button isFullWidth type="button" onClick={() => navigate('/')}>
-            Login
+            Create security questions and password
           </Button>
         </div>
       )}

@@ -1,11 +1,8 @@
 import { Badge } from 'components/Badge/Badge';
 import { Link } from 'react-router-dom';
 
-export const TransactionRequestTable = ({ transactions }) => {
-  console.log(
-    '🚀 ~ file: TransactionRequestTable.js:5 ~ TransactionRequestTable ~ transactions:',
-    transactions
-  );
+export const TransactionHistoryTable = ({ transactions }) => {
+  console.log("🚀 ~ file: TransactionHistoryTable.js:5 ~ TransactionHistoryTable ~ transactions:", transactions)
   return (
     <div className="flex flex-col">
       <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">

@@ -3,7 +3,7 @@ import { Route, Routes, Outlet } from 'react-router-dom';
 import { Dashboard } from 'pages/Home/Dashboard';
 import { TransactionRequest } from 'pages/TransactionRequest/TransactionRequest';
 import { TransactionDetails } from 'pages/TransactionRequest/TransactionDetails/TransactionDetails';
-import { Corperate } from 'pages/Corporate/Corporate';
+import { Corporate } from 'pages/CorporateAccount/CorporateAccount';
 import { Report } from 'pages/Reporting/Reports/Reports';
 import { Settings } from 'pages/Settings/Settings';
 import { InitiateRequest } from 'pages/TransactionRequest/Initiate/InitiateRequest';
@@ -15,11 +15,9 @@ import { UpdateMandateRule } from 'pages/MandateRule/UpdateMandateRule/UpdateMan
 import { EditProfile } from 'pages/Profile/EditProfile';
 import { CreateCorperateUser } from 'pages/Settings/User/CreateCorperateUser';
 import { Profile } from 'pages/Profile/Profile';
-import { EditUser } from 'pages/Settings/User/EditUser';
 import { ErrorPage } from 'pages/ErrorPage/ErrorPage';
 import { Audit } from 'pages/AuditTrail/AuditTrail';
 import { authRoutes } from 'config/Router/routes/Auth.routes';
-import { EmptyState } from 'components/EmptyState/EmptyState';
 import { Security } from 'pages/Settings/Security/Security';
 import { CorporateUsers } from 'pages/Settings/User/CorporateUsers';
 import { UserSettings } from 'pages/Settings/User/UserSettings';
@@ -29,8 +27,8 @@ import { Navigate } from 'react-router-dom';
 import RequestTicketing from 'pages/Requests/Request/RequestTicketing';
 import AddRequest from 'pages/Requests/AddRequest/AddRequest';
 import { BulkUpload } from 'pages/Settings/User/BulkUpload/BulkUpload';
-import { OnboardCorporateUser } from 'pages/OnboardCorporateUser/OnboardCorporateUser';
-//import { PrivateOutlet } from './PrivateOutLet';
+import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
+import { PrivateOutlet } from './PrivateOutLet';
 
 export const Routing = () => {
   return (
@@ -39,64 +37,67 @@ export const Routing = () => {
         {authRoutes.map(({ path, element }) => (
           <Route key={path} path={path} element={element} />
         ))}
-        {/*<Route element={<PrivateOutlet />}>}*/}
-        <Route element={<AuthLayout children={<Outlet />} />}>
-          <Route
-            element={
-              <SettingsWrapper>
-                <Outlet />
-              </SettingsWrapper>
-            }>
-            <Route path="settings">
-              <Route index element={<Settings />} />
-              <Route path="general" element={<Settings />} />
-              <Route path="general/:id" element={<BulkUpload/>} />
-              <Route path="security" element={<Security />} />
-              <Route path="usersetting" element={<UserSettings />} />
-              <Route path="corporate-users">
-                <Route index element={<CorporateUsers />} />
-                <Route path="create-user" element={<CreateCorperateUser />} />
+        <Route element={<PrivateOutlet />}>
+          <Route element={<AuthLayout children={<Outlet />} />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route
+              element={
+                <SettingsWrapper>
+                  <Outlet />
+                </SettingsWrapper>
+              }>
+              <Route path="settings">
+                <Route index element={<Settings />} />
+                <Route path="general" element={<Settings />} />
+                <Route path="general/:id" element={<BulkUpload />} />
+                <Route path="security" element={<Security />} />
+                <Route path="usersetting" element={<UserSettings />} />
+                <Route path="corporate-users">
+                  <Route index element={<CorporateUsers />} />
+                  <Route path="create-user" element={<CreateCorperateUser />} />
+                </Route>
               </Route>
             </Route>
-          </Route>
-          <Route path="dashboard" element={<Dashboard />} />
-          <Route path="corporate">
-            <Route index element={<Corperate />} />
-            <Route path="create" element={<CreateCorperateUser />} />
-            <Route path="edit-user" element={<EditUser />} />
-          </Route>
-          <Route path="onboard-corporate" element={<OnboardCorporateUser/>} />
-          <Route path="transaction-requests">
-            <Route index element={<Navigate to="initiated" />} />
-            <Route path="assigned" element={<TransactionRequest />} />
-            <Route path="initiated" element={<TransactionRequest />} />
-            <Route path="batchupload" element={<BatchUpload />} />
-            <Route path="initiate" element={<InitiateRequest />} />
-            <Route path=":id" element={<TransactionDetails />} />
-          </Route>
-          <Route path="audit" element={<Audit />} />
-          <Route path="emptystate" element={<EmptyState />} />
-          <Route path="reports" element={<Report />} />
-          <Route path="batchupload" element={<BatchUpload />} />
-          <Route path="requests">
-            <Route index element={<RequestTicketing />} />
-            <Route path="add-request" element={<AddRequest />} />
-          </Route>
-          <Route path="profile">
-            <Route index element={<Profile />} />
-            <Route path="edit-profile" element={<EditProfile />} />
-          </Route>
-          <Route path="transaction-history">
-            <Route index element={<TransactionHistory />} />
-          </Route>
-          <Route path="/createmandate" element={<CreateMandateRule />} />
-          <Route path="mandate-rule">
-            <Route index element={<MandateRule />} />
-            <Route path="create" element={<CreateMandateRule />} />
-            <Route path="update/:id" element={<UpdateMandateRule />} />
+
+            <Route path="corporate-account">
+              <Route index element={<Corporate />} />
+              <Route path="onboard" element={<OnboardCorporateAccount />} />
+            </Route>
+
+            <Route path="transaction-requests">
+              <Route index element={<Navigate to="initiated" />} />
+              <Route path="assigned" element={<TransactionRequest />} />
+              <Route path="initiated" element={<TransactionRequest />} />
+              <Route path="all" element={<TransactionRequest />} />
+              <Route path="batchupload" element={<BatchUpload />} />
+              <Route path="initiate" element={<InitiateRequest />} />
+              <Route path=":id" element={<TransactionDetails />} />
+            </Route>
+
+            <Route path="audit" element={<Audit />} />
+            <Route path="reports" element={<Report />} />
+
+            <Route path="requests">
+              <Route index element={<RequestTicketing />} />
+              <Route path="add-request" element={<AddRequest />} />
+            </Route>
+
+            <Route path="profile">
+              <Route index element={<Profile />} />
+              <Route path="edit-profile" element={<EditProfile />} />
+            </Route>
+
+            <Route path="transaction-history">
+              <Route index element={<TransactionHistory />} />
+            </Route>
+
+            <Route path="mandate-rule">
+              <Route index element={<MandateRule />} />
+              <Route path="create" element={<CreateMandateRule />} />
+              <Route path="update/:id" element={<UpdateMandateRule />} />
+            </Route>
           </Route>
         </Route>
-        {/*</Route>*/}
         <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>

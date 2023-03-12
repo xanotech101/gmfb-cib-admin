@@ -1,7 +1,7 @@
 import { Badge } from 'components/Badge/Badge';
 import { Link } from 'react-router-dom';
 
-export const TransactionRequestTable = ({ items }) => {
+export const TransactionRequestTable = ({ transactions }) => {
   return (
     <div className="flex flex-col">
       <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -26,19 +26,19 @@ export const TransactionRequestTable = ({ items }) => {
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    Bank Name
+                    Beneficiary Bank Name
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    Account Name
+                    Beneficiary Account Name
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    Account Number
+                    Beneficiary Account Number
                   </th>
                   <th
                     scope="col"
@@ -52,29 +52,29 @@ export const TransactionRequestTable = ({ items }) => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {items.map((item) => (
-                  <tr key={item?._id}>
+                {transactions.map((transaction) => (
+                  <tr key={transaction?._id}>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {item?.customerName}
+                      {transaction?.customerName}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {item?.amount}
+                      {transaction?.amount}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {item?.bankName}
+                      {transaction?.beneficiaryBankName}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {item?.accountName}
+                      {transaction?.beneficiaryAccountName}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {item?.accountNumber}
+                      {transaction?.beneficiaryAccountNumber}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      <Badge status={item?.isApproved}>{item?.isApproved}</Badge>
+                      <Badge status={transaction?.status}>{transaction?.status}</Badge>
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       <Link
-                        to={`/transaction-requests/${encodeURIComponent(item._id)}`}
+                        to={`/transaction-requests/${encodeURIComponent(transaction._id)}`}
                         className="text-primary hover:text-indigo-900 ml-4"
                       >
                         View

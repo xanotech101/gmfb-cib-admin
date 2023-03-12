@@ -28,10 +28,10 @@ export const SplitButton = ({ buttonText, items = [], mainButtonAction }) => {
         >
           <Menu.Items className="absolute right-0 z-10 mt-2 -mr-1 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="py-1">
-              {items.map((item) => (
-                <Menu.Item key={item.name}>
-                  <button onClick={item.action} className="text-gray-700 block px-4 py-2 text-sm">
-                    {item.name}
+              {items?.map((item) => (
+                <Menu.Item key={item?.name}>
+                  <button onClick={item?.action} className="text-gray-700 block px-4 py-2 text-sm">
+                    {item?.name}
                   </button>
                 </Menu.Item>
               ))}
