@@ -23,22 +23,19 @@ export const NavItem = () => {
       <nav className="flex-1 space-y-1 px-2 pb-4">
         <NavLinks to="/dashboard" name="Dashboard" icon={<HomeIcon />} current={true} />
         <DropDown
-          title="Request"
+          title="Transfer Request"
           text="text-white  mt-5"
           icon={
             <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0 text-white" aria-hidden="true" />
           }>
           <DropDownItems flex="flex">
-            <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
-            <Link to="/transaction-requests/all">All Request</Link>
+            <Link className='w-full h-full' to="/transaction-requests/all">All Request</Link>
           </DropDownItems>
           <DropDownItems flex="flex">
-            <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
-            <Link to="/transaction-requests/initiated">Initiated Requests</Link>
+            <Link to="/transaction-requests/initiated" className='w-full h-full'>Initiated Requests</Link>
           </DropDownItems>
           <DropDownItems flex="flex">
-            <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0" aria-hidden="true" />
-            <Link to="/transaction-requests/assigned">Assigned Requests</Link>
+            <Link to="/transaction-requests/assigned" className='w-full h-full'>Assigned Requests</Link>
           </DropDownItems>
         </DropDown>
         <NavLinks to="/reports" icon={<ChartPieIcon />} name="Reports" current={false} />

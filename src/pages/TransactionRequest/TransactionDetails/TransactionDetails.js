@@ -34,7 +34,7 @@ export const TransactionDetails = () => {
       <div className="lg:grid md:block sm:block block grid-cols-12 gap-5 px-8 py-6 pb-6">
         <div className="col-span-12 flex justify-between items-center">
           <div className='mb-4'>
-            <SubHeading>Transaction Request Details</SubHeading>
+            <SubHeading>Transfer Request Details</SubHeading>
           </div>
           <div className="flex space-x-2 mb-4">
             <Button variant="success">Approve</Button>

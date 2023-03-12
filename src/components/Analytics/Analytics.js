@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Drop } from './dp';
 import {
@@ -19,6 +18,8 @@ import { SubHeading } from 'components/Common/Header/SubHeading';
 import { Button } from 'components/Button/Button';
 import { ChevronDownIcon, CreditCardIcon } from '@heroicons/react/24/outline';
 import { Heading } from 'components/Common/Header/Heading';
+import { useState } from 'react';
+import { EmptyState } from 'components/EmptyState/EmptyState';
 
 ChartJS.register(CategoryScale, LinearScale, LineElement, Title, Tooltip, Legend, PointElement);
 
@@ -99,43 +100,50 @@ export const data2 = {
 const isDashboard = /dashboard/i.test(window.location.pathname);
 
 export const Chart = (prop) => {
+  const [Empty] = useState(true);
   return (
     <Container>
-      <div className="-mt-6 flex  items-center justify-between pt-5">
-        {isDashboard ? (
-          <Heading>Financial statistics</Heading>
-        ) : (
-          <SubHeading>Financial statistics</SubHeading>
-        )}
-      </div>
-      <div className="flex lg:items-center gap-7 md:gap-7 flex-col sm:flex-col md:flex-col lg:flex-row justify-between mt-5 mb-5">
-        <div>
-          <p className="text-xl mb-3">Today, Feb 28</p>
-          <p className="text-3xl tracking-tight font-medium flex items-center">
-            <span>
-              <img src="https://cdn-icons-png.flaticon.com/512/32/32974.png" width="24px" />
-            </span>
-            36,670.90
-          </p>
-        </div>
-        <div className="flex items-center gap-4">
-          <Button>
-            <CreditCardIcon className="mt-0.3 mr-2" width="20px" /> Income{' '}
-            <ChevronDownIcon className="mt-0.3 ml-2" width="20px" />
-          </Button>
-          <div>
-            <Drop />
+      {Empty === true ? (
+        <EmptyState title="Nothing to show yet" />
+      ) : (
+        <Container>
+          <div className="-mt-6 flex  items-center justify-between pt-5">
+            {isDashboard ? (
+              <Heading>Financial statistics</Heading>
+            ) : (
+              <SubHeading>Financial statistics</SubHeading>
+            )}
           </div>
-        </div>
-      </div>
-      <Line className="ch" options={options} data={data} />;
-      <div className="mt-6">
-        <Link
-          to="/reports"
-          className={`flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 ${prop.hidden}`}>
-          View all
-        </Link>
-      </div>
+          <div className="flex lg:items-center gap-7 md:gap-7 flex-col sm:flex-col md:flex-col lg:flex-row justify-between mt-5 mb-5">
+            <div>
+              <p className="text-xl mb-3">Today, Feb 28</p>
+              <p className="text-3xl tracking-tight font-medium flex items-center">
+                <span>
+                  <img src="https://cdn-icons-png.flaticon.com/512/32/32974.png" width="24px" />
+                </span>
+                36,670.90
+              </p>
+            </div>
+            <div className="flex items-center gap-4">
+              <Button>
+                <CreditCardIcon className="mt-0.3 mr-2" width="20px" /> Income{' '}
+                <ChevronDownIcon className="mt-0.3 ml-2" width="20px" />
+              </Button>
+              <div>
+                <Drop />
+              </div>
+            </div>
+          </div>
+          <Line className="ch" options={options} data={data} />;
+          <div className="mt-6">
+            <Link
+              to="/reports"
+              className={`flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 ${prop.hidden}`}>
+              View all
+            </Link>
+          </div>
+        </Container>
+      )}
     </Container>
   );
 };

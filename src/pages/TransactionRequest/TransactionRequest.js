@@ -18,9 +18,9 @@ export const TransactionRequest = () => {
         <Container>
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
-              <Heading>Transaction Requests</Heading>
+              <Heading>Transfer Requests</Heading>
               <p className="text-sm text-gray-700">
-                List of transaction requests within the system.
+                List of transfer requests within the system.
               </p>
             </div>
             <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">

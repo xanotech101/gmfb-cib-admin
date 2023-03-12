@@ -1,5 +1,4 @@
 import { Chart } from 'components/Analytics/Analytics';
-import Balance from 'pages/Home/Balance';
 import Header from 'components/Navbar/Header';
 import { Requests } from './RecentRequest';
 import React from 'react';
@@ -30,9 +29,6 @@ export const Dashboard = () => {
       </Header>
       <div className="px-6 py-8">
         <div className="grid grid-cols-12">
-          <div className="col-span-12 space-y-6">
-            <Balance />
-          </div>
           <div className="col-span-12">
             <Requests />
           </div>
