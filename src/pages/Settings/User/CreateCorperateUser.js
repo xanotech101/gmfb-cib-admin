@@ -84,33 +84,6 @@ export const CreateCorperateUser = () => {
               error={errors.gender && 'Gender are required'}
             />
           </div>
-
-          <div className="lg:grid gap-5 md:flex sm:flex flex flex-col gap-4 grid-cols-2 gap-6">
-            <Input
-              label="Password"
-              type="password"
-              id="password"
-              {...register('password', { required: true })}
-              error={errors.password && 'Password is required'}
-            />
-
-            <Input
-              label="Confirm Password"
-              type="password"
-              id="confirm_password"
-              {...register('confirm_password', {
-                validate: (value) => {
-                  const { password } = getValues();
-                  return password === value || 'Passwords should match!';
-                }
-              })}
-              error={
-                errors.confirm_password &&
-                (errors.confirm_password?.message ?? 'Confirm Password is required')
-              }
-            />
-          </div>
-
           <Select
             label="Privileges"
             name="privileges"

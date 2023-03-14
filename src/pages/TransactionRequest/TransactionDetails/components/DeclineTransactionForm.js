@@ -5,11 +5,18 @@ import { Button } from 'components/Button/Button';
 import { TextArea } from 'components/Form/TextArea/TextArea';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import { transactionService } from 'services';
+import { Otp } from './Otp/Otp';
+import { useState } from 'react';
 
 export const DeclineTransactionForm = ({ callback }) => {
   const queryClient = useQueryClient();
   const { id } = useParams();
-
+  const [otp, setOtp] = useState('hidden');
+  const [text, setText] = useState('Next');
+  const DisplayOtp = () => {
+    setOtp('block');
+    setText('Submit Response');
+  };
   const {
     register,
     handleSubmit,
@@ -19,6 +26,7 @@ export const DeclineTransactionForm = ({ callback }) => {
   const { mutate, isLoading } = useMutation({
     mutationFn: (payload) => transactionService.declineTransactionRequest(payload),
     onSuccess: () => {
+      console.log('success');
       callback();
       queryClient.invalidateQueries({
         queryKey: ['transaction-requests', id],
@@ -33,7 +41,7 @@ export const DeclineTransactionForm = ({ callback }) => {
 
   return (
     <>
-      <Heading>Why do you want to decline this request?.</Heading>
+      <Heading>Why do you want to decline this request?</Heading>
       <div className="mt-4">
         <form onSubmit={handleSubmit(onSubmit)}>
           <TextArea
@@ -42,9 +50,12 @@ export const DeclineTransactionForm = ({ callback }) => {
             {...register('reason', { required: true })}
             error={errors.reason && 'Reason is required'}
           />
-          <div className="pt-10">
-            <Button type="submit" disabled={isLoading}>
-              Submit Response
+          <div className={otp}>
+            <Otp />
+          </div>
+          <div className=" mt-3">
+            <Button type="submit" isFullWidth disabled={isLoading} onClick={DisplayOtp}>
+              {text}
             </Button>
           </div>
         </form>

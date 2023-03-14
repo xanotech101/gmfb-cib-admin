@@ -1,10 +1,10 @@
 import { Container } from 'components/Container/Container';
 import React from 'react';
-import { InitiateRequestForm } from './InitiateRequestForm';
+import { InitiateRequestForm } from './components/InitiateRequestForm';
 
 export const InitiateRequest = () => {
   return (
-    <div className="lg:w-[70%] w-full py-6 pr-10 pl-5">
+    <div className="px-4 sm:px-6 lg:px-8 pt-6 ml-2 w-full lg:w-4/6">
       <Container>
         <div className="mb-10 border-b pb-2">
           <h1 className="text-2xl font-medium leading-6 text-gray-900 mb-3">Initiate Request</h1>

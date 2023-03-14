@@ -1,6 +1,7 @@
 import http from 'plugins/axios';
 import { notification } from 'utils';
 
+const DEFAULT_MESSAGE = 'Something went wrong, please try again';
 class MandateService {
   async create(payload) {
     try {
@@ -8,23 +9,17 @@ class MandateService {
       notification(response?.message ?? 'Mandate created successfully', 'success');
       return response.data;
     } catch (error) {
-      notification(
-        error.response.data.message ?? 'Something went wrong, please try again',
-        'error'
-      );
+      notification(error.response.data.message ?? DEFAULT_MESSAGE, 'error');
       throw new Error(error);
     }
   }
   async update(payload) {
     try {
-      const response = await http.post('/api/mandate/update', { ...payload });
+      const response = await http.put('/api/mandate/update', { ...payload });
       notification('Mandate updated successfully');
       return response;
     } catch (error) {
-      notification(
-        error?.response?.data?.message ?? 'Something went wrong, please try again',
-        'error'
-      );
+      notification(error?.response?.data?.message ?? DEFAULT_MESSAGE, 'error');
       throw new Error(error);
     }
   }

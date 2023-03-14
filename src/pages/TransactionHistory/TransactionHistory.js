@@ -2,19 +2,19 @@ import ContentLoader from 'react-content-loader';
 import { Container } from 'components/Container/Container';
 import { useQuery } from '@tanstack/react-query';
 import { accountService } from 'services';
-import { TransactionRequestTable } from './TransactionRequestTable';
+import { TransactionHistoryTable } from './components/TransactionHistoryTable';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 
-const RenderData = (data) => {
-  if (data?.requests?.length === 0) {
+const RenderData = ({ data }) => {
+  if (!data?.data?.IsSuccessful) {
     return (
       <EmptyState
         title="No transaction history found"
-        description="You are yet to make any transaction yet. Click the button below to get started."
+        description="You are yet to make any transaction yet. Check back later."
       />
     );
   } else {
-    return <TransactionRequestTable transactions={data?.requests ?? []} />;
+    return <TransactionHistoryTable transactions={data?.data?.IsSuccessful ? data?.data?.Message : []} />;
   }
 };
 
@@ -23,7 +23,6 @@ export const TransactionHistory = () => {
     queryKey: ['transaction-history'],
     queryFn: accountService.getTransactionHistory
   });
-
 
   return (
     <div className="pt-6 overflow-auto px-5 lg:px-0">

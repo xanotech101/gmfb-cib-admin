@@ -6,7 +6,7 @@ export const TransactionDetailsList = ({ details }) => {
     <>
       {/* customer details */}
       <div className="mb-6 border-b pb-5">
-        <SubHeading>Customer Details</SubHeading>
+        <h3 className="text-lg font-medium leading-6 text-gray-900">Customer Details</h3>
       </div>
       <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div className="sm:col-span-1">
@@ -24,7 +24,7 @@ export const TransactionDetailsList = ({ details }) => {
         <div className="sm:col-span-1">
           <dt className="text-sm font-medium text-gray-500">Status</dt>
           <dd className="mt-1 text-sm text-gray-900">
-            <Badge status={details?.isApproved ?? 'active'}>{details?.isApproved}</Badge>
+            <Badge status={details?.status}>{details?.status}</Badge>
           </dd>
         </div>
       </dl>
@@ -36,15 +36,15 @@ export const TransactionDetailsList = ({ details }) => {
       <dl className="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
         <div className="sm:col-span-1">
           <dt className="text-sm font-medium text-gray-500">Bank Name</dt>
-          <dd className="mt-1 text-sm text-gray-900">{details?.bankName}</dd>
+          <dd className="mt-1 text-sm text-gray-900">{details?.beneficiaryBankName}</dd>
         </div>
         <div className="sm:col-span-1">
           <dt className="text-sm font-medium text-gray-500">Account Name</dt>
-          <dd className="mt-1 text-sm text-gray-900">{details?.accountName}</dd>
+          <dd className="mt-1 text-sm text-gray-900">{details?.beneficiaryAccountName}</dd>
         </div>
         <div className="sm:col-span-1">
           <dt className="text-sm font-medium text-gray-500">Account Number</dt>
-          <dd className="mt-1 text-sm text-gray-900">{details?.accountNumber}</dd>
+          <dd className="mt-1 text-sm text-gray-900">{details?.beneficiaryAccountNumber}</dd>
         </div>
       </dl>
     </>

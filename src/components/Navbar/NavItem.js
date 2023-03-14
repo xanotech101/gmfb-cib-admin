@@ -3,13 +3,13 @@ import {
   HomeIcon,
   CogIcon,
   BriefcaseIcon,
-  DocumentMagnifyingGlassIcon,
+  // DocumentMagnifyingGlassIcon,
   ChartPieIcon,
   ArrowLeftOnRectangleIcon,
-  RocketLaunchIcon,
+  // RocketLaunchIcon,
   UserIcon,
   BanknotesIcon,
-  ClockIcon,
+  // ClockIcon,
   HandThumbUpIcon
 } from '@heroicons/react/24/outline';
 import { NavLinks } from './NavLink';
@@ -29,45 +29,56 @@ export const NavItem = () => {
             <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0 text-white" aria-hidden="true" />
           }>
           <DropDownItems flex="flex">
-            <Link className='w-full h-full' to="/transaction-requests/all">All Request</Link>
+            <Link className="w-full h-full" to="/transaction-requests/all">
+              All Request
+            </Link>
           </DropDownItems>
           <DropDownItems flex="flex">
-            <Link to="/transaction-requests/initiated" className='w-full h-full'>Initiated Requests</Link>
+            <Link to="/transaction-requests/initiated" className="w-full h-full">
+              Initiated Requests
+            </Link>
           </DropDownItems>
           <DropDownItems flex="flex">
-            <Link to="/transaction-requests/assigned" className='w-full h-full'>Assigned Requests</Link>
+            <Link to="/transaction-requests/assigned" className="w-full h-full">
+              Assigned Requests
+            </Link>
           </DropDownItems>
         </DropDown>
         <NavLinks to="/reports" icon={<ChartPieIcon />} name="Reports" current={false} />
-        <NavLinks
+        {/* <NavLinks
           to="/audit"
           icon={<DocumentMagnifyingGlassIcon />}
           name="Audit trail"
           current={false}
           isActive
-        />
-        <NavLinks to="/requests" icon={<HandThumbUpIcon />} name="Request" current={false} />
+        /> */}
         <NavLinks
+          to="/requests"
+          icon={<HandThumbUpIcon />}
+          name="Ticketing Request"
+          current={false}
+        />
+        {/* <NavLinks
           to="/transaction-history"
           icon={<ClockIcon />}
           name="Transaction History"
           current={false}
-        />
+        /> */}
 
         <NavLinks
-          to="/corporate"
+          to="/corporate-account"
           icon={<BriefcaseIcon />}
           name="Corporate Account"
           current={false}
           isActive
         />
-        <NavLinks
+        {/* <NavLinks
           to="mandate-rule"
           icon={<RocketLaunchIcon />}
           name="Mandate Rule"
           current={false}
           isActive
-        />
+        /> */}
         <NavLinks to="profile" icon={<UserIcon />} name="Profile" current={false} isActive />
         <NavLinks
           to="settings"

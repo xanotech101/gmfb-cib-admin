@@ -1,25 +1,32 @@
 import http from 'plugins/axios';
+import { notification } from 'utils';
 
 class AccountService {
   async getAccountByAccountNo() {
     try {
-      const { data } = await http.get('/api/account/balance');
+      const { data } = await http.get('/api/bank/balance');
       return data;
     } catch (error) {
       throw new Error(error);
     }
   }
+
   async getTransactionHistory() {
     try {
-      const { data } = await http.get('/api/account/history');
+      const { data } = await http.get('/api/bank/history');
       return data;
     } catch (error) {
       throw new Error(error);
     }
   }
-  async getAccountInfo() {
+
+  async getAccountInfo(accountNumber) {
     try {
-      const { data } = await http.get('/api/account/info');
+      const { data } = await http.get('/api/bank/info', {
+        params: {
+          accountNumber
+        }
+      });
       return data;
     } catch (error) {
       throw new Error(error);
@@ -28,9 +35,39 @@ class AccountService {
 
   async getNameEnquiry(payload) {
     try {
-      const { data } = await http.post('/api/account/name-enquiry', payload);
+      const { data } = await http.post('/api/bank/name-enquiry', payload);
       return data;
     } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async getAllAccounts() {
+    try {
+      const { data } = await http.get('/api/account/all_accounts');
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async onBoardCorporateAccount(payload) {
+    try {
+      const { data } = await http.post('/api/account/register', payload);
+      notification(data?.message ?? 'Account created successfully');
+      return data;
+    } catch (error) {
+      notification(error.response.data.message, 'error');
+      throw new Error(error);
+    }
+  }
+
+  async verifyAccount(token) {
+    try {
+      const response = await http.post(`/api/account/verify-account/${token}`);
+      return response.data;
+    } catch (error) {
+      notification(error.response.data.message ?? 'Something went wrong', 'error');
       throw new Error(error);
     }
   }

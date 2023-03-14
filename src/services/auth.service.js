@@ -2,9 +2,24 @@ import http from 'plugins/axios';
 import { notification } from 'utils';
 
 class AuthService {
-  async login(payload) {
+  async preLogin(payload) {
+    try {
+      const { data } = await http.post('/api/auth/pre_login', { ...payload });
+      notification(data?.message ?? 'Login successful');
+      return data;
+    } catch (error) {
+      notification(error.response.data.message, 'error');
+      throw new Error(error.response.data.message);
+    }
+  }
+  async login(payload, errorCb) {
     try {
       const { data } = await http.post('/api/auth/login', { ...payload });
+      const rolesAllowed = ['system-admin', 'super-admin'];
+      if (!rolesAllowed.includes(data?.user?.role)) {
+        notification(`You don't have access to access this app, use the corporate portal`, 'error');
+        throw new Error(`You don't have access to access this app, use the corporate portal`);
+      }
       if (data?.token) {
         localStorage.setItem('token', data?.token);
         http.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
@@ -13,6 +28,7 @@ class AuthService {
       return data;
     } catch (error) {
       notification(error.response.data.message, 'error');
+      errorCb?.(error?.response?.data);
       throw new Error(error);
     }
   }
