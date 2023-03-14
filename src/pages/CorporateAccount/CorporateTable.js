@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { SplitButton } from 'components/Button/SplitButton';
-
+import { useModal } from 'hooks';
+import CorporateDetails from './CorporateDetails/CorporateDetails';
 export const CorporateTable = ({ data }) => {
+  const [viewUser, setViewUser] = useState('');
+  const { Modal, showModal } = useModal();
   // const navigate = useNavigate();
-
   // const actionItems = () => [
   //   {
   //     name: 'Mandate',
@@ -21,7 +23,10 @@ export const CorporateTable = ({ data }) => {
   //     action: () => {}
   //   }
   // ];
-
+  const handleViewUser = (e) => {
+    setViewUser(e);
+    showModal();
+  };
   return (
     <div className="overflow-x-auto">
       <div className="p-1.5 w-full inline-block align-middle">
@@ -68,7 +73,9 @@ export const CorporateTable = ({ data }) => {
                     <SplitButton
                       buttonText="View"
                       // items={actionItems}
-                      mainButtonAction={() => {}}
+                      mainButtonAction={() => {
+                        handleViewUser(<CorporateDetails data={datum} />);
+                      }}
                     />
                   </td>
                 </tr>
@@ -76,6 +83,7 @@ export const CorporateTable = ({ data }) => {
             </tbody>
           </table>
         </div>
+        {Modal({ children: viewUser, size: 'md' })}
       </div>
     </div>
   );
