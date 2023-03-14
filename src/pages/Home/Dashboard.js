@@ -2,8 +2,8 @@ import { Chart } from 'components/Analytics/Analytics';
 import Header from 'components/Navbar/Header';
 import { Requests } from './RecentRequest';
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from 'components/Button/Button';
+// import { Link } from 'react-router-dom';
+// import { Button } from 'components/Button/Button';
 // import DateTimePicker from 'components/Form/DatePicker/DateTimePicker';
 // import { useState } from 'react';
 export const Dashboard = () => {
@@ -20,11 +20,11 @@ export const Dashboard = () => {
           }}>
           Generate Account Statement
         </Button> */}
-        <Link to="/transaction-requests/initiated">
+        {/* <Link to="/transaction-requests/initiated">
           <Button variant="primary" type="button">
             Initiate Request
           </Button>
-        </Link>
+        </Link> */}
         {/* <DateTimePicker toggle={toggle} /> */}
       </Header>
       <div className="px-6 py-8">

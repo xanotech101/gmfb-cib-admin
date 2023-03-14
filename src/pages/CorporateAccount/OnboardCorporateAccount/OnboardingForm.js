@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Button } from 'components/Button/Button';
 import { Input } from 'components/Form/Input/Input';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { accountService, privilegeService } from 'services';
+import { accountService } from 'services';
 import { useDebounce } from 'hooks/useDebounce';
 import { useForm } from 'react-hook-form';
 import { Select } from 'components/Form/Select/Select';
@@ -48,10 +48,10 @@ const OnboardingForm = () => {
     enabled: debouncedValue.length > 0
   });
 
-  const { data: privileges } = useQuery({
-    queryKey: ['privileges'],
-    queryFn: () => privilegeService.getPrivileges()
-  });
+  // const { data: privileges } = useQuery({
+  //   queryKey: ['privileges'],
+  //   queryFn: () => privilegeService.getPrivileges()
+  // });
 
   const { mutate, isLoading } = useMutation({
     mutationFn: (data) => accountService.onBoardCorporateAccount(data),
@@ -170,17 +170,6 @@ const OnboardingForm = () => {
             { label: 'Female', value: 'female' }
           ]}
           error={errors.gender && 'Gender are required'}
-        />
-        <Select
-          label="Privileges"
-          name="privileges"
-          control={control}
-          options={(privileges?.privileges ?? []).map((privilege) => ({
-            label: privilege.name,
-            value: privilege._id
-          }))}
-          isMulti
-          error={errors.privileges && 'Privileges are required'}
         />
         <div className="flex items-center justify-between pt-8">
           <Button

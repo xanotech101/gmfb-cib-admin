@@ -8,42 +8,36 @@ import {
   ArrowLeftOnRectangleIcon,
   // RocketLaunchIcon,
   UserIcon,
-  BanknotesIcon,
+  // BanknotesIcon,
   // ClockIcon,
   HandThumbUpIcon
 } from '@heroicons/react/24/outline';
 import { NavLinks } from './NavLink';
-import { DropDown } from 'components/DropDown/DropDown';
-import { DropDownItems } from 'components/DropDown/DropDownItems';
-import { Link } from 'react-router-dom';
+// // import { DropDown } from 'components/DropDown/DropDown';
+// import { DropDownItems } from 'components/DropDown/DropDownItems';
+// import { Link } from 'react-router-dom';
 
 export const NavItem = () => {
   return (
     <div className="h-[90%] overflow-y-auto side-bar">
       <nav className="flex-1 space-y-1 px-2 pb-4">
         <NavLinks to="/dashboard" name="Dashboard" icon={<HomeIcon />} current={true} />
-        <DropDown
+        {/* <DropDown
           title="Transfer Request"
           text="text-white  mt-5"
           icon={
             <BanknotesIcon className="mr-3 h-6 w-6 flex-shrink-0 text-white" aria-hidden="true" />
           }>
           <DropDownItems flex="flex">
-            <Link className="w-full h-full" to="/transaction-requests/all">
-              All Request
-            </Link>
+            <Link className='w-full h-full' to="/transaction-requests/all">All Request</Link>
           </DropDownItems>
           <DropDownItems flex="flex">
-            <Link to="/transaction-requests/initiated" className="w-full h-full">
-              Initiated Requests
-            </Link>
+            <Link to="/transaction-requests/initiated" className='w-full h-full'>Initiated Requests</Link>
           </DropDownItems>
           <DropDownItems flex="flex">
-            <Link to="/transaction-requests/assigned" className="w-full h-full">
-              Assigned Requests
-            </Link>
+            <Link to="/transaction-requests/assigned" className='w-full h-full'>Assigned Requests</Link>
           </DropDownItems>
-        </DropDown>
+        </DropDown> */}
         <NavLinks to="/reports" icon={<ChartPieIcon />} name="Reports" current={false} />
         {/* <NavLinks
           to="/audit"
