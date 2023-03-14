@@ -2,27 +2,27 @@ import React from 'react';
 import { SubHeading } from 'components/Common/Header/SubHeading';
 import {
   ArrowRightIcon,
-  UserCircleIcon,
-  ArrowLeftOnRectangleIcon,
-  CloudArrowUpIcon
+  // UserCircleIcon,
+  ArrowLeftOnRectangleIcon
+  // CloudArrowUpIcon
 } from '@heroicons/react/20/solid';
 
 import { List } from 'components/List/List';
 import { Link } from 'react-router-dom';
 export const Settings = () => {
   const SettingsData = [
-    {
-      title: 'update profile',
-      icon: <UserCircleIcon className="w-6 h-6 text-black" />,
-      to: '/profile/edit-profile',
-      brief: 'Update existing profile details.'
-    },
-    {
-      title: 'bulk upload settings',
-      icon: <CloudArrowUpIcon className="w-6 h-6 text-black" />,
-      to: '/settings/general/limit-upload',
-      brief: 'Limit bulk upload files.'
-    },
+    // {
+    //   title: 'update profile',
+    //   icon: <UserCircleIcon className="w-6 h-6 text-black" />,
+    //   to: '/profile/edit-profile',
+    //   brief: 'Update existing profile details.'
+    // },
+    // {
+    //   title: 'bulk upload settings',
+    //   icon: <CloudArrowUpIcon className="w-6 h-6 text-black" />,
+    //   to: '/settings/general/limit-upload',
+    //   brief: 'Limit bulk upload files.'
+    // },
     {
       title: 'Logout',
       icon: <ArrowLeftOnRectangleIcon className="w-6 h-6 text-black" />,

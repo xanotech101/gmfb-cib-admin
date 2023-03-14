@@ -21,12 +21,6 @@ export const SettingsWrapper = ({ children }) => {
             className={({ isActive }) => (isActive ? 'after relative px-2' : 'px-2')}>
             Security
           </NavLink>
-
-          <NavLink
-            to="settings/corporate-users"
-            className={({ isActive }) => (isActive ? 'after relative px-2' : 'px-2')}>
-            Corporate user
-          </NavLink>
         </div>
         <div>{children}</div>
       </Container>

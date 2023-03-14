@@ -7,10 +7,10 @@ import {
   ChartPieIcon,
   ArrowLeftOnRectangleIcon,
   // RocketLaunchIcon,
-  UserIcon,
+  UserIcon
   // BanknotesIcon,
   // ClockIcon,
-  HandThumbUpIcon
+  // HandThumbUpIcon
 } from '@heroicons/react/24/outline';
 import { NavLinks } from './NavLink';
 // // import { DropDown } from 'components/DropDown/DropDown';
@@ -46,12 +46,12 @@ export const NavItem = () => {
           current={false}
           isActive
         /> */}
-        <NavLinks
+        {/* <NavLinks
           to="/requests"
           icon={<HandThumbUpIcon />}
           name="Ticketing Request"
           current={false}
-        />
+        /> */}
         {/* <NavLinks
           to="/transaction-history"
           icon={<ClockIcon />}

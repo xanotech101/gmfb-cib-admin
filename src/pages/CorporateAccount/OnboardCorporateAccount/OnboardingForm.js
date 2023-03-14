@@ -75,7 +75,6 @@ const OnboardingForm = () => {
         email: data.email,
         gender: data.gender.value,
         imageUrl: 'google.com/fsdfdsfdd'
-        // privileges: data.privileges.map((privilege) => privilege.value)
       }
     };
     mutate(payload);

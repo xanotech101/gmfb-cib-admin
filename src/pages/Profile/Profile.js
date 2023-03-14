@@ -2,9 +2,9 @@ import { Heading } from 'components/Common/Header/Heading';
 import { Container } from 'components/Container/Container';
 import React from 'react';
 import { ProfileDetails } from './ProfileDetails';
-import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
+// import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { Link } from 'react-router-dom';
 import { useStore } from 'hooks';
 import { Avatar } from './Avatar';
 // import { Audit } from 'pages/AuditTrail/AuditTrail';
@@ -19,10 +19,10 @@ export const Profile = () => {
           <Heading>
             <h1>Profile Information</h1>
           </Heading>
-          <Link to="/profile/edit-profile" className="border p-3 rounded-full  inline-block">
+          {/* <Link to="/profile/edit-profile" className="border p-3 rounded-full  inline-block">
             Edit Profile
             <FontAwesomeIcon icon={faUserEdit} className="grooming-text cursor-pointer ml-1" />
-          </Link>
+          </Link> */}
         </div>
         <Avatar
           src="https://demos.creative-tim.com/material-tailwind-dashboard-react/img/bruce-mars.jpeg"
