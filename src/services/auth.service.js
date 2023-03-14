@@ -17,8 +17,8 @@ class AuthService {
       const { data } = await http.post('/api/auth/login', { ...payload });
       const rolesAllowed = ['system-admin', 'super-admin'];
       if (!rolesAllowed.includes(data?.user?.role)) {
-        notification('You are not allowed to login', 'error');
-        throw new Error('You are not allowed to login');
+        notification(`You don't have access to access this app, use the corporate portal`, 'error');
+        throw new Error(`You don't have access to access this app, use the corporate portal`);
       }
       if (data?.token) {
         localStorage.setItem('token', data?.token);
