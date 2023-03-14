@@ -6,12 +6,14 @@ import { SplitButton } from 'components/Button/SplitButton';
 import { DeleteCorperate } from './DeleteCorporateUser';
 import { Avatar } from 'components/Avatar/Avatar';
 import SwitchRoles from 'pages/Settings/User/SwitchRoles/SwitchRoles';
+import { SubHeading } from 'components/Common/Header/SubHeading';
+import { Heading } from 'components/Common/Header/Heading';
 export const CorperateTable = ({ CorperateData }) => {
   const navigate = useNavigate();
   const { Modal, showModal } = useModal();
   const [roles, setRoles] = useState(false);
   const [details, setDetails] = useState(null);
-
+  const [view, setView] = useState(false);
   const actionItems = (details) => [
     {
       name: 'Edit',
@@ -24,7 +26,8 @@ export const CorperateTable = ({ CorperateData }) => {
       action: () => {
         showModal();
         setRoles(false);
-        setDetails("")
+        setDetails('');
+        setView('');
       }
     },
     {
@@ -32,10 +35,17 @@ export const CorperateTable = ({ CorperateData }) => {
       action: () => {
         showModal();
         setRoles(true);
-         setDetails(details);
+        setDetails(details);
+        setView('');
       }
     }
   ];
+  const handleView = (e) => {
+    showModal();
+    setView(e);
+    setDetails('');
+    setRoles(false);
+  };
   return (
     <div className="overflow-x-auto">
       <div className="p-1.5 w-full inline-block align-middle">
@@ -99,7 +109,35 @@ export const CorperateTable = ({ CorperateData }) => {
                     <SplitButton
                       buttonText="View"
                       items={actionItems(`${data.name.firstName} ${data.name.lastName}`)}
-                      mainButtonAction={() => {}}
+                      mainButtonAction={() => {
+                        handleView(
+                          <div className="space-y-6">
+                            <div className="flex items-center gap-3 justify-between">
+                              <p>Name</p>
+                              <p>
+                                <Avatar name={`${data.name.firstName} ${data.name.lastName}`} />
+                                {data.name.firstName} {data.name.lastName}{' '}
+                              </p>
+                            </div>
+                            <hr />
+                            <div className="flex items-center gap-3 justify-between">
+                              <p>Branch</p>
+                              <p>
+                               
+                                {data.email}
+                              </p>
+                            </div>
+                            <hr />
+                            <div className="flex items-center gap-3 justify-between">
+                              <p>Admin</p>
+                              <p>
+                               admin
+                              </p>
+                            </div>
+                            <hr />
+                          </div>
+                        );
+                      }}
                     />
                   </td>
                 </tr>
@@ -110,6 +148,11 @@ export const CorperateTable = ({ CorperateData }) => {
             children:
               roles === true ? (
                 <SwitchRoles userName={details} />
+              ) : view ? (
+                <div>
+                  <Heading>Corporate Details</Heading>
+                  {view}
+                </div>
               ) : (
                 <DeleteCorperate deleteUser={() => navigate('/delete-corperate')} />
               ),
