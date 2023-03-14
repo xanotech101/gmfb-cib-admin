@@ -26,6 +26,7 @@ class UserService {
       notification('User created successfully');
       return response.data;
     } catch (error) {
+      notification(error.response.data.message ?? 'something went wrong', 'error');
       throw new Error(error);
     }
   }
