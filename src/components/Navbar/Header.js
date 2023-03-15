@@ -1,20 +1,11 @@
 import React from 'react';
-import { BuildingOfficeIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
+import { BuildingOfficeIcon } from '@heroicons/react/24/outline';
 import { useStore } from 'hooks';
-import { accountService } from 'services';
-import { useQuery } from '@tanstack/react-query';
 import { Avatar } from 'components/Avatar/Avatar';
-useQuery;
 
 export default function Header({ children }) {
   const { user } = useStore();
   const name = `${user?.firstName} ${user?.lastName}`;
-
-  const { data } = useQuery({
-    queryFn: () => accountService.getAccountInfo(user.organizationId.accountNumber),
-    queryKey: ['getAccountInfo', 'account-info'],
-    enabled: !!user?.organizationId?.accountNumber
-  });
 
   return (
     <div className="bg-white shadow">
@@ -24,9 +15,11 @@ export default function Header({ children }) {
             <div className="flex items-center">
               <div>
                 <div className="flex items-center">
-                  <Avatar name={name} size={64} textSize="20" />
+                  <div className="">
+                    <Avatar name={name} size={64} textSize="20" />
+                  </div>
                   <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:leading-9">
-                    hello, {user?.firstName}
+                    Hello, {user?.firstName}
                   </h1>
                 </div>
                 <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
@@ -36,15 +29,7 @@ export default function Header({ children }) {
                       className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
                       aria-hidden="true"
                     />
-                    {data?.Message?.Branch}
-                  </dd>
-                  <dt className="sr-only">Account status</dt>
-                  <dd className="mt-3 flex items-center text-sm font-medium capitalize text-gray-500 sm:mr-6 sm:mt-0">
-                    <CheckCircleIcon
-                      className="mr-1.5 h-5 w-5 flex-shrink-0 grooming-text text-lg"
-                      aria-hidden="true"
-                    />
-                    Verified account
+                    SYSTEM ADMIN
                   </dd>
                 </dl>
               </div>

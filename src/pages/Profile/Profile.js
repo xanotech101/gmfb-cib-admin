@@ -6,13 +6,18 @@ import { ProfileDetails } from './ProfileDetails';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { Link } from 'react-router-dom';
 import { useStore } from 'hooks';
-import { Avatar } from './Avatar';
+import { Avatar } from 'components/Avatar/Avatar';
 // import { Audit } from 'pages/AuditTrail/AuditTrail';
 
 export const Profile = () => {
   const { user } = useStore();
   const name = `${user?.firstName} ${user?.lastName}`;
 
+  // const { data } = useQuery({
+  //   queryFn: () => accountService.getAccountInfo(user.organizationId.accountNumber),
+  //   queryKey: ['getAccountInfo', 'account-info'],
+  //   enabled: !!user?.organizationId?.accountNumber
+  // });
   return (
     <div className="p-6 w-full lg:w-[75%]">
       <Container>
@@ -26,8 +31,8 @@ export const Profile = () => {
           </Link> */}
         </div>
         <div className="flex items-center gap-3">
-          <Avatar textSize="20" size={64} name={name} />
-          <p className="text-md font-medium">Admin officer</p>
+          <Avatar name={name} textSize="20" size={64} />
+          <p className="text-md font-medium">{name}</p>
         </div>
         <ProfileDetails data={user}></ProfileDetails>
         {/* <Audit style="py-5 pl-2 pr-2" /> */}
