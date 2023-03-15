@@ -11,6 +11,7 @@ import { Avatar } from './Avatar';
 
 export const Profile = () => {
   const { user } = useStore();
+  const name = `${user?.firstName} ${user?.lastName}`;
 
   return (
     <div className="p-6 w-full lg:w-[75%]">
@@ -24,10 +25,10 @@ export const Profile = () => {
             <FontAwesomeIcon icon={faUserEdit} className="grooming-text cursor-pointer ml-1" />
           </Link> */}
         </div>
-        <Avatar
-          src="https://demos.creative-tim.com/material-tailwind-dashboard-react/img/bruce-mars.jpeg"
-          name={'Admin Officer'}
-        />
+        <div className="flex items-center gap-3">
+          <Avatar textSize="20" size={64} name={name} />
+          <p className="text-md font-medium">Admin officer</p>
+        </div>
         <ProfileDetails data={user}></ProfileDetails>
         {/* <Audit style="py-5 pl-2 pr-2" /> */}
       </Container>

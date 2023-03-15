@@ -63,6 +63,10 @@ export const Routing = () => {
             <Route path="corporate-account">
               <Route index element={<Corporate />} />
               <Route path="onboard" element={<OnboardCorporateAccount />} />
+              <Route
+                path="list-of-corporate-users"
+                element={<CorporateUsersUnderCorporateAccount />}
+              />
             </Route>
 
             <Route path="transaction-requests">
@@ -77,10 +81,6 @@ export const Routing = () => {
 
             <Route path="audit" element={<Audit />} />
             <Route path="reports" element={<Report />} />
-            <Route
-              path="/list-of-corporate-users"
-              element={<CorporateUsersUnderCorporateAccount />}
-            />
             <Route path="requests">
               <Route index element={<RequestTicketing />} />
               <Route path="add-request" element={<AddRequest />} />

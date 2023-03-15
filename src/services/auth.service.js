@@ -62,9 +62,9 @@ class AuthService {
   }
   async changePassword(payload) {
     try {
-      const { data } = await http.post('/api/users/change-password', payload);
-      notification(data.message ?? 'Password changed successfully');
-      return data;
+      const { message } = await http.post('/api/users/change-password', payload);
+      notification(message ?? 'Password changed successfully');
+      return message;
     } catch (error) {
       notification(
         error.response?.data?.message ?? 'Unable to change password, please try again',

@@ -77,7 +77,7 @@ export const CorporateTable = ({ data }) => {
                         handleViewUser(
                           <CorporateDetails
                             data={datum}
-                            navigate={() => navigate('/list-of-corporate-users')}
+                            navigate={() => navigate('/corporate-account/list-of-corporate-users')}
                           />
                         );
                       }}

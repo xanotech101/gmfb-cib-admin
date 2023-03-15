@@ -1,27 +1,20 @@
 import React from 'react';
 import { BuildingOfficeIcon, CheckCircleIcon } from '@heroicons/react/24/outline';
 import { useStore } from 'hooks';
+import { accountService } from 'services';
+import { useQuery } from '@tanstack/react-query';
+import { Avatar } from 'components/Avatar/Avatar';
+useQuery;
 
-export default function Header({ children, title }) {
+export default function Header({ children }) {
   const { user } = useStore();
-  let greetingMsg 
-  const greeting = () => {
-    const date = new Date();
-    const hour = +date.getHours();
+  const name = `${user?.firstName} ${user?.lastName}`;
 
-   
-   greetingMsg = 'Good Evening';
-
-    if (hour < 12) {
-      greetingMsg = 'Good Morning';
-    }
-
-    if (hour >= 12 && hour < 17) {
-      greetingMsg = 'Good Afternoon';
-    }
-
-    return greetingMsg;
-  };
+  const { data } = useQuery({
+    queryFn: () => accountService.getAccountInfo(user.organizationId.accountNumber),
+    queryKey: ['getAccountInfo', 'account-info'],
+    enabled: !!user?.organizationId?.accountNumber
+  });
 
   return (
     <div className="bg-white shadow">
@@ -30,23 +23,10 @@ export default function Header({ children, title }) {
           <div className="min-w-0 flex-1">
             <div className="flex items-center">
               <div>
-                <img
-                  className="hidden h-16 w-16 rounded-full sm:block object-cover"
-                  src="https://images.unsplash.com/photo-1587064712555-6e206484699b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGJsYWNrJTIwbWFufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60"
-                  alt=""
-                />
-              </div>
-              <div>
                 <div className="flex items-center">
-                  <div>
-                    <img
-                      className="h-16 w-16 rounded-full sm:hidden"
-                      src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-                      alt=""
-                    />
-                  </div>
+                  <Avatar name={name} size={64} textSize="20" />
                   <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:leading-9">
-                    {greeting()}, {user?.firstName}
+                    hello, {user?.firstName}
                   </h1>
                 </div>
                 <dl className="mt-6 flex flex-col sm:ml-3 sm:mt-1 sm:flex-row sm:flex-wrap">
@@ -56,7 +36,7 @@ export default function Header({ children, title }) {
                       className="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400"
                       aria-hidden="true"
                     />
-                    {title}
+                    {data?.Message?.Branch}
                   </dd>
                   <dt className="sr-only">Account status</dt>
                   <dd className="mt-3 flex items-center text-sm font-medium capitalize text-gray-500 sm:mr-6 sm:mt-0">
