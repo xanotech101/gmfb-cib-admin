@@ -29,6 +29,7 @@ import AddRequest from 'pages/Requests/AddRequest/AddRequest';
 import { BulkUpload } from 'pages/Settings/User/BulkUpload/BulkUpload';
 import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
 import { PrivateOutlet } from './PrivateOutLet';
+import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
 
 export const Routing = () => {
   return (
@@ -76,7 +77,10 @@ export const Routing = () => {
 
             <Route path="audit" element={<Audit />} />
             <Route path="reports" element={<Report />} />
-
+            <Route
+              path="/list-of-corporate-users"
+              element={<CorporateUsersUnderCorporateAccount />}
+            />
             <Route path="requests">
               <Route index element={<RequestTicketing />} />
               <Route path="add-request" element={<AddRequest />} />

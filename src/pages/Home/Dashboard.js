@@ -14,7 +14,7 @@ export const Dashboard = () => {
   const stats3 = [
     {
       id: 3,
-      name: 'All Corporate Users',
+      name: 'Number of corporate accounts',
       stat: '3',
       icon: UserCircleIcon,
       change: '122',
@@ -44,7 +44,7 @@ export const Dashboard = () => {
           {/* <div className="col-span-12">
             <Requests />
           </div> */}
-          <div className="col-span-4">
+          <div className="lg:col-span-4 col-span-12">
             <Cards stats={stats3} />
           </div>
           <div className="col-span-12">

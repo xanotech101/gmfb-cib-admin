@@ -1,7 +1,7 @@
 import { Avatar } from 'components/Avatar/Avatar';
 import React from 'react';
-
-const CorporateDetails = ({ data }) => {
+import { Button } from 'components/Button/Button';
+const CorporateDetails = ({ data, navigate }) => {
   return (
     <div className="space-y-6">
       <h1 className="font-medium text-xl">Corporate user details</h1>
@@ -25,6 +25,11 @@ const CorporateDetails = ({ data }) => {
         </p>
       </div>
       <hr />
+      <div>
+        <Button onClick={navigate} isFullWidth>
+          View all corporate users
+        </Button>
+      </div>
     </div>
   );
 };

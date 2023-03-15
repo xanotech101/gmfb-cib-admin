@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { SplitButton } from 'components/Button/SplitButton';
 import { useModal } from 'hooks';
 import CorporateDetails from './CorporateDetails/CorporateDetails';
 export const CorporateTable = ({ data }) => {
   const [viewUser, setViewUser] = useState('');
   const { Modal, showModal } = useModal();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   // const actionItems = () => [
   //   {
   //     name: 'Mandate',
@@ -74,7 +74,12 @@ export const CorporateTable = ({ data }) => {
                       buttonText="View"
                       // items={actionItems}
                       mainButtonAction={() => {
-                        handleViewUser(<CorporateDetails data={datum} />);
+                        handleViewUser(
+                          <CorporateDetails
+                            data={datum}
+                            navigate={() => navigate('/list-of-corporate-users')}
+                          />
+                        );
                       }}
                     />
                   </td>
@@ -83,7 +88,7 @@ export const CorporateTable = ({ data }) => {
             </tbody>
           </table>
         </div>
-        {Modal({ children: viewUser, size: 'md' })}
+        {Modal({ children: viewUser, size: 'lg' })}
       </div>
     </div>
   );
