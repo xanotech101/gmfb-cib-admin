@@ -1,4 +1,4 @@
-import { ModalButton } from 'components/Button/Button';
+import { Button } from 'components/Button/Button';
 import React from 'react';
 
 const LogoutPrompt = ({ navigate, closeModal }) => {
@@ -6,12 +6,12 @@ const LogoutPrompt = ({ navigate, closeModal }) => {
     <div className="flex justify-center items-center flex-col space-y-6 ">
       <p>Are you sure you want to logout?</p>
       <div className="flex gap-3 items-center">
-        <ModalButton bg="bg-red-500 text-white-500" onClick={closeModal}>
+        <Button variant="outline" onClick={closeModal}>
           Cancel
-        </ModalButton>
-        <ModalButton bg=" text-white-500" onClick={navigate}>
+        </Button>
+        <Button variant="danger" onClick={navigate}>
           Logout
-        </ModalButton>
+        </Button>
       </div>
     </div>
   );

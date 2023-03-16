@@ -15,6 +15,9 @@ import { Link } from 'react-router-dom';
 export const Settings = () => {
   const navigate = useNavigate();
   const { Modal, showModal } = useModal();
+  const handleLogout = () => {
+    showModal();
+  };
   const SettingsData = [
     // {
     //   title: 'update profile',
@@ -35,9 +38,7 @@ export const Settings = () => {
       brief: 'Kindly logout here.'
     }
   ];
-  const handleLogout = () => {
-    showModal();
-  };
+
   return (
     <>
       <SubHeading>General Settings</SubHeading>
