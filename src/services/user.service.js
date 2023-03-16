@@ -10,7 +10,7 @@ class UserService {
       throw new Error(error);
     }
   }
-  async getBranchUsers(params = {}) {
+  async getBranchUsers(params) {
     try {
       const response = await http.get('/api/users/allbranchusers', {
         params
