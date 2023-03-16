@@ -3,11 +3,10 @@
 import { Dialog, Transition, Menu } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { Logo } from 'components/Logo/Logo';
-import {
-  Bars3BottomLeftIcon,
-  XMarkIcon,
-  BellIcon,
-} from '@heroicons/react/24/outline';
+import { useNavigate } from 'react-router-dom';
+import { useModal } from 'hooks';
+import LogoutPrompt from 'pages/Auth/LogoutPrompt/LogoutPrompt';
+import { Bars3BottomLeftIcon, XMarkIcon, BellIcon } from '@heroicons/react/24/outline';
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { useQuery } from '@tanstack/react-query';
 import { userService } from 'services';
@@ -15,7 +14,7 @@ import { useNotifications, useStore } from 'hooks';
 import { Notification } from 'components/Notification/Notification';
 import { Link } from 'react-router-dom';
 
-export const Sidebar = ({mobile,desktop}) => {
+export const Sidebar = ({ mobile, desktop }) => {
   const token = localStorage.getItem('token');
   useQuery({
     queryKey: ['userProfile'],
@@ -39,6 +38,11 @@ export const Sidebar = ({mobile,desktop}) => {
     { name: 'Settings', href: 'settings' },
     { name: 'Sign out', href: '/' }
   ];
+  const navigate = useNavigate();
+  const { Modal, showModal } = useModal();
+  const handleLogout = () => {
+    showModal();
+  };
   return (
     <div className="z-50">
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -85,9 +89,7 @@ export const Sidebar = ({mobile,desktop}) => {
                 <div className="flex flex-shrink-0 items-center px-4">
                   <Logo className="filt" />
                 </div>
-                <div className="mt-5 h-0 flex-1 pr-2">
-                  {mobile}
-                </div>
+                <div className="mt-5 h-0 flex-1 pr-2">{mobile}</div>
               </Dialog.Panel>
             </Transition.Child>
             <div className="w-14 flex-shrink-0" aria-hidden="true">
@@ -161,16 +163,27 @@ export const Sidebar = ({mobile,desktop}) => {
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                     {userNavigation.map((item) => (
                       <Menu.Item key={item.name}>
-                        {({ active }) => (
-                          <Link
-                            to={item.href}
-                            className={classNames(
-                              active ? 'bg-gray-100' : '',
-                              'block px-4 py-2 text-sm text-gray-700'
-                            )}>
-                            {item.name}
-                          </Link>
-                        )}
+                        {({ active }) =>
+                          item.href === '/' ? (
+                            <p
+                              className={classNames(
+                                active ? 'bg-gray-100' : '',
+                                'block px-4 py-2 text-sm text-gray-700 cursor-pointer'
+                              )}
+                              onClick={handleLogout}>
+                              {item.name}
+                            </p>
+                          ) : (
+                            <Link
+                              to={item.href}
+                              className={classNames(
+                                active ? 'bg-gray-100' : '',
+                                'block px-4 py-2 text-sm text-gray-700'
+                              )}>
+                              {item.name}
+                            </Link>
+                          )
+                        }
                       </Menu.Item>
                     ))}
                   </Menu.Items>
@@ -187,12 +200,14 @@ export const Sidebar = ({mobile,desktop}) => {
           <div className="flex flex-shrink-0 items-center px-4">
             <Logo className="filt" />
           </div>
-          <div className="mt-5 flex flex-1 flex-col">
-             {desktop}
-          </div>
+          <div className="mt-5 flex flex-1 flex-col">{desktop}</div>
         </div>
         <Notification open={open} setOpen={setOpen} />
       </div>
+      {Modal({
+        children: <LogoutPrompt navigate={() => navigate('/')} closeModal={showModal} />,
+        size: 'sm'
+      })}
     </div>
   );
 };

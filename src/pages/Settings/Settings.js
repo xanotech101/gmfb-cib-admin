@@ -1,5 +1,8 @@
 import React from 'react';
 import { SubHeading } from 'components/Common/Header/SubHeading';
+import { useNavigate } from 'react-router-dom';
+import { useModal } from 'hooks';
+import LogoutPrompt from 'pages/Auth/LogoutPrompt/LogoutPrompt';
 import {
   ArrowRightIcon,
   // UserCircleIcon,
@@ -10,6 +13,8 @@ import {
 import { List } from 'components/List/List';
 import { Link } from 'react-router-dom';
 export const Settings = () => {
+  const navigate = useNavigate();
+  const { Modal, showModal } = useModal();
   const SettingsData = [
     // {
     //   title: 'update profile',
@@ -30,6 +35,9 @@ export const Settings = () => {
       brief: 'Kindly logout here.'
     }
   ];
+  const handleLogout = () => {
+    showModal();
+  };
   return (
     <>
       <SubHeading>General Settings</SubHeading>
@@ -40,9 +48,15 @@ export const Settings = () => {
             <List.Item
               icon={setting.icon}
               title={
-                <Link to={setting.to} className="capitalize">
-                  {setting.title}
-                </Link>
+                setting.to === '/' ? (
+                  <p className="cursor-pointer" onClick={handleLogout}>
+                    {setting.title}
+                  </p>
+                ) : (
+                  <Link to={setting.to} className="capitalize">
+                    {setting.title}
+                  </Link>
+                )
               }
               variant="text-black">
               {setting.brief}
@@ -51,6 +65,10 @@ export const Settings = () => {
           </List.Container>
         ))}
       </List>
+      {Modal({
+        children: <LogoutPrompt navigate={() => navigate('/')} closeModal={showModal} />,
+        size: 'sm'
+      })}
     </>
   );
 };

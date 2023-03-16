@@ -13,11 +13,18 @@ import {
   // HandThumbUpIcon
 } from '@heroicons/react/24/outline';
 import { NavLinks } from './NavLink';
+import { useModal } from 'hooks';
 // // import { DropDown } from 'components/DropDown/DropDown';
 // import { DropDownItems } from 'components/DropDown/DropDownItems';
 // import { Link } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
+import LogoutPrompt from 'pages/Auth/LogoutPrompt/LogoutPrompt';
 export const NavItem = () => {
+  const navigate = useNavigate();
+  const { Modal, showModal } = useModal();
+  const handleLogout = () => {
+    showModal();
+  };
   return (
     <div className="h-[90%] overflow-y-auto side-bar">
       <nav className="flex-1 space-y-1 px-2 pb-4">
@@ -81,14 +88,20 @@ export const NavItem = () => {
           current={false}
           isActive
         />
-        <NavLinks
-          to="/"
-          icon={<ArrowLeftOnRectangleIcon />}
-          name="Logout"
-          current={false}
-          isActive
-        />
+        <p
+          className="group flex items-center px-2 py-5 text-sm font-medium rounded-md text-white mt-5 relative cursor-pointer"
+          onClick={() => handleLogout()}>
+          <ArrowLeftOnRectangleIcon
+            className="mr-3 h-6 w-6 flex-shrink-0 text-white"
+            aria-hidden="true"
+          />
+          Logout
+        </p>
       </nav>
+      {Modal({
+        children: <LogoutPrompt navigate={() => navigate('/')} closeModal={showModal} />,
+        size: 'sm'
+      })}
     </div>
   );
 };
