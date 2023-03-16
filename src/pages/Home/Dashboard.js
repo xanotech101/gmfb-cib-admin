@@ -15,7 +15,7 @@ export const Dashboard = () => {
     {
       id: 3,
       name: 'Number of corporate accounts',
-      stat: '3',
+      stat: '3 Corporate accounts',
       icon: UserCircleIcon,
       change: '122',
       changeType: 'increase'

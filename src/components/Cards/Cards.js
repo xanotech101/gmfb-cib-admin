@@ -16,7 +16,7 @@ export const Cards = ({ stats }) => {
                 <p className="ml-16 truncate text-sm font-medium text-gray-500">{item.name}</p>
               </dt>
               <dd className="ml-16 flex items-baseline pb-6 sm:pb-7">
-                <Heading>{item.stat} Users</Heading>
+                <Heading>{item.stat}</Heading>
               </dd>
             </div>
           ))}
