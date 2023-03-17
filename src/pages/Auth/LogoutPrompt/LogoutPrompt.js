@@ -1,7 +1,9 @@
 import { Button } from 'components/Button/Button';
+import { useLogout } from 'hooks';
 import React from 'react';
 
-const LogoutPrompt = ({ navigate, closeModal }) => {
+const LogoutPrompt = ({ closeModal }) => {
+  const { handleLogout } = useLogout();
   return (
     <div className="flex justify-center items-center flex-col space-y-6 ">
       <p>Are you sure you want to logout?</p>
@@ -9,7 +11,12 @@ const LogoutPrompt = ({ navigate, closeModal }) => {
         <Button variant="outline" onClick={closeModal}>
           Cancel
         </Button>
-        <Button variant="danger" onClick={navigate}>
+        <Button
+          variant="danger"
+          onClick={() => {
+            handleLogout();
+            closeModal();
+          }}>
           Logout
         </Button>
       </div>

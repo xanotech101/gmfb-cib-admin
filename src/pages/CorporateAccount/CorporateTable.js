@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { SplitButton } from 'components/Button/SplitButton';
 import { useModal } from 'hooks';
 import CorporateDetails from './CorporateDetails/CorporateDetails';
+
 export const CorporateTable = ({ data }) => {
   const [viewUser, setViewUser] = useState('');
   const { Modal, showModal } = useModal();
@@ -77,7 +78,11 @@ export const CorporateTable = ({ data }) => {
                         handleViewUser(
                           <CorporateDetails
                             data={datum}
-                            navigate={() => navigate('/corporate-account/list-of-corporate-users')}
+                            navigate={() =>
+                              navigate(`/corporate-account/${datum._id}/users`, {
+                                state: { data: datum }
+                              })
+                            }
                           />
                         );
                       }}

@@ -1,6 +1,7 @@
 import { Avatar } from 'components/Avatar/Avatar';
 import React from 'react';
 import { Button } from 'components/Button/Button';
+
 const CorporateDetails = ({ data, navigate }) => {
   return (
     <div className="space-y-6">
