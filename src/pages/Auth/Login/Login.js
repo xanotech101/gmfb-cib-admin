@@ -20,7 +20,7 @@ export const Login = () => {
 
   return (
     <>
-      <Auth title="Login to your account">
+      <Auth title="Login to your admin account">
         <LoginForm
           successCb={(payload) => {
             setEmail(payload.email);
