@@ -24,9 +24,9 @@ export const CorporateTable = ({ data }) => {
     showModal();
   };
   return (
-    <div className="overflow-x-auto">
+    <div className="">
       <div className="p-1.5 w-full inline-block align-middle">
-        <div className="border rounded-lg overflow-hidden">
+        <div className="border rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
