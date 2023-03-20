@@ -135,7 +135,7 @@ export const Sidebar = ({ mobile, desktop }) => {
                   className="h-6 w-6"
                   aria-hidden="true"
                   onClick={() => {
-                    setOpen(true);
+                    // setOpen(true);
                   }}
                 />
               </button>
