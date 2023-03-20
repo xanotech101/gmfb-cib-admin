@@ -8,22 +8,17 @@ export const CorporateTable = ({ data }) => {
   const [viewUser, setViewUser] = useState('');
   const { Modal, showModal } = useModal();
   const navigate = useNavigate();
-  // const actionItems = () => [
-  //   {
-  //     name: 'Mandate',
-  //     action: () => {
-  //       navigate('/corporate/edit-user');
-  //     }
-  //   },
-  //   {
-  //     name: 'Analytics',
-  //     action: () => {}
-  //   },
-  //   {
-  //     name: 'Users',
-  //     action: () => {}
-  //   }
-  // ];
+
+  const actionItems = (account) => [
+    {
+      name: 'Transfer Request',
+      action: () =>
+        navigate(`/corporate-account/${account._id}/transfer-requests`, {
+          state: { data: account }
+        })
+    }
+  ];
+
   const handleViewUser = (e) => {
     setViewUser(e);
     showModal();
@@ -73,7 +68,7 @@ export const CorporateTable = ({ data }) => {
                   <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                     <SplitButton
                       buttonText="View"
-                      // items={actionItems}
+                      items={actionItems(datum)}
                       mainButtonAction={() => {
                         handleViewUser(
                           <CorporateDetails

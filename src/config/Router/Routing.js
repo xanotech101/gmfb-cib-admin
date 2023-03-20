@@ -1,14 +1,10 @@
 /* eslint-disable react/no-children-prop */
 import { Route, Routes, Outlet } from 'react-router-dom';
 import { Dashboard } from 'pages/Home/Dashboard';
-import { TransactionRequest } from 'pages/TransactionRequest/TransactionRequest';
-import { TransactionDetails } from 'pages/TransactionRequest/TransactionDetails/TransactionDetails';
 import { Corporate } from 'pages/CorporateAccount/CorporateAccount';
 import { Report } from 'pages/Reporting/Reports/Reports';
 import { Settings } from 'pages/Settings/Settings';
-import { InitiateRequest } from 'pages/TransactionRequest/Initiate/InitiateRequest';
 import { AuthLayout } from '../../components/Layout/AuthLayout';
-import { BatchUpload } from 'pages/TransactionRequest/BatchUpload/BatchUpload';
 import { MandateRule } from 'pages/MandateRule/MandateRule';
 import { CreateMandateRule } from 'pages/MandateRule/CreateMandateRule/CreateMandateRule';
 import { UpdateMandateRule } from 'pages/MandateRule/UpdateMandateRule/UpdateMandateRule';
@@ -22,14 +18,14 @@ import { Security } from 'pages/Settings/Security/Security';
 import { CorporateUsers } from 'pages/Settings/User/CorporateUsers';
 import { UserSettings } from 'pages/Settings/User/UserSettings';
 import { SettingsWrapper } from 'pages/Settings/SettingsWrapper';
-import { TransactionHistory } from 'pages/TransactionHistory/TransactionHistory';
-import { Navigate } from 'react-router-dom';
 import RequestTicketing from 'pages/Requests/Request/RequestTicketing';
 import AddRequest from 'pages/Requests/AddRequest/AddRequest';
 import { BulkUpload } from 'pages/Settings/User/BulkUpload/BulkUpload';
 import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
 import { PrivateOutlet } from './PrivateOutLet';
 import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
+import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/TransferRequest';
+import { TransferRequestDetails } from 'pages/CorporateAccount/TransferRequest/TransferRequestDetails/TransferRequestDetails';
 
 export const Routing = () => {
   return (
@@ -64,16 +60,8 @@ export const Routing = () => {
               <Route index element={<Corporate />} />
               <Route path="onboard" element={<OnboardCorporateAccount />} />
               <Route path=":id/users" element={<CorporateUsersUnderCorporateAccount />} />
-            </Route>
-
-            <Route path="transaction-requests">
-              <Route index element={<Navigate to="initiated" />} />
-              <Route path="assigned" element={<TransactionRequest />} />
-              <Route path="initiated" element={<TransactionRequest />} />
-              <Route path="all" element={<TransactionRequest />} />
-              <Route path="batchupload" element={<BatchUpload />} />
-              <Route path="initiate" element={<InitiateRequest />} />
-              <Route path=":id" element={<TransactionDetails />} />
+              <Route path=":id/transfer-requests" element={<TransferRequest />} />
+              <Route path=":id/transfer-requests/:id" element={<TransferRequestDetails />} />
             </Route>
 
             <Route path="audit" element={<Audit />} />
@@ -86,10 +74,6 @@ export const Routing = () => {
             <Route path="profile">
               <Route index element={<Profile />} />
               <Route path="edit-profile" element={<EditProfile />} />
-            </Route>
-
-            <Route path="transaction-history">
-              <Route index element={<TransactionHistory />} />
             </Route>
 
             <Route path="mandate-rule">
