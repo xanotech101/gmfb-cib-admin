@@ -24,6 +24,8 @@ import { BulkUpload } from 'pages/Settings/User/BulkUpload/BulkUpload';
 import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
 import { PrivateOutlet } from './PrivateOutLet';
 import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
+import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/TransferRequest';
+import { TransferRequestDetails } from 'pages/CorporateAccount/TransferRequest/TransferRequestDetails/TransferRequestDetails';
 
 export const Routing = () => {
   return (
@@ -58,6 +60,8 @@ export const Routing = () => {
               <Route index element={<Corporate />} />
               <Route path="onboard" element={<OnboardCorporateAccount />} />
               <Route path=":id/users" element={<CorporateUsersUnderCorporateAccount />} />
+              <Route path=":id/transfer-requests" element={<TransferRequest />} />
+              <Route path=":id/transfer-requests/:id" element={<TransferRequestDetails />} />
             </Route>
 
             <Route path="audit" element={<Audit />} />

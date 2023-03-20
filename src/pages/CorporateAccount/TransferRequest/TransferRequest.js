@@ -4,7 +4,7 @@ import { Container } from 'components/Container/Container';
 import { useLocation, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { transactionService } from 'services';
-import { TransactionRequestTable } from './TransactionRequestTable';
+import { TransferRequestTable } from './TransferRequestTable';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 
 const RenderData = ({ data }) => {
@@ -16,11 +16,11 @@ const RenderData = ({ data }) => {
       />
     );
   } else {
-    return <TransactionRequestTable transactions={data?.requests ?? []} />;
+    return <TransferRequestTable transactions={data?.requests ?? []} />;
   }
 };
 
-export const TransactionRequest = () => {
+export const TransferRequest = () => {
   const { id } = useParams();
   const { state } = useLocation();
   const [branchName] = useState(state?.data?.accountName);
@@ -39,10 +39,10 @@ export const TransactionRequest = () => {
         <Container>
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
-              <h1 className="text-xl font-semibold text-gray-900">Transfer Requests</h1>
-              <p className="text-sm text-gray-700">
-                List of transfer requests in <strong>{branchName}.</strong>
-              </p>
+              <h1 className="text-xl font-semibold text-gray-900">
+                Transfer Requests in <strong>{branchName}.</strong>
+              </h1>
+              <p className="text-sm text-gray-700">List of transfer requests within the system</p>
             </div>
           </div>
           <div className="mt-5">

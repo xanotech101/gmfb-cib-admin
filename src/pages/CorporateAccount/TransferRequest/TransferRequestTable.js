@@ -1,5 +1,5 @@
 import { Badge } from 'components/Badge/Badge';
-import { naira } from 'components/CurrencyFormatter/CurrencyFormatter';
+import { naira } from 'utils/currencyFormatter';
 import { Link } from 'react-router-dom';
 
 export const TransferRequestTable = ({ transactions }) => {
@@ -69,7 +69,9 @@ export const TransferRequestTable = ({ transactions }) => {
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       <Link
-                        to={`/transaction-requests/${encodeURIComponent(transaction._id)}`}
+                        to={`/corporate-account/${encodeURIComponent(
+                          transaction._id
+                        )}/transfer-requests/${encodeURIComponent(transaction._id)}`}
                         className="text-primary hover:text-indigo-900 ml-4">
                         View
                       </Link>
