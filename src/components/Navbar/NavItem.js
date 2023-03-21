@@ -6,11 +6,12 @@ import {
   // DocumentMagnifyingGlassIcon,
   ChartPieIcon,
   ArrowLeftOnRectangleIcon,
+  UserGroupIcon,
   // RocketLaunchIcon,
-  UserIcon
-  // BanknotesIcon,
+  UserIcon,
+  BanknotesIcon,
   // ClockIcon,
-  // HandThumbUpIcon
+  HandThumbUpIcon
 } from '@heroicons/react/24/outline';
 import { NavLinks } from './NavLink';
 import { useModal } from 'hooks';
@@ -45,7 +46,14 @@ export const NavItem = () => {
             <Link to="/transaction-requests/assigned" className='w-full h-full'>Assigned Requests</Link>
           </DropDownItems>
         </DropDown> */}
-        <NavLinks to="/reports" icon={<ChartPieIcon />} name="Reports" current={false} />
+        <NavLinks to="/transfers" icon={<BanknotesIcon />} name="Transfers" current={false} />
+        <NavLinks to="/onboard" icon={<UserGroupIcon />} name="Onboarding" current={false} />
+        <NavLinks
+          to="/user-management"
+          icon={<UserIcon />}
+          name="User Management"
+          current={false}
+        />
         {/* <NavLinks
           to="/audit"
           icon={<DocumentMagnifyingGlassIcon />}
@@ -53,41 +61,17 @@ export const NavItem = () => {
           current={false}
           isActive
         /> */}
-        {/* <NavLinks
-          to="/requests"
-          icon={<HandThumbUpIcon />}
-          name="Ticketing Request"
-          current={false}
-        /> */}
-        {/* <NavLinks
-          to="/transaction-history"
-          icon={<ClockIcon />}
-          name="Transaction History"
-          current={false}
-        /> */}
+        <NavLinks to="/requests" icon={<HandThumbUpIcon />} name="Tickets" current={false} />
+        <NavLinks to="/reports" icon={<ChartPieIcon />} name="Analytics" current={false} />
 
         <NavLinks
-          to="/corporate-account"
+          to="/accounts"
           icon={<BriefcaseIcon />}
-          name="Corporate Account"
+          name="Accounts"
           current={false}
           isActive
         />
-        {/* <NavLinks
-          to="mandate-rule"
-          icon={<RocketLaunchIcon />}
-          name="Mandate Rule"
-          current={false}
-          isActive
-        /> */}
-        <NavLinks to="profile" icon={<UserIcon />} name="Profile" current={false} isActive />
-        <NavLinks
-          to="settings"
-          icon={<CogIcon />}
-          name="Account Settings"
-          current={false}
-          isActive
-        />
+        <NavLinks to="settings" icon={<CogIcon />} name="Settings" current={false} isActive />
         <p
           className="group flex items-center px-2 py-5 text-sm font-medium rounded-md text-white mt-5 relative cursor-pointer"
           onClick={() => handleLogout()}>

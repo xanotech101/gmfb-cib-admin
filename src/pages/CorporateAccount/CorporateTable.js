@@ -13,7 +13,7 @@ export const CorporateTable = ({ data }) => {
     {
       name: 'Transfer Request',
       action: () =>
-        navigate(`/corporate-account/${account._id}/transfer-requests`, {
+        navigate(`/accounts/${account._id}/transfer-requests`, {
           state: { data: account }
         })
     }
@@ -74,7 +74,7 @@ export const CorporateTable = ({ data }) => {
                           <CorporateDetails
                             data={datum}
                             navigate={() =>
-                              navigate(`/corporate-account/${datum._id}/users`, {
+                              navigate(`/accounts/${datum._id}/users`, {
                                 state: { data: datum }
                               })
                             }

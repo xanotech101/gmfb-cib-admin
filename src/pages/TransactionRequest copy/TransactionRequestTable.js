@@ -1,4 +1,5 @@
 import { Badge } from 'components/Badge/Badge';
+import { naira } from 'utils/currencyFormatter';
 import { Link } from 'react-router-dom';
 
 export const TransactionRequestTable = ({ transactions }) => {
@@ -12,38 +13,32 @@ export const TransactionRequestTable = ({ transactions }) => {
                 <tr>
                   <th
                     scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Customer Name
                   </th>
                   <th
                     scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Amount
                   </th>
                   <th
                     scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Beneficiary Bank Name
                   </th>
                   <th
                     scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Beneficiary Account Name
                   </th>
                   <th
                     scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Beneficiary Account Number
                   </th>
                   <th
                     scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Status
                   </th>
                   <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
@@ -53,30 +48,29 @@ export const TransactionRequestTable = ({ transactions }) => {
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
                 {transactions.map((transaction) => (
-                  <tr key={transaction?._id}>
+                  <tr key={transaction._id}>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.customerName}
+                      {transaction.firstName} {transaction?.lastName}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.amount}
+                      {naira.format(transaction.amount)}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.beneficiaryBankName}
+                      {transaction.beneficiaryBankName}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.beneficiaryAccountName}
+                      {transaction.beneficiaryAccountName}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.beneficiaryAccountNumber}
+                      {transaction.beneficiaryAccountNumber}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      <Badge status={transaction?.status}>{transaction?.status}</Badge>
+                      <Badge status={transaction.status}>{transaction.status}</Badge>
                     </td>
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       <Link
                         to={`/transaction-requests/${encodeURIComponent(transaction._id)}`}
-                        className="text-primary hover:text-indigo-900 ml-4"
-                      >
+                        className="text-primary hover:text-indigo-900 ml-4">
                         View
                       </Link>
                     </td>

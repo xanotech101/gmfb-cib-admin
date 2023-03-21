@@ -1,7 +1,6 @@
 import { Chart } from 'components/Analytics/Analytics';
 import Header from 'components/Navbar/Header';
-import { Cards } from 'components/Cards/Cards';
-import { UserCircleIcon } from '@heroicons/react/20/solid';
+import { Cards } from './Cards/Cards';
 // import { Requests } from './RecentRequest';
 import React from 'react';
 // import { Link } from 'react-router-dom';
@@ -11,16 +10,6 @@ import React from 'react';
 export const Dashboard = () => {
   // const [open, setOpen] = useState('hidden');
   // let toggle = !open ? 'block' : '';
-  const stats3 = [
-    {
-      id: 3,
-      name: 'Number of corporate accounts',
-      stat: '3 Corporate accounts',
-      icon: UserCircleIcon,
-      change: '122',
-      changeType: 'increase'
-    }
-  ];
   return (
     <div>
       <Header title="Admin Officer">
@@ -40,12 +29,12 @@ export const Dashboard = () => {
         {/* <DateTimePicker toggle={toggle} /> */}
       </Header>
       <div className="px-6 py-8">
-        <div className="grid grid-cols-12 space-y-5">
+        <div className="grid grid-cols-12 space-y-6">
           {/* <div className="col-span-12">
             <Requests />
           </div> */}
-          <div className="lg:col-span-4 col-span-12">
-            <Cards stats={stats3} />
+          <div className="col-span-12 ">
+            <Cards />
           </div>
           <div className="col-span-12">
             <Chart margin="mt-6" />

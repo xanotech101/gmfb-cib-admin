@@ -65,15 +65,18 @@ export const FeedbackForm = ({ callback, title, isSubmitting }) => {
             error={errors.reason && 'Reason is required'}
           />
           <div>
-            <Input label="Enter Otp" onChange={(e) => setOtp(e.target.value)} value={otp} />
+            <Input
+              label="Enter OTP (OTP will be sent to your registered email and phone number)"
+              onChange={(e) => setOtp(e.target.value)}
+              value={otp}
+            />
             {!generateOtp && (
               <div className="flex justify-end">
                 <button
                   type="button"
                   className="text-primary disabled:cursor-not-allowed disabled:opacity-50"
                   disabled={handleOtpRegeneration.isLoading}
-                  onClick={handleOtpRegeneration.mutate}
-                >
+                  onClick={handleOtpRegeneration.mutate}>
                   {handleOtpRegeneration.isLoading ? 'Regenerating OTP ...' : 'Regenerate OTP'}
                 </button>
               </div>
@@ -85,16 +88,14 @@ export const FeedbackForm = ({ callback, title, isSubmitting }) => {
                 type="button"
                 isFullWidth
                 disabled={handleOtpGeneration.isLoading}
-                onClick={handleOtpGeneration.mutate}
-              >
+                onClick={handleOtpGeneration.mutate}>
                 Generate OTP
               </Button>
             ) : (
               <Button
                 type="submit"
                 isFullWidth
-                disabled={isSubmitting || handleOtpRegeneration.isLoading}
-              >
+                disabled={isSubmitting || handleOtpRegeneration.isLoading}>
                 Submit
               </Button>
             )}

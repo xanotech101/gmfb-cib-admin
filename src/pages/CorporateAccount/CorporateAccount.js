@@ -42,7 +42,7 @@ export const Corporate = () => {
             <p>List of all corporate accounts.</p>
           </div>
           <div>
-            <Link to="/corporate-account/onboard">
+            <Link to="/accounts/onboard">
               <Button>
                 Create corporate account
                 <UserPlusIcon width="20px" className="ml-1" />

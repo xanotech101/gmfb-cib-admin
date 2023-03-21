@@ -33,9 +33,9 @@ export const InitiateRequestForm = () => {
     enabled: !!enableResolveBankAccountQuery,
     onSuccess: (data) => {
       setValue('beneficiaryAccountName', data.Name);
-      setValue('beneficiaryKYC', data.KYC ?? 'Yes');
-      setValue('beneficiaryBVN', data.BVN ?? 'randomBvnhere');
-      setValue('NIPSessionID', data.SessionID || 'randomSessionIdHere');
+      setValue('beneficiaryKYC', data.KYC);
+      setValue('beneficiaryBVN', data.BVN);
+      setValue('NIPSessionID', data.SessionID);
     },
     onError: () => {
       setValue('beneficiaryAccountName', '');
@@ -64,11 +64,23 @@ export const InitiateRequestForm = () => {
       {/* customer information */}
       <div className="space-y-6">
         <h3 className="text-lg font-medium leading-6 text-gray-900">Account Information</h3>
-        <Input
+        {/* <Input
           label="Customers name"
           id="customer_name"
           {...register('customerName', { required: true })}
           error={errors.customerName && 'Customer name is required'}
+        /> */}
+        <Input
+          label="First name"
+          id="First_name"
+          {...register('firstName', { required: true })}
+          error={errors.firstName && 'first name is required'}
+        />
+        <Input
+          label="Last name"
+          id="last_name"
+          {...register('lastName', { required: true })}
+          error={errors.lastName && 'last name is required'}
         />
         <Input
           label="Amount"
@@ -87,8 +99,8 @@ export const InitiateRequestForm = () => {
           control={control}
           options={[
             {
-              value: 'gcmfb',
-              label: 'Gcmfb'
+              value: 'gmfb',
+              label: 'GMFB'
             },
             {
               value: 'other bank',
@@ -140,25 +152,25 @@ export const InitiateRequestForm = () => {
           <Input
             label="Beneficiary Account Name"
             id="account_name"
-            {...register('beneficiaryAccountName', { required: true, min: 10 })}
+            {...register('beneficiaryAccountName', { required: true })}
             error={errors.beneficiaryBank && 'Account name is required'}
           />
           <Input
             label="Beneficiary KYC"
             id="kyc"
-            {...register('beneficiaryKYC', { required: true, min: 10 })}
+            {...register('beneficiaryKYC', { required: false, min: 10 })}
             error={errors.beneficiaryKYC && 'KYC is required'}
           />
           <Input
             label="Beneficiary BVN"
             id="bvn"
-            {...register('beneficiaryBVN', { required: true, min: 10 })}
+            {...register('beneficiaryBVN', { required: false, min: 10 })}
             error={errors.beneficiaryBVN && 'BVN is required'}
           />
           <Input
             label="NIPSessionID"
             id="sessionID"
-            {...register('NIPSessionID', { required: true, min: 10 })}
+            {...register('NIPSessionID', { required: false })}
             error={errors.NIPSessionID && 'Session ID is required'}
           />
         </div>
