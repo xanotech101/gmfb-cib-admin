@@ -11,6 +11,8 @@
 # production
 /build
 /actions-runner
+/public
+/src
 
 # misc
 .DS_Store
