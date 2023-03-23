@@ -26,5 +26,5 @@ jobs:
     - run: npm ci
     - run: rm -rf node_modules/
     - run: npm run build
-    - run: pm2 restart 0
+    - run: pm2 restart 2
     - run: sudo systemctl restart nginx.service
