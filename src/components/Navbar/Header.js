@@ -2,11 +2,19 @@ import React from 'react';
 import { BuildingOfficeIcon } from '@heroicons/react/24/outline';
 import { useStore } from 'hooks';
 import { Avatar } from 'components/Avatar/Avatar';
-
+import { useQuery } from '@tanstack/react-query';
+import { accountService } from 'services';
 export default function Header({ children }) {
   const { user } = useStore();
   const name = `${user?.firstName} ${user?.lastName}`;
 
+  const { data } = useQuery({
+    queryFn: () => accountService.getAccountInfo(),
+    queryKey: ['account-info'],
+    enabled: !!user
+  });
+
+  console.log(data);
   return (
     <div className="bg-white shadow">
       <div className="px-4 sm:px-6 -mt-2">

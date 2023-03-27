@@ -59,7 +59,20 @@ const OnboardingForm = () => {
       navigate('/corporate-account');
     }
   });
-
+  const mutipleAccounts = [
+    {
+      name: 'Name',
+      Account: 'Account number'
+    },
+    {
+      name: 'Name',
+      Account: 'Account number'
+    },
+    {
+      name: 'Name',
+      Account: 'Account number'
+    }
+  ];
   const onSubmit = (data) => {
     const payload = {
       accountDetails: {
@@ -88,7 +101,7 @@ const OnboardingForm = () => {
         })}>
         <p className="font-bold text-lg">Account Info</p>
         <Input
-          label="Account Number"
+          label="Customer_ID"
           id="account_number"
           onChange={(e) => {
             if (e.target.value.length === 0) {
@@ -101,11 +114,17 @@ const OnboardingForm = () => {
         {accountInfo && (
           <>
             <Input
-              label="Account Name"
+              label="Name"
               id="account_name"
               readOnly
               disabled
               defaultValue={accountInfo.name}
+            />
+            <Input
+              label="Email Address"
+              id="account_email"
+              {...register('account_email', { required: true })}
+              defaultValue={accountInfo.email}
             />
             <Input
               label="Account Branch"
@@ -114,12 +133,16 @@ const OnboardingForm = () => {
               disabled
               defaultValue={accountInfo.branch}
             />
-            <Input
-              label="Account Email"
-              id="account_email"
-              {...register('account_email', { required: true })}
-              defaultValue={accountInfo.email}
-            />
+            <hr />
+            <p className="font-bold text-lg">Accounts</p>
+
+            {mutipleAccounts.map((item, index) => (
+              <div key={index} className="space-y-6">
+                <Input label={item.Account} disabled />
+                <Input label={item.name} disabled />
+                <hr />
+              </div>
+            ))}
             <Button isFullWidth onClick={() => setFormState(formStateOptions.adminDetails)}>
               Next
             </Button>
@@ -170,6 +193,7 @@ const OnboardingForm = () => {
           ]}
           error={errors.gender && 'Gender are required'}
         />
+
         <div className="flex items-center justify-between pt-8">
           <Button
             disabled={isLoading}
