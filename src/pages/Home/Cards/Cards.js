@@ -2,12 +2,19 @@ import { BanknotesIcon, BriefcaseIcon, UserCircleIcon } from '@heroicons/react/2
 import { Heading } from 'components/Common/Header/Heading';
 import { Container } from 'components/Container/Container';
 import { useNavigate } from 'react-router-dom';
+import { accountService } from 'services';
+import { useQuery } from '@tanstack/react-query';
 export const Cards = () => {
+  const { data } = useQuery({
+    queryKey: ['accounts'],
+    queryFn: accountService.getAllAccounts
+  });
+  const CorporateUsers = data?.length;
   const navigate = useNavigate();
   const CardDetails = [
     {
       label: 'Number of corporate accounts',
-      value: 0.0,
+      value: `${CorporateUsers ?? 0.0} Corporate users`,
       icon: BriefcaseIcon,
       action: () => {
         navigate('/accounts');
@@ -15,7 +22,7 @@ export const Cards = () => {
     },
     {
       label: 'Number of users',
-      value: 0.0,
+      value: `${0.0} Users`,
       icon: UserCircleIcon,
       action: () => {
         navigate('/user-management');
@@ -23,7 +30,7 @@ export const Cards = () => {
     },
     {
       label: 'Number of transfers',
-      value: 0.0,
+      value: `${0.0} Transfers`,
       icon: BanknotesIcon,
       action: () => {
         navigate('/transfers/transfer-made');

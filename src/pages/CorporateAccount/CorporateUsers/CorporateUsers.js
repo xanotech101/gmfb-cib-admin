@@ -5,9 +5,11 @@ import { EmptyState } from 'components/EmptyState/EmptyState';
 import { useLocation, useParams } from 'react-router-dom';
 import { userService } from 'services';
 import { CorporateUsersTable } from './CorporateUsersTable';
+import Pagination from 'components/Pagination/Pagination';
+import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
-
 export const CorporateUsersUnderCorporateAccount = () => {
+  const [page, setPage] = useState(1);
   const { id } = useParams();
   const { state } = useLocation();
 
@@ -20,7 +22,11 @@ export const CorporateUsersUnderCorporateAccount = () => {
       }),
     enabled: !!id
   });
-
+  console.log(
+    userService.getBranchUsers({
+      withPagination: true
+    })
+  );
   const RenderData = () => {
     if (data?.users?.length === 0) {
       return <EmptyState title="No users found within this branch" />;
@@ -48,6 +54,12 @@ export const CorporateUsersUnderCorporateAccount = () => {
             </div>
           </div>
         </div>
+        <Pagination
+          totalItems={data?.meta?.total ?? 0}
+          handlePageClick={setPage}
+          itemsPerPage={data?.meta?.perPage}
+          currentPage={page}
+        />
       </Container>
     </div>
   );
