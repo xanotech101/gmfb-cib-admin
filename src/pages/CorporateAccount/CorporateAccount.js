@@ -32,7 +32,7 @@ export const Corporate = () => {
     queryKey: ['accounts'],
     queryFn: accountService.getAllAccounts
   });
-
+  console.log(data);
   return (
     <div className="flex flex-col mt-7 p-5">
       <Container>

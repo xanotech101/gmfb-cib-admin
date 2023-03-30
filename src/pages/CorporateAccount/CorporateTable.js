@@ -1,12 +1,6 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SplitButton } from 'components/Button/SplitButton';
-import { useModal } from 'hooks';
-import CorporateDetails from './CorporateDetails/CorporateDetails';
-
 export const CorporateTable = ({ data }) => {
-  const [viewUser, setViewUser] = useState('');
-  const { Modal, showModal } = useModal();
   const navigate = useNavigate();
 
   const actionItems = (account) => [
@@ -16,13 +10,14 @@ export const CorporateTable = ({ data }) => {
         navigate(`/accounts/${account._id}/transfer-requests`, {
           state: { data: account }
         })
+    },
+    {
+      name: 'User Management',
+      action: () => navigate(`/user-management`)
     }
   ];
   console.log(data);
-  const handleViewUser = (e) => {
-    setViewUser(e);
-    showModal();
-  };
+
   return (
     <div className="overflow-x-auto">
       <div className="p-1.5 w-full inline-block align-middle">
@@ -78,7 +73,7 @@ export const CorporateTable = ({ data }) => {
                   <td className="px-6 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
                     {datum.adminID?.firstName} {datum.adminID?.lastName}
                   </td>
-                  <td className="px-6 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
+                  <td className="px-3 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
                     {datum.adminID?._id}
                   </td>
                   <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap ">
@@ -86,16 +81,9 @@ export const CorporateTable = ({ data }) => {
                       buttonText="View"
                       items={actionItems(datum)}
                       mainButtonAction={() => {
-                        handleViewUser(
-                          <CorporateDetails
-                            data={datum}
-                            navigate={() =>
-                              navigate(`/accounts/${datum._id}/users`, {
-                                state: { data: datum }
-                              })
-                            }
-                          />
-                        );
+                        navigate(`/accounts/${datum._id}/corporate-details`, {
+                          state: { data: datum }
+                        });
                       }}
                     />
                   </td>
@@ -104,7 +92,6 @@ export const CorporateTable = ({ data }) => {
             </tbody>
           </table>
         </div>
-        {Modal({ children: viewUser, size: 'lg' })}
       </div>
     </div>
   );

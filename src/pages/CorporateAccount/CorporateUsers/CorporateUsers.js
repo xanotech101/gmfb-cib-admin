@@ -35,15 +35,20 @@ export const CorporateUsersUnderCorporateAccount = () => {
       return <CorporateUsersTable users={data?.users ?? []} />;
     }
   };
-
+  const userId = state?.user.filter((user) => user._id === id);
   return (
     <div className="p-6">
       <Container>
         <SubHeading>
-          List of corporate users created within <strong>{state?.data?.accountName}.</strong>
+          List of corporate users created within{' '}
+          <strong>
+            {userId?.map((user) => (
+              <span key={user?.accountName}>{user?.accountName}</span>
+            ))}
+          </strong>
         </SubHeading>
         <div className="w-[40%] mt-4">
-          <SearchFilter placeholder={'Search for corporate users....'} />
+          <SearchFilter placeholder={'Search for corporate users'} />
         </div>
         <div className="mt-8 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">

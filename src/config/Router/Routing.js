@@ -30,6 +30,7 @@ import { TransactionRequest } from 'pages/TransactionRequest copy/TransactionReq
 import Transfers from 'pages/TransactionRequest copy/Transfers/Transfers';
 import AwaitingVerification from 'pages/TransactionRequest copy/AwaitingVerification/AwaitingVerification';
 import { UserManagement } from 'pages/UserManagement/Usermanagement';
+import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateDetails';
 export const Routing = () => {
   return (
     <>
@@ -73,6 +74,7 @@ export const Routing = () => {
             <Route path="accounts">
               <Route index element={<Corporate />} />
               <Route path="onboard" element={<OnboardCorporateAccount />} />
+              <Route path=":id/corporate-details" element={<CorporateDetails />} />
               <Route path=":id/users" element={<CorporateUsersUnderCorporateAccount />} />
               <Route path=":id/transfer-requests" element={<TransferRequest />} />
               <Route path=":id/transfer-requests/:id" element={<TransferRequestDetails />} />

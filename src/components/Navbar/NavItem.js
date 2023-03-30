@@ -7,8 +7,6 @@ import {
   ChartPieIcon,
   ArrowLeftOnRectangleIcon,
   UserGroupIcon,
-  // RocketLaunchIcon,
-  UserIcon,
   BanknotesIcon,
   // ClockIcon,
   HandThumbUpIcon
@@ -48,12 +46,6 @@ export const NavItem = () => {
         </DropDown> */}
         <NavLinks to="/transfers" icon={<BanknotesIcon />} name="Transfers" current={false} />
         <NavLinks to="/onboard" icon={<UserGroupIcon />} name="Onboarding" current={false} />
-        <NavLinks
-          to="/user-management"
-          icon={<UserIcon />}
-          name="User Management"
-          current={false}
-        />
         {/* <NavLinks
           to="/audit"
           icon={<DocumentMagnifyingGlassIcon />}
