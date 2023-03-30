@@ -26,8 +26,7 @@ export const FileUpload = (props) => {
           <div className="flex text-sm text-gray-600">
             <label
               htmlFor={id}
-              className="relative cursor-pointer rounded-md bg-white font-medium text-primary focus-within:outline-none"
-            >
+              className="relative cursor-pointer rounded-md bg-white font-medium text-primary focus-within:outline-none">
               <span>Upload a file</span>
               <input
                 id={id}
@@ -43,13 +42,12 @@ export const FileUpload = (props) => {
           <div className="pt-2">
             {file ? (
               <>
-                <span className="inline-flex items-center rounded-full bg-gray-50 py-1 px-2 text-xs font-medium text-gray-700 border border-gray-300">
+                <span className="inline-flex items-center">
                   {truncateText(file.name, 20)}
                   <button
                     type="button"
                     onClick={removeFile}
-                    className="ml-0.5 inline-flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full text-gray-500 bg-gray-200 hover:bg-red-100 hover:text-red-700 focus:bg-red-100 focus:text-red-400 focus:outline-none"
-                  >
+                    className="ml-0.5 inline-flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full text-gray-500 bg-gray-200 hover:bg-red-100 hover:text-red-700 focus:bg-red-100 focus:text-red-400 focus:outline-none">
                     <span className="sr-only">Remove small option</span>
                     <svg className="h-2 w-2" stroke="currentColor" fill="none" viewBox="0 0 8 8">
                       <path strokeLinecap="round" strokeWidth="1.5" d="M1 1l6 6m0-6L1 7" />

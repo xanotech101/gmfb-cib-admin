@@ -6,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { transactionService } from 'services';
 import { TransferRequestTable } from './TransferRequestTable';
 import { EmptyState } from 'components/EmptyState/EmptyState';
+import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 
 const RenderData = ({ data }) => {
   if (data?.requests?.length === 0) {
@@ -44,6 +45,9 @@ export const TransferRequest = () => {
               </h1>
               <p className="text-sm text-gray-700">List of transfer requests within the system</p>
             </div>
+          </div>
+          <div className="mt-4 w-[40%]">
+            <SearchFilter placeholder={'Search awaiting transfers...'} />
           </div>
           <div className="mt-5">
             {isFetching ? (

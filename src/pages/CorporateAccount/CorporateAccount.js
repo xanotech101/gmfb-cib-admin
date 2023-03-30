@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import { accountService } from 'services';
 import { Button } from 'components/Button/Button';
 import { EmptyState } from 'components/EmptyState/EmptyState';
-
+import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 const RenderData = ({ data }) => {
   const navigate = useNavigate();
   if (data?.length === 0) {
@@ -49,6 +49,9 @@ export const Corporate = () => {
               </Button>
             </Link>
           </div>
+        </div>
+        <div className="mt-4 w-[40%]">
+          <SearchFilter placeholder={'Search for corporate accounts...'} />
         </div>
         <div className="mt-5">
           {isFetching ? (
