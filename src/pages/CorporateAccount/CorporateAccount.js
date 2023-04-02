@@ -8,7 +8,7 @@ import { useQuery } from '@tanstack/react-query';
 import { accountService } from 'services';
 import { Button } from 'components/Button/Button';
 import { EmptyState } from 'components/EmptyState/EmptyState';
-
+import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 const RenderData = ({ data }) => {
   const navigate = useNavigate();
   if (data?.length === 0) {
@@ -32,7 +32,7 @@ export const Corporate = () => {
     queryKey: ['accounts'],
     queryFn: accountService.getAllAccounts
   });
-
+  console.log(data);
   return (
     <div className="flex flex-col mt-7 p-5">
       <Container>
@@ -42,13 +42,16 @@ export const Corporate = () => {
             <p>List of all corporate accounts.</p>
           </div>
           <div>
-            <Link to="/corporate-account/onboard">
+            <Link to="/accounts/onboard">
               <Button>
                 Create corporate account
                 <UserPlusIcon width="20px" className="ml-1" />
               </Button>
             </Link>
           </div>
+        </div>
+        <div className="mt-4 w-[40%]">
+          <SearchFilter placeholder={'Search for corporate accounts...'} />
         </div>
         <div className="mt-5">
           {isFetching ? (

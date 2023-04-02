@@ -11,6 +11,7 @@ class UserService {
     }
   }
   async getBranchUsers(params) {
+    console.log(params);
     try {
       const response = await http.get('/api/users/allbranchusers', {
         params
@@ -20,6 +21,7 @@ class UserService {
       throw new Error(error);
     }
   }
+
   async createCorporateUser(data) {
     try {
       const response = await http.post('/api/auth/register', data);

@@ -4,7 +4,6 @@ import { Container } from 'components/Container/Container';
 import classnames from 'classnames';
 
 export const VerifierTimeline = ({ verifier, decision }) => {
-  console.log('🚀 ~ file: VerifierTimeline.js:7 ~ VerifierTimeline ~ decision:', decision);
   const icons = {
     approved: <CheckIcon className="h-5 w-5 text-white" aria-hidden="true" />,
     declined: <XMarkIcon className="h-5 w-5 text-white" aria-hidden="true" />,

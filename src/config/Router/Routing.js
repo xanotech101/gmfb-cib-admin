@@ -26,7 +26,11 @@ import { PrivateOutlet } from './PrivateOutLet';
 import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
 import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/TransferRequest';
 import { TransferRequestDetails } from 'pages/CorporateAccount/TransferRequest/TransferRequestDetails/TransferRequestDetails';
-
+import { TransactionRequest } from 'pages/TransactionRequest copy/TransactionRequest';
+import Transfers from 'pages/TransactionRequest copy/Transfers/Transfers';
+import AwaitingVerification from 'pages/TransactionRequest copy/AwaitingVerification/AwaitingVerification';
+import { UserManagement } from 'pages/UserManagement/Usermanagement';
+import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateDetails';
 export const Routing = () => {
   return (
     <>
@@ -37,6 +41,18 @@ export const Routing = () => {
         <Route element={<PrivateOutlet />}>
           <Route element={<AuthLayout children={<Outlet />} />}>
             <Route path="dashboard" element={<Dashboard />} />
+            <Route
+              element={
+                <TransactionRequest>
+                  <Outlet />
+                </TransactionRequest>
+              }>
+              <Route path="transfers">
+                <Route index element={<Transfers />} />
+                <Route path="transfer-made" element={<Transfers />} />
+                <Route path="awaiting" element={<AwaitingVerification />} />
+              </Route>
+            </Route>
             <Route
               element={
                 <SettingsWrapper>
@@ -55,17 +71,18 @@ export const Routing = () => {
                 </Route>
               </Route>
             </Route>
-
-            <Route path="corporate-account">
+            <Route path="accounts">
               <Route index element={<Corporate />} />
               <Route path="onboard" element={<OnboardCorporateAccount />} />
+              <Route path=":id/corporate-details" element={<CorporateDetails />} />
               <Route path=":id/users" element={<CorporateUsersUnderCorporateAccount />} />
               <Route path=":id/transfer-requests" element={<TransferRequest />} />
               <Route path=":id/transfer-requests/:id" element={<TransferRequestDetails />} />
             </Route>
-
+            <Route path="onboard" element={<OnboardCorporateAccount />} />
             <Route path="audit" element={<Audit />} />
             <Route path="reports" element={<Report />} />
+            <Route path="user-management" element={<UserManagement />} />
             <Route path="requests">
               <Route index element={<RequestTicketing />} />
               <Route path="add-request" element={<AddRequest />} />

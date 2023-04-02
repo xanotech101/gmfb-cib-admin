@@ -1,35 +1,35 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SplitButton } from 'components/Button/SplitButton';
-import { useModal } from 'hooks';
-import CorporateDetails from './CorporateDetails/CorporateDetails';
-
 export const CorporateTable = ({ data }) => {
-  const [viewUser, setViewUser] = useState('');
-  const { Modal, showModal } = useModal();
   const navigate = useNavigate();
 
   const actionItems = (account) => [
     {
       name: 'Transfer Request',
       action: () =>
-        navigate(`/corporate-account/${account._id}/transfer-requests`, {
+        navigate(`/accounts/${account._id}/transfer-requests`, {
           state: { data: account }
         })
+    },
+    {
+      name: 'User Management',
+      action: () => navigate(`/user-management`)
     }
   ];
+  console.log(data);
 
-  const handleViewUser = (e) => {
-    setViewUser(e);
-    showModal();
-  };
   return (
-    <div className="">
+    <div className="overflow-x-auto">
       <div className="p-1.5 w-full inline-block align-middle">
         <div className="border rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase ">
+                  S/N
+                </th>
                 <th
                   scope="col"
                   className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase ">
@@ -47,14 +47,22 @@ export const CorporateTable = ({ data }) => {
                 </th>
                 <th
                   scope="col"
+                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase ">
+                  Admin ID
+                </th>
+                <th
+                  scope="col"
                   className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase ">
                   Action
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
-              {data.map((datum) => (
+            <tbody className="divide-y divide-gray-200 ">
+              {data.map((datum, i) => (
                 <tr key={datum._id}>
+                  <td className="px-4 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
+                    {i}
+                  </td>
                   <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
                     {datum.accountName}
                   </td>
@@ -65,21 +73,17 @@ export const CorporateTable = ({ data }) => {
                   <td className="px-6 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
                     {datum.adminID?.firstName} {datum.adminID?.lastName}
                   </td>
-                  <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                  <td className="px-3 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
+                    {datum.adminID?._id}
+                  </td>
+                  <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap ">
                     <SplitButton
                       buttonText="View"
                       items={actionItems(datum)}
                       mainButtonAction={() => {
-                        handleViewUser(
-                          <CorporateDetails
-                            data={datum}
-                            navigate={() =>
-                              navigate(`/corporate-account/${datum._id}/users`, {
-                                state: { data: datum }
-                              })
-                            }
-                          />
-                        );
+                        navigate(`/accounts/${datum._id}/corporate-details`, {
+                          state: { data: datum }
+                        });
                       }}
                     />
                   </td>
@@ -88,7 +92,6 @@ export const CorporateTable = ({ data }) => {
             </tbody>
           </table>
         </div>
-        {Modal({ children: viewUser, size: 'lg' })}
       </div>
     </div>
   );

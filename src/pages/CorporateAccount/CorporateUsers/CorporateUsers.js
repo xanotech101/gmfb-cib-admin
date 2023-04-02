@@ -5,9 +5,12 @@ import { EmptyState } from 'components/EmptyState/EmptyState';
 import { useLocation, useParams } from 'react-router-dom';
 import { userService } from 'services';
 import { CorporateUsersTable } from './CorporateUsersTable';
+import Pagination from 'components/Pagination/Pagination';
+import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
-
+import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 export const CorporateUsersUnderCorporateAccount = () => {
+  const [page, setPage] = useState(1);
   const { id } = useParams();
   const { state } = useLocation();
 
@@ -20,7 +23,11 @@ export const CorporateUsersUnderCorporateAccount = () => {
       }),
     enabled: !!id
   });
-
+  console.log(
+    userService.getBranchUsers({
+      withPagination: true
+    })
+  );
   const RenderData = () => {
     if (data?.users?.length === 0) {
       return <EmptyState title="No users found within this branch" />;
@@ -28,13 +35,21 @@ export const CorporateUsersUnderCorporateAccount = () => {
       return <CorporateUsersTable users={data?.users ?? []} />;
     }
   };
-
+  const userId = state?.user.filter((user) => user._id === id);
   return (
     <div className="p-6">
       <Container>
         <SubHeading>
-          List of corporate users created within <strong>{state?.data?.accountName}.</strong>
+          List of corporate users created within{' '}
+          <strong>
+            {userId?.map((user) => (
+              <span key={user?.accountName}>{user?.accountName}</span>
+            ))}
+          </strong>
         </SubHeading>
+        <div className="w-[40%] mt-4">
+          <SearchFilter placeholder={'Search for corporate users'} />
+        </div>
         <div className="mt-8 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -48,6 +63,12 @@ export const CorporateUsersUnderCorporateAccount = () => {
             </div>
           </div>
         </div>
+        <Pagination
+          totalItems={data?.meta?.total ?? 0}
+          handlePageClick={setPage}
+          itemsPerPage={data?.meta?.perPage}
+          currentPage={page}
+        />
       </Container>
     </div>
   );

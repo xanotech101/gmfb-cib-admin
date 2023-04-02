@@ -25,7 +25,7 @@ export const TransactionDetails = () => {
   });
 
   const canUserAuthorize = useMemo(() => {
-    if (data?.status !== 'pending') {
+    if (!['pending', 'in progress'].includes(data?.status)) {
       return false;
     }
 
@@ -181,7 +181,7 @@ export const TransactionDetails = () => {
     <>
       <div className="lg:grid md:block sm:block block grid-cols-12 gap-5 px-8 mt-8 pb-6">
         <div className="col-span-12 flex justify-between items-center">
-          <div className='mb-4'>
+          <div>
             <SubHeading>Transfer Request Details</SubHeading>
           </div>
           <div className="flex space-x-2">
