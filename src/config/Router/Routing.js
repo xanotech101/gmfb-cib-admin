@@ -26,7 +26,6 @@ import { PrivateOutlet } from './PrivateOutLet';
 import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
 import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/TransferRequest';
 import { TransferRequestDetails } from 'pages/CorporateAccount/TransferRequest/TransferRequestDetails/TransferRequestDetails';
-import { TransactionRequest } from 'pages/TransactionRequest/TransactionRequest';
 import Transfers from 'pages/TransactionRequest/Transfers/Transfers';
 import AwaitingVerification from 'pages/TransactionRequest/AwaitingVerification/AwaitingVerification';
 import { UserManagement } from 'pages/UserManagement/Usermanagement';
@@ -41,18 +40,14 @@ export const Routing = () => {
         <Route element={<PrivateOutlet />}>
           <Route element={<AuthLayout children={<Outlet />} />}>
             <Route path="dashboard" element={<Dashboard />} />
-            <Route
-              element={
-                <TransactionRequest>
-                  <Outlet />
-                </TransactionRequest>
-              }>
-              <Route path="transfers">
-                <Route index element={<Transfers />} />
-                <Route path="transfer-made" element={<Transfers />} />
-                <Route path="awaiting" element={<AwaitingVerification />} />
-              </Route>
+
+            <Route path="transfers">
+              <Route index element={<Transfers />} />
+              <Route path=":id" element={<TransferRequestDetails />} />
+              <Route path="transfer-made" element={<Transfers />} />
+              <Route path="awaiting" element={<AwaitingVerification />} />
             </Route>
+
             <Route
               element={
                 <SettingsWrapper>
