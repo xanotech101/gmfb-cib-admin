@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { SplitButton } from 'components/Button/SplitButton';
+import { Badge } from 'components/Badge/Badge';
 export const CorporateTable = ({ data }) => {
   const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ export const CorporateTable = ({ data }) => {
   console.log(data);
 
   return (
-    <div className="">
+    <div className="overflow-x-auto">
       <div className="p-1.5 w-full inline-block align-middle">
         <div className="border rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
@@ -60,14 +61,20 @@ export const CorporateTable = ({ data }) => {
             <tbody className="divide-y divide-gray-200 ">
               {data.map((datum, i) => (
                 <tr key={datum._id}>
-                  <td className="px-4 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
-                    {i}
+                  <td className="px-5 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
+                    {i + 1}
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
                     {datum.accountName}
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
-                    {datum.accountNumber}
+                    {datum.accountNumber.map((dat) => (
+                      <div key={dat}>
+                        <div className="mb-4">
+                          <Badge>{dat}</Badge>
+                        </div>
+                      </div>
+                    ))}
                   </td>
 
                   <td className="px-6 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">

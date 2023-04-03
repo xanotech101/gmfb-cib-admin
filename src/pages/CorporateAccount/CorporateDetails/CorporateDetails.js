@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { Container } from 'components/Container/Container';
 import { useNavigate } from 'react-router-dom';
 import { Heading } from 'components/Common/Header/Heading';
+import { Badge } from 'components/Badge/Badge';
 const CorporateDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
@@ -32,7 +33,16 @@ const CorporateDetails = () => {
               <hr />
               <div className="flex items-center justify-between">
                 <p className="font-medium">Account Number</p>
-                <p> {user?.accountNumber}</p>
+                <div>
+                  {' '}
+                  {user?.accountNumber.map((dat) => (
+                    <div key={dat} className="flex-col flex">
+                      <div className="mb-4">
+                        <Badge>{dat}</Badge>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
               <hr />
               <div className="flex items-center justify-between">

@@ -23,6 +23,9 @@ export const RequestTable = ({ trails }) => {
             <thead className="text-xs bg-gray-100  uppercase border text-black">
               <tr>
                 <th scope="col" className="px-6 py-3">
+                  S/N
+                </th>
+                <th scope="col" className="px-6 py-3">
                   Action
                 </th>
                 <th scope="col" className="px-6 py-3">
@@ -37,8 +40,9 @@ export const RequestTable = ({ trails }) => {
               </tr>
             </thead>
             <tbody>
-              {trails.map((trail) => (
+              {trails.map((trail, i) => (
                 <tr className="border  hover:bg-gray-50" key={trail._id}>
+                  <td className="px-6 py-4 border-l">{i + 1}</td>
                   <td className="px-6 py-4 border-l">{trail.action}</td>
                   <td className="px-6 py-4 border-l">{`${trail.user.firstName} ${trail.user.lastName}`}</td>
                   <td className="px-6 py-4 border-l">
