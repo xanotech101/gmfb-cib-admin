@@ -19,7 +19,7 @@ export const CorporateTable = ({ data }) => {
   console.log(data);
 
   return (
-    <div className="overflow-x-auto">
+    <div className="">
       <div className="p-1.5 w-full inline-block align-middle">
         <div className="border rounded-lg">
           <table className="min-w-full divide-y divide-gray-200">
