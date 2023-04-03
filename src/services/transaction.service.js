@@ -62,7 +62,6 @@ class TransactionService {
       throw new Error(error);
     }
   }
-
   async authorizerDeclineRequest({ id, reason, otp }) {
     try {
       const response = await http.put(`/api/requests/authoriser/decline/${id}`, { reason, otp });
@@ -72,7 +71,6 @@ class TransactionService {
       throw new Error(error);
     }
   }
-
   async authorizerApproveRequest({ id, reason, otp }) {
     try {
       const response = await http.put(`/api/requests/authoriser/approve/${id}`, { reason, otp });
@@ -82,7 +80,6 @@ class TransactionService {
       throw new Error(error);
     }
   }
-
   async verifierDeclineTransaction({ id, reason, otp }) {
     try {
       const response = await http.put(`/api/requests/verifier/decline/${id}`, { reason, otp });
@@ -92,7 +89,6 @@ class TransactionService {
       throw new Error(error);
     }
   }
-
   async verifierApproveTransaction({ id, reason, otp }) {
     try {
       const response = await http.put(`/api/requests/verifier/approve/${id}`, { reason, otp });
@@ -102,7 +98,6 @@ class TransactionService {
       throw new Error(error);
     }
   }
-
   async bulkUploadTransaction(file) {
     const formData = new FormData();
     formData.append('file', file);
@@ -116,6 +111,26 @@ class TransactionService {
       return data;
     } catch (error) {
       notification(error.message ?? 'Transaction initiated successfully', 'error');
+      throw new Error(error);
+    }
+  }
+  async getAwaitingVerificationRequest(params) {
+    try {
+      const { data } = await http.get('/api/requests/backoffice/awaiting-approval', {
+        params
+      });
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  async getRequestSentToBankOne(params) {
+    try {
+      const { data } = await http.get('/api/requests/backoffice/transfers', {
+        params
+      });
+      return data;
+    } catch (error) {
       throw new Error(error);
     }
   }

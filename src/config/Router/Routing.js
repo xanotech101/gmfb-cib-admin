@@ -26,9 +26,9 @@ import { PrivateOutlet } from './PrivateOutLet';
 import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
 import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/TransferRequest';
 import { TransferRequestDetails } from 'pages/CorporateAccount/TransferRequest/TransferRequestDetails/TransferRequestDetails';
-import { TransactionRequest } from 'pages/TransactionRequest copy/TransactionRequest';
-import Transfers from 'pages/TransactionRequest copy/Transfers/Transfers';
-import AwaitingVerification from 'pages/TransactionRequest copy/AwaitingVerification/AwaitingVerification';
+import { TransactionRequest } from 'pages/TransactionRequest/TransactionRequest';
+import Transfers from 'pages/TransactionRequest/Transfers/Transfers';
+import AwaitingVerification from 'pages/TransactionRequest/AwaitingVerification/AwaitingVerification';
 import { UserManagement } from 'pages/UserManagement/Usermanagement';
 import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateDetails';
 export const Routing = () => {
