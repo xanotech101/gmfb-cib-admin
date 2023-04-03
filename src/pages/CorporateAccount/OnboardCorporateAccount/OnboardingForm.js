@@ -31,52 +31,36 @@ const OnboardingForm = () => {
   useQuery({
     queryFn: () => {
       setAccountInfo(null);
-      return accountService.getAccountInfo(debouncedValue);
+      return accountService.getCustomerInfo(debouncedValue);
     },
     queryKey: ['getAccountInfo', debouncedValue],
     onSuccess: (data) => {
-      if (data.IsSuccessful) {
+      console.log('🚀 ~ file: OnboardingForm.js:51 ~ OnboardingForm ~ data:', data);
+      if (data.status === 'Success') {
         setAccountInfo({
-          name: data.Message.Name,
-          branch: data.Message.Branch,
-          email: data.Message.Email,
-          customerId: data.Message.CustomerId
+          name: data.data.name,
+          email: data.data.email,
+          customerId: data.data.customerID,
+          accountNumber: data.data.Accounts.map((account) => account.accountNumber),
+          branchCode: data.data.branchCode
         });
-        setValue('account_email', data.Message.email);
+        setValue('account_email', data.data.email);
       }
     },
     enabled: debouncedValue.length > 0
   });
 
-  // const { data: privileges } = useQuery({
-  //   queryKey: ['privileges'],
-  //   queryFn: () => privilegeService.getPrivileges()
-  // });
-
   const { mutate, isLoading } = useMutation({
     mutationFn: (data) => accountService.onBoardCorporateAccount(data),
     onSuccess: () => {
-      navigate('/corporate-account');
+      navigate('/accounts');
     }
   });
-  const mutipleAccounts = [
-    {
-      name: 'Name',
-      Account: 'Account number'
-    },
-    {
-      name: 'Name',
-      Account: 'Account number'
-    },
-    {
-      name: 'Name',
-      Account: 'Account number'
-    }
-  ];
+
   const onSubmit = (data) => {
     const payload = {
       accountDetails: {
-        accountNumber,
+        accountNumber: accountInfo.accountNumber,
         accountName: accountInfo.name,
         customerID: accountInfo.customerId,
         email: data.account_email
@@ -95,13 +79,14 @@ const OnboardingForm = () => {
 
   return (
     <>
+      {console.log('accountInfo', accountInfo)}
       <form
         className={classnames('space-y-6', {
           hidden: formState === formStateOptions.adminDetails
         })}>
         <p className="font-bold text-lg">Account Info</p>
         <Input
-          label="Customer_ID"
+          label="Customer ID"
           id="account_number"
           onChange={(e) => {
             if (e.target.value.length === 0) {
@@ -126,20 +111,12 @@ const OnboardingForm = () => {
               {...register('account_email', { required: true })}
               defaultValue={accountInfo.email}
             />
-            <Input
-              label="Account Branch"
-              id="account_branch"
-              readOnly
-              disabled
-              defaultValue={accountInfo.branch}
-            />
             <hr />
             <p className="font-bold text-lg">Accounts</p>
 
-            {mutipleAccounts.map((item, index) => (
+            {accountInfo.accountNumber?.map((item, index) => (
               <div key={index} className="space-y-6">
-                <Input label={item.Account} disabled />
-                <Input label={item.name} disabled />
+                <Input value={item} onChange={() => {}} disabled />
                 <hr />
               </div>
             ))}

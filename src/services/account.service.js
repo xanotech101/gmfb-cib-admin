@@ -51,6 +51,15 @@ class AccountService {
     }
   }
 
+  async getAccount(id) {
+    try {
+      const { data } = await http.get(`/api/account/all_accounts/${id}`);
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
   async onBoardCorporateAccount(payload) {
     try {
       const { data } = await http.post('/api/account/register', payload);
@@ -68,6 +77,15 @@ class AccountService {
       return response.data;
     } catch (error) {
       notification(error.response.data.message ?? 'Something went wrong', 'error');
+      throw new Error(error);
+    }
+  }
+
+  async getCustomerInfo(customerId) {
+    try {
+      const data = await http.get(`/api/bank/detail/${customerId}`);
+      return data;
+    } catch (error) {
       throw new Error(error);
     }
   }
