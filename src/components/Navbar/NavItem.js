@@ -3,7 +3,7 @@ import {
   HomeIcon,
   CogIcon,
   BriefcaseIcon,
-  // DocumentMagnifyingGlassIcon,
+  DocumentMagnifyingGlassIcon,
   ChartPieIcon,
   ArrowLeftOnRectangleIcon,
   UserGroupIcon,
@@ -24,6 +24,8 @@ export const NavItem = () => {
   const handleLogout = () => {
     showModal();
   };
+  const isSettings = /settings/i.test(window.location.pathname);
+  const isTransferRequest = /transfers/i.test(window.location.pathname);
   return (
     <div className="h-[90%] overflow-y-auto side-bar">
       <nav className="flex-1 space-y-1 px-2 pb-4">
@@ -44,15 +46,20 @@ export const NavItem = () => {
             <Link to="/transaction-requests/assigned" className='w-full h-full'>Assigned Requests</Link>
           </DropDownItems>
         </DropDown> */}
-        <NavLinks to="/transfers" icon={<BanknotesIcon />} name="Transfers" current={false} />
+        <NavLinks
+          to={!isTransferRequest ? 'transfers/transfer-made' : 'transfers'}
+          icon={<BanknotesIcon />}
+          name="Transfers"
+          current={false}
+        />
         <NavLinks to="/onboard" icon={<UserGroupIcon />} name="Onboarding" current={false} />
-        {/* <NavLinks
+        <NavLinks
           to="/audit"
           icon={<DocumentMagnifyingGlassIcon />}
           name="Audit trail"
           current={false}
           isActive
-        /> */}
+        />
         <NavLinks to="/requests" icon={<HandThumbUpIcon />} name="Tickets" current={false} />
         <NavLinks to="/reports" icon={<ChartPieIcon />} name="Analytics" current={false} />
 
@@ -63,7 +70,13 @@ export const NavItem = () => {
           current={false}
           isActive
         />
-        <NavLinks to="settings" icon={<CogIcon />} name="Settings" current={false} isActive />
+        <NavLinks
+          to={!isSettings ? 'settings/general' : 'settings'}
+          icon={<CogIcon />}
+          name="Settings"
+          current={false}
+          isActive
+        />
         <p
           className="group flex items-center px-2 py-5 text-sm font-medium rounded-md text-white mt-5 relative cursor-pointer"
           onClick={() => handleLogout()}>

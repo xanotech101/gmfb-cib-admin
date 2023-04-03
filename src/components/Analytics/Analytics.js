@@ -10,8 +10,10 @@ import { SplitButton } from 'components/Button/SplitButton';
 import { naira } from 'utils/currencyFormatter';
 import { ArrowDownOnSquareStackIcon } from '@heroicons/react/20/solid';
 export const Chart = (prop) => {
-  const [lineGraph, setLineGraph] = useState(false);
-  const [barChart, setBarChart] = useState(true);
+  const [lineGraph, setLineGraph] = useState(true);
+  const [barChart, setBarChart] = useState(false);
+  let value;
+  value = barChart === true ? 'Bar Chart' : lineGraph === true ? 'Line Chart' : 'Switch Chart';
   const action = [
     {
       name: 'Line Chart',
@@ -73,9 +75,9 @@ export const Chart = (prop) => {
               : 'col-span-8 row-span-4 bg-white rounded-[8px] border border-[#dadce0] px-6'
           }>
           <div className=" flex  items-center justify-between pt-1">
-            <div>
-              <p className="font-medium text-xl mb-3 mt-7"> Financial Statistics</p>
-              <SplitButton buttonText="Switch Chart" items={action} pos="left-0" />
+            <div className="my-6">
+              <p className="font-medium text-xl mb-4"> Financial Statistics</p>
+              <SplitButton buttonText={value} items={action} pos="left-0" />
             </div>
             <div className="w-[25%]">
               <Select
@@ -191,7 +193,7 @@ export const Chart = (prop) => {
                   />
                 </div>
               </div>
-              <div className="w-[75%]">
+              <div className="w-[75%] m-auto">
                 <CChart
                   type="doughnut"
                   data={{

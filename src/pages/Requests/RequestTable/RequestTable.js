@@ -1,20 +1,21 @@
 import { ClockIcon } from '@heroicons/react/20/solid';
-import { Button } from 'components/Button/Button';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 export const RequestTable = ({ trails }) => {
+  const navigate = useNavigate();
   return (
     <>
       {trails?.length === 0 ? (
-        <EmptyState title="No request created yet" action={() => {}} description="Add request" />
+        <EmptyState
+          title="No request created yet"
+          action={() => {
+            navigate('/requests/add-request');
+          }}
+          description="Add request"
+        />
       ) : (
         <div>
-          <div className="flex justify-end my-5  align-start lg:align-center flex-col lg:flex-row ">
-            <Link to="/requests/add-request">
-              <Button>Add Request</Button>
-            </Link>
-          </div>
           <div className="mb-4 w-[39%]">
             <SearchFilter placeholder={'Search for request made....'} />
           </div>

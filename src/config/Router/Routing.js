@@ -61,9 +61,9 @@ export const Routing = () => {
               }>
               <Route path="settings">
                 <Route index element={<Settings />} />
-                <Route path="general" element={<Settings />} />
+                <Route path="/settings/general" element={<Settings />} />
                 <Route path="general/:id" element={<BulkUpload />} />
-                <Route path="security" element={<Security />} />
+                <Route path="/settings/security" element={<Security />} />
                 <Route path="usersetting" element={<UserSettings />} />
                 <Route path="corporate-users">
                   <Route index element={<CorporateUsers />} />
