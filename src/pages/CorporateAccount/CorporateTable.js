@@ -14,7 +14,7 @@ export const CorporateTable = ({ data }) => {
     },
     {
       name: 'User Management',
-      action: () => navigate(`/user-management`)
+      action: () => navigate(`/accounts/${account._id}/users`, { state: { data: account } })
     }
   ];
   console.log(data);
@@ -28,32 +28,27 @@ export const CorporateTable = ({ data }) => {
               <tr>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase ">
+                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
                   S/N
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase ">
-                  Name
+                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
+                  Account Name
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase ">
-                  Account Number
+                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
+                  Admin Name
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase ">
-                  Admin
+                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
+                  Admin Email
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase ">
-                  Admin ID
-                </th>
-                <th
-                  scope="col"
-                  className="px-6 py-3 text-xs font-bold text-right text-gray-500 uppercase ">
+                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
                   Action
                 </th>
               </tr>
@@ -61,12 +56,17 @@ export const CorporateTable = ({ data }) => {
             <tbody className="divide-y divide-gray-200 ">
               {data.map((datum, i) => (
                 <tr key={datum._id}>
+<<<<<<< HEAD
                   <td className="px-5 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
+=======
+                  <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
+>>>>>>> 04f8fa1ef33c322b6176913c288a10a575a2e329
                     {i + 1}
                   </td>
                   <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
                     {datum.accountName}
                   </td>
+<<<<<<< HEAD
                   <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
                     {datum.accountNumber.map((dat) => (
                       <div key={dat}>
@@ -77,11 +77,13 @@ export const CorporateTable = ({ data }) => {
                     ))}
                   </td>
 
+=======
+>>>>>>> 04f8fa1ef33c322b6176913c288a10a575a2e329
                   <td className="px-6 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
                     {datum.adminID?.firstName} {datum.adminID?.lastName}
                   </td>
-                  <td className="px-3 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
-                    {datum.adminID?._id}
+                  <td className="px-6 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
+                    {datum.adminID?.email}
                   </td>
                   <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap ">
                     <SplitButton

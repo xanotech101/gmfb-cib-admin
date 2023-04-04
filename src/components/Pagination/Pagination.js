@@ -2,7 +2,7 @@ import ReactPaginate from 'react-paginate';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/20/solid';
 import './Pagination.css';
 
-const PER_PAGE = 2;
+const PER_PAGE = 10;
 
 function Pagination({ itemsPerPage = PER_PAGE, totalItems, handlePageClick }) {
   const pageCount = Math.ceil(totalItems / itemsPerPage);

@@ -9,6 +9,7 @@ import { accountService } from 'services';
 import { Button } from 'components/Button/Button';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
+
 const RenderData = ({ data }) => {
   const navigate = useNavigate();
   if (data?.length === 0) {

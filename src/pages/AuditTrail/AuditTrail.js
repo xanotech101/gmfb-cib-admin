@@ -45,7 +45,7 @@ export const Audit = ({ style = 'py-5 pl-5 pr-4' }) => {
   };
 
   return (
-    <div className={`${style}`} >
+    <div className={`${style}`}>
       <Container>
         <Heading>Audit Trail</Heading>
         <div className="flex md:flex-col sm:flex-col lg:flex-row flex-col justify-between items-start md:items-start sm:items-start lg:items-center ">
@@ -87,7 +87,7 @@ export const Audit = ({ style = 'py-5 pl-5 pr-4' }) => {
         <div className="user-list">
           <AuditData data={data} />
         </div>
-        <Pagination totalItems={meta?.total} handlePageClick={(selected) => setPage(selected)} />
+        <Pagination totalItems={meta?.total} handlePageClick={setPage} />
       </Container>
     </div>
   );
