@@ -8,11 +8,10 @@ export const RequestTable = ({ trails }) => {
     <>
       {trails?.length === 0 ? (
         <EmptyState
-          title="No request created yet"
+          title="Nothing to show yet"
           action={() => {
             navigate('/requests/add-request');
           }}
-          description="Add request"
         />
       ) : (
         <div>
