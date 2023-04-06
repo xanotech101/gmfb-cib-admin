@@ -9,6 +9,7 @@ import Pagination from 'components/Pagination/Pagination';
 import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
+
 export const CorporateUsersUnderCorporateAccount = () => {
   const [page, setPage] = useState(1);
   const { id } = useParams();
