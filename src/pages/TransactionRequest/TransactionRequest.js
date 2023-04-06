@@ -5,10 +5,8 @@ export const TransactionRequest = ({ children }) => {
   return (
     <div className="p-5">
       <Container>
-        <Heading>
-          Transfers
-          <p className="text-sm text-gray-500 mt-2">List of transfers in your account.</p>
-        </Heading>
+        <Heading>Transfers</Heading>
+        <p className="text-sm text-gray-500 mt-2">List of transfers in your account.</p>
         <div className="flex gap-4 font-medium capitalize my-4 border py-3 fit rounded shadow bg-gray-100">
           <NavLink
             to="transfers/transfer-made"

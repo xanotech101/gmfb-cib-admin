@@ -14,6 +14,11 @@ export const TransferRequestTable = ({ transactions }) => {
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                    S/N
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                     Customer Name
                   </th>
                   <th
@@ -47,11 +52,13 @@ export const TransferRequestTable = ({ transactions }) => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {transactions.map((transaction) => (
+                {transactions.map((transaction, i) => (
                   <tr key={transaction?._id}>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{i + 1}</td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {transaction?.firstName} {transaction?.lastName}
                     </td>
+
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {naira.format(transaction?.amount)}
                     </td>

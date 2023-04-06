@@ -40,12 +40,10 @@ const AwaitingVerification = () => {
   return (
     <div className="flex flex-col mt-7 p-5">
       <div className="p-6">
-        <Heading>
-          Transfers Awaiting Verification
-          <p className="text-sm text-gray-700">
-            List of transfers awaiting verification in corporate account
-          </p>
-        </Heading>
+        <Heading>Transfers Awaiting Verification</Heading>
+        <p className="text-sm text-gray-700">
+          List of transfers awaiting verification in corporate account
+        </p>
         <div className="flex gap-4 font-medium capitalize my-4 border py-3 fit rounded shadow bg-gray-100">
           <NavLink
             to="/transfers/transfer-made"

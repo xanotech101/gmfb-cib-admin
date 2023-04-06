@@ -1,26 +1,29 @@
 import { ClockIcon } from '@heroicons/react/20/solid';
-import { Button } from 'components/Button/Button';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 export const RequestTable = ({ trails }) => {
+  const navigate = useNavigate();
   return (
     <>
       {trails?.length === 0 ? (
-        <EmptyState title="No request created yet" action={() => {}} description="Add request" />
+        <EmptyState
+          title="Nothing to show yet"
+          action={() => {
+            navigate('/requests/add-request');
+          }}
+        />
       ) : (
         <div>
-          <div className="flex justify-end my-5  align-start lg:align-center flex-col lg:flex-row ">
-            <Link to="/requests/add-request">
-              <Button>Add Request</Button>
-            </Link>
-          </div>
           <div className="mb-4 w-[39%]">
             <SearchFilter placeholder={'Search for request made....'} />
           </div>
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs bg-gray-100  uppercase border text-black">
               <tr>
+                <th scope="col" className="px-6 py-3">
+                  S/N
+                </th>
                 <th scope="col" className="px-6 py-3">
                   Action
                 </th>
@@ -36,8 +39,9 @@ export const RequestTable = ({ trails }) => {
               </tr>
             </thead>
             <tbody>
-              {trails.map((trail) => (
+              {trails.map((trail, i) => (
                 <tr className="border  hover:bg-gray-50" key={trail._id}>
+                  <td className="px-6 py-4 border-l">{i + 1}</td>
                   <td className="px-6 py-4 border-l">{trail.action}</td>
                   <td className="px-6 py-4 border-l">{`${trail.user.firstName} ${trail.user.lastName}`}</td>
                   <td className="px-6 py-4 border-l">

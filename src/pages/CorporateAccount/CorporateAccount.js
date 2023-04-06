@@ -19,7 +19,7 @@ const RenderData = ({ data }) => {
         description="No corporate account created yet, click on the button below to create one."
         action={{
           label: 'Create Corporate Account',
-          onClick: () => navigate('/corporate-account/onboard')
+          onClick: () => navigate('/accounts/onboard')
         }}
       />
     );

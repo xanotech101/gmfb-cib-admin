@@ -49,7 +49,7 @@ export const Audit = ({ style = 'py-5 pl-5 pr-4' }) => {
       <Container>
         <Heading>Audit Trail</Heading>
         <div className="flex md:flex-col sm:flex-col lg:flex-row flex-col justify-between items-start md:items-start sm:items-start lg:items-center ">
-          <p className="font-medium mb-3">Filter your recent and previous transactions </p>
+          <p className="mb-3">Filter your recent and previous activities</p>
           <div>
             <Button onClick={handleDropdown}>
               <span>Filter recent activity</span>

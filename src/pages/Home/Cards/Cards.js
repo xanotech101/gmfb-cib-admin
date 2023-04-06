@@ -13,8 +13,8 @@ export const Cards = () => {
   const navigate = useNavigate();
   const CardDetails = [
     {
-      label: 'Number of corporate accounts',
-      value: `${CorporateUsers ?? 0.0} Corporate users`,
+      label: 'Number of corporate account',
+      value: `${CorporateUsers ?? 0.0} Corporate Account`,
       icon: BriefcaseIcon,
       action: () => {
         navigate('/accounts');
