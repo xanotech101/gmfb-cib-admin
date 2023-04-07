@@ -11,7 +11,6 @@ class UserService {
     }
   }
   async getBranchUsers(params) {
-    console.log(params);
     try {
       const response = await http.get('/api/users/allbranchusers', {
         params

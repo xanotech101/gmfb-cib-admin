@@ -73,6 +73,16 @@ class AuthService {
       throw new Error(error);
     }
   }
+  async resendVerificationLink(email) {
+    try {
+      const response = await http.post('/api/auth/refreshAuth', { email });
+      notification('Verification link sent successfully');
+      return response.data;
+    } catch (error) {
+      notification(error?.response?.data?.message ?? 'Something went wrong', 'error');
+      throw new Error(error);
+    }
+  }
 }
 
 export const authService = new AuthService();

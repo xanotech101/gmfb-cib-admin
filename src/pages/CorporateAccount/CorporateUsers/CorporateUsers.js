@@ -9,6 +9,7 @@ import Pagination from 'components/Pagination/Pagination';
 import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
+
 export const CorporateUsersUnderCorporateAccount = () => {
   const [page, setPage] = useState(1);
   const { id } = useParams();
@@ -46,7 +47,7 @@ export const CorporateUsersUnderCorporateAccount = () => {
           </strong>
         </SubHeading>
         <div className="w-[40%] mt-4">
-          <SearchFilter placeholder={'Search for corporate Acoount'} />
+          <SearchFilter placeholder={'Search for corporate Account'} />
         </div>
         <div className="mt-8 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
