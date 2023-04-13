@@ -23,11 +23,7 @@ export const CorporateUsersUnderCorporateAccount = () => {
       }),
     enabled: !!id
   });
-  console.log(
-    userService.getBranchUsers({
-      withPagination: true
-    })
-  );
+  console.log(data);
   const RenderData = () => {
     if (data?.users?.length === 0) {
       return <EmptyState title="No users found within this branch" />;
@@ -46,7 +42,7 @@ export const CorporateUsersUnderCorporateAccount = () => {
           </strong>
         </SubHeading>
         <div className="w-[40%] mt-4">
-          <SearchFilter placeholder={'Search for corporate Acoount'} />
+          <SearchFilter placeholder={'Search for corporate users'} />
         </div>
         <div className="mt-8 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">

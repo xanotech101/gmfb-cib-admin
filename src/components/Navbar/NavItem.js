@@ -18,7 +18,7 @@ import { useModal } from 'hooks';
 // import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import LogoutPrompt from 'pages/Auth/LogoutPrompt/LogoutPrompt';
-export const NavItem = () => {
+export const NavItem = ({ closeSidebar }) => {
   const navigate = useNavigate();
   const { Modal, showModal } = useModal();
   const handleLogout = () => {
@@ -29,7 +29,13 @@ export const NavItem = () => {
   return (
     <div className="h-[90%] overflow-y-auto side-bar">
       <nav className="flex-1 space-y-1 px-2 pb-4">
-        <NavLinks to="/dashboard" name="Dashboard" icon={<HomeIcon />} current={true} />
+        <NavLinks
+          to="/dashboard"
+          name="Dashboard"
+          icon={<HomeIcon />}
+          current={true}
+          onClick={closeSidebar}
+        />
         {/* <DropDown
           title="Transfer Request"
           text="text-white  mt-5"
@@ -51,17 +57,37 @@ export const NavItem = () => {
           icon={<BanknotesIcon />}
           name="Transfers"
           current={false}
+          onClick={closeSidebar}
         />
-        <NavLinks to="/onboard" icon={<UserGroupIcon />} name="Onboarding" current={false} />
+        <NavLinks
+          to="/onboard"
+          icon={<UserGroupIcon />}
+          name="Onboarding"
+          current={false}
+          onClick={closeSidebar}
+        />
         <NavLinks
           to="/audit"
           icon={<DocumentMagnifyingGlassIcon />}
           name="Audit trail"
           current={false}
           isActive
+          onClick={closeSidebar}
         />
-        <NavLinks to="/requests" icon={<HandThumbUpIcon />} name="Tickets" current={false} />
-        <NavLinks to="/reports" icon={<ChartPieIcon />} name="Analytics" current={false} />
+        <NavLinks
+          to="/requests"
+          icon={<HandThumbUpIcon />}
+          name="Tickets"
+          current={false}
+          onClick={closeSidebar}
+        />
+        <NavLinks
+          to="/reports"
+          icon={<ChartPieIcon />}
+          name="Analytics"
+          current={false}
+          onClick={closeSidebar}
+        />
 
         <NavLinks
           to="/accounts"
@@ -69,6 +95,7 @@ export const NavItem = () => {
           name="Accounts"
           current={false}
           isActive
+          onClick={closeSidebar}
         />
         <NavLinks
           to={!isSettings ? 'settings/general' : 'settings'}
@@ -76,10 +103,14 @@ export const NavItem = () => {
           name="Settings"
           current={false}
           isActive
+          onClick={closeSidebar}
         />
         <p
           className="group flex items-center px-2 py-5 text-sm font-medium rounded-md text-white mt-5 relative cursor-pointer"
-          onClick={() => handleLogout()}>
+          onClick={() => {
+            handleLogout();
+            closeSidebar();
+          }}>
           <ArrowLeftOnRectangleIcon
             className="mr-3 h-6 w-6 flex-shrink-0 text-white"
             aria-hidden="true"

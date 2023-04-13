@@ -1,20 +1,34 @@
 import { BanknotesIcon, BriefcaseIcon, UserCircleIcon } from '@heroicons/react/20/solid';
 import { Heading } from 'components/Common/Header/Heading';
 import { Container } from 'components/Container/Container';
-import { useNavigate } from 'react-router-dom';
-import { accountService } from 'services';
+import { useNavigate, useParams } from 'react-router-dom';
+import { accountService, userService, transactionService } from 'services';
 import { useQuery } from '@tanstack/react-query';
 export const Cards = () => {
-  const { data } = useQuery({
+  const id = useParams();
+  const { data: corporate } = useQuery({
     queryKey: ['accounts'],
     queryFn: accountService.getAllAccounts
   });
-  const CorporateUsers = data?.length;
+  const CorporateUsers = corporate?.length;
+  const { data: users } = useQuery({
+    queryKey: ['getMyBranchUsers', id],
+    queryFn: () =>
+      userService.getBranchUsers({
+        branchId: id
+      }),
+    enabled: !!id
+  });
+  const { data } = useQuery({
+    queryKey: ['approved-transfers'],
+    queryFn: () => transactionService.getAllInitiatedRequests
+  });
+  console.log(data);
   const navigate = useNavigate();
   const CardDetails = [
     {
       label: 'Number of corporate account',
-      value: `${CorporateUsers ?? 0.0} Corporate Account`,
+      value: `${CorporateUsers ?? 0.0}  Account`,
       icon: BriefcaseIcon,
       action: () => {
         navigate('/accounts');
@@ -22,7 +36,7 @@ export const Cards = () => {
     },
     {
       label: 'Number of users',
-      value: `${0.0} Users`,
+      value: `${users?.length ?? 0.0} User`,
       icon: UserCircleIcon,
       action: () => {
         navigate('/user-management');
@@ -30,7 +44,7 @@ export const Cards = () => {
     },
     {
       label: 'Number of transfers',
-      value: `${0.0} Transfers`,
+      value: `${data?.length} Transfers`,
       icon: BanknotesIcon,
       action: () => {
         navigate('/transfers/transfer-made');

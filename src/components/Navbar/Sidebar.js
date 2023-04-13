@@ -12,8 +12,9 @@ import { userService } from 'services';
 import { useNotifications, useStore } from 'hooks';
 import { Notification } from 'components/Notification/Notification';
 import { Link } from 'react-router-dom';
+import { NavItem } from './NavItem';
 
-export const Sidebar = ({ mobile, desktop }) => {
+export const Sidebar = () => {
   const token = localStorage.getItem('token');
   useQuery({
     queryKey: ['userProfile'],
@@ -88,7 +89,9 @@ export const Sidebar = ({ mobile, desktop }) => {
                 <div className="flex flex-shrink-0 items-center px-4">
                   <Logo className="filt" />
                 </div>
-                <div className="mt-5 h-0 flex-1 pr-2">{mobile}</div>
+                <div className="mt-5 h-0 flex-1 pr-2">
+                  <NavItem closeSidebar={() => setSidebarOpen(false)} />
+                </div>
               </Dialog.Panel>
             </Transition.Child>
             <div className="w-14 flex-shrink-0" aria-hidden="true">
@@ -180,7 +183,9 @@ export const Sidebar = ({ mobile, desktop }) => {
           <div className="flex flex-shrink-0 items-center px-4">
             <Logo className="filt" />
           </div>
-          <div className="mt-5 flex flex-1 flex-col">{desktop}</div>
+          <div className="mt-5 flex flex-1 flex-col">
+            <NavItem closeSidebar={() => setSidebarOpen(false)} />
+          </div>
         </div>
         <Notification open={open} setOpen={setOpen} />
       </div>
