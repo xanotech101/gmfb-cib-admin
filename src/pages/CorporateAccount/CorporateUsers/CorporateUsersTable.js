@@ -1,6 +1,14 @@
 import { Avatar } from 'components/Avatar/Avatar';
+import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
+import { Dropdown } from 'flowbite-react';
+import { authService } from 'services';
+import { useMutation } from '@tanstack/react-query';
 
 export const CorporateUsersTable = ({ users }) => {
+  const { mutate } = useMutation({
+    mutationFn: (email) => authService.resendVerificationLink(email)
+  });
+
   return (
     <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
       <table className="min-w-full divide-y divide-gray-300">
@@ -45,6 +53,18 @@ export const CorporateUsersTable = ({ users }) => {
               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.email}</td>
               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.gender}</td>
               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.role}</td>
+              <td>
+                <Dropdown
+                  label={<EllipsisVerticalIcon className="h-5 w-5 text-gray-600" />}
+                  inline={true}
+                  arrowIcon={false}>
+                  {!user.isVerified && (
+                    <Dropdown.Item onClick={() => mutate(user.email)}>
+                      Resend Verification link
+                    </Dropdown.Item>
+                  )}
+                </Dropdown>
+              </td>
             </tr>
           ))}
         </tbody>
