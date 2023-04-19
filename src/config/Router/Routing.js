@@ -2,7 +2,7 @@
 import { Route, Routes, Outlet } from 'react-router-dom';
 import { Dashboard } from 'pages/Home/Dashboard';
 import { Corporate } from 'pages/CorporateAccount/CorporateAccount';
-import { Report } from 'pages/Reporting/Reports/Reports';
+import { Report } from 'pages/Reporting/Reports';
 import { Settings } from 'pages/Settings/Settings';
 import { AuthLayout } from '../../components/Layout/AuthLayout';
 import { MandateRule } from 'pages/MandateRule/MandateRule';

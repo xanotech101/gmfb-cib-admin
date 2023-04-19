@@ -1,4 +1,5 @@
 export { accountService } from './account.service';
+export { analyticsService } from './analytics.service';
 export { auditService } from './audit.service';
 export { authService } from './auth.service';
 export { mandateService } from './mandate.service';

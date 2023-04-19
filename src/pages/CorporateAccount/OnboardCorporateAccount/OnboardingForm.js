@@ -35,7 +35,6 @@ const OnboardingForm = () => {
     },
     queryKey: ['getAccountInfo', debouncedValue],
     onSuccess: (data) => {
-      console.log('🚀 ~ file: OnboardingForm.js:51 ~ OnboardingForm ~ data:', data);
       if (data.status === 'Success') {
         setAccountInfo({
           name: data.data.name,
