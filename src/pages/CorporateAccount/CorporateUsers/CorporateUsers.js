@@ -43,7 +43,6 @@ export const CorporateUsersUnderCorporateAccount = () => {
           </strong>
         </SubHeading>
         <div className="w-[40%] mt-4">
-          <SearchFilter placeholder={'Search for corporate Account'} />
           <SearchFilter placeholder={'Search for corporate users'} />
         </div>
         <div className="mt-8 flex flex-col">
