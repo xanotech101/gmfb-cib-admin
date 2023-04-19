@@ -2,8 +2,8 @@
 import { BanknotesIcon, BriefcaseIcon, UserCircleIcon } from '@heroicons/react/20/solid';
 import { Heading } from 'components/Common/Header/Heading';
 import { Container } from 'components/Container/Container';
-import { useNavigate } from 'react-router-dom';
-import { analyticsService } from 'services';
+import { useNavigate, useParams } from 'react-router-dom';
+import { accountService, userService, transactionService } from 'services';
 import { useQuery } from '@tanstack/react-query';
 
 const cardDetails = [
@@ -27,18 +27,53 @@ const cardDetails = [
   }
 ];
 export const Cards = () => {
+  const id = useParams();
+  const { data: corporate } = useQuery({
+    queryKey: ['accounts'],
+    queryFn: accountService.getAllAccounts
+  });
+  const CorporateUsers = corporate?.length;
+  const { data: users } = useQuery({
+    queryKey: ['getMyBranchUsers', id],
+    queryFn: () =>
+      userService.getBranchUsers({
+        branchId: id
+      }),
+    enabled: !!id
+  });
+  const { data } = useQuery({
+    queryKey: ['approved-transfers'],
+    queryFn: () => transactionService.getAllInitiatedRequests
+  });
+  console.log(data);
   const navigate = useNavigate();
 
-  useQuery({
-    queryKey: ['dashboard-analytics'],
-    queryFn: () => analyticsService.getDashboardAnalysis(),
-    onSuccess: (data) => {
-      console.log('🚀 ~ file: Cards.js:46 ~ Cards ~ data:', data);
-      cardDetails[0].value = `${data.totalAccounts ?? 1} Corporate Account`;
-      cardDetails[1].value = `${data.totalUsers ?? 0} Users`;
-      cardDetails[2].value = `${data.totalTransfers ?? 0} Transfers`;
+  const CardDetails = [
+    {
+      label: 'Number of corporate account',
+      value: `${CorporateUsers ?? 0.0}  Account`,
+      icon: BriefcaseIcon,
+      action: () => {
+        navigate('/accounts');
+      }
+    },
+    {
+      label: 'Number of users',
+      value: `${users?.length ?? 0.0} User`,
+      icon: UserCircleIcon,
+      action: () => {
+        navigate('/user-management');
+      }
+    },
+    {
+      label: 'Number of transfers',
+      value: `${data?.length} Transfers`,
+      icon: BanknotesIcon,
+      action: () => {
+        navigate('/transfers/transfer-made');
+      }
     }
-  });
+  ];
 
   return (
     <div className="lg:grid grid-cols-3 flex flex-col gap-5 mb-5">

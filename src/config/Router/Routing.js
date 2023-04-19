@@ -20,7 +20,7 @@ import { UserSettings } from 'pages/Settings/User/UserSettings';
 import { SettingsWrapper } from 'pages/Settings/SettingsWrapper';
 import RequestTicketing from 'pages/Requests/Request/RequestTicketing';
 import AddRequest from 'pages/Requests/AddRequest/AddRequest';
-import { BulkUpload } from 'pages/Settings/User/BulkUpload/BulkUpload';
+
 import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
 import { PrivateOutlet } from './PrivateOutLet';
 import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
@@ -30,6 +30,7 @@ import Transfers from 'pages/TransactionRequest/Transfers/Transfers';
 import AwaitingVerification from 'pages/TransactionRequest/AwaitingVerification/AwaitingVerification';
 import { UserManagement } from 'pages/UserManagement/Usermanagement';
 import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateDetails';
+import UpdateSecurityQuestion from 'pages/Settings/Security/UpdateSecurityQuestion';
 export const Routing = () => {
   return (
     <>
@@ -57,7 +58,10 @@ export const Routing = () => {
               <Route path="settings">
                 <Route index element={<Settings />} />
                 <Route path="/settings/general" element={<Settings />} />
-                <Route path="general/:id" element={<BulkUpload />} />
+                <Route path="general">
+                  <Route index element={<Settings />} />
+                  <Route path="update-security-question" element={<UpdateSecurityQuestion />} />
+                </Route>
                 <Route path="/settings/security" element={<Security />} />
                 <Route path="usersetting" element={<UserSettings />} />
                 <Route path="corporate-users">

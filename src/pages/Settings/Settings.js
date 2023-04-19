@@ -12,6 +12,7 @@ import {
 
 import { List } from 'components/List/List';
 import { Link } from 'react-router-dom';
+import { KeyIcon } from '@heroicons/react/24/outline';
 export const Settings = () => {
   const navigate = useNavigate();
   const { Modal, showModal } = useModal();
@@ -25,12 +26,12 @@ export const Settings = () => {
     //   to: '/profile/edit-profile',
     //   brief: 'Update existing profile details.'
     // },
-    // {
-    //   title: 'bulk upload settings',
-    //   icon: <CloudArrowUpIcon className="w-6 h-6 text-black" />,
-    //   to: '/settings/general/limit-upload',
-    //   brief: 'Limit bulk upload files.'
-    // },
+    {
+      title: 'Update Security Question',
+      icon: <KeyIcon className="w-6 h-6 text-black" />,
+      to: '/settings/general/update-security-question',
+      brief: 'Limit bulk upload files.'
+    },
     {
       title: 'Logout',
       icon: <ArrowLeftOnRectangleIcon className="w-6 h-6 text-black" />,
