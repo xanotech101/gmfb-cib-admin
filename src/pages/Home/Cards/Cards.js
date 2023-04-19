@@ -9,71 +9,71 @@ import { useQuery } from '@tanstack/react-query';
 const cardDetails = [
   {
     label: 'Number of corporate account',
-    value: '0 Corporate Account',
+    value: '0  Account(s)',
     icon: BriefcaseIcon,
     route: '/accounts'
   },
   {
     label: 'Number of users',
-    value: '0 Users',
+    value: '0 User(s)',
     icon: UserCircleIcon,
     route: '/user-management'
   },
   {
     label: 'Number of transfers',
-    value: `0 Transfers`,
+    value: `0 Transfer(s)`,
     icon: BanknotesIcon,
     route: '/transfers/transfer-made'
   }
 ];
 export const Cards = () => {
-  const id = useParams();
-  const { data: corporate } = useQuery({
-    queryKey: ['accounts'],
-    queryFn: accountService.getAllAccounts
-  });
-  const CorporateUsers = corporate?.length;
-  const { data: users } = useQuery({
-    queryKey: ['getMyBranchUsers', id],
-    queryFn: () =>
-      userService.getBranchUsers({
-        branchId: id
-      }),
-    enabled: !!id
-  });
-  const { data } = useQuery({
-    queryKey: ['approved-transfers'],
-    queryFn: () => transactionService.getAllInitiatedRequests
-  });
-  console.log(data);
+  // const id = useParams();
+  // const { data: corporate } = useQuery({
+  //   queryKey: ['accounts'],
+  //   queryFn: accountService.getAllAccounts
+  // });
+  // const CorporateUsers = corporate?.length;
+  // const { data: users } = useQuery({
+  //   queryKey: ['getMyBranchUsers', id],
+  //   queryFn: () =>
+  //     userService.getBranchUsers({
+  //       branchId: id
+  //     }),
+  //   enabled: !!id
+  // });
+  // const { data } = useQuery({
+  //   queryKey: ['approved-transfers'],
+  //   queryFn: () => transactionService.getAllInitiatedRequests
+  // });
+  // console.log(data);
   const navigate = useNavigate();
 
-  const CardDetails = [
-    {
-      label: 'Number of corporate account',
-      value: `${CorporateUsers ?? 0.0}  Account`,
-      icon: BriefcaseIcon,
-      action: () => {
-        navigate('/accounts');
-      }
-    },
-    {
-      label: 'Number of users',
-      value: `${users?.length ?? 0.0} User`,
-      icon: UserCircleIcon,
-      action: () => {
-        navigate('/user-management');
-      }
-    },
-    {
-      label: 'Number of transfers',
-      value: `${data?.length} Transfers`,
-      icon: BanknotesIcon,
-      action: () => {
-        navigate('/transfers/transfer-made');
-      }
-    }
-  ];
+  // const CardDetails = [
+  //   {
+  //     label: 'Number of corporate account',
+  //     value: `${CorporateUsers ?? 0.0}  Account`,
+  //     icon: BriefcaseIcon,
+  //     action: () => {
+  //       navigate('/accounts');
+  //     }
+  //   },
+  //   {
+  //     label: 'Number of users',
+  //     value: `${users?.length ?? 0.0} User`,
+  //     icon: UserCircleIcon,
+  //     action: () => {
+  //       navigate('/user-management');
+  //     }
+  //   },
+  //   {
+  //     label: 'Number of transfers',
+  //     value: `${data?.length} Transfers`,
+  //     icon: BanknotesIcon,
+  //     action: () => {
+  //       navigate('/transfers/transfer-made');
+  //     }
+  //   }
+  // ];
 
   return (
     <div className="lg:grid grid-cols-3 flex flex-col gap-5 mb-5">

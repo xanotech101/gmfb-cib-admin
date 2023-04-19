@@ -41,7 +41,7 @@ export const Routing = () => {
         <Route element={<PrivateOutlet />}>
           <Route element={<AuthLayout children={<Outlet />} />}>
             <Route path="dashboard" element={<Dashboard />} />
-
+            <Route path="reports" element={<Report />} />
             <Route path="transfers">
               <Route index element={<Transfers />} />
               <Route path=":id" element={<TransferRequestDetails />} />
@@ -80,7 +80,7 @@ export const Routing = () => {
             </Route>
             <Route path="onboard" element={<OnboardCorporateAccount />} />
             <Route path="audit" element={<Audit />} />
-            <Route path="reports" element={<Report />} />
+
             <Route path="user-management" element={<UserManagement />} />
             <Route path="requests">
               <Route index element={<RequestTicketing />} />
