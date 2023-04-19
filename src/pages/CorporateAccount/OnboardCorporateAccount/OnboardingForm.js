@@ -67,7 +67,7 @@ const OnboardingForm = () => {
       admin: {
         firstName: data.firstName,
         lastName: data.lastName,
-        phoneNumber: data.phone,
+        phone: data.phone,
         email: data.email,
         gender: data.gender.value,
         imageUrl: 'google.com/fsdfdsfdd'
