@@ -78,7 +78,6 @@ const OnboardingForm = () => {
 
   return (
     <>
-      {console.log('accountInfo', accountInfo)}
       <form
         className={classnames('space-y-6', {
           hidden: formState === formStateOptions.adminDetails
