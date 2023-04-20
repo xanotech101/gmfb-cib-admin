@@ -3,78 +3,40 @@ import { BanknotesIcon, BriefcaseIcon, UserCircleIcon } from '@heroicons/react/2
 import { Heading } from 'components/Common/Header/Heading';
 import { Container } from 'components/Container/Container';
 import { useNavigate, useParams } from 'react-router-dom';
-import { accountService, userService, transactionService } from 'services';
+import { accountService, userService, transactionService, analyticsService } from 'services';
 import { useQuery } from '@tanstack/react-query';
 
 const cardDetails = [
   {
     label: 'Number of corporate account',
-    value: '0  Account(s)',
+    value: '0  Account',
     icon: BriefcaseIcon,
     route: '/accounts'
   },
   {
     label: 'Number of users',
-    value: '0 User(s)',
+    value: '0 User',
     icon: UserCircleIcon,
     route: '/user-management'
   },
   {
     label: 'Number of transfers',
-    value: `0 Transfer(s)`,
+    value: `0 Transfer`,
     icon: BanknotesIcon,
     route: '/transfers/transfer-made'
   }
 ];
 export const Cards = () => {
-  // const id = useParams();
-  // const { data: corporate } = useQuery({
-  //   queryKey: ['accounts'],
-  //   queryFn: accountService.getAllAccounts
-  // });
-  // const CorporateUsers = corporate?.length;
-  // const { data: users } = useQuery({
-  //   queryKey: ['getMyBranchUsers', id],
-  //   queryFn: () =>
-  //     userService.getBranchUsers({
-  //       branchId: id
-  //     }),
-  //   enabled: !!id
-  // });
-  // const { data } = useQuery({
-  //   queryKey: ['approved-transfers'],
-  //   queryFn: () => transactionService.getAllInitiatedRequests
-  // });
-  // console.log(data);
   const navigate = useNavigate();
-
-  // const CardDetails = [
-  //   {
-  //     label: 'Number of corporate account',
-  //     value: `${CorporateUsers ?? 0.0}  Account`,
-  //     icon: BriefcaseIcon,
-  //     action: () => {
-  //       navigate('/accounts');
-  //     }
-  //   },
-  //   {
-  //     label: 'Number of users',
-  //     value: `${users?.length ?? 0.0} User`,
-  //     icon: UserCircleIcon,
-  //     action: () => {
-  //       navigate('/user-management');
-  //     }
-  //   },
-  //   {
-  //     label: 'Number of transfers',
-  //     value: `${data?.length} Transfers`,
-  //     icon: BanknotesIcon,
-  //     action: () => {
-  //       navigate('/transfers/transfer-made');
-  //     }
-  //   }
-  // ];
-
+  useQuery({
+    queryKey: ['dashboard-analytics'],
+    queryFn: () => analyticsService.getDashboardAnalysis(),
+    onSuccess: (data) => {
+      cardDetails[0].value = `${data?.totalAccounts ?? 0} Account`;
+      cardDetails[1].value = `${data?.totalUsers ?? 0} User(s)`;
+      cardDetails[2].value = `${data?.totalTransfers ?? 0} Transfer`;
+    }
+  });
   return (
     <div className="lg:grid grid-cols-3 flex flex-col gap-5 mb-5">
       {cardDetails.map((item) => (
@@ -91,7 +53,7 @@ export const Cards = () => {
               <p className="ml-16 truncate text-sm font-medium text-gray-500">{item.label}</p>
             </div>
             <div className="ml-16 flex items-baseline">
-              <he className="text-2xl font-bold tracking-tight text-gray-900">{item.value}</he>
+              <h4 className="text-2xl font-bold tracking-tight text-gray-900">{item.value}</h4>
             </div>
           </div>
         </Container>
