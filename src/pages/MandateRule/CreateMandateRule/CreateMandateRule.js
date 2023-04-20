@@ -1,6 +1,6 @@
 import { Container } from 'components/Container/Container';
 import { LinkButton } from 'components/Button/LinkRouteButton';
-import { MandateRuleForm } from '../MandateRuleForm/MandateRuleForm';
+import { MandateRuleForm } from '../components/MandateRuleForm/MandateRuleForm';
 
 export const CreateMandateRule = () => {
   return (

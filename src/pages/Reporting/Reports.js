@@ -47,7 +47,6 @@ const stats = [
 ];
 
 export const Report = () => {
-  const isDashboard = /dashboard/i.test(window.location.pathname);
   const [barType, setBarType] = useState('line');
   const [disbursements, setDisbursements] = useState([]);
   const [year, setYear] = useState(new Date());
@@ -96,30 +95,27 @@ export const Report = () => {
   return (
     <div className="my-7 ml-2 px-5">
       <div className="py-5">
-        {!isDashboard && (
-          <div className="mb-5">
-            <Heading>Analytics</Heading>
-          </div>
-        )}
-        {!isDashboard && (
-          <dl className="grid grid-cols-12 gap-6 mb-8">
-            {stats.map((item) => (
-              <div className="relative overflow-hidden col-span-4" key={item.id}>
-                <Container>
-                  <dt>
-                    <div className={`absolute rounded-md p-3 ${item.bg}`}>
-                      <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
-                    </div>
-                    <p className="ml-16 truncate text-sm font-medium text-gray-500">{item.name}</p>
-                  </dt>
-                  <dd className="ml-16 flex items-baseline">
-                    <h4 className="text-2xl font-bold tracking-tight text-gray-900">{item.stat}</h4>
-                  </dd>
-                </Container>
-              </div>
-            ))}
-          </dl>
-        )}
+        <div className="mb-5">
+          <Heading>Analytics</Heading>
+        </div>
+
+        <dl className="grid grid-cols-12 gap-6 mb-8">
+          {stats.map((item) => (
+            <div className="relative overflow-hidden col-span-4" key={item.id}>
+              <Container>
+                <dt>
+                  <div className={`absolute rounded-md p-3 ${item.bg}`}>
+                    <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
+                  </div>
+                  <p className="ml-16 truncate text-sm font-medium text-gray-500">{item.name}</p>
+                </dt>
+                <dd className="ml-16 flex items-baseline">
+                  <h4 className="text-2xl font-bold tracking-tight text-gray-900">{item.stat}</h4>
+                </dd>
+              </Container>
+            </div>
+          ))}
+        </dl>
 
         <div className="grid grid-cols-12 gap-y-6">
           <div className="col-span-12">
@@ -192,27 +188,6 @@ export const Report = () => {
                   )}
                 </>
               )}
-            </Container>
-          </div>
-          <div className="col-span-12 hidden">
-            <Container>
-              <div className=" flex  items-center justify-between pt-1 pb-3">
-                <p className="font-medium text-xl my-4">Transactions</p>
-              </div>
-              <div className="w-[75%] m-auto">
-                <CChart
-                  type="doughnut"
-                  data={{
-                    labels: ['Approved', 'Declined', 'Pending'],
-                    datasets: [
-                      {
-                        backgroundColor: ['#4ade80', '#dc2626', '#fde047'],
-                        data: [40, 20, 20]
-                      }
-                    ]
-                  }}
-                />
-              </div>
             </Container>
           </div>
         </div>

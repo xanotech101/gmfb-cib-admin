@@ -1,9 +1,7 @@
-/* eslint-disable no-unused-vars */
 import { BanknotesIcon, BriefcaseIcon, UserCircleIcon } from '@heroicons/react/20/solid';
-import { Heading } from 'components/Common/Header/Heading';
 import { Container } from 'components/Container/Container';
-import { useNavigate, useParams } from 'react-router-dom';
-import { accountService, userService, transactionService, analyticsService } from 'services';
+import { useNavigate } from 'react-router-dom';
+import { analyticsService } from 'services';
 import { useQuery } from '@tanstack/react-query';
 
 const cardDetails = [

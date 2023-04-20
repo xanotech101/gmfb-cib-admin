@@ -6,7 +6,7 @@ import { Button } from 'components/Button/Button';
 import { Container } from 'components/Container/Container';
 import { Input } from 'components/Form/Input/Input';
 import { mandateService } from 'services';
-import { MandateRuleTable } from './MandateRuleTable';
+import { MandateRuleTable } from './components/MandateRuleTable/MandateRuleTable';
 import { useModal } from 'hooks/useModal';
 import { MandateDetails } from './MandateRuleDetails/MandateRuleDetails';
 import { EmptyState } from 'components/EmptyState/EmptyState';
@@ -58,7 +58,7 @@ export const MandateRule = () => {
               <h1 className="text-xl font-semibold text-gray-900">Mandate Rules</h1>
               <p className="text-sm text-gray-700 mt-1">List of mandate rules within the system.</p>
             </div>
-            <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none mt-1">
+            <div className="sm:mt-0 sm:ml-16 sm:flex-none mt-1">
               <Link to="/mandate-rule/create">
                 <Button variant="primary" type="button">
                   Create Mandate
