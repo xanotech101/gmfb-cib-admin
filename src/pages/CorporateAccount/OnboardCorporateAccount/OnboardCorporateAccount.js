@@ -9,7 +9,7 @@ export const OnboardCorporateAccount = () => {
           <h1 className="text-2xl font-medium leading-6 text-gray-900 mb-3">
             Onboard Corporate Account
           </h1>
-          <p className="font-medium">Fill in corporate users details</p>
+          <p className="font-medium">Fill in corporate account details</p>
         </div>
         <OnboardingForm />
       </Container>

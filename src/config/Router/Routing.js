@@ -2,7 +2,7 @@
 import { Route, Routes, Outlet } from 'react-router-dom';
 import { Dashboard } from 'pages/Home/Dashboard';
 import { Corporate } from 'pages/CorporateAccount/CorporateAccount';
-import { Report } from 'pages/Reporting/Reports/Reports';
+import { Report } from 'pages/Reporting/Reports';
 import { Settings } from 'pages/Settings/Settings';
 import { AuthLayout } from '../../components/Layout/AuthLayout';
 import { MandateRule } from 'pages/MandateRule/MandateRule';
@@ -18,9 +18,9 @@ import { Security } from 'pages/Settings/Security/Security';
 import { CorporateUsers } from 'pages/Settings/User/CorporateUsers';
 import { UserSettings } from 'pages/Settings/User/UserSettings';
 import { SettingsWrapper } from 'pages/Settings/SettingsWrapper';
-import RequestTicketing from 'pages/Requests/Request/RequestTicketing';
+import RequestTicketing from 'pages/Requests/RequestTicketing';
 import AddRequest from 'pages/Requests/AddRequest/AddRequest';
-import { BulkUpload } from 'pages/Settings/User/BulkUpload/BulkUpload';
+
 import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
 import { PrivateOutlet } from './PrivateOutLet';
 import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
@@ -30,6 +30,9 @@ import Transfers from 'pages/TransactionRequest/Transfers/Transfers';
 import AwaitingVerification from 'pages/TransactionRequest/AwaitingVerification/AwaitingVerification';
 import { UserManagement } from 'pages/UserManagement/Usermanagement';
 import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateDetails';
+import UpdateSecurityQuestion from 'pages/Settings/Security/UpdateSecurityQuestion';
+import { RequestTicketingDetails } from 'pages/Requests/RequestDetails/RequestDetails';
+
 export const Routing = () => {
   return (
     <>
@@ -40,7 +43,7 @@ export const Routing = () => {
         <Route element={<PrivateOutlet />}>
           <Route element={<AuthLayout children={<Outlet />} />}>
             <Route path="dashboard" element={<Dashboard />} />
-
+            <Route path="reports" element={<Report />} />
             <Route path="transfers">
               <Route index element={<Transfers />} />
               <Route path=":id" element={<TransferRequestDetails />} />
@@ -57,7 +60,10 @@ export const Routing = () => {
               <Route path="settings">
                 <Route index element={<Settings />} />
                 <Route path="/settings/general" element={<Settings />} />
-                <Route path="general/:id" element={<BulkUpload />} />
+                <Route path="general">
+                  <Route index element={<Settings />} />
+                  <Route path="update-security-question" element={<UpdateSecurityQuestion />} />
+                </Route>
                 <Route path="/settings/security" element={<Security />} />
                 <Route path="usersetting" element={<UserSettings />} />
                 <Route path="corporate-users">
@@ -76,10 +82,11 @@ export const Routing = () => {
             </Route>
             <Route path="onboard" element={<OnboardCorporateAccount />} />
             <Route path="audit" element={<Audit />} />
-            <Route path="reports" element={<Report />} />
+
             <Route path="user-management" element={<UserManagement />} />
             <Route path="requests">
               <Route index element={<RequestTicketing />} />
+              <Route path=":id" element={<RequestTicketingDetails />} />
               <Route path="add-request" element={<AddRequest />} />
             </Route>
 

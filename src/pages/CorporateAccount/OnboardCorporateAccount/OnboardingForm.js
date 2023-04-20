@@ -35,7 +35,6 @@ const OnboardingForm = () => {
     },
     queryKey: ['getAccountInfo', debouncedValue],
     onSuccess: (data) => {
-      console.log('🚀 ~ file: OnboardingForm.js:51 ~ OnboardingForm ~ data:', data);
       if (data.status === 'Success') {
         setAccountInfo({
           name: data.data.name,
@@ -68,7 +67,7 @@ const OnboardingForm = () => {
       admin: {
         firstName: data.firstName,
         lastName: data.lastName,
-        phoneNumber: data.phone,
+        phone: data.phone,
         email: data.email,
         gender: data.gender.value,
         imageUrl: 'google.com/fsdfdsfdd'
@@ -79,7 +78,6 @@ const OnboardingForm = () => {
 
   return (
     <>
-      {console.log('accountInfo', accountInfo)}
       <form
         className={classnames('space-y-6', {
           hidden: formState === formStateOptions.adminDetails
