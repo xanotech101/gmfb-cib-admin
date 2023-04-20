@@ -18,7 +18,7 @@ import { Security } from 'pages/Settings/Security/Security';
 import { CorporateUsers } from 'pages/Settings/User/CorporateUsers';
 import { UserSettings } from 'pages/Settings/User/UserSettings';
 import { SettingsWrapper } from 'pages/Settings/SettingsWrapper';
-import RequestTicketing from 'pages/Requests/Request/RequestTicketing';
+import RequestTicketing from 'pages/Requests/RequestTicketing';
 import AddRequest from 'pages/Requests/AddRequest/AddRequest';
 
 import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
@@ -31,6 +31,8 @@ import AwaitingVerification from 'pages/TransactionRequest/AwaitingVerification/
 import { UserManagement } from 'pages/UserManagement/Usermanagement';
 import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateDetails';
 import UpdateSecurityQuestion from 'pages/Settings/Security/UpdateSecurityQuestion';
+import { RequestTicketingDetails } from 'pages/Requests/RequestDetails/RequestDetails';
+
 export const Routing = () => {
   return (
     <>
@@ -84,6 +86,7 @@ export const Routing = () => {
             <Route path="user-management" element={<UserManagement />} />
             <Route path="requests">
               <Route index element={<RequestTicketing />} />
+              <Route path=":id" element={<RequestTicketingDetails />} />
               <Route path="add-request" element={<AddRequest />} />
             </Route>
 
