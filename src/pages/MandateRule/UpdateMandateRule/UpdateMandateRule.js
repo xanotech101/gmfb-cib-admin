@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { GridLoader } from 'react-spinners';
 import { Container } from 'components/Container/Container';
 import { LinkButton } from 'components/Button/LinkRouteButton';
-import { MandateRuleForm } from '../MandateRuleForm/MandateRuleForm';
+import { MandateRuleForm } from '../components/MandateRuleForm/MandateRuleForm';
 import { useParams } from 'react-router-dom';
 import { mandateService } from 'services';
 

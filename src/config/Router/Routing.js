@@ -1,6 +1,7 @@
 /* eslint-disable react/no-children-prop */
+// TODO: Explore lazy loading and break into smaller files for easy access
 import { Route, Routes, Outlet } from 'react-router-dom';
-import { Dashboard } from 'pages/Home/Dashboard';
+import { Dashboard } from 'pages/Dashboard/Dashboard';
 import { Corporate } from 'pages/CorporateAccount/CorporateAccount';
 import { Report } from 'pages/Reporting/Reports';
 import { Settings } from 'pages/Settings/Settings';
@@ -8,17 +9,13 @@ import { AuthLayout } from '../../components/Layout/AuthLayout';
 import { MandateRule } from 'pages/MandateRule/MandateRule';
 import { CreateMandateRule } from 'pages/MandateRule/CreateMandateRule/CreateMandateRule';
 import { UpdateMandateRule } from 'pages/MandateRule/UpdateMandateRule/UpdateMandateRule';
-import { EditProfile } from 'pages/Profile/EditProfile';
-import { CreateCorperateUser } from 'pages/Settings/User/CreateCorperateUser';
 import { Profile } from 'pages/Profile/Profile';
 import { ErrorPage } from 'pages/ErrorPage/ErrorPage';
 import { Audit } from 'pages/AuditTrail/AuditTrail';
 import { authRoutes } from 'config/Router/routes/Auth.routes';
 import { Security } from 'pages/Settings/Security/Security';
-import { CorporateUsers } from 'pages/Settings/User/CorporateUsers';
-import { UserSettings } from 'pages/Settings/User/UserSettings';
 import { SettingsWrapper } from 'pages/Settings/SettingsWrapper';
-import RequestTicketing from 'pages/Requests/Request/RequestTicketing';
+import RequestTicketing from 'pages/Requests/RequestTicketing';
 import AddRequest from 'pages/Requests/AddRequest/AddRequest';
 
 import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
@@ -26,11 +23,12 @@ import { PrivateOutlet } from './PrivateOutLet';
 import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
 import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/TransferRequest';
 import { TransferRequestDetails } from 'pages/CorporateAccount/TransferRequest/TransferRequestDetails/TransferRequestDetails';
-import Transfers from 'pages/TransactionRequest/Transfers/Transfers';
-import AwaitingVerification from 'pages/TransactionRequest/AwaitingVerification/AwaitingVerification';
-import { UserManagement } from 'pages/UserManagement/Usermanagement';
+import Transfers from 'pages/TransferRequest/Transfers/Transfers';
+import AwaitingVerification from 'pages/TransferRequest/AwaitingVerification/AwaitingVerification';
 import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateDetails';
 import UpdateSecurityQuestion from 'pages/Settings/Security/UpdateSecurityQuestion';
+import { RequestTicketingDetails } from 'pages/Requests/RequestDetails/RequestDetails';
+
 export const Routing = () => {
   return (
     <>
@@ -63,11 +61,6 @@ export const Routing = () => {
                   <Route path="update-security-question" element={<UpdateSecurityQuestion />} />
                 </Route>
                 <Route path="/settings/security" element={<Security />} />
-                <Route path="usersetting" element={<UserSettings />} />
-                <Route path="corporate-users">
-                  <Route index element={<CorporateUsers />} />
-                  <Route path="create-user" element={<CreateCorperateUser />} />
-                </Route>
               </Route>
             </Route>
             <Route path="accounts">
@@ -81,15 +74,14 @@ export const Routing = () => {
             <Route path="onboard" element={<OnboardCorporateAccount />} />
             <Route path="audit" element={<Audit />} />
 
-            <Route path="user-management" element={<UserManagement />} />
             <Route path="requests">
               <Route index element={<RequestTicketing />} />
+              <Route path=":id" element={<RequestTicketingDetails />} />
               <Route path="add-request" element={<AddRequest />} />
             </Route>
 
             <Route path="profile">
               <Route index element={<Profile />} />
-              <Route path="edit-profile" element={<EditProfile />} />
             </Route>
 
             <Route path="mandate-rule">

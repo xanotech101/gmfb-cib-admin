@@ -4,38 +4,70 @@ import { useForm } from 'react-hook-form';
 import React from 'react';
 import { TextArea } from 'components/Form/TextArea/TextArea';
 import { Input } from 'components/Form/Input/Input';
+import { ticketService } from 'services';
+import { useMutation } from '@tanstack/react-query';
 
 const AddRequestForm = () => {
-  const { control } = useForm();
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    formState: { errors }
+  } = useForm();
+
+  const { isLoading, mutate } = useMutation((data) => ticketService.create(data));
+  const isTRansactionError = watch('topic')?.value === 'Transfer Request Error';
+
+  const onSubmit = (data) => {
+    const payload = {
+      ...data,
+      topic: data.topic.value,
+      meta: {
+        transactionId: data.transactionId
+      }
+    };
+    mutate(payload);
+  };
+
   return (
     <div>
-      <form action="" className="space-y-7">
+      <form className="space-y-7" onSubmit={handleSubmit(onSubmit)}>
         <Select
-          label="Select Request"
-          name="select request"
+          label="Select Ticket Topic"
+          name="topic"
           control={control}
           options={[
             {
-              value: 'Transaction Failure',
-              label: 'transaction failure'
-            },
-            {
               value: 'Transfer Request Error',
-              label: 'transfer request error'
+              label: 'Transfer Request Error'
             },
             {
               value: 'Account Settings',
-              label: 'account settings'
+              label: 'Account settings'
             },
             {
               value: 'User Management',
-              label: 'user management'
+              label: 'User Management'
             }
           ]}
         />
-        <Input label="Authorisers ID" />
-        <TextArea placeholder="Enter request....." />
-        <Button isFullWidth>Submit</Button>
+        {isTRansactionError && (
+          <Input
+            label="Transaction Id"
+            {...register('transactionId', { required: false })}
+            error={errors.transactionId && 'Transaction Id is required'}
+          />
+        )}
+        <TextArea
+          id="message"
+          label="Message"
+          {...register('message', { required: true })}
+          error={errors.message && 'message is required'}
+        />
+        <Button type="submit" isFullWidth disabled={isLoading}>
+          Submit
+        </Button>
       </form>
     </div>
   );
