@@ -1,5 +1,5 @@
 import Header from 'components/Navbar/Header';
-import { Cards } from './Cards/Cards';
+import { Cards } from './components/Stats/Stats.js';
 import React from 'react';
 import { ticketService } from 'services';
 import { useQuery } from '@tanstack/react-query';
