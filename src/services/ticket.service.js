@@ -14,11 +14,9 @@ class TicketService {
       throw new Error(error);
     }
   }
-  async getTickets(params) {
+  async getTickets() {
     try {
-      const response = await http.get('/api/ticket/all', {
-        params
-      });
+      const response = await http.get('/api/ticket/organization');
       return response.data;
     } catch (error) {
       throw new Error(error);
@@ -35,8 +33,10 @@ class TicketService {
   async replyToTicket(id, payload) {
     try {
       const response = await http.post(`/api/ticket/reply/${id}`, payload);
+      notification(response?.message ?? 'Ticket created successfully', 'success');
       return response.data;
     } catch (error) {
+      notification(error.response.data.message, 'error');
       throw new Error(error);
     }
   }
