@@ -16,7 +16,7 @@ class TicketService {
   }
   async getTickets() {
     try {
-      const response = await http.get('/api/ticket/organization');
+      const response = await http.get('/api/ticket/all');
       return response.data;
     } catch (error) {
       throw new Error(error);
