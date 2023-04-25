@@ -6,6 +6,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ticketService } from 'services';
 import { AddResponse } from './AddResponse';
+import { DateUtils, DateFormats } from 'utils';
 
 export const RequestTicketingDetails = () => {
   const { id } = useParams();
@@ -39,7 +40,12 @@ export const RequestTicketingDetails = () => {
             <div className="sm:col-span-3 flex justify-between border-b pb-4">
               <dt className="text-sm font-medium text-gray-500">Date Created</dt>
               <dd className="mt-1 text-sm text-gray-900">
-                {new Date(data?.ticket?.createdAt)?.toLocaleString()}
+                {data?.ticket?.createdAt
+                  ? DateUtils.dateToString(
+                      new Date(data?.ticket?.createdAt),
+                      DateFormats.frontendDateTime
+                    )
+                  : ''}
               </dd>
             </div>
             {data?.ticket?.meta?.transactionId && (
@@ -81,7 +87,12 @@ export const RequestTicketingDetails = () => {
                               {response?.responseBy?.firstName} {response?.responseBy?.lastName}
                               <p className="text-gray-700 mt-0.5 text-base">{response?.response}</p>
                               <p className="text-gray-500 mt-0.5 text-xs">
-                                {new Date(response.date).toLocaleDateString()}
+                                {response.date
+                                  ? DateUtils.dateToString(
+                                      new Date(response.date),
+                                      DateFormats.frontendDateTime
+                                    )
+                                  : ''}
                               </p>
                             </div>
                           </div>

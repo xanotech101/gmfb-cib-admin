@@ -1,6 +1,8 @@
 import { Badge } from 'components/Badge/Badge';
 import { SubHeading } from 'components/Common/Header/SubHeading';
 import { naira } from 'utils/currencyFormatter';
+import { DateUtils, DateFormats } from 'utils';
+
 export const TransactionDetailsList = ({ details }) => {
   return (
     <>
@@ -22,6 +24,9 @@ export const TransactionDetailsList = ({ details }) => {
         <div className="sm:col-span-1">
           <dt className="text-sm font-medium text-gray-500">Date Created</dt>
           <dd className="mt-1 text-sm text-gray-900">
+            {details?.createdAt
+              ? DateUtils.dateToString(new Date(details?.createdAt), DateFormats.frontendDateTime)
+              : ''}
             {new Date(details?.createdAt)?.toLocaleDateString()}
           </dd>
         </div>

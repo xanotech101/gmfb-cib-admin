@@ -26,13 +26,13 @@ const cardDetails = [
 ];
 export const Cards = () => {
   const navigate = useNavigate();
-  useQuery({
+  const { isFetching } = useQuery({
     queryKey: ['dashboard-analytics'],
     queryFn: () => analyticsService.getDashboardAnalysis(),
     onSuccess: (data) => {
-      cardDetails[0].value = `${data?.totalAccounts ?? 0} Account`;
-      cardDetails[1].value = `${data?.totalUsers ?? 0} User(s)`;
-      cardDetails[2].value = `${data?.totalTransfers ?? 0} Transfer`;
+      cardDetails[0].value = `${data?.totalAccounts ?? 0}`;
+      cardDetails[1].value = `${data?.totalUsers ?? 0}`;
+      cardDetails[2].value = `${data?.totalTransfers ?? 0}`;
     }
   });
   return (
@@ -51,7 +51,9 @@ export const Cards = () => {
               <p className="ml-16 truncate text-sm font-medium text-gray-500">{item.label}</p>
             </div>
             <div className="ml-16 flex items-baseline">
-              <h4 className="text-2xl font-bold tracking-tight text-gray-900">{item.value}</h4>
+              <h4 className="text-2xl font-bold tracking-tight text-gray-900">
+                {isFetching ? '...' : item.value}
+              </h4>
             </div>
           </div>
         </Container>

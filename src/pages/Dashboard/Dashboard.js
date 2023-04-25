@@ -12,7 +12,7 @@ import { SubHeading } from 'components/Common/Header/SubHeading';
 import { Button } from 'components/Button/Button';
 
 const RenderData = ({ data }) => {
-  if (data?.tickets?.length === 0) {
+  if (data?.tickets?.length === 0 || !data?.tickets) {
     return (
       <EmptyState
         title="No tickets found"

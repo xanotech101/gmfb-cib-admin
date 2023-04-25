@@ -39,7 +39,7 @@ const stats = [
     bg: 'bg-red-500'
   },
   {
-    name: 'Total Amount Approved',
+    name: 'Total Approved Request',
     stat: '0',
     icon: CheckIcon,
     bg: 'bg-green-500'
@@ -110,7 +110,9 @@ export const Report = () => {
                   <p className="ml-16 truncate text-sm font-medium text-gray-500">{item.name}</p>
                 </dt>
                 <dd className="ml-16 flex items-baseline">
-                  <h4 className="text-2xl font-bold tracking-tight text-gray-900">{item.stat}</h4>
+                  <h4 className="text-2xl font-bold tracking-tight text-gray-900">
+                    {isFetching ? '...' : item.stat}
+                  </h4>
                 </dd>
               </Container>
             </div>
