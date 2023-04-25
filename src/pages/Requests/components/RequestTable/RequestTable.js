@@ -1,6 +1,7 @@
 import { ClockIcon } from '@heroicons/react/20/solid';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 import { Link } from 'react-router-dom';
+import { DateUtils, DateFormats } from 'utils';
 
 export const RequestTable = ({ tickets }) => {
   return (
@@ -45,7 +46,12 @@ export const RequestTable = ({ tickets }) => {
               <td className="px-6 py-4 border-l">
                 <p className="mt-4 flex items-center text-sm text-gray-500 gap-2">
                   <ClockIcon className=" h-5 w-5 flex-shrink-0  text-primary" aria-hidden="true" />
-                  {new Date(ticket.createdAt).toLocaleString()}
+                  {ticket.createdAt
+                    ? DateUtils.dateToString(
+                        new Date(ticket.createdAt),
+                        DateFormats.frontendDateTime
+                      )
+                    : ''}
                 </p>
               </td>
               <td className="px-6 py-4 border-l text-primary">
