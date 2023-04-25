@@ -17,7 +17,7 @@ const RenderData = ({ data }) => {
       />
     );
   } else {
-    return <RequestTable tickets={data.tickets ?? []} />;
+    return <RequestTable tickets={data?.tickets ?? []} />;
   }
 };
 
