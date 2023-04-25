@@ -65,7 +65,7 @@ export const RequestTicketingDetails = () => {
               Response
             </h2>
             <div className="flow-root">
-              <ul role="list" className="-mb-8 mt-4">
+              <ul role="list" className="-mb-8 mt-4 py-4">
                 {data?.ticket?.response?.map((response) => (
                   <li key={response._id}>
                     <div className="relative pb-6">
@@ -79,8 +79,10 @@ export const RequestTicketingDetails = () => {
                           <div>
                             <div className="text-base text-gray-800 font-semibold -mt-1">
                               {response?.responseBy?.firstName} {response?.responseBy?.lastName}
-                              <p className="text-gray-500 mt-0.5 text-sm">{response?.response}</p>
-                              <p>{}</p>
+                              <p className="text-gray-700 mt-0.5 text-base">{response?.response}</p>
+                              <p className="text-gray-500 mt-0.5 text-xs">
+                                {new Date(response.date).toLocaleDateString()}
+                              </p>
                             </div>
                           </div>
                         </div>
