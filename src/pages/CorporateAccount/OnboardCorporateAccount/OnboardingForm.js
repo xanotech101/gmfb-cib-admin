@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { Button } from 'components/Button/Button';
 import { Input } from 'components/Form/Input/Input';
@@ -8,6 +9,7 @@ import { useForm } from 'react-hook-form';
 import { Select } from 'components/Form/Select/Select';
 import classnames from 'classnames';
 import { useNavigate } from 'react-router-dom';
+import { ExclamationTriangleIcon } from '@heroicons/react/20/solid';
 
 const formStateOptions = {
   accountVerification: 'account-verification',
@@ -18,8 +20,9 @@ const OnboardingForm = () => {
   const navigate = useNavigate();
   const [accountNumber, setAccountNumber] = useState('');
   const [accountInfo, setAccountInfo] = useState(null);
-  const debouncedValue = useDebounce(accountNumber, 500);
+  const debouncedValue = useDebounce(accountNumber, 800);
   const [formState, setFormState] = useState(formStateOptions.accountVerification);
+  const [accountLookupError, setAccountLookError] = useState(null);
   const {
     register,
     handleSubmit,
@@ -28,25 +31,33 @@ const OnboardingForm = () => {
     formState: { errors }
   } = useForm();
 
-  useQuery({
+  const { isFetching } = useQuery({
     queryFn: () => {
       setAccountInfo(null);
-      return accountService.getCustomerInfo(debouncedValue);
+      setAccountLookError(null);
+      return accountService.getAccountInfo(debouncedValue);
     },
-    queryKey: ['getAccountInfo', debouncedValue],
+    queryKey: ['account-Info', debouncedValue],
     onSuccess: (data) => {
       if (data.status === 'Success') {
         setAccountInfo({
-          name: data.data.name,
-          email: data.data.email,
+          name: `${data.data.LastName} ${data.data.OtherNames}`,
+          email: data.data.Email,
           customerId: data.data.customerID,
-          accountNumber: data.data.Accounts.map((account) => account.accountNumber),
-          branchCode: data.data.branchCode
+          accountNumber: [debouncedValue]
         });
-        setValue('account_email', data.data.email);
+        setValue('account_email', data.data.Email);
       }
     },
+    onError: (error) => {
+      setAccountLookError(error.message);
+    },
     enabled: debouncedValue.length > 0
+  });
+
+  const { data: accountLabels } = useQuery({
+    queryFn: () => accountService.getAccountLabels(),
+    queryKey: ['account-labels']
   });
 
   const { mutate, isLoading } = useMutation({
@@ -84,7 +95,7 @@ const OnboardingForm = () => {
         })}>
         <p className="font-bold text-lg">Account Info</p>
         <Input
-          label="Customer ID"
+          label="Account Number"
           id="account_number"
           onChange={(e) => {
             if (e.target.value.length === 0) {
@@ -93,29 +104,45 @@ const OnboardingForm = () => {
             setAccountNumber(e.target.value);
           }}
         />
+        {isFetching && <p className="text-sm text-gray-500">Fetching account details...</p>}
+        {accountLookupError && (
+          <div className="border-l-4 border-red-400 bg-red-50 p-4 mb-8">
+            <div className="flex">
+              <div className="flex-shrink-0">
+                <ExclamationTriangleIcon className="h-5 w-5 text-red-400" aria-hidden="true" />
+              </div>
+              <div className="ml-3">
+                <p className="text-sm text-red-700">{accountLookupError}</p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {accountInfo && (
           <>
-            <Input
-              label="Name"
-              id="account_name"
-              readOnly
-              disabled
-              defaultValue={accountInfo.name}
-            />
+            <Input label="Name" id="account_name" disabled defaultValue={accountInfo.name} />
             <Input
               label="Email Address"
               id="account_email"
               {...register('account_email', { required: true })}
               defaultValue={accountInfo.email}
             />
+            <Select
+              label="Select Organization Label"
+              name="organizationLabel"
+              control={control}
+              options={(accountLabels ?? []).map(({ _id, label }) => ({
+                label,
+                value: _id
+              }))}
+              error={errors.organizationLabel && 'Organization Label is required'}
+            />
             <hr />
             <p className="font-bold text-lg">Accounts</p>
 
             {accountInfo.accountNumber?.map((item, index) => (
               <div key={index} className="space-y-6">
-                <Input value={item} onChange={() => {}} disabled />
-                <hr />
+                <Input defaultValue={item} disabled />
               </div>
             ))}
             <Button isFullWidth onClick={() => setFormState(formStateOptions.adminDetails)}>

@@ -22,14 +22,10 @@ class AccountService {
 
   async getAccountInfo(accountNumber) {
     try {
-      const { data } = await http.get('/api/bank/info', {
-        params: {
-          accountNumber
-        }
-      });
-      return data;
+      const response = await http.get(`/api/bank/getaccount2/${accountNumber}`);
+      return response;
     } catch (error) {
-      throw new Error(error);
+      throw new Error(error.response?.data?.message?.Message ?? 'Unable to get account details');
     }
   }
 
@@ -66,7 +62,7 @@ class AccountService {
       notification(data?.message ?? 'Account created successfully');
       return data;
     } catch (error) {
-      notification(error.response.data.message, 'error');
+      notification(error.response.data.Message, 'error');
       throw new Error(error);
     }
   }
@@ -84,6 +80,15 @@ class AccountService {
   async getCustomerInfo(customerId) {
     try {
       const data = await http.get(`/api/bank/detail/${customerId}`);
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async getAccountLabels() {
+    try {
+      const { data } = await http.get('/api/organization/all');
       return data;
     } catch (error) {
       throw new Error(error);
