@@ -22,7 +22,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: cd /home/ubuntu/gcmf-cib-admin/ && sudo git stash && sudo git pull origin master
+      - run: cd /home/ubuntu/gcmf-cib-admin/ && sudo git stash && git config pull.rebase true && sudo git pull origin master
       - run: sudo chmod -R 777 /home/ubuntu/gcmf-cib-admin/
       - run: cd /home/ubuntu/gcmf-cib-admin/ && npm ci  && npm run build
       - run: pm2 restart 2
