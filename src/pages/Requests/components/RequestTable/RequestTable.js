@@ -37,7 +37,7 @@ export const RequestTable = ({ tickets }) => {
             <tr className="border  hover:bg-gray-50" key={ticket._id}>
               <td className="px-6 py-4 border-l">{i + 1}</td>
               <td className="px-6 py-4 border-l">{ticket.topic}</td>
-              <td className="px-6 py-4 border-l">{`${ticket.createdBy.firstName} ${ticket.createdBy.lastName}`}</td>
+              <td className="px-6 py-4 border-l">{`${ticket.createdBy?.firstName} ${ticket.createdBy?.lastName}`}</td>
               <td className="px-6 py-4 border-l">
                 <p className="mt-4 gap-2 flex items-center text-sm text-gray-500 truncate">
                   {ticket.message}
