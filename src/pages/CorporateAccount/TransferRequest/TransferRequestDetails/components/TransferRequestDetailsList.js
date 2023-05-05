@@ -1,7 +1,7 @@
 import { Badge } from 'components/Badge/Badge';
 import { SubHeading } from 'components/Common/Header/SubHeading';
-import { naira } from 'utils/currencyFormatter';
 import { DateUtils, DateFormats } from 'utils';
+import { naira } from 'utils/currencyFormatter';
 
 export const TransferRequestDetailsList = ({ details }) => {
   return (
@@ -34,14 +34,31 @@ export const TransferRequestDetailsList = ({ details }) => {
         <div className="sm:col-span-1">
           <dt className="text-sm font-medium text-gray-500">Transfer Status</dt>
           <dd className="mt-1 text-sm text-gray-900">
-            <Badge status={details?.status}>{details?.transferStatus}</Badge>
+            <Badge status={details?.transferStatus}>{details?.transferStatus}</Badge>
           </dd>
         </div>
-        <div className="sm:col-span-2">
+        <div className="sm:col-span-1">
+          <dt className="text-sm font-medium text-gray-500">Transaction Reference</dt>
+          <dd className="mt-1 text-sm text-gray-900">{details?.transactionReference}</dd>
+        </div>
+        {details?.meta && (
+          <>
+            <div className="sm:col-span-1">
+              <dt className="text-sm font-medium text-gray-500">Response Description</dt>
+              <dd className="mt-1 text-sm text-gray-900">{details?.meta?.ResponseDescription}</dd>
+            </div>
+            <div className="sm:col-span-1">
+              <dt className="text-sm font-medium text-gray-500">Status Description</dt>
+              <dd className="mt-1 text-sm text-gray-900">{details?.meta?.StatusDescription}</dd>
+            </div>
+          </>
+        )}
+        <div className="sm:col-span-1">
           <dt className="text-sm font-medium text-gray-500">Narration</dt>
           <dd className="mt-1 text-sm text-gray-900">{details?.narration}</dd>
         </div>
       </dl>
+
       {/* bank details */}
       <div className="mb-6 border-b pb-5 pt-8">
         <SubHeading>Bank Details</SubHeading>
