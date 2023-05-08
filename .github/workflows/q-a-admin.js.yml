@@ -24,6 +24,6 @@ jobs:
           cache: 'npm'
       - run: cd /home/ubuntu/gcmf-cib-admin/ && sudo git stash && sudo git pull origin develop
       - run: sudo chmod -R 777 /home/ubuntu/gcmf-cib-admin/
-      - run: cd /home/ubuntu/gcmf-cib-admin/ && npm ci  && npm run build
+      - run: cd /home/ubuntu/gcmf-cib-admin/ && npm i  && npm run build
       - run: pm2 restart 2
       - run: sudo systemctl restart nginx

@@ -41,7 +41,7 @@ const OnboardingForm = () => {
     onSuccess: (data) => {
       if (data.status === 'Success') {
         setAccountInfo({
-          name: `${data.data.LastName} ${data.data.OtherNames}`,
+          name: data.data.Name ?? '',
           email: data.data.Email,
           customerId: data.data.customerID,
           accountNumber: [debouncedValue]
