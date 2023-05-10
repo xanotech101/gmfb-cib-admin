@@ -17,7 +17,6 @@ import { Security } from 'pages/Settings/Security/Security';
 import { SettingsWrapper } from 'pages/Settings/SettingsWrapper';
 import RequestTicketing from 'pages/Requests/RequestTicketing';
 import AddRequest from 'pages/Requests/AddRequest/AddRequest';
-
 import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
 import { PrivateOutlet } from './PrivateOutLet';
 import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
@@ -28,6 +27,9 @@ import AwaitingVerification from 'pages/TransferRequest/AwaitingVerification/Awa
 import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateDetails';
 import UpdateSecurityQuestion from 'pages/Settings/Security/UpdateSecurityQuestion';
 import { RequestTicketingDetails } from 'pages/Requests/RequestDetails/RequestDetails';
+import { BvnTable } from 'pages/ApiConsole/ApiBvnUsage';
+import { ApiTable } from 'pages/ApiConsole/Table';
+import { Wrapper } from 'pages/ApiConsole/Wrapper';
 
 export const Routing = () => {
   return (
@@ -46,7 +48,18 @@ export const Routing = () => {
               <Route path="transfer-made" element={<Transfers />} />
               <Route path="awaiting" element={<AwaitingVerification />} />
             </Route>
-
+            <Route
+              element={
+                <Wrapper>
+                  <Outlet />
+                </Wrapper>
+              }>
+            <Route path="api-console">
+              <Route index element={<ApiTable/>} />
+              <Route path="bvn-usage" element={<BvnTable />} />
+              <Route path="api-usage" element={<ApiTable/>} />
+            </Route>
+            </Route>
             <Route
               element={
                 <SettingsWrapper>
@@ -73,13 +86,12 @@ export const Routing = () => {
             </Route>
             <Route path="onboard" element={<OnboardCorporateAccount />} />
             <Route path="audit" element={<Audit />} />
-
             <Route path="requests">
               <Route index element={<RequestTicketing />} />
               <Route path=":id" element={<RequestTicketingDetails />} />
               <Route path="add-request" element={<AddRequest />} />
             </Route>
-
+           
             <Route path="profile">
               <Route index element={<Profile />} />
             </Route>
