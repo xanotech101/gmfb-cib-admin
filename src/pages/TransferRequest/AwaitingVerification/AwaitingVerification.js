@@ -10,7 +10,7 @@ import { Container } from 'components/Container/Container';
 import { NavLink } from 'react-router-dom';
 import { Heading } from 'components/Common/Header/Heading';
 
-const RenderData = ({ data, setPage }) => {
+const RenderData = ({ data, setPage, page }) => {
   if (data?.requests?.length === 0 || !data) {
     return (
       <EmptyState
@@ -22,7 +22,11 @@ const RenderData = ({ data, setPage }) => {
     return (
       <>
         <TransactionRequestTable transactions={data?.requests ?? []} />
-        <Pagination totalItems={data?.meta?.total ?? 0} handlePageClick={setPage} />
+        <Pagination
+          totalItems={data?.meta?.total ?? 0}
+          handlePageClick={setPage}
+          currentPage={page}
+        />
       </>
     );
   }
@@ -69,7 +73,7 @@ const AwaitingVerification = () => {
               </ContentLoader>
             </div>
           ) : (
-            <RenderData data={data} setPage={setPage} />
+            <RenderData data={data} setPage={setPage} page={page} />
           )}
         </div>
       </Container>
