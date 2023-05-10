@@ -2,7 +2,7 @@ import { Badge } from 'components/Badge/Badge';
 import { naira } from 'utils/currencyFormatter';
 import { Link } from 'react-router-dom';
 
-export const TransactionRequestTable = ({ transactions }) => {
+export const TransactionRequestTable = ({ transactions, sentToBankOne }) => {
   return (
     <div className="flex flex-col">
       <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -14,12 +14,12 @@ export const TransactionRequestTable = ({ transactions }) => {
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Originating Account
+                    S/N
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Transaction Reference
+                    Originating Account
                   </th>
                   <th
                     scope="col"
@@ -29,54 +29,59 @@ export const TransactionRequestTable = ({ transactions }) => {
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Beneficiary Bank Name
+                    Transaction Reference
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Beneficiary Account Name
+                    Beneficiary
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Beneficiary Account Number
+                    Approval Status
                   </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Transfer Status
-                  </th>
+                  {sentToBankOne && (
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      Transfer Status
+                    </th>
+                  )}
                   <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span className="sr-only">Edit</span>
                   </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 bg-white">
-                {transactions.map((transaction) => (
-                  <tr key={transaction._id}>
+                {transactions.map((transaction, i) => (
+                  <tr key={transaction?._id}>
+                    <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-500">{i + 1}</td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction.originatingAccount?.accountName}
+                      {transaction?.payerAccountNumber}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction.transactionReference}
+                      {naira.format(transaction?.amount)}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {naira.format(transaction.amount)}
+                      {transaction?.transactionReference}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction.beneficiaryBankName}
+                      <div>{transaction?.beneficiaryBankName}</div>
+                      <div>{transaction?.beneficiaryAccountName}</div>
+                      <div>{transaction?.beneficiaryAccountNumber}</div>
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction.beneficiaryAccountName}
-                    </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction.beneficiaryAccountNumber}
-                    </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      <Badge status={transaction.transferStatus}>
-                        {transaction.transferStatus}
-                      </Badge>
-                    </td>
+                    {sentToBankOne ? (
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        <Badge status={transaction?.transferStatus}>
+                          {transaction?.transferStatus}
+                        </Badge>
+                      </td>
+                    ) : (
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                        <Badge status={transaction?.status}>{transaction?.status}</Badge>
+                      </td>
+                    )}
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       <Link
                         to={`/transfers/${encodeURIComponent(transaction._id)}`}

@@ -1,26 +1,62 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Container } from 'components/Container/Container';
 import { Heading } from 'components/Common/Header/Heading';
 import { auditService } from 'services';
 import { AuditData } from './AuditData';
 import Pagination from 'components/Pagination/Pagination';
+import ContentLoader from 'react-content-loader';
+import { EmptyState } from 'components/EmptyState/EmptyState';
 
-export const Audit = ({ style = 'py-5 pl-5 pr-4' }) => {
+const RenderData = ({ data }) => {
+  if (!data || data?.trails?.length === 0) {
+    return (
+      <EmptyState
+        title="No trails found"
+        description="Organization activity will be shown here."
+        showAction={false}
+      />
+    );
+  } else {
+    return (
+      <div className="user-list">
+        <AuditData data={data} />
+      </div>
+    );
+  }
+};
+
+export const Audit = () => {
   const [page, setPage] = useState(1);
-  const { data, meta } = useQuery({
+
+  const { data, isFetching } = useQuery({
     queryKey: ['getOrganizationAuditTrails', { page }],
-    queryFn: () => auditService.getOrganizationAuditTrails({ page })
+    queryFn: () => auditService.getOrganizationAuditTrails({ page }),
+    onSuccess: (data) => {
+      setPage(data?.meta?.page ? Number(data?.meta?.page) : 1);
+    }
   });
 
   return (
-    <div className={`${style}`}>
+    <div className="p-5">
       <Container>
         <Heading>Audit Trail</Heading>
-        <div className="user-list">
-          <AuditData data={data} />
-        </div>
-        <Pagination totalItems={meta?.total} handlePageClick={setPage} />
+        {isFetching ? (
+          <div className="mt-5">
+            <ContentLoader viewBox="0 0 380 70">
+              <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
+            </ContentLoader>
+          </div>
+        ) : (
+          <>
+            <RenderData data={data} />
+            <Pagination
+              totalItems={data?.meta?.total}
+              handlePageClick={setPage}
+              currentPage={page}
+            />
+          </>
+        )}
       </Container>
     </div>
   );
