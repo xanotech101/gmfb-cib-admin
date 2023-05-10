@@ -31,10 +31,7 @@ export const Audit = () => {
 
   const { data, isFetching } = useQuery({
     queryKey: ['getOrganizationAuditTrails', { page }],
-    queryFn: () => auditService.getOrganizationAuditTrails({ page }),
-    onSuccess: (data) => {
-      setPage(data?.meta?.page ? Number(data?.meta?.page) : 1);
-    }
+    queryFn: () => auditService.getOrganizationAuditTrails({ page })
   });
 
   return (
