@@ -1,0 +1,101 @@
+import { ClockIcon } from "@heroicons/react/24/outline"
+import { useQuery } from "@tanstack/react-query"
+import { EmptyState } from "components/EmptyState/EmptyState";
+
+import { useState} from "react"
+import ContentLoader from "react-content-loader";
+import { Enquiry } from "services/api_console.service"
+const RenderData = ({data}) => {
+  console.log(data)
+  if (data?.results?.length === 0 || !data) {
+    return (
+      <EmptyState
+        title="No BVN Api created"
+        description="You have not created any bvn api yet."
+      />
+    );
+  } else {
+    return(
+      <>
+      <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
+                  S/N
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
+                 Organization Name
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
+               Number of BVN Count
+                </th>
+               
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
+                    time created
+                </th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200 ">
+              {data?.results?.map((datum, i) => (
+                <tr key={datum?._id}>
+                  <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
+                    {i + 1}
+                  </td>
+                  <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
+                    {datum?.organization_name}
+                  </td>
+                  <td className="px-6 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
+                    {datum?.bvnCount} Count
+                  </td>
+                  <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap ">
+                  <div className="mt-4 flex items-center text-sm text-gray-500 gap-2">
+                        <ClockIcon
+                          className=" h-5 w-5 flex-shrink-0  grooming-text"
+                          aria-hidden="true"
+                        />
+                        <div>
+                          <p> {datum?.updatedAt.substring(0, 10)}</p>
+                          <p className="mt-1">{datum?.updatedAt.substr(11, 8)}</p>
+                        </div>
+                      </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+      </>
+  )
+  }
+};
+
+export const BvnTable=()=>{
+  // const [request, setRequest]=useState([])
+  // const [total, setTotal]=useState(0)
+  const [page]=useState(1)
+  const { data,isLoading} = useQuery({
+    queryKey: ['console',page],
+    queryFn:()=>Enquiry.getApiConsole({page})
+
+  });
+  
+    return(
+        <>
+     
+     {isLoading ? (
+              <ContentLoader viewBox="0 0 380 70">
+                <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
+              </ContentLoader>
+            ) : (
+              <RenderData data={data} />
+            )}
+        </>
+    )
+}

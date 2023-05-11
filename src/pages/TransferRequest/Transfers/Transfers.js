@@ -21,7 +21,7 @@ const RenderData = ({ data, setPage }) => {
   } else {
     return (
       <>
-        <TransactionRequestTable transactions={data?.requests ?? []} />
+        <TransactionRequestTable transactions={data?.requests ?? []} sentToBankOne />
         <Pagination totalItems={data?.meta?.total ?? 0} handlePageClick={setPage} />
       </>
     );
