@@ -1,16 +1,9 @@
-import http from "plugins/axios";
+import http from 'plugins/axios';
 class ApiEnquiry {
-    getApiConsole() {
-      
-<<<<<<< HEAD
-        const data  =  http.get('/api/thirdparty/getthirdpartyOrganization');
-=======
-        const data  =  http.get('/api/thirdparty/getthirdpartyOrganization?page=1&numPerPage=10');
->>>>>>> master
-        return data;
-    
-    
+  getApiConsole() {
+    const data = http.get('/api/thirdparty/getthirdpartyOrganization?page=1&numPerPage=10');
+    return data;
   }
 }
-  
-  export const Enquiry = new ApiEnquiry();
+
+export const Enquiry = new ApiEnquiry();
