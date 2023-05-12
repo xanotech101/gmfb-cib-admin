@@ -28,9 +28,9 @@ import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateD
 import UpdateSecurityQuestion from 'pages/Settings/Security/UpdateSecurityQuestion';
 import { RequestTicketingDetails } from 'pages/Requests/RequestDetails/RequestDetails';
 import { BvnTable } from 'pages/ApiConsole/ApiBvnUsage';
-import { ApiTable } from 'pages/ApiConsole/Table';
+import { ApiTable } from 'pages/ApiConsole/ApiUsage';
 import { Wrapper } from 'pages/ApiConsole/Wrapper';
-
+import { UserManagement } from 'pages/UserManagement/UserManagement';
 export const Routing = () => {
   return (
     <>
@@ -42,11 +42,24 @@ export const Routing = () => {
           <Route element={<AuthLayout children={<Outlet />} />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="reports" element={<Report />} />
+            <Route path="user-management" element={<UserManagement/>} />
             <Route path="transfers">
               <Route index element={<Transfers />} />
               <Route path=":id" element={<TransferRequestDetails />} />
               <Route path="transfer-made" element={<Transfers />} />
               <Route path="awaiting" element={<AwaitingVerification />} />
+            </Route>
+            <Route
+              element={
+                <Wrapper>
+                  <Outlet />
+                </Wrapper>
+              }>
+            <Route path="api-console">
+              <Route index element={<ApiTable/>} />
+              <Route path="bvn-usage" element={<BvnTable />} />
+              <Route path="api-usage" element={<ApiTable/>} />
+            </Route>
             </Route>
             <Route
               element={
@@ -91,6 +104,7 @@ export const Routing = () => {
               <Route path=":id" element={<RequestTicketingDetails />} />
               <Route path="add-request" element={<AddRequest />} />
             </Route>
+           
            
             <Route path="profile">
               <Route index element={<Profile />} />

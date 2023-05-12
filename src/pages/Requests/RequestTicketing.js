@@ -8,7 +8,7 @@ import ContentLoader from 'react-content-loader';
 import { useQuery } from '@tanstack/react-query';
 
 const RenderData = ({ data }) => {
-  if (data?.tickets?.length === 0) {
+  if (data?.tickets?.length === 0 || !data) {
     return (
       <EmptyState
         title="No tickets found"

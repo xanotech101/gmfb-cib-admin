@@ -9,7 +9,8 @@ import {
   UserGroupIcon,
   BanknotesIcon,
   ArrowTopRightOnSquareIcon,
-  EnvelopeOpenIcon
+  EnvelopeOpenIcon, 
+  UserCircleIcon
 } from '@heroicons/react/24/outline';
 import { NavLinks } from './NavLink';
 import { useModal } from 'hooks';
@@ -24,6 +25,8 @@ export const NavItem = ({ closeSidebar }) => {
   const isSettings = /settings/i.test(window.location.pathname);
   const isTransferRequest = /transfers/i.test(window.location.pathname);
   const isApi = /api-console/i.test(window.location.pathname);
+  
+
   return (
     <div className="h-[90%] overflow-y-auto side-bar">
       <nav className="flex-1 space-y-1 px-2 pb-4">
@@ -77,6 +80,14 @@ export const NavItem = ({ closeSidebar }) => {
           to={!isApi? '/api-console/api-usage' :"api-console"}
           icon={<ArrowTopRightOnSquareIcon/>}
           name="Api Console"
+          current={false}
+          isActive
+          onClick={closeSidebar}
+        />
+         <NavLinks
+          to={'user-management'}
+          icon={< UserCircleIcon/>}
+          name="User Management"
           current={false}
           isActive
           onClick={closeSidebar}

@@ -2,16 +2,17 @@ import { ClockIcon } from "@heroicons/react/24/outline"
 import { useQuery } from "@tanstack/react-query"
 import { EmptyState } from "components/EmptyState/EmptyState";
 
+// import Pagination from "components/Pagination/Pagination"
 import { useState} from "react"
 import ContentLoader from "react-content-loader";
 import { Enquiry } from "services/api_console.service"
-
 const RenderData = ({data}) => {
+  console.log(data)
   if (data?.results?.length === 0 || !data) {
     return (
       <EmptyState
-        title="No BVN Api created"
-        description="You have not created any bvn api yet."
+        title="No Api created"
+        description="You have not created any api yet."
       />
     );
   } else {
@@ -33,7 +34,7 @@ const RenderData = ({data}) => {
                 <th
                   scope="col"
                   className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
-               Number of BVN Count
+               Number of Request
                 </th>
                
                 <th
@@ -53,7 +54,7 @@ const RenderData = ({data}) => {
                     {datum?.organization_name}
                   </td>
                   <td className="px-6 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
-                    {datum?.bvnCount} Count
+                    {datum?.requestCount} Request
                   </td>
                   <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap ">
                   <div className="mt-4 flex items-center text-sm text-gray-500 gap-2">
@@ -76,7 +77,7 @@ const RenderData = ({data}) => {
   }
 };
 
-export const BvnTable=()=>{
+export const ApiTable=()=>{
   // const [request, setRequest]=useState([])
   // const [total, setTotal]=useState(0)
   const [page]=useState(1)

@@ -7,7 +7,7 @@ const PER_PAGE = 10;
 function Pagination({ itemsPerPage = PER_PAGE, totalItems, handlePageClick, currentPage }) {
   const pageCount = Math.ceil(totalItems / itemsPerPage);
 
-  return totalItems > itemsPerPage ? (
+  return Number(totalItems) > Number(itemsPerPage) ? (
     <ReactPaginate
       breakLabel="..."
       nextLabel={<ChevronRightIcon className="h-5 w-5" aria-hidden="true" />}
