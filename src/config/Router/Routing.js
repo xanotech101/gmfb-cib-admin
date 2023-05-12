@@ -63,6 +63,18 @@ export const Routing = () => {
             </Route>
             <Route
               element={
+                <Wrapper>
+                  <Outlet />
+                </Wrapper>
+              }>
+            <Route path="api-console">
+              <Route index element={<ApiTable/>} />
+              <Route path="bvn-usage" element={<BvnTable />} />
+              <Route path="api-usage" element={<ApiTable/>} />
+            </Route>
+            </Route>
+            <Route
+              element={
                 <SettingsWrapper>
                   <Outlet />
                 </SettingsWrapper>
@@ -92,6 +104,7 @@ export const Routing = () => {
               <Route path=":id" element={<RequestTicketingDetails />} />
               <Route path="add-request" element={<AddRequest />} />
             </Route>
+           
            
             <Route path="profile">
               <Route index element={<Profile />} />

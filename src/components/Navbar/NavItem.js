@@ -25,6 +25,8 @@ export const NavItem = ({ closeSidebar }) => {
   const isSettings = /settings/i.test(window.location.pathname);
   const isTransferRequest = /transfers/i.test(window.location.pathname);
   const isApi = /api-console/i.test(window.location.pathname);
+  
+
   return (
     <div className="h-[90%] overflow-y-auto side-bar">
       <nav className="flex-1 space-y-1 px-2 pb-4">
