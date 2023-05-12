@@ -71,7 +71,7 @@ export const UserManagementTable = ({ users }) => {
                         </div>
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {user?.organizationId?.accountName ?? ''}
+                        {user?.organizationId?.accountName ?? ' '}
                       </td>
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {user?.email}
