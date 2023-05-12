@@ -41,6 +41,7 @@ const AwaitingVerification = () => {
         page
       })
   });
+
   return (
     <div className="flex flex-col mt-7 p-5">
       <div className="p-6">
