@@ -1,6 +1,7 @@
 /* eslint-disable react/no-children-prop */
 // TODO: Explore lazy loading and break into smaller files for easy access
 import { Route, Routes, Outlet } from 'react-router-dom';
+import { BatchUpload } from 'pages/TransferRequest/BatchUpload/BatchUpload';
 import { Dashboard } from 'pages/Dashboard/Dashboard';
 import { Corporate } from 'pages/CorporateAccount/CorporateAccount';
 import { Report } from 'pages/Reporting/Reports';
@@ -96,7 +97,7 @@ export const Routing = () => {
             <Route path="profile">
               <Route index element={<Profile />} />
             </Route>
-
+            <Route path="batch" element={<BatchUpload/>} />
             <Route path="mandate-rule">
               <Route index element={<MandateRule />} />
               <Route path="create" element={<CreateMandateRule />} />
