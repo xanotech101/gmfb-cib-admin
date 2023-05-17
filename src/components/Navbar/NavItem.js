@@ -98,6 +98,14 @@ export const NavItem = ({ closeSidebar }) => {
           onClick={closeSidebar}
         />
         <NavLinks
+          to={!isApi ? '/api-console/api-usage' : 'api-console'}
+          icon={<ArrowTopRightOnSquareIcon />}
+          name="Api Console"
+          current={false}
+          isActive
+          onClick={closeSidebar}
+        />
+        <NavLinks
           to={'user-management'}
           icon={<UserCircleIcon />}
           name="User Management"
