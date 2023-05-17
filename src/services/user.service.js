@@ -10,6 +10,7 @@ class UserService {
       throw new Error(error);
     }
   }
+
   async getBranchUsers(params) {
     try {
       const response = await http.get('/api/users/allbranchusers', {
@@ -28,6 +29,17 @@ class UserService {
       return response.data;
     } catch (error) {
       notification(error.response.data.message ?? 'something went wrong', 'error');
+      throw new Error(error);
+    }
+  }
+
+  async getAllUsers(params) {
+    try {
+      const response = await http.get('/api/users/all', {
+        params
+      });
+      return response.data;
+    } catch (error) {
       throw new Error(error);
     }
   }

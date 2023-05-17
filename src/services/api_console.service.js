@@ -1,4 +1,4 @@
-import http from "plugins/axios";
+import http from 'plugins/axios';
 class ApiEnquiry {
     getApiConsole() {
       
@@ -8,5 +8,5 @@ class ApiEnquiry {
     
   }
 }
-  
-  export const Enquiry = new ApiEnquiry();
+
+export const Enquiry = new ApiEnquiry();
