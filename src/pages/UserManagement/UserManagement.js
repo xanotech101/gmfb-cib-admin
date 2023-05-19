@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Container } from 'components/Container/Container';
 import { UserManagementTable } from './UserManagementTable';
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 import { useQuery } from '@tanstack/react-query';
 import { userService } from 'services';
 import Pagination from 'components/Pagination/Pagination';

@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Container } from 'components/Container/Container';
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 import { auditService } from 'services';
 import { AuditData } from './AuditData';
 import Pagination from 'components/Pagination/Pagination';

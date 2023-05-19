@@ -8,7 +8,7 @@ import { RequestTable } from 'pages/Requests/components/RequestTable/RequestTabl
 import ContentLoader from 'react-content-loader';
 import { Container } from 'components/Container/Container';
 import { Link } from 'react-router-dom';
-import { SubHeading } from 'components/Common/Header/SubHeading';
+import { SubHeading } from 'components/Header/SubHeading.js';
 import { Button } from 'components/Button/Button';
 
 const RenderData = ({ data }) => {

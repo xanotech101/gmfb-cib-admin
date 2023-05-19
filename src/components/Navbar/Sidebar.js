@@ -1,5 +1,4 @@
 // TODO: refactor navigation
-
 import { Dialog, Transition, Menu } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { Logo } from 'components/Logo/Logo';
@@ -43,6 +42,7 @@ export const Sidebar = () => {
   const handleLogout = () => {
     showModal();
   };
+
   return (
     <div className="z-50">
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -176,9 +176,7 @@ export const Sidebar = () => {
           </div>
         </div>
       </div>
-      {/* Static sidebar for desktop */}
       <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
-        {/* Sidebar component, swap this element with another sidebar if you like */}
         <div className="flex flex-grow flex-col grooming-color pt-5 pr-2">
           <div className="flex flex-shrink-0 items-center px-4">
             <Logo className="filt" />

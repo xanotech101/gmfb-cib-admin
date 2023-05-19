@@ -1,15 +1,12 @@
 /* eslint-disable react/no-children-prop */
 // TODO: Explore lazy loading and break into smaller files for easy access
 import { Route, Routes, Outlet } from 'react-router-dom';
-import { BatchUpload } from 'pages/TransferRequest/BatchUpload/BatchUpload';
+import { BatchUpload } from 'pages/CorporateAccount/BatchOnboard/BatchOnboard';
 import { Dashboard } from 'pages/Dashboard/Dashboard';
 import { Corporate } from 'pages/CorporateAccount/CorporateAccount';
 import { Report } from 'pages/Reporting/Reports';
 import { Settings } from 'pages/Settings/Settings';
 import { AuthLayout } from '../../components/Layout/AuthLayout';
-import { MandateRule } from 'pages/MandateRule/MandateRule';
-import { CreateMandateRule } from 'pages/MandateRule/CreateMandateRule/CreateMandateRule';
-import { UpdateMandateRule } from 'pages/MandateRule/UpdateMandateRule/UpdateMandateRule';
 import { Profile } from 'pages/Profile/Profile';
 import { ErrorPage } from 'pages/ErrorPage/ErrorPage';
 import { Audit } from 'pages/AuditTrail/AuditTrail';
@@ -17,7 +14,6 @@ import { authRoutes } from 'config/Router/routes/Auth.routes';
 import { Security } from 'pages/Settings/Security/Security';
 import { SettingsWrapper } from 'pages/Settings/SettingsWrapper';
 import RequestTicketing from 'pages/Requests/RequestTicketing';
-import AddRequest from 'pages/Requests/AddRequest/AddRequest';
 import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
 import { PrivateOutlet } from './PrivateOutLet';
 import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
@@ -32,6 +28,7 @@ import { BvnTable } from 'pages/ApiConsole/ApiBvnUsage';
 import { ApiTable } from 'pages/ApiConsole/ApiUsage';
 import { Wrapper } from 'pages/ApiConsole/Wrapper';
 import { UserManagement } from 'pages/UserManagement/UserManagement';
+
 export const Routing = () => {
   return (
     <>
@@ -64,18 +61,6 @@ export const Routing = () => {
             </Route>
             <Route
               element={
-                <Wrapper>
-                  <Outlet />
-                </Wrapper>
-              }>
-            <Route path="api-console">
-              <Route index element={<ApiTable/>} />
-              <Route path="bvn-usage" element={<BvnTable />} />
-              <Route path="api-usage" element={<ApiTable/>} />
-            </Route>
-            </Route>
-            <Route
-              element={
                 <SettingsWrapper>
                   <Outlet />
                 </SettingsWrapper>
@@ -90,29 +75,26 @@ export const Routing = () => {
                 <Route path="/settings/security" element={<Security />} />
               </Route>
             </Route>
+
             <Route path="accounts">
               <Route index element={<Corporate />} />
               <Route path="onboard" element={<OnboardCorporateAccount />} />
+              <Route path="onboard/batch" element={<BatchUpload />} />
               <Route path=":id/corporate-details" element={<CorporateDetails />} />
               <Route path=":id/users" element={<CorporateUsersUnderCorporateAccount />} />
               <Route path=":id/transfer-requests" element={<TransferRequest />} />
               <Route path=":id/transfer-requests/:id" element={<TransferRequestDetails />} />
             </Route>
-            <Route path="onboard" element={<OnboardCorporateAccount />} />
+
             <Route path="audit" element={<Audit />} />
+
             <Route path="requests">
               <Route index element={<RequestTicketing />} />
               <Route path=":id" element={<RequestTicketingDetails />} />
-              <Route path="add-request" element={<AddRequest />} />
             </Route>
+
             <Route path="profile">
               <Route index element={<Profile />} />
-            </Route>
-            <Route path="batch" element={<BatchUpload />} />
-            <Route path="mandate-rule">
-              <Route index element={<MandateRule />} />
-              <Route path="create" element={<CreateMandateRule />} />
-              <Route path="update/:id" element={<UpdateMandateRule />} />
             </Route>
           </Route>
         </Route>

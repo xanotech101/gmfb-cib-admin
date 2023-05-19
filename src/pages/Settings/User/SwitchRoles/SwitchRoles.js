@@ -1,4 +1,4 @@
-import { SubHeading } from 'components/Common/Header/SubHeading';
+import { SubHeading } from 'components/Header/SubHeading';
 import { Select } from 'components/Form/Select/Select';
 import { useForm } from 'react-hook-form';
 

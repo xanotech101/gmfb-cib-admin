@@ -8,7 +8,7 @@ import Pagination from 'components/Pagination/Pagination';
 import ContentLoader from 'react-content-loader';
 import { Container } from 'components/Container/Container';
 import { NavLink } from 'react-router-dom';
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 
 const RenderData = ({ data, setPage, page }) => {
   if (data?.length === 0 || !data) {

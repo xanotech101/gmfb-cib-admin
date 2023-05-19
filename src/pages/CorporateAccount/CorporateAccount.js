@@ -1,5 +1,5 @@
 import ContentLoader from 'react-content-loader';
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 import { Container } from 'components/Container/Container';
 import { CorporateTable } from './CorporateTable';
 import { Link, useNavigate } from 'react-router-dom';

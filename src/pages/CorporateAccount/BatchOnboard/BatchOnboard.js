@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { Container } from 'components/Container/Container';
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 import { FileUpload } from 'components/Form/FileUpload/FileUpload';
 import { useConvertFileToJson, useCustomerInfo, useModal } from 'hooks';
 import { Button } from 'components/Button/Button';
@@ -9,7 +9,7 @@ import { useMutation } from '@tanstack/react-query';
 import { transactionService } from 'services';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from 'components/Spinner/Spinner';
-import { SubHeading } from 'components/Common/Header/SubHeading';
+import { SubHeading } from 'components/Header/SubHeading';
 import { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Preview } from './Preview';

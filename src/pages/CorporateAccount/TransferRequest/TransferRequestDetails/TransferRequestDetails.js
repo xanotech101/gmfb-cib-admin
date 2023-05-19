@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { SubHeading } from 'components/Common/Header/SubHeading';
+import { SubHeading } from 'components/Header/SubHeading';
 import { Container } from 'components/Container/Container';
 import { useParams } from 'react-router-dom';
 import { transactionService } from 'services';

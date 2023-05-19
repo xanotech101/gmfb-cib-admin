@@ -56,12 +56,12 @@ export const NavItem = ({ closeSidebar }) => {
             <UserGroupIcon className="mr-3 h-6 w-6 flex-shrink-0 text-white" aria-hidden="true" />
           }>
           <DropDownItems>
-            <Link to="onboard" className="block">
+            <Link to="/accounts/onboard" className="block">
               Onboarding
             </Link>
           </DropDownItems>
           <DropDownItems>
-            <Link to="batch" className="block">
+            <Link to="/accounts/onboard/batch" className="block">
               Batch Onboarding
             </Link>
           </DropDownItems>

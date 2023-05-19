@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query';
 import { Button } from 'components/Button/Button';
-import { SubHeading } from 'components/Common/Header/SubHeading';
+import { SubHeading } from 'components/Header/SubHeading';
 import { Container } from 'components/Container/Container';
 import { useModal, useStore } from 'hooks';
 import { useParams } from 'react-router-dom';
@@ -192,8 +192,7 @@ export const TransactionDetails = () => {
                   disabled={getLoadingStatus()}
                   onClick={() => {
                     showModalAndUpdateAction('authorizer-approve');
-                  }}
-                >
+                  }}>
                   Authorize
                 </Button>
                 <Button
@@ -201,8 +200,7 @@ export const TransactionDetails = () => {
                   disabled={getLoadingStatus()}
                   onClick={() => {
                     showModalAndUpdateAction('authorizer-decline');
-                  }}
-                >
+                  }}>
                   Decline
                 </Button>
               </>
@@ -216,8 +214,7 @@ export const TransactionDetails = () => {
                 disabled={getLoadingStatus()}
                 onClick={() => {
                   showModalAndUpdateAction('authorizer-approve');
-                }}
-              >
+                }}>
                 Change decision
               </Button>
             )}
@@ -228,8 +225,7 @@ export const TransactionDetails = () => {
                 disabled={getLoadingStatus()}
                 onClick={() => {
                   showModalAndUpdateAction('authorizer-decline');
-                }}
-              >
+                }}>
                 Change decision
               </Button>
             )}
@@ -241,8 +237,7 @@ export const TransactionDetails = () => {
                   disabled={getLoadingStatus()}
                   onClick={() => {
                     showModalAndUpdateAction('verifier-approve');
-                  }}
-                >
+                  }}>
                   Approve
                 </Button>
                 <Button
@@ -250,8 +245,7 @@ export const TransactionDetails = () => {
                   disabled={getLoadingStatus()}
                   onClick={() => {
                     showModalAndUpdateAction('verifier-decline');
-                  }}
-                >
+                  }}>
                   Decline
                 </Button>
               </>

@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 import { Button } from 'components/Button/Button';
 import { TextArea } from 'components/Form/TextArea/TextArea';
 import { useQueryClient, useMutation } from '@tanstack/react-query';

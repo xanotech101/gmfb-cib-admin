@@ -1,5 +1,5 @@
 import React from 'react';
-import { SubHeading } from 'components/Common/Header/SubHeading';
+import { SubHeading } from 'components/Header/SubHeading';
 import { useNavigate } from 'react-router-dom';
 import { useModal } from 'hooks';
 import LogoutPrompt from 'pages/Auth/LogoutPrompt/LogoutPrompt';

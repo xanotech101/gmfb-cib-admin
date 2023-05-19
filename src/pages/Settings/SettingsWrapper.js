@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container } from 'components/Container/Container';
 import { NavLink } from 'react-router-dom';
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 export const SettingsWrapper = ({ children }) => {
   return (
     <div className="p-5">
