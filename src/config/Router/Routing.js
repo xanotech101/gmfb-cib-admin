@@ -31,75 +31,73 @@ import { UserManagement } from 'pages/UserManagement/UserManagement';
 
 export const Routing = () => {
   return (
-    <>
-      <Routes>
-        {authRoutes.map(({ path, element }) => (
-          <Route key={path} path={path} element={element} />
-        ))}
-        <Route element={<PrivateOutlet />}>
-          <Route element={<AuthLayout children={<Outlet />} />}>
-            <Route path="dashboard" element={<Dashboard />} />
-            <Route path="reports" element={<Report />} />
-            <Route path="user-management" element={<UserManagement />} />
-            <Route path="transfers">
-              <Route index element={<Transfers />} />
-              <Route path=":id" element={<TransferRequestDetails />} />
-              <Route path="transfer-made" element={<Transfers />} />
-              <Route path="awaiting" element={<AwaitingVerification />} />
-            </Route>
-            <Route
-              element={
-                <Wrapper>
-                  <Outlet />
-                </Wrapper>
-              }>
-              <Route path="api-console">
-                <Route index element={<ApiTable />} />
-                <Route path="bvn-usage" element={<BvnTable />} />
-                <Route path="api-usage" element={<ApiTable />} />
-              </Route>
-            </Route>
-            <Route
-              element={
-                <SettingsWrapper>
-                  <Outlet />
-                </SettingsWrapper>
-              }>
-              <Route path="settings">
-                <Route index element={<Settings />} />
-                <Route path="/settings/general" element={<Settings />} />
-                <Route path="general">
-                  <Route index element={<Settings />} />
-                  <Route path="update-security-question" element={<UpdateSecurityQuestion />} />
-                </Route>
-                <Route path="/settings/security" element={<Security />} />
-              </Route>
-            </Route>
-
-            <Route path="accounts">
-              <Route index element={<Corporate />} />
-              <Route path="onboard" element={<OnboardCorporateAccount />} />
-              <Route path="onboard/batch" element={<BatchUpload />} />
-              <Route path=":id/corporate-details" element={<CorporateDetails />} />
-              <Route path=":id/users" element={<CorporateUsersUnderCorporateAccount />} />
-              <Route path=":id/transfer-requests" element={<TransferRequest />} />
-              <Route path=":id/transfer-requests/:id" element={<TransferRequestDetails />} />
-            </Route>
-
-            <Route path="audit" element={<Audit />} />
-
-            <Route path="requests">
-              <Route index element={<RequestTicketing />} />
-              <Route path=":id" element={<RequestTicketingDetails />} />
-            </Route>
-
-            <Route path="profile">
-              <Route index element={<Profile />} />
+    <Routes>
+      {authRoutes.map(({ path, element }) => (
+        <Route key={path} path={path} element={element} />
+      ))}
+      <Route element={<PrivateOutlet />}>
+        <Route element={<AuthLayout children={<Outlet />} />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="reports" element={<Report />} />
+          <Route path="user-management" element={<UserManagement />} />
+          <Route path="transfers">
+            <Route index element={<Transfers />} />
+            <Route path=":id" element={<TransferRequestDetails />} />
+            <Route path="transfer-made" element={<Transfers />} />
+            <Route path="awaiting" element={<AwaitingVerification />} />
+          </Route>
+          <Route
+            element={
+              <Wrapper>
+                <Outlet />
+              </Wrapper>
+            }>
+            <Route path="api-console">
+              <Route index element={<ApiTable />} />
+              <Route path="bvn-usage" element={<BvnTable />} />
+              <Route path="api-usage" element={<ApiTable />} />
             </Route>
           </Route>
+          <Route
+            element={
+              <SettingsWrapper>
+                <Outlet />
+              </SettingsWrapper>
+            }>
+            <Route path="settings">
+              <Route index element={<Settings />} />
+              <Route path="/settings/general" element={<Settings />} />
+              <Route path="general">
+                <Route index element={<Settings />} />
+                <Route path="update-security-question" element={<UpdateSecurityQuestion />} />
+              </Route>
+              <Route path="/settings/security" element={<Security />} />
+            </Route>
+          </Route>
+
+          <Route path="accounts">
+            <Route index element={<Corporate />} />
+            <Route path="onboard" element={<OnboardCorporateAccount />} />
+            <Route path="onboard/batch" element={<BatchUpload />} />
+            <Route path=":id/corporate-details" element={<CorporateDetails />} />
+            <Route path=":id/users" element={<CorporateUsersUnderCorporateAccount />} />
+            <Route path=":id/transfer-requests" element={<TransferRequest />} />
+            <Route path=":id/transfer-requests/:id" element={<TransferRequestDetails />} />
+          </Route>
+
+          <Route path="audit" element={<Audit />} />
+
+          <Route path="requests">
+            <Route index element={<RequestTicketing />} />
+            <Route path=":id" element={<RequestTicketingDetails />} />
+          </Route>
+
+          <Route path="profile">
+            <Route index element={<Profile />} />
+          </Route>
         </Route>
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
-    </>
+      </Route>
+      <Route path="*" element={<ErrorPage />} />
+    </Routes>
   );
 };
