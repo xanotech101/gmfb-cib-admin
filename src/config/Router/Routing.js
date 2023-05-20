@@ -13,14 +13,13 @@ import { Audit } from 'pages/AuditTrail/AuditTrail';
 import { authRoutes } from 'config/Router/routes/Auth.routes';
 import { Security } from 'pages/Settings/Security/Security';
 import { SettingsWrapper } from 'pages/Settings/SettingsWrapper';
-import RequestTicketing from 'pages/Requests/RequestTicketing';
+import { RequestTicketing } from 'pages/Requests/RequestTicketing';
 import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
 import { PrivateOutlet } from './PrivateOutLet';
 import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
 import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/TransferRequest';
 import { TransferRequestDetails } from 'pages/CorporateAccount/TransferRequest/TransferRequestDetails/TransferRequestDetails';
-import Transfers from 'pages/TransferRequest/Transfers/Transfers';
-import AwaitingVerification from 'pages/TransferRequest/AwaitingVerification/AwaitingVerification';
+import { AllTransferRequests } from 'pages/TransferRequest/AllTransferRequests/AllTransferRequests';
 import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateDetails';
 import UpdateSecurityQuestion from 'pages/Settings/Security/UpdateSecurityQuestion';
 import { RequestTicketingDetails } from 'pages/Requests/RequestDetails/RequestDetails';
@@ -40,11 +39,9 @@ export const Routing = () => {
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="reports" element={<Report />} />
           <Route path="user-management" element={<UserManagement />} />
-          <Route path="transfers">
-            <Route index element={<Transfers />} />
+          <Route path="transfer-requests">
+            <Route index element={<AllTransferRequests />} />
             <Route path=":id" element={<TransferRequestDetails />} />
-            <Route path="transfer-made" element={<Transfers />} />
-            <Route path="awaiting" element={<AwaitingVerification />} />
           </Route>
           <Route
             element={

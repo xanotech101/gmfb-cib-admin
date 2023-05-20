@@ -21,7 +21,7 @@ const RenderData = ({ data }) => {
   }
 };
 
-const RequestTicketing = () => {
+export const RequestTicketing = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['get-tickets'],
     queryFn: ticketService.getTickets
@@ -47,4 +47,3 @@ const RequestTicketing = () => {
     </div>
   );
 };
-export default RequestTicketing;

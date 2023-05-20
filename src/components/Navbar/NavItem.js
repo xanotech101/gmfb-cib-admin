@@ -22,11 +22,7 @@ import { DropDown } from 'components/DropDown/DropDown';
 export const NavItem = ({ closeSidebar }) => {
   const navigate = useNavigate();
   const { Modal, showModal } = useModal();
-  const handleLogout = () => {
-    showModal();
-  };
   const isSettings = /settings/i.test(window.location.pathname);
-  const isTransferRequest = /transfers/i.test(window.location.pathname);
   const isApi = /api-console/i.test(window.location.pathname);
 
   return (
@@ -34,9 +30,9 @@ export const NavItem = ({ closeSidebar }) => {
       <nav className="flex-1 space-y-1 px-2 pb-4">
         <NavLinks to="/dashboard" name="Dashboard" icon={<HomeIcon />} current={true} />
         <NavLinks
-          to={!isTransferRequest ? 'transfers/transfer-made' : 'transfers'}
+          to="/transfer-requests"
           icon={<BanknotesIcon />}
-          name="Transfers"
+          name="Transfer Requests"
           current={false}
           onClick={closeSidebar}
         />
@@ -49,9 +45,10 @@ export const NavItem = ({ closeSidebar }) => {
           isActive
           onClick={closeSidebar}
         />
+
         <DropDown
           title="Onboarding"
-          text="text-white  mt-5"
+          text="text-white mt-5"
           icon={
             <UserGroupIcon className="mr-3 h-6 w-6 flex-shrink-0 text-white" aria-hidden="true" />
           }>
@@ -74,6 +71,7 @@ export const NavItem = ({ closeSidebar }) => {
           current={false}
           onClick={closeSidebar}
         />
+
         <NavLinks
           to="/reports"
           icon={<ChartPieIcon />}
@@ -118,7 +116,7 @@ export const NavItem = ({ closeSidebar }) => {
         <p
           className="group flex items-center px-2 py-5 text-sm font-medium rounded-md text-white mt-5 relative cursor-pointer"
           onClick={() => {
-            handleLogout();
+            showModal();
             closeSidebar();
           }}>
           <ArrowLeftOnRectangleIcon
