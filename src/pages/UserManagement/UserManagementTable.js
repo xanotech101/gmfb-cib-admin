@@ -76,10 +76,10 @@ export const UserManagementTable = ({ users }) => {
                       <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                         {user?.email}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 capitalize">
                         {user?.gender}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 capitalize">
                         {user?.role}
                       </td>
                       <td>

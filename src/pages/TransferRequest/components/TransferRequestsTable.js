@@ -89,7 +89,7 @@ export const TransferRequestsTable = ({ transactions }) => {
 
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       <Link
-                        to={`/transfers/${encodeURIComponent(transaction._id)}`}
+                        to={`/transfer-requests/${encodeURIComponent(transaction._id)}`}
                         className="text-primary hover:text-indigo-900 ml-4">
                         View
                       </Link>

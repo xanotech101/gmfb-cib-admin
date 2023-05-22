@@ -3,10 +3,20 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import classNames from 'classnames';
 
-export const Modal = ({ open, setOpen, children, size = 'sm', showCloseIcon = true }) => {
+export const Modal = ({
+  open,
+  setOpen,
+  children,
+  size = 'sm',
+  showCloseIcon = true,
+  dismissOnclickOutside = true
+}) => {
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+      <Dialog
+        as="div"
+        className="relative z-10"
+        onClose={(state) => (dismissOnclickOutside ? setOpen(state) : {})}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -14,8 +24,7 @@ export const Modal = ({ open, setOpen, children, size = 'sm', showCloseIcon = tr
           enterTo="opacity-100"
           leave="ease-in duration-200"
           leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
+          leaveTo="opacity-0">
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
@@ -28,8 +37,7 @@ export const Modal = ({ open, setOpen, children, size = 'sm', showCloseIcon = tr
               enterTo="opacity-100 translate-y-0 sm:scale-100"
               leave="ease-in duration-200"
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            >
+              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95">
               <Dialog.Panel
                 className={classNames(
                   'relative transform rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:p-6',
@@ -38,14 +46,12 @@ export const Modal = ({ open, setOpen, children, size = 'sm', showCloseIcon = tr
                     'sm:max-w-md': size === 'md',
                     'sm:max-w-sm': size === 'sm'
                   }
-                )}
-              >
+                )}>
                 {showCloseIcon && (
                   <div className="absolute -top-6 -right-4">
                     <button
                       className="bg-white rounded-full p-2 shadow-md text-gray-600"
-                      onClick={setOpen}
-                    >
+                      onClick={() => setOpen(false)}>
                       <XMarkIcon className="w-5 h-5" />
                     </button>
                   </div>
