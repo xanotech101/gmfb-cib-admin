@@ -1,71 +1,64 @@
 /* eslint-disable no-unused-vars */
 import { Container } from 'components/Container/Container';
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 import { FileUpload } from 'components/Form/FileUpload/FileUpload';
-import { useConvertFileToJson, useCustomerInfo, useModal } from 'hooks';
+import { useConvertFileToJson, useModal } from 'hooks';
 import { Button } from 'components/Button/Button';
 import { CloudArrowUpIcon } from '@heroicons/react/24/outline';
 import { useMutation } from '@tanstack/react-query';
-import { transactionService } from 'services';
+import { accountService } from 'services';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from 'components/Spinner/Spinner';
-import { SubHeading } from 'components/Common/Header/SubHeading';
-import { useState, useMemo } from 'react';
+import { SubHeading } from 'components/Header/SubHeading';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Preview } from './Preview';
 import { Error } from './Error';
 import { useForm } from 'react-hook-form';
+import { Select } from 'components/Form/Select/Select';
 import { notification } from 'utils';
 
 export const BatchUpload = () => {
   const navigate = useNavigate();
   const { Modal, showModal } = useModal();
   const [errors, setErrors] = useState([]);
-  const customerInfo = useCustomerInfo();
   const { control, getValues } = useForm();
-  const [upload, setUpoad] = useState(true);
-  const accounts = useMemo(() => {
-    return customerInfo?.data?.Accounts?.map((account) => ({
-      label: (
-        <span>
-          {account.accountNumber} - <strong>(N{account.ledgerBalance})</strong>
-        </span>
-      ),
-      value: account.accountNumber
-    }));
-  }, [customerInfo]);
-
-  useQuery({
-    queryKey: ['bank-lists'],
-    queryFn: transactionService.getBankList,
-    onSuccess: (data) => {
-      console.log(data);
-    }
-  });
 
   const { convertFile, file, clearFile, jsonArray } = useConvertFileToJson();
 
   const { mutate } = useMutation({
-    mutationFn: (data) => transactionService.bulkUploadTransaction(data),
-    onSuccess: ({ data }) => {
-      const { unresolvedAccount, unresolvedMandates } = data;
-      const combinedErrors = [...unresolvedAccount, ...unresolvedMandates];
-      if (combinedErrors.length === 0) {
-        navigate('/transaction-requests/initiated');
+    mutationFn: (data) => accountService.bulkUploadAccount(data),
+    onSuccess: (data) => {
+      console.log('🚀 ~ file: BatchOnboard.js:49 ~ BatchUpload ~ data:', data);
+      const { invalidAccounts } = data;
+      if (invalidAccounts.length === 0) {
+        navigate('/accounts');
       } else {
-        setErrors(combinedErrors);
+        setErrors(invalidAccounts);
       }
     },
     onSettled: () => {
-      showModal();
+      showModal(false);
+    },
+    onError(error) {
+      showModal(false);
     }
   });
 
+  const { data: accountLabels } = useQuery({
+    queryFn: () => accountService.getAccountLabels(),
+    queryKey: ['account-labels']
+  });
+
   const handleUpload = () => {
+    const { organizationLabel } = getValues();
+    if (!organizationLabel) {
+      notification('Please select an organization label', 'error');
+      return;
+    }
     showModal();
-    setTimeout(() => {
-      setUpoad(false);
-    }, 3000);
+    clearFile();
+    mutate({ file, organizationLabel: organizationLabel.value });
   };
 
   return (
@@ -82,13 +75,15 @@ export const BatchUpload = () => {
 
                 <div className="flex items-center gap-5">
                   <div className="relative mb-2 text-right">
-                    <a href="/gmfb-cib-bulk-upload-template.xlsx" download>
+                    <a
+                      href={`${process.env.PUBLIC_URL}/gmfb-cib-bulk-account-onboarding-template.xlsx`}
+                      download>
                       <Button
                         buttonText="Generate Template"
                         hidden="hidden"
                         rounded="rounded-md"
                         variant="outline">
-                        Generate Template
+                        Download template
                       </Button>
                     </a>
                   </div>
@@ -108,36 +103,41 @@ export const BatchUpload = () => {
             removeFile={() => {
               clearFile();
             }}>
-            <div className="mt-4 flex justify-center">
-              {upload !== false ? (
-                <Button onClick={handleUpload}>
-                  Upload <CloudArrowUpIcon className="w-6 h-6 ml-2" />
-                </Button>
-              ) : (
-                <Button>Submit</Button>
-              )}
+            <div className="mt-4 flex justify-center gap-3 items-end">
+              <div className="min-w-[320px]">
+                <Select
+                  label="Select Organization Label"
+                  name="organizationLabel"
+                  control={control}
+                  options={(accountLabels ?? []).map(({ _id, label }) => ({
+                    label,
+                    value: _id
+                  }))}
+                  error={errors.organizationLabel && 'Organization Label is required'}
+                />
+              </div>
+              <Button onClick={handleUpload}>
+                Upload <CloudArrowUpIcon className="w-6 h-6 ml-2" />
+              </Button>
             </div>
           </FileUpload>
           {jsonArray.length > 0 && <Preview items={jsonArray} />}
           {errors.length > 0 && <Error items={errors} />}
         </Container>
       </div>
-      {upload !== false &&
-        Modal({
-          children: (
-            <div className="flex flex-col items-center">
-              <Spinner />
-              <SubHeading className="text-center  text-xl font-semibold">
-                Processing Requests......
-              </SubHeading>
-              <p className="mt-5 text-center">
-                This may take a few seconds, please {"don't"} close this page.
-              </p>
-            </div>
-          ),
-          showCloseIcon: false,
-          dismissOnclickOutside: false
-        })}
+      {Modal({
+        children: (
+          <div className="flex flex-col items-center">
+            <Spinner />
+            <SubHeading className="text-center  text-xl font-semibold">Processing......</SubHeading>
+            <p className="mt-5 text-center">
+              This may take a while, please don&apos;t close this page.
+            </p>
+          </div>
+        ),
+        showCloseIcon: false,
+        dismissOnclickOutside: false
+      })}
     </>
   );
 };

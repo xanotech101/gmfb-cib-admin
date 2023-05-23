@@ -1,8 +1,8 @@
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { MagnifyingGlassIcon, XCircleIcon } from '@heroicons/react/20/solid';
 import React from 'react';
 import { Input } from '../Input/Input';
 
-const SearchFilter = ({ placeholder }) => {
+const SearchFilter = ({ placeholder, value, setValue, onSearch }) => {
   return (
     <div className="relative lg:w-[400px] mt-2">
       <Input placeholder={placeholder} />

@@ -1,87 +1,78 @@
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { useQuery } from '@tanstack/react-query';
 import { EmptyState } from 'components/EmptyState/EmptyState';
-
-// import Pagination from "components/Pagination/Pagination"
 import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import { Enquiry } from 'services/api_console.service';
 import { DateFormats, DateUtils } from 'utils';
+
 const RenderData = ({ data }) => {
-  console.log(data);
   if (data?.results?.length === 0 || !data) {
     return <EmptyState title="No Api created" description="You have not created any api yet." />;
   } else {
     return (
-      <>
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th
-                scope="col"
-                className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
-                S/N
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
-                Organization Name
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
-                Number of Request
-              </th>
+      <table className="min-w-full divide-y divide-gray-200">
+        <thead className="bg-gray-50">
+          <tr>
+            <th
+              scope="col"
+              className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
+              S/N
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
+              Organization Name
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
+              Number of Request
+            </th>
 
-              <th
-                scope="col"
-                className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
-                time created
-              </th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200 ">
-            {data?.results?.map((datum, i) => (
-              <tr key={datum?._id}>
-                <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
-                  {i + 1}
-                </td>
-                <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
-                  {datum?.organization_name.substring(0, 4)}
-                </td>
-                <td className="px-6 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
-                  {datum?.requestCount} Request
-                </td>
-                <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap ">
-                  <div className="mt-4 flex items-center text-sm text-gray-500 gap-2">
-                    <ClockIcon
-                      className=" h-5 w-5 flex-shrink-0  text-primary"
-                      aria-hidden="true"
-                    />
-                    <div>
-                      <p>
-                        {datum?.createdAt
-                          ? DateUtils.dateToString(
-                              new Date(datum.createdAt),
-                              DateFormats.frontendDateTime
-                            )
-                          : ''}
-                      </p>
-                    </div>
+            <th
+              scope="col"
+              className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
+              time created
+            </th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-200 ">
+          {data?.results?.map((datum, i) => (
+            <tr key={datum?._id}>
+              <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
+                {i + 1}
+              </td>
+              <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
+                {datum?.organization_name.substring(0, 4)}
+              </td>
+              <td className="px-6 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
+                {datum?.requestCount} Request
+              </td>
+              <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap ">
+                <div className="mt-4 flex items-center text-sm text-gray-500 gap-2">
+                  <ClockIcon className=" h-5 w-5 flex-shrink-0  text-primary" aria-hidden="true" />
+                  <div>
+                    <p>
+                      {datum?.createdAt
+                        ? DateUtils.dateToString(
+                            new Date(datum.createdAt),
+                            DateFormats.frontendDateTime
+                          )
+                        : ''}
+                    </p>
                   </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     );
   }
 };
 
 export const ApiTable = () => {
-  // const [request, setRequest]=useState([])
-  // const [total, setTotal]=useState(0)
   const [page] = useState(1);
   const { data, isLoading } = useQuery({
     queryKey: ['console', page],

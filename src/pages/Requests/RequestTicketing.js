@@ -1,4 +1,4 @@
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 import { Container } from 'components/Container/Container';
 import React from 'react';
 import { RequestTable } from './components/RequestTable/RequestTable';
@@ -21,7 +21,7 @@ const RenderData = ({ data }) => {
   }
 };
 
-const RequestTicketing = () => {
+export const RequestTicketing = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['get-tickets'],
     queryFn: ticketService.getTickets
@@ -47,4 +47,3 @@ const RequestTicketing = () => {
     </div>
   );
 };
-export default RequestTicketing;

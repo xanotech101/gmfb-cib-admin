@@ -15,22 +15,7 @@ export const Preview = ({ items }) => {
             <thead className="text-sm bg-gray-100 border text-black uppercase ">
               <tr>
                 <th scope="col" className="px-6 py-3">
-                  FIRST NAME
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  LAST NAME
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  USEREMAIL{' '}
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  PHONE NUMBER
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  GENDER
-                </th>
-                <th scope="col" className="px-6 py-3">
-                  IMAGE URL
+                  ADMIN
                 </th>
                 <th scope="col" className="px-6 py-3">
                   ACCOUNT NUMBER
@@ -49,16 +34,17 @@ export const Preview = ({ items }) => {
             <tbody>
               {currentPage.map((value, index) => (
                 <tr className="border" key={index}>
-                  <td className="px-6 py-4 border-l">{value['FIRST NAME']}</td>
-                  <td className="px-6 py-4 border-l">{value['LAST NAME']}</td>
-                  <td className="px-6 py-4 border-l">{value['USER EMAIL']}</td>
-                  <td className="px-6 py-4 border-l">{value['PHONE NUMBER']}</td>
-                  <td className="px-6 py-4 border-l">{value['GENDER']}</td>
-                  <td className="px-6 py-4 border-l">{value['IMAGE URL']}</td>
-                  <td className="px-6 py-4 border-l">{value['ACCOUNT NUMBER']}</td>
-                  <td className="px-6 py-4 border-l">{value['ACCOUNT NAME']}</td>
-                  <td className="px-6 py-4 border-l">{value['CUSTOMER ID']}</td>
-                  <td className="px-6 py-4 border-l">{value['ACCOUNT EMAIL']}</td>
+                  <td className="px-6 py-4 border-l">
+                    <div>
+                      {value['ADMIN_FIRSTNAME']} {value['ADMIN_LASTNAME']}
+                    </div>
+                    <div>{value['ADMIN_EMAIL']}</div>
+                    <div>{value['ADMIN_PHONE_NUMBER']}</div>
+                  </td>
+                  <td className="px-6 py-4 border-l">{value['ACCOUNT_NUMBER']}</td>
+                  <td className="px-6 py-4 border-l">{value['ACCOUNT_NAME']}</td>
+                  <td className="px-6 py-4 border-l">{value['CUSTOMER_ID']}</td>
+                  <td className="px-6 py-4 border-l">{value['ACCOUNT_EMAIL']}</td>
                 </tr>
               ))}
             </tbody>

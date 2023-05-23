@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { SubHeading } from 'components/Common/Header/SubHeading';
+import { SubHeading } from 'components/Header/SubHeading';
 import { Checkbox } from 'components/Form/Checkbox/Checkbox';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { privilegeService } from 'services';

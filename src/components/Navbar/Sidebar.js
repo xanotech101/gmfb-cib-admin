@@ -1,5 +1,4 @@
 // TODO: refactor navigation
-
 import { Dialog, Transition, Menu } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 import { Logo } from 'components/Logo/Logo';
@@ -13,10 +12,11 @@ import { useNotifications, useStore } from 'hooks';
 import { Notification } from 'components/Notification/Notification';
 import { Link } from 'react-router-dom';
 import { NavItem } from './NavItem';
+import { Avatar } from 'components/Avatar/Avatar';
 
 export const Sidebar = () => {
   const token = localStorage.getItem('token');
-  useQuery({
+  const { data } = useQuery({
     queryKey: ['userProfile'],
     queryFn: userService.getProfile,
     enabled: !!token,
@@ -43,6 +43,7 @@ export const Sidebar = () => {
   const handleLogout = () => {
     showModal();
   };
+
   return (
     <div className="z-50">
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -144,6 +145,24 @@ export const Sidebar = () => {
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95">
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Item as="div">
+                      <p className="truncate px-4 text-sm text-gray-700 font-bold flex items-center pt-2">
+                        <div className="flex-shrink-0">
+                          <Avatar
+                            name={`${data?.user?.firstName ?? ''} ${data?.user?.lastName ?? ''}`}
+                            size={30}
+                            textSize={12}
+                          />
+                        </div>
+                        <span className="ml-1 truncate">
+                          {data?.user?.firstName} {data?.user?.lastName}
+                        </span>
+                      </p>
+                      <p className="truncate px-4 pt-1 text-sm text-gray-700">
+                        {data?.user?.email}
+                      </p>
+                    </Menu.Item>
+                    <hr className="mt-2" />
                     {userNavigation.map((item) => (
                       <Menu.Item key={item.name}>
                         {({ active }) =>
@@ -176,9 +195,7 @@ export const Sidebar = () => {
           </div>
         </div>
       </div>
-      {/* Static sidebar for desktop */}
       <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
-        {/* Sidebar component, swap this element with another sidebar if you like */}
         <div className="flex flex-grow flex-col grooming-color pt-5 pr-2">
           <div className="flex flex-shrink-0 items-center px-4">
             <Logo className="filt" />

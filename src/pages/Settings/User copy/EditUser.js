@@ -2,7 +2,7 @@ import React from 'react';
 import { Input } from 'components/Form/Input/Input';
 import { Button } from 'components/Button/Button';
 import { Container } from 'components/Container/Container';
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 export const EditUser = () => {
   return (
     <div className="">

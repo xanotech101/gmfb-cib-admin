@@ -2,7 +2,7 @@ import React from 'react';
 import { Input } from 'components/Form/Input/Input';
 import { Button } from 'components/Button/Button';
 import { Container } from 'components/Container/Container';
-import { SubHeading } from 'components/Common/Header/SubHeading';
+import { SubHeading } from 'components/Header/SubHeading';
 import { Select } from 'components/Form/Select/Select';
 import { useForm } from 'react-hook-form';
 import { userService, privilegeService } from 'services';
