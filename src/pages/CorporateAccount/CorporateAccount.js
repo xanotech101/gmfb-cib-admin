@@ -9,7 +9,6 @@ import { accountService } from 'services';
 import { Button } from 'components/Button/Button';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
-
 const RenderData = ({ data }) => {
   const navigate = useNavigate();
   if (data?.length === 0) {
@@ -42,6 +41,7 @@ export const Corporate = () => {
             <Heading>Corporate Accounts</Heading>
             <p>List of all corporate accounts.</p>
           </div>
+
           <div>
             <Link to="/accounts/onboard">
               <Button>

@@ -51,11 +51,11 @@ export const Settings = () => {
               icon={setting.icon}
               title={
                 setting.to === '/' ? (
-                  <p className="cursor-pointer" onClick={handleLogout}>
+                  <p className="cursor-pointer underline" onClick={handleLogout}>
                     {setting.title}
                   </p>
                 ) : (
-                  <Link to={setting.to} className="capitalize">
+                  <Link to={setting.to} className="capitalize underline">
                     {setting.title}
                   </Link>
                 )

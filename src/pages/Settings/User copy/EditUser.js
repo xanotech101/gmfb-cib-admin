@@ -5,22 +5,32 @@ import { Container } from 'components/Container/Container';
 import { Heading } from 'components/Common/Header/Heading';
 export const EditUser = () => {
   return (
-    <div className="Dash py-5 px-7">
+    <div className="">
       <Container>
         <form action="" className="">
           <Heading>Edit corperate user details</Heading>
           <p className="font-medium">Edit Corperate user details below</p>
-          <hr className="my-4"></hr>
-          <div className="space-y-6">
+          <div className="mt-4">
+            <hr></hr>
+          </div>
+          <div className="mt-4">
             <Input label="Full name" type="text" />
+          </div>
+          <div className="mt-4">
             <Input label="Phone number" type="text" />
+          </div>
+          <div className="mt-4">
             <Input label="Email address" type="text" />
+          </div>
+          <div className="mt-4">
             <Input label="Authorizers ID" type="text" />
+          </div>
+          <div className="mt-4">
             <Input label="Password" type="password" />
-            <div className="flex gap-5 mt-4 justify-end">
-              <Button variant="primary">Cancel</Button>
-              <Button>Save Changes</Button>
-            </div>
+          </div>
+          <div className="flex gap-5 mt-4 justify-end">
+            <Button variant="primary">Cancel</Button>
+            <Button>Save Changes</Button>
           </div>
         </form>
       </Container>

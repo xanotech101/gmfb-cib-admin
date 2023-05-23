@@ -141,6 +141,7 @@ export const Report = () => {
                         <Label label="Select Year" />
                         <DatePicker
                           selected={year}
+                          showMonthDropdown
                           onChange={setYear}
                           showYearPicker
                           dateFormat="yyyy"

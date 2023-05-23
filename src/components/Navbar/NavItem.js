@@ -18,7 +18,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import LogoutPrompt from 'pages/Auth/LogoutPrompt/LogoutPrompt';
 import { DropDownItems } from 'components/DropDown/DropDownItems';
 import { DropDown } from 'components/DropDown/DropDown';
-
 export const NavItem = ({ closeSidebar }) => {
   const navigate = useNavigate();
   const { Modal, showModal } = useModal();
@@ -49,6 +48,7 @@ export const NavItem = ({ closeSidebar }) => {
           isActive
           onClick={closeSidebar}
         />
+
         <DropDown
           title="Onboarding"
           text="text-white  mt-5"
