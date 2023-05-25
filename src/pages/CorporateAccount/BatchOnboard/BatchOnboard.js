@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Container } from 'components/Container/Container';
 import { Heading } from 'components/Header/Heading';
 import { FileUpload } from 'components/Form/FileUpload/FileUpload';
@@ -21,26 +20,47 @@ import { notification } from 'utils';
 export const BatchUpload = () => {
   const navigate = useNavigate();
   const { Modal, showModal } = useModal();
-  const [errors, setErrors] = useState([]);
-  const { control, getValues } = useForm();
+  const [duplicateAccounts, setDuplicateAccounts] = useState([]);
+  const [duplicateUsers, setDuplicateUsers] = useState([]);
+  const [invalidAccounts, setInvalidAccounts] = useState([]);
+  const {
+    control,
+    getValues,
+    formState: { errors }
+  } = useForm();
 
   const { convertFile, file, clearFile, jsonArray } = useConvertFileToJson();
+
+  const resetErrors = () => {
+    setDuplicateAccounts([]);
+    setDuplicateUsers([]);
+    setInvalidAccounts([]);
+  };
 
   const { mutate } = useMutation({
     mutationFn: (data) => accountService.bulkUploadAccount(data),
     onSuccess: (data) => {
-      console.log('🚀 ~ file: BatchOnboard.js:49 ~ BatchUpload ~ data:', data);
-      const { invalidAccounts } = data;
-      if (invalidAccounts.length === 0) {
+      const {
+        duplicateAccounts: _duplicateAccounts,
+        duplicateUsers: _duplicateUsers,
+        invalidAccounts: _invalidAccounts
+      } = data;
+      setDuplicateAccounts(_duplicateAccounts);
+      setDuplicateUsers(_duplicateUsers);
+      setInvalidAccounts(_invalidAccounts);
+
+      if (
+        _duplicateAccounts.length === 0 &&
+        _duplicateUsers.length === 0 &&
+        _invalidAccounts.length === 0
+      ) {
         navigate('/accounts');
-      } else {
-        setErrors(invalidAccounts);
       }
     },
     onSettled: () => {
       showModal(false);
     },
-    onError(error) {
+    onError() {
       showModal(false);
     }
   });
@@ -58,6 +78,7 @@ export const BatchUpload = () => {
     }
     showModal();
     clearFile();
+    resetErrors();
     mutate({ file, organizationLabel: organizationLabel.value });
   };
 
@@ -97,10 +118,11 @@ export const BatchUpload = () => {
             infoText="Upload a CSV or Excel file"
             file={file}
             onChange={(file) => {
+              resetErrors();
               convertFile(file);
-              setErrors([]);
             }}
             removeFile={() => {
+              resetErrors();
               clearFile();
             }}>
             <div className="mt-4 flex justify-center gap-3 items-end">
@@ -122,7 +144,11 @@ export const BatchUpload = () => {
             </div>
           </FileUpload>
           {jsonArray.length > 0 && <Preview items={jsonArray} />}
-          {errors.length > 0 && <Error items={errors} />}
+          <Error
+            duplicateAccounts={duplicateAccounts}
+            duplicateUsers={duplicateUsers}
+            invalidAccounts={invalidAccounts}
+          />
         </Container>
       </div>
       {Modal({
