@@ -4,7 +4,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
 const approvalStatus = [
   { id: 6, name: 'All', value: null },
-  { id: 3, name: 'Pending', value: 'pending' },
+  { id: 3, name: 'Pending Authorisation', value: 'pending authorisation' },
   { id: 2, name: 'In Progress', value: 'in progress' },
   { id: 1, name: 'Awaiting Verification', value: 'awaiting verification' },
   { id: 4, name: 'Declined', value: 'declined' },
@@ -21,7 +21,7 @@ export const Filter = ({ selectedStatus, setSelectedStatus }) => {
       {({ open }) => (
         <>
           <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">
-            Filter by status
+            Filter by approval status
           </Listbox.Label>
           <div className="relative mt-1">
             <Listbox.Button className="relative w-full cursor-default min-h-[36px] min-w-[140px] rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primary sm:text-sm sm:leading-6">
