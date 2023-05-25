@@ -20,7 +20,7 @@ export const UserManagementTable = ({ users }) => {
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-300">
+              <table className="min-w-full divide-y divide-gray-300 table-fixed">
                 <thead className="bg-gray-50">
                   <tr>
                     <th
@@ -59,10 +59,29 @@ export const UserManagementTable = ({ users }) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200 bg-white">
+                  <col width="20px" />
+                  <col width="30px" />
+                  <col width="40px" />
                   {users?.map((user, i) => (
                     <tr key={user?.email}>
-                      <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-500">{i + 1}</td>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                      <td
+                        className=" px-3 py-4 text-sm text-gray-500 border"
+                        style={{
+                          tableLayout: 'fixed',
+                          width: '80px',
+                          overflow: 'hidden',
+                          wordBreak: 'break-word'
+                        }}>
+                        {i + 1}
+                      </td>
+                      <td
+                        className=" px-3 py-4 text-sm text-gray-500 border"
+                        style={{
+                          tableLayout: 'fixed',
+                          width: '250px',
+                          overflow: 'hidden',
+                          wordBreak: 'break-word'
+                        }}>
                         <div className="flex items-center">
                           <Avatar name={`${user?.firstName} ${user?.lastName}`} />
                           <span className="pl-3">
@@ -70,19 +89,54 @@ export const UserManagementTable = ({ users }) => {
                           </span>
                         </div>
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <td
+                        className=" px-3 py-4 text-sm text-gray-500 border"
+                        style={{
+                          tableLayout: 'fixed',
+                          width: '170px',
+                          overflow: 'hidden',
+                          wordBreak: 'break-word'
+                        }}>
                         {user?.organizationId?.accountName ?? ' '}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <td
+                        className=" px-3 py-4 text-sm text-gray-500 border"
+                        style={{
+                          tableLayout: 'fixed',
+                          width: '170px',
+                          overflow: 'hidden',
+                          wordBreak: 'break-word'
+                        }}>
                         {user?.email}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 capitalize">
+                      <td
+                        className=" px-3 py-4 text-sm text-gray-500 border"
+                        style={{
+                          tableLayout: 'fixed',
+                          width: '100px',
+                          overflow: 'hidden',
+                          wordBreak: 'break-word'
+                        }}>
                         {user?.gender}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 capitalize">
+                      <td
+                        className=" px-3 py-4 text-sm text-gray-500 border"
+                        style={{
+                          tableLayout: 'fixed',
+                          width: '100px',
+                          overflow: 'hidden',
+                          wordBreak: 'break-word'
+                        }}>
                         {user?.role}
                       </td>
-                      <td>
+                      <td
+                        className=" px-3 py-4 text-sm text-gray-500 border"
+                        style={{
+                          tableLayout: 'fixed',
+                          width: '100px',
+                          overflow: 'hidden',
+                          wordBreak: 'break-word'
+                        }}>
                         <Dropdown
                           label={<EllipsisVerticalIcon className="h-5 w-5 text-gray-600" />}
                           inline={true}

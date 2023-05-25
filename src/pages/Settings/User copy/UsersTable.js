@@ -3,7 +3,7 @@ import { SplitButton } from 'components/Button/SplitButton';
 import { useModal, usePrivilege } from 'hooks';
 import { useState } from 'react';
 import CorporateDetails from './CorporateDetails';
-import SwitchRoles from './SwitchRoles/SwitchRoles';
+import SwitchRoles from '../User/SwitchRoles/SwitchRoles';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
 import { authService } from 'services';
