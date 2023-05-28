@@ -7,7 +7,7 @@ import { userService } from 'services';
 import Pagination from 'components/Pagination/Pagination';
 import ContentLoader from 'react-content-loader';
 import { EmptyState } from 'components/EmptyState/EmptyState';
-
+import { ExportCSV } from 'components/Export/ExportCsv';
 const RenderData = ({ data, setPage, page }) => {
   if (data?.requests?.length === 0 || !data) {
     return (
@@ -40,8 +40,16 @@ export const UserManagement = () => {
   return (
     <div className="p-5">
       <Container>
-        <Heading>User Management</Heading>
-        <p className="text-sm text-gray-700">List of users in the platform</p>
+        <div className="flex justify-between items-center">
+          <div>
+            {' '}
+            <Heading>User Management</Heading>
+            <p className="text-sm text-gray-700">List of users in the platform</p>
+          </div>
+          <div>
+            <ExportCSV fileName={'user data'} csvData={data?.users} name={'Export Users'} />
+          </div>
+        </div>
         {isLoading ? (
           <div className="mt-5">
             <ContentLoader viewBox="0 0 380 70">
