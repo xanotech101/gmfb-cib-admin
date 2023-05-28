@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import { Container } from 'components/Container/Container';
 import { UserManagementTable } from './UserManagementTable';
@@ -8,6 +9,9 @@ import Pagination from 'components/Pagination/Pagination';
 import ContentLoader from 'react-content-loader';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import { ExportCSV } from 'components/Export/ExportCsv';
+import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
+SearchFilter;
+
 const RenderData = ({ data, setPage, page }) => {
   if (data?.requests?.length === 0 || !data) {
     return (
@@ -32,17 +36,17 @@ const RenderData = ({ data, setPage, page }) => {
 
 export const UserManagement = () => {
   const [page, setPage] = useState(1);
-  const { data, isLoading } = useQuery({
+  const [searchValue, setSearchValue] = useState(undefined);
+  const { data, isFetching, refetch } = useQuery({
     queryKey: ['all-users', page],
-    queryFn: () => userService.getAllUsers({ page })
+    queryFn: () => userService.getAllUsers({ page, search: searchValue })
   });
 
   return (
-    <div className="p-5">
+    <div className="p-5 mb-24">
       <Container>
         <div className="flex justify-between items-center">
           <div>
-            {' '}
             <Heading>User Management</Heading>
             <p className="text-sm text-gray-700">List of users in the platform</p>
           </div>
@@ -50,7 +54,15 @@ export const UserManagement = () => {
             <ExportCSV fileName={'user data'} csvData={data?.users} name={'Export Users'} />
           </div>
         </div>
-        {isLoading ? (
+
+        <SearchFilter
+          placeholder={'Search by name or email....'}
+          value={searchValue}
+          setValue={setSearchValue}
+          onSearch={refetch}
+        />
+
+        {isFetching ? (
           <div className="mt-5">
             <ContentLoader viewBox="0 0 380 70">
               <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
