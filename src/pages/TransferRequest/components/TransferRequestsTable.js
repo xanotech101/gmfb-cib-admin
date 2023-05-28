@@ -2,7 +2,7 @@ import { Badge } from 'components/Badge/Badge';
 import { naira } from 'utils/currencyFormatter';
 import { Link } from 'react-router-dom';
 
-export const TransferRequestsTable = ({ transactions }) => {
+export const TransferRequestsTable = ({ transactions, initialSerialNumber }) => {
   return (
     <div className="flex flex-col">
       <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -56,11 +56,11 @@ export const TransferRequestsTable = ({ transactions }) => {
               <tbody className="divide-y divide-gray-200 bg-white">
                 {transactions.map((transaction, i) => (
                   <tr key={transaction?._id}>
-                    <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-500">{i + 1}</td>
+                    <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-500">
+                      {initialSerialNumber + i}
+                    </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      <div className="text-gray-900 font-bold">
-                        {transaction?.organization?.accountName}
-                      </div>
+                      {transaction?.organization?.accountName}
                       <div>{transaction?.payerAccountNumber}</div>
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
@@ -70,9 +70,7 @@ export const TransferRequestsTable = ({ transactions }) => {
                       {transaction?.transactionReference}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      <div className="text-gray-900 font-bold">
-                        {transaction?.beneficiaryBankName}
-                      </div>
+                      {transaction?.beneficiaryBankName}
                       <div>{transaction?.beneficiaryAccountNumber}</div>
                       <div>{transaction?.beneficiaryAccountName}</div>
                     </td>

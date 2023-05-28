@@ -4,7 +4,7 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
 const approvalStatus = [
   { id: 6, name: 'All', value: null },
-  { id: 3, name: 'Pending Authorisation', value: 'pending authorisation' },
+  { id: 3, name: 'Pending', value: 'pending' },
   { id: 2, name: 'In Progress', value: 'in progress' },
   { id: 1, name: 'Awaiting Verification', value: 'awaiting verification' },
   { id: 4, name: 'Declined', value: 'declined' },

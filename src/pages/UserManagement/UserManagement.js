@@ -65,12 +65,7 @@ export const UserManagement = () => {
           </div>
         ) : (
           <>
-            <RenderData
-              data={data}
-              setPage={setPage}
-              page={page}
-              initialSerialNumber={initialSerialNumber}
-            />
+            <RenderData data={data} initialSerialNumber={initialSerialNumber} />
             <Pagination
               totalItems={data?.meta?.total ?? 0}
               handlePageClick={setPage}
