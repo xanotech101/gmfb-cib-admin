@@ -10,9 +10,9 @@ import ContentLoader from 'react-content-loader';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import { ExportCSV } from 'components/Export/ExportCsv';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
-SearchFilter;
+import { useTableSerialNumber } from 'hooks';
 
-const RenderData = ({ data, setPage, page }) => {
+const RenderData = ({ data, initialSerialNumber }) => {
   if (data?.requests?.length === 0 || !data) {
     return (
       <EmptyState
@@ -22,14 +22,7 @@ const RenderData = ({ data, setPage, page }) => {
     );
   } else {
     return (
-      <>
-        <UserManagementTable users={data?.users ?? []} />
-        <Pagination
-          totalItems={data?.meta?.total ?? 0}
-          handlePageClick={setPage}
-          currentPage={page}
-        />
-      </>
+      <UserManagementTable initialSerialNumber={initialSerialNumber} users={data?.users ?? []} />
     );
   }
 };
@@ -41,6 +34,8 @@ export const UserManagement = () => {
     queryKey: ['all-users', page],
     queryFn: () => userService.getAllUsers({ page, search: searchValue })
   });
+
+  const initialSerialNumber = useTableSerialNumber(page);
 
   return (
     <div className="p-5 mb-24">
@@ -69,7 +64,19 @@ export const UserManagement = () => {
             </ContentLoader>
           </div>
         ) : (
-          <RenderData data={data} setPage={setPage} page={page} />
+          <>
+            <RenderData
+              data={data}
+              setPage={setPage}
+              page={page}
+              initialSerialNumber={initialSerialNumber}
+            />
+            <Pagination
+              totalItems={data?.meta?.total ?? 0}
+              handlePageClick={setPage}
+              currentPage={page}
+            />
+          </>
         )}
       </Container>
     </div>

@@ -27,8 +27,6 @@ import { BvnTable } from 'pages/ApiConsole/ApiBvnUsage';
 import { ApiTable } from 'pages/ApiConsole/ApiUsage';
 import { Wrapper } from 'pages/ApiConsole/Wrapper';
 import { UserManagement } from 'pages/UserManagement/UserManagement';
-import { CorporateUsers } from 'pages/Settings/User copy/CorporateUsers';
-import { CreateCorperateUser } from 'pages/Settings/User copy/CreateCorperateUser';
 
 export const Routing = () => {
   return (
@@ -66,8 +64,6 @@ export const Routing = () => {
             <Route path="settings">
               <Route index element={<Settings />} />
               <Route path="/settings/general" element={<Settings />} />
-              <Route path="users" element={<CorporateUsers />} />
-              <Route path="users/create-user" element={<CreateCorperateUser />} />
               <Route path="general">
                 <Route index element={<Settings />} />
                 <Route path="update-security-question" element={<UpdateSecurityQuestion />} />
@@ -75,7 +71,6 @@ export const Routing = () => {
               <Route path="/settings/security" element={<Security />} />
             </Route>
           </Route>
-
           <Route path="accounts">
             <Route index element={<Corporate />} />
             <Route path="onboard" element={<OnboardCorporateAccount />} />

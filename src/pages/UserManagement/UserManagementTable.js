@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useModal } from 'hooks';
 import { Badge } from 'components/Badge/Badge';
 
-export const UserManagementTable = ({ users }) => {
+export const UserManagementTable = ({ users, initialSerialNumber }) => {
   const { Modal, showModal } = useModal();
   const [user, setUser] = useState(null);
   const { mutate } = useMutation({
@@ -57,7 +57,9 @@ export const UserManagementTable = ({ users }) => {
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {users?.map((user, i) => (
                     <tr key={user?.email}>
-                      <td className=" px-3 py-4 text-sm text-gray-500 border">{i + 1}</td>
+                      <td className=" px-3 py-4 text-sm text-gray-500 border">
+                        {initialSerialNumber + i}
+                      </td>
                       <td className=" px-3 py-4 text-sm text-gray-500 border">
                         <div className="flex items-center">
                           <Avatar name={`${user?.firstName} ${user?.lastName}`} />

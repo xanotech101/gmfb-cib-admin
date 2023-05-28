@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import axios from 'axios';
+import { PER_PAGE } from 'constants/pagination';
 
 const token = localStorage.getItem('token');
 
@@ -25,7 +26,7 @@ http.interceptors.request.use(
 
     if (config.method === 'get') {
       config.params = config.params || {};
-      config.params.perPage = 50;
+      config.params.perPage = PER_PAGE;
     }
     return config;
   },

@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'components/Container/Container';
 import { NavLink } from 'react-router-dom';
 import { Heading } from 'components/Header/Heading';
-import { UserPlusIcon } from '@heroicons/react/24/outline';
+
 export const SettingsWrapper = ({ children }) => {
   return (
     <div className="p-5">
@@ -21,15 +21,6 @@ export const SettingsWrapper = ({ children }) => {
             to="settings/security"
             className={({ isActive }) => (isActive ? 'after relative px-2' : 'px-2')}>
             Security
-          </NavLink>
-          <NavLink
-            to="settings/users"
-            className={({ isActive }) =>
-              isActive
-                ? 'after relative px-2 flex items-center gap-2'
-                : 'px-2 flex items-center gap-2'
-            }>
-            <UserPlusIcon className="w-5 h-5" /> Add user
           </NavLink>
         </div>
         <div>{children}</div>

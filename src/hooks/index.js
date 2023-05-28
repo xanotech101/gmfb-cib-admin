@@ -1,3 +1,4 @@
+export { useTableSerialNumber } from './useTableSerialNumber';
 export { useConvertFileToJson } from './useConvertFileToJson';
 export { useModal } from './useModal';
 export { usePrivilege } from './usePrivilege';
