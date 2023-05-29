@@ -8,8 +8,9 @@ import Pagination from 'components/Pagination/Pagination';
 import ContentLoader from 'react-content-loader';
 import { Container } from 'components/Container/Container';
 import { Filter } from '../components/Filter';
+import { useTableSerialNumber } from 'hooks';
 
-const RenderData = ({ data, setPage, page }) => {
+const RenderData = ({ data, initialSerialNumber }) => {
   if (data?.requests?.length === 0 || !data) {
     return (
       <EmptyState
@@ -19,14 +20,10 @@ const RenderData = ({ data, setPage, page }) => {
     );
   } else {
     return (
-      <>
-        <TransferRequestsTable transactions={data?.requests ?? []} sentToBankOne />
-        <Pagination
-          totalItems={data?.meta?.total ?? 0}
-          handlePageClick={setPage}
-          currentPage={page}
-        />
-      </>
+      <TransferRequestsTable
+        transactions={data?.requests ?? []}
+        initialSerialNumber={initialSerialNumber}
+      />
     );
   }
 };
@@ -44,6 +41,8 @@ export const AllTransferRequests = () => {
         search: searchValue
       })
   });
+
+  const initialSerialNumber = useTableSerialNumber(page);
 
   return (
     <div className="flex flex-col mt-7 p-5">
@@ -71,7 +70,14 @@ export const AllTransferRequests = () => {
               </ContentLoader>
             </div>
           ) : (
-            <RenderData data={data} setPage={setPage} page={page} />
+            <>
+              <RenderData data={data} initialSerialNumber={initialSerialNumber} />
+              <Pagination
+                totalItems={data?.meta?.total ?? 0}
+                handlePageClick={setPage}
+                currentPage={page}
+              />
+            </>
           )}
         </div>
       </Container>

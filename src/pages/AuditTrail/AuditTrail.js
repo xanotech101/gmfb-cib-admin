@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { Container } from 'components/Container/Container';
 import { Heading } from 'components/Header/Heading';
 import { auditService } from 'services';
-import { AuditData } from './AuditData';
+import { AuditTrailTable } from './AuditTrailTable';
 import Pagination from 'components/Pagination/Pagination';
 import ContentLoader from 'react-content-loader';
 import { EmptyState } from 'components/EmptyState/EmptyState';
+import { useTableSerialNumber } from 'hooks';
 
-const RenderData = ({ data }) => {
+const RenderData = ({ data, initialSerialNumber }) => {
   if (!data || data?.trails?.length === 0) {
     return (
       <EmptyState
@@ -18,11 +19,7 @@ const RenderData = ({ data }) => {
       />
     );
   } else {
-    return (
-      <div className="user-list">
-        <AuditData data={data} />
-      </div>
-    );
+    return <AuditTrailTable data={data} initialSerialNumber={initialSerialNumber} />;
   }
 };
 
@@ -37,10 +34,13 @@ export const Audit = () => {
     }
   });
 
+  const initialSerialNumber = useTableSerialNumber(page);
+
   return (
     <div className="p-5">
       <Container>
         <Heading>Audit Trail</Heading>
+        <p className="text-sm text-gray-700">Actions performed by users within the system</p>
         {isFetching ? (
           <div className="mt-5">
             <ContentLoader viewBox="0 0 380 70">
@@ -49,7 +49,7 @@ export const Audit = () => {
           </div>
         ) : (
           <>
-            <RenderData data={data} />
+            <RenderData data={data} initialSerialNumber={initialSerialNumber} />
             <Pagination
               totalItems={data?.meta?.total}
               handlePageClick={setPage}
