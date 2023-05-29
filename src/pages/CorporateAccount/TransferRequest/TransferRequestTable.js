@@ -56,11 +56,13 @@ export const TransferRequestTable = ({ transactions }) => {
               <tbody className="divide-y divide-gray-200 bg-white">
                 {transactions.map((transaction, i) => (
                   <tr key={transaction?._id}>
-                    <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-500">{i + 1}</td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-500 border">
+                      {i + 1}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 border">
                       <div>{transaction?.payerAccountNumber}</div>
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 border">
                       {naira.format(transaction?.amount)}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
@@ -68,7 +70,7 @@ export const TransferRequestTable = ({ transactions }) => {
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       <div className="text-gray-900 font-bold">
-                        {transaction?.beneficiaryBankName}
+                        {transaction?.beneficiaryBankName}llllll
                       </div>
                       <div>{transaction?.beneficiaryAccountNumber}</div>
                       <div>{transaction?.beneficiaryAccountName}</div>
