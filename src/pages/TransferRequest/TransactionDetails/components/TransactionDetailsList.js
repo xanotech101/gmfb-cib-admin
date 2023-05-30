@@ -1,5 +1,5 @@
 import { Badge } from 'components/Badge/Badge';
-import { SubHeading } from 'components/Common/Header/SubHeading';
+import { SubHeading } from 'components/Header/SubHeading';
 import { naira } from 'utils/currencyFormatter';
 import { DateUtils, DateFormats } from 'utils';
 

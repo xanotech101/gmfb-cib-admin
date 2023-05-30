@@ -1,4 +1,4 @@
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 import { Container } from 'components/Container/Container';
 import { ProfileDetails } from './components/ProfileDetails';
 import { useStore } from 'hooks';

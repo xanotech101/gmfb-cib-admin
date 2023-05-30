@@ -1,7 +1,7 @@
 import ContentLoader from 'react-content-loader';
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 import { Container } from 'components/Container/Container';
-import { CorporateTable } from './CorporateTable';
+import { CorporateAccountsTable } from './CorporateAccountsTable';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserPlusIcon } from '@heroicons/react/24/outline';
 import { useQuery } from '@tanstack/react-query';
@@ -9,7 +9,6 @@ import { accountService } from 'services';
 import { Button } from 'components/Button/Button';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
-
 const RenderData = ({ data }) => {
   const navigate = useNavigate();
   if (data?.length === 0) {
@@ -24,7 +23,7 @@ const RenderData = ({ data }) => {
       />
     );
   } else {
-    return <CorporateTable data={data} />;
+    return <CorporateAccountsTable data={data} />;
   }
 };
 
@@ -33,15 +32,16 @@ export const Corporate = () => {
     queryKey: ['accounts'],
     queryFn: accountService.getAllAccounts
   });
-  console.log(data);
+
   return (
     <div className="flex flex-col mt-7 p-5">
       <Container>
         <div className="flex justify-between lg:items-center flex-col lg:flex-row">
           <div className="mb-3">
             <Heading>Corporate Accounts</Heading>
-            <p>List of all corporate accounts.</p>
+            <p className="text-sm text-gray-700">List of all corporate accounts.</p>
           </div>
+
           <div>
             <Link to="/accounts/onboard">
               <Button>
@@ -51,9 +51,7 @@ export const Corporate = () => {
             </Link>
           </div>
         </div>
-        <div className="mt-4 w-[40%]">
-          <SearchFilter placeholder={'Search for corporate accounts...'} />
-        </div>
+        <SearchFilter placeholder={'Search for corporate accounts...'} />
         <div className="mt-5">
           {isFetching ? (
             <ContentLoader viewBox="0 0 380 70">

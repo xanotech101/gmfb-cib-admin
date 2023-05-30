@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import axios from 'axios';
+import { PER_PAGE } from 'constants/pagination';
 
 const token = localStorage.getItem('token');
 
@@ -21,6 +22,11 @@ http.interceptors.request.use(
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    if (config.method === 'get') {
+      config.params = config.params || {};
+      config.params.perPage = PER_PAGE;
     }
     return config;
   },

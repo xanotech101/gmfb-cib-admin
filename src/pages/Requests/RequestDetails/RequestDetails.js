@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { UserIcon } from '@heroicons/react/20/solid';
-import { SubHeading } from 'components/Common/Header/SubHeading';
+import { SubHeading } from 'components/Header/SubHeading';
 import { Container } from 'components/Container/Container';
 import React from 'react';
 import { useParams } from 'react-router-dom';

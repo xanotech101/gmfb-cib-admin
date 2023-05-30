@@ -9,42 +9,33 @@ import {
   UserGroupIcon,
   BanknotesIcon,
   ArrowTopRightOnSquareIcon,
-  EnvelopeOpenIcon, 
+  EnvelopeOpenIcon,
   UserCircleIcon
 } from '@heroicons/react/24/outline';
 import { NavLinks } from './NavLink';
 import { useModal } from 'hooks';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LogoutPrompt from 'pages/Auth/LogoutPrompt/LogoutPrompt';
+import { DropDownItems } from 'components/DropDown/DropDownItems';
+import { DropDown } from 'components/DropDown/DropDown';
 export const NavItem = ({ closeSidebar }) => {
   const navigate = useNavigate();
   const { Modal, showModal } = useModal();
-  const handleLogout = () => {
-    showModal();
-  };
   const isSettings = /settings/i.test(window.location.pathname);
-  const isTransferRequest = /transfers/i.test(window.location.pathname);
   const isApi = /api-console/i.test(window.location.pathname);
-  
 
   return (
     <div className="h-[90%] overflow-y-auto side-bar">
       <nav className="flex-1 space-y-1 px-2 pb-4">
         <NavLinks to="/dashboard" name="Dashboard" icon={<HomeIcon />} current={true} />
         <NavLinks
-          to={!isTransferRequest ? 'transfers/transfer-made' : 'transfers'}
+          to="/transfer-requests"
           icon={<BanknotesIcon />}
-          name="Transfers"
+          name="Transfer Requests"
           current={false}
           onClick={closeSidebar}
         />
-        <NavLinks
-          to="/onboard"
-          icon={<UserGroupIcon />}
-          name="Onboarding"
-          current={false}
-          onClick={closeSidebar}
-        />
+
         <NavLinks
           to="/audit"
           icon={<DocumentMagnifyingGlassIcon />}
@@ -53,13 +44,33 @@ export const NavItem = ({ closeSidebar }) => {
           isActive
           onClick={closeSidebar}
         />
+
+        <DropDown
+          title="Onboarding"
+          text="text-white mt-5"
+          icon={
+            <UserGroupIcon className="mr-3 h-6 w-6 flex-shrink-0 text-white" aria-hidden="true" />
+          }>
+          <DropDownItems>
+            <Link to="/accounts/onboard" className="block">
+              Onboarding
+            </Link>
+          </DropDownItems>
+          <DropDownItems>
+            <Link to="/accounts/onboard/batch" className="block">
+              Batch Onboarding
+            </Link>
+          </DropDownItems>
+        </DropDown>
+
         <NavLinks
           to="/requests"
-          icon={<EnvelopeOpenIcon/>}
+          icon={<EnvelopeOpenIcon />}
           name="Tickets"
           current={false}
           onClick={closeSidebar}
         />
+
         <NavLinks
           to="/reports"
           icon={<ChartPieIcon />}
@@ -76,17 +87,18 @@ export const NavItem = ({ closeSidebar }) => {
           isActive
           onClick={closeSidebar}
         />
-          <NavLinks
-          to={!isApi? '/api-console/api-usage' :"api-console"}
-          icon={<ArrowTopRightOnSquareIcon/>}
+
+        <NavLinks
+          to={!isApi ? '/api-console/api-usage' : 'api-console'}
+          icon={<ArrowTopRightOnSquareIcon />}
           name="Api Console"
           current={false}
           isActive
           onClick={closeSidebar}
         />
-         <NavLinks
+        <NavLinks
           to={'user-management'}
-          icon={< UserCircleIcon/>}
+          icon={<UserCircleIcon />}
           name="User Management"
           current={false}
           isActive
@@ -103,7 +115,7 @@ export const NavItem = ({ closeSidebar }) => {
         <p
           className="group flex items-center px-2 py-5 text-sm font-medium rounded-md text-white mt-5 relative cursor-pointer"
           onClick={() => {
-            handleLogout();
+            showModal();
             closeSidebar();
           }}>
           <ArrowLeftOnRectangleIcon

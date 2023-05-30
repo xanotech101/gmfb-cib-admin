@@ -1,5 +1,5 @@
 import React from 'react';
-import { SubHeading } from 'components/Common/Header/SubHeading';
+import { SubHeading } from 'components/Header/SubHeading';
 import { useNavigate } from 'react-router-dom';
 import { useModal } from 'hooks';
 import LogoutPrompt from 'pages/Auth/LogoutPrompt/LogoutPrompt';
@@ -51,11 +51,11 @@ export const Settings = () => {
               icon={setting.icon}
               title={
                 setting.to === '/' ? (
-                  <p className="cursor-pointer" onClick={handleLogout}>
+                  <p className="cursor-pointer underline" onClick={handleLogout}>
                     {setting.title}
                   </p>
                 ) : (
-                  <Link to={setting.to} className="capitalize">
+                  <Link to={setting.to} className="capitalize underline">
                     {setting.title}
                   </Link>
                 )

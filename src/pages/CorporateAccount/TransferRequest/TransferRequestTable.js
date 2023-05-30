@@ -19,7 +19,7 @@ export const TransferRequestTable = ({ transactions }) => {
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Customer Name
+                    Account
                   </th>
                   <th
                     scope="col"
@@ -29,23 +29,25 @@ export const TransferRequestTable = ({ transactions }) => {
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Beneficiary Bank Name
+                    Reference
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Beneficiary Account Name
+                    Beneficiary
                   </th>
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Beneficiary Account Number
+                    Approval Status
                   </th>
+
                   <th
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                    Status
+                    Transfer Status
                   </th>
+
                   <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
                     <span className="sr-only">Edit</span>
                   </th>
@@ -54,26 +56,34 @@ export const TransferRequestTable = ({ transactions }) => {
               <tbody className="divide-y divide-gray-200 bg-white">
                 {transactions.map((transaction, i) => (
                   <tr key={transaction?._id}>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{i + 1}</td>
+                    <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-500">{i + 1}</td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.firstName} {transaction?.lastName}
+                      <div>{transaction?.payerAccountNumber}</div>
                     </td>
-
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       {naira.format(transaction?.amount)}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.beneficiaryBankName}
+                      {transaction?.transactionReference}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.beneficiaryAccountName}
+                      <div className="text-gray-900 font-bold">
+                        {transaction?.beneficiaryBankName}
+                      </div>
+                      <div>{transaction?.beneficiaryAccountNumber}</div>
+                      <div>{transaction?.beneficiaryAccountName}</div>
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {transaction?.beneficiaryAccountNumber}
-                    </td>
+
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       <Badge status={transaction?.status}>{transaction?.status}</Badge>
                     </td>
+
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <Badge status={transaction?.transferStatus}>
+                        {transaction?.transferStatus}
+                      </Badge>
+                    </td>
+
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                       <Link
                         to={`/accounts/${encodeURIComponent(

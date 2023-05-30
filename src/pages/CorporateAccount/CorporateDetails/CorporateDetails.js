@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { Container } from 'components/Container/Container';
 import { useNavigate } from 'react-router-dom';
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 import { Badge } from 'components/Badge/Badge';
 import { GridLoader } from 'react-spinners';
 

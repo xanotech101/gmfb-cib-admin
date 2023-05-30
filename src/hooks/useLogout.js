@@ -9,5 +9,6 @@ export const useLogout = () => {
     localStorage.removeItem('token');
     navigate('/', { replace: true, state });
   };
+
   return { handleLogout };
 };

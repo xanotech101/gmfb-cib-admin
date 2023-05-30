@@ -15,7 +15,7 @@ const LogoutPrompt = ({ closeModal }) => {
           variant="danger"
           onClick={() => {
             handleLogout();
-            closeModal();
+            closeModal(false);
           }}>
           Logout
         </Button>

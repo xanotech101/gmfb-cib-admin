@@ -94,6 +94,24 @@ class AccountService {
       throw new Error(error);
     }
   }
+
+  async bulkUploadAccount({ file, organizationLabel }) {
+    const formData = new FormData();
+    formData.append('files', file);
+    formData.append('organizationLabel', organizationLabel);
+    try {
+      const data = await http.post('/api/account/bulkOnboard', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      notification(data?.message ?? '');
+      return data;
+    } catch (error) {
+      notification(error?.response?.data?.message, 'error');
+      throw new Error(error);
+    }
+  }
 }
 
 export const accountService = new AccountService();

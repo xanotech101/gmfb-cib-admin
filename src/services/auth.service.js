@@ -16,7 +16,12 @@ class AuthService {
     try {
       const { data } = await http.post('/api/auth/login', { ...payload });
       const rolesAllowed = ['system-admin', 'super-admin'];
-      if (!rolesAllowed.includes(data?.user?.role)) {
+      const privilegesAllowed = ['gcadmin'];
+      const userPrivileges = data?.user?.privileges ?? [];
+      if (
+        !rolesAllowed.includes(data?.user?.role) &&
+        !userPrivileges.some((privilege) => privilegesAllowed.includes(privilege?.name))
+      ) {
         notification(`You don't have access to access this app, use the corporate portal`, 'error');
         throw new Error(`You don't have access to access this app, use the corporate portal`);
       }

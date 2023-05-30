@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useModal } from 'hooks';
 import { Badge } from 'components/Badge/Badge';
 
-export const UserManagementTable = ({ users }) => {
+export const UserManagementTable = ({ users, initialSerialNumber }) => {
   const { Modal, showModal } = useModal();
   const [user, setUser] = useState(null);
   const { mutate } = useMutation({
@@ -20,40 +20,36 @@ export const UserManagementTable = ({ users }) => {
         <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
             <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-300">
+              <table className="min-w-full divide-y divide-gray-300 table-fixed">
                 <thead className="bg-gray-50">
                   <tr>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                      className="py-3.5 px-3 text-left text-sm font-semibold text-gray-900 w-[5%]">
                       S/N
                     </th>
                     <th
                       scope="col"
-                      className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                      className="py-3.5 px-3 text-left text-sm font-semibold text-gray-900 w-[30%]">
                       Name
                     </th>
+
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Account
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 w-[35%]">
                       Email
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 w-[10%]">
                       Gender
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 w-[15%]">
                       Role
                     </th>
-                    <th scope="col" className=" py-3.5 pl-3 pr-4 sm:pr-6">
+                    <th scope="col" className=" py-3.5 px-4 w-[5%]">
                       <span className="sr-only">Action</span>
                     </th>
                   </tr>
@@ -61,8 +57,10 @@ export const UserManagementTable = ({ users }) => {
                 <tbody className="divide-y divide-gray-200 bg-white">
                   {users?.map((user, i) => (
                     <tr key={user?.email}>
-                      <td className="whitespace-nowrap px-4 py-4 text-sm text-gray-500">{i + 1}</td>
-                      <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+                      <td className=" px-3 py-4 text-sm text-gray-500 border">
+                        {initialSerialNumber + i}
+                      </td>
+                      <td className=" px-3 py-4 text-sm text-gray-500 border">
                         <div className="flex items-center">
                           <Avatar name={`${user?.firstName} ${user?.lastName}`} />
                           <span className="pl-3">
@@ -70,19 +68,16 @@ export const UserManagementTable = ({ users }) => {
                           </span>
                         </div>
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                        {user?.organizationId?.accountName ?? ' '}
-                      </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <td className="px-3 py-4 text-sm text-gray-500 border break-all">
                         {user?.email}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <td className="px-3 py-4 text-sm text-gray-500 border break-words">
                         {user?.gender}
                       </td>
-                      <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                      <td className="px-3 py-4 text-sm text-gray-500 border break-words">
                         {user?.role}
                       </td>
-                      <td>
+                      <td className="px-3 py-4 text-sm text-gray-500 border">
                         <Dropdown
                           label={<EllipsisVerticalIcon className="h-5 w-5 text-gray-600" />}
                           inline={true}
@@ -109,6 +104,7 @@ export const UserManagementTable = ({ users }) => {
           </div>
         </div>
       </div>
+
       {Modal({
         children: (
           <div className="space-y-6">
@@ -152,13 +148,13 @@ export const UserManagementTable = ({ users }) => {
             <hr />
             <div className="flex flex-col">
               <p>Privileges</p>
-              <p className="capitalize flex flex-wrap">
+              <div className="capitalize flex flex-wrap">
                 {user?.privileges?.map((privilege) => (
                   <p key={privilege.name} className="mr-2 mt-3">
                     <Badge status="approved">{privilege.name}</Badge>
                   </p>
                 ))}
-              </p>
+              </div>
             </div>
           </div>
         ),

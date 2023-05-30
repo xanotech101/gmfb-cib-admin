@@ -1,4 +1,4 @@
-import { useInactivity } from 'hooks';
+import { useInactivity } from 'hooks/useInactivity';
 import { Navigate, Outlet } from 'react-router-dom';
 
 export const PrivateOutlet = () => {

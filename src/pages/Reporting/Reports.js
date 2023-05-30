@@ -1,5 +1,5 @@
 import { SplitButton } from 'components/Button/SplitButton';
-import { Heading } from 'components/Common/Header/Heading';
+import { Heading } from 'components/Header/Heading';
 import { useState } from 'react';
 import { CChart } from '@coreui/react-chartjs';
 import { useQuery } from '@tanstack/react-query';
@@ -141,6 +141,7 @@ export const Report = () => {
                         <Label label="Select Year" />
                         <DatePicker
                           selected={year}
+                          showMonthDropdown
                           onChange={setYear}
                           showYearPicker
                           dateFormat="yyyy"

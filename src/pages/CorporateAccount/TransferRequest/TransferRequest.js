@@ -41,14 +41,12 @@ export const TransferRequest = () => {
           <div className="sm:flex sm:items-center">
             <div className="sm:flex-auto">
               <h1 className="text-xl font-semibold text-gray-900">
-                Transfer Requests in <strong>{branchName}.</strong>
+                Transfer Requests in <strong>{branchName}</strong>
               </h1>
               <p className="text-sm text-gray-700">List of transfer requests within the system</p>
             </div>
           </div>
-          <div className="mt-4 w-[40%]">
-            <SearchFilter placeholder={'Search awaiting transfers...'} />
-          </div>
+          <SearchFilter placeholder={'Search awaiting transfers...'} />
           <div className="mt-5">
             {isFetching ? (
               <ContentLoader viewBox="0 0 380 70">

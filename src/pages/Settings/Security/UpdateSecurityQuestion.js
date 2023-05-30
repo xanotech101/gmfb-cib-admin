@@ -1,5 +1,5 @@
 import { Container } from 'components/Container/Container';
-import { SubHeading } from 'components/Common/Header/SubHeading';
+import { SubHeading } from 'components/Header/SubHeading';
 import { Button } from 'components/Button/Button';
 import SecurityQuestionForm from 'components/SecurityQuestion/SecurityQuestionForm';
 import { useForm } from 'react-hook-form';
