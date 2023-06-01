@@ -84,6 +84,7 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
                           <Avatar name={`${user?.firstName} ${user?.lastName}`} />
                           <span className="pl-3">
                             {user?.firstName} {user?.lastName}
+                            jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj
                           </span>
                         </div>
                       </td>
