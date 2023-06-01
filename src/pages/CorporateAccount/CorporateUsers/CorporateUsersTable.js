@@ -2,13 +2,34 @@ import { Avatar } from 'components/Avatar/Avatar';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { Dropdown } from 'flowbite-react';
 import { authService } from 'services';
-import { useMutation } from '@tanstack/react-query';
-
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useModal } from 'hooks';
+import { SubHeading } from 'components/Header/SubHeading';
+import { Button } from 'components/Button/Button';
+import { DeleteUser } from 'services/delete';
+import { useState } from 'react';
 export const CorporateUsersTable = ({ users }) => {
+  const { Modal, showModal } = useModal();
+  const [user, setUser] = useState(null);
   const { mutate } = useMutation({
     mutationFn: (email) => authService.resendVerificationLink(email)
   });
+  const queryClient = useQueryClient();
 
+  const deletePost = useMutation(
+    (userid) => {
+      DeleteUser(userid);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('all-users');
+        console.log('deleted');
+      },
+      onError: ({ message }) => {
+        alert(message);
+      }
+    }
+  );
   return (
     <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
       <table className="min-w-full divide-y divide-gray-300">
@@ -63,12 +84,48 @@ export const CorporateUsersTable = ({ users }) => {
                       Resend Verification link
                     </Dropdown.Item>
                   )}
+                  <Dropdown.Item
+                    onClick={() => {
+                      setUser(user);
+                      showModal();
+                    }}>
+                    Delete user
+                  </Dropdown.Item>
                 </Dropdown>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {Modal({
+        children: (
+          <>
+            <div className="text-center ">
+              <SubHeading>Are you sure you want to delete this user?</SubHeading>
+              <p className="mt-4">Note this change is irreversible</p>
+              <div className="flex justify-center items-center mt-4 gap-6">
+                <Button
+                  variant="danger"
+                  onClick={() => {
+                    deletePost.mutate(user?._id);
+                    showModal();
+                  }}>
+                  Delete
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    showModal();
+                  }}>
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </>
+        ),
+        showCloseIcon: true,
+        size: 'md'
+      })}
     </div>
   );
 };

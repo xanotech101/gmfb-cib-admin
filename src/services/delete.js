@@ -1,10 +1,11 @@
 import http from 'plugins/axios';
 import { notification } from 'utils';
 
-export const DeleteUser = async (userid) => {
+export const DeleteUser = async (_id) => {
   try {
-    await http.delete(`/api/account/deleteAccount/${userid}`);
+    const data = http.delete(`/api/users/deleteAccount/${_id}`);
     notification('user deleted successfully');
+    console.log(data);
   } catch (error) {
     throw new Error(error);
   }

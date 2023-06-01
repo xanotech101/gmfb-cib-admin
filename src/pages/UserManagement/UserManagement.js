@@ -36,7 +36,7 @@ export const UserManagement = () => {
   });
 
   const initialSerialNumber = useTableSerialNumber(page);
-
+  console.log(data?.users);
   return (
     <div className="p-5 mb-24">
       <Container>

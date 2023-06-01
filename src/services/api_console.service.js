@@ -1,11 +1,8 @@
 import http from 'plugins/axios';
 class ApiEnquiry {
-    getApiConsole() {
-      
-        const data  =  http.get('/api/thirdparty/getthirdpartyOrganization');
-        return data;
-    
-    
+  getApiConsole() {
+    const data = http.get('/api/thirdparty/getthirdpartyOrganization');
+    return data;
   }
 }
 
