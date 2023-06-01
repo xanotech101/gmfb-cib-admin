@@ -2,27 +2,27 @@ import { ClockIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
 import { DateUtils, DateFormats } from 'utils';
 
-export const RequestTable = ({ tickets }) => {
+export const RequestTable = ({ tickets, initialSerialNumber }) => {
   return (
     <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 mt-5">
       <thead className="text-xs bg-gray-100  uppercase border text-black">
         <tr>
-          <th scope="col" className="px-6 py-3">
+          <th scope="col" className="px-3 py-4">
             S/N
           </th>
-          <th scope="col" className="px-6 py-3">
+          <th scope="col" className="px-3 py-4">
             Action
           </th>
-          <th scope="col" className="px-6 py-3">
+          <th scope="col" className="px-3 py-4">
             User
           </th>
-          <th scope="col" className="px-6 py-3">
+          <th scope="col" className="px-3 py-4">
             Message
           </th>
-          <th scope="col" className="px-6 py-3">
+          <th scope="col" className="px-3 py-4">
             Date Created
           </th>
-          <th scope="col" className="px-6 py-3">
+          <th scope="col" className="px-3 py-4">
             <p className="sr-only">action</p>
           </th>
         </tr>
@@ -30,13 +30,11 @@ export const RequestTable = ({ tickets }) => {
       <tbody>
         {tickets.map((ticket, i) => (
           <tr className="border  hover:bg-gray-50" key={ticket._id}>
-            <td className="px-6 py-4 border-l">{i + 1}</td>
-            <td className="px-6 py-4 border-l">{ticket.topic}</td>
-            <td className="px-6 py-4 border-l">{`${ticket.createdBy?.firstName} ${ticket.createdBy?.lastName}`}</td>
-            <td className="px-6 py-4 border-l">
-              <p className="mt-4 gap-2 flex items-center text-sm text-gray-500 truncate">
-                {ticket.message}
-              </p>
+            <td className="px-3 py-4 border-l">{initialSerialNumber + i}</td>
+            <td className="px-3 py-4 border-l">{ticket.topic}</td>
+            <td className="px-3 py-4 border-l">{`${ticket.createdBy?.firstName} ${ticket.createdBy?.lastName}`}</td>
+            <td className="px-3 py-4 border-l">
+              <p className="flex items-center text-sm text-gray-500 truncate">{ticket.message}</p>
             </td>
             <td className="px-6 py-4 border-l">
               <p className="mt-4 flex items-center text-sm text-gray-500 gap-2">

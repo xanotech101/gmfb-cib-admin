@@ -15,13 +15,9 @@ class AuthService {
   async login(payload, errorCb) {
     try {
       const { data } = await http.post('/api/auth/login', { ...payload });
-      const rolesAllowed = ['system-admin', 'super-admin'];
-      const privilegesAllowed = ['gcadmin'];
-      const userPrivileges = data?.user?.privileges ?? [];
-      if (
-        !rolesAllowed.includes(data?.user?.role) &&
-        !userPrivileges.some((privilege) => privilegesAllowed.includes(privilege?.name))
-      ) {
+      const rolesAllowed = ['system-admin', 'super-admin', 'gcadmin'];
+
+      if (!rolesAllowed.includes(data?.user?.role)) {
         notification(`You don't have access to access this app, use the corporate portal`, 'error');
         throw new Error(`You don't have access to access this app, use the corporate portal`);
       }
