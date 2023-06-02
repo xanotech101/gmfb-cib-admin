@@ -34,8 +34,7 @@ export const UserManagement = () => {
 
   const { data, isFetching, refetch } = useQuery({
     queryKey: ['all-users', page, isSystemAdmin],
-    queryFn: () => userService.getAllUsers({ page, search: searchValue }, isSystemAdmin),
-    enabled: !!isSystemAdmin
+    queryFn: () => userService.getAllUsers({ page, search: searchValue }, isSystemAdmin)
   });
 
   const initialSerialNumber = useTableSerialNumber(page);

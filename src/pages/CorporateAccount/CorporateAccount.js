@@ -30,7 +30,7 @@ const RenderData = ({ data }) => {
 
 export const Corporate = () => {
   const { data, isFetching } = useQuery({
-    queryKey: ['accounts'],
+    queryKey: ['accounts', isSystemAdmin],
     queryFn: () => accountService.getAllAccounts(isSystemAdmin)
   });
 
