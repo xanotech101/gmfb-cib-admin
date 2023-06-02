@@ -10,7 +10,7 @@ import ContentLoader from 'react-content-loader';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import { ExportCSV } from 'components/Export/ExportCsv';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
-import { useTableSerialNumber } from 'hooks';
+import { useTableSerialNumber, useRole } from 'hooks';
 
 const RenderData = ({ data, initialSerialNumber }) => {
   if (data?.requests?.length === 0 || !data) {
@@ -30,13 +30,15 @@ const RenderData = ({ data, initialSerialNumber }) => {
 export const UserManagement = () => {
   const [page, setPage] = useState(1);
   const [searchValue, setSearchValue] = useState(undefined);
+  const { isSystemAdmin } = useRole();
+
   const { data, isFetching, refetch } = useQuery({
     queryKey: ['all-users', page],
-    queryFn: () => userService.getAllUsers({ page, search: searchValue })
+    queryFn: () => userService.getAllUsers({ page, search: searchValue }, isSystemAdmin)
   });
 
   const initialSerialNumber = useTableSerialNumber(page);
-  console.log(data?.users);
+
   return (
     <div className="p-5 mb-24">
       <Container>

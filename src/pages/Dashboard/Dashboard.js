@@ -10,8 +10,9 @@ import { Container } from 'components/Container/Container';
 import { Link } from 'react-router-dom';
 import { SubHeading } from 'components/Header/SubHeading.js';
 import { Button } from 'components/Button/Button';
+import { useTableSerialNumber } from 'hooks';
 
-const RenderData = ({ data }) => {
+const RenderData = ({ data, initialSerialNumber }) => {
   if (data?.tickets?.length === 0 || !data?.tickets) {
     return (
       <EmptyState
@@ -21,7 +22,7 @@ const RenderData = ({ data }) => {
       />
     );
   } else {
-    return <RequestTable tickets={data?.tickets ?? []} />;
+    return <RequestTable tickets={data?.tickets ?? []} initialSerialNumber={initialSerialNumber} />;
   }
 };
 
@@ -33,6 +34,8 @@ export const Dashboard = () => {
         perPage: 10
       })
   });
+
+  const initialSerialNumber = useTableSerialNumber(1);
 
   return (
     <div>
@@ -57,7 +60,7 @@ export const Dashboard = () => {
               </ContentLoader>
             </div>
           ) : (
-            <RenderData data={data} />
+            <RenderData data={data} initialSerialNumber={initialSerialNumber} />
           )}
         </Container>
       </div>

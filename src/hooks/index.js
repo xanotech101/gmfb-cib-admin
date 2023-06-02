@@ -8,3 +8,4 @@ export { useLogout } from './useLogout';
 export { useAccount } from './useAccount';
 export { useCustomerInfo } from './useCustomerInfo';
 export { useDebounce } from './useDebounce';
+export { useRole } from './useRole';
