@@ -8,7 +8,8 @@ import { useQuery } from '@tanstack/react-query';
 import { accountService } from 'services';
 import { Button } from 'components/Button/Button';
 import { EmptyState } from 'components/EmptyState/EmptyState';
-import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
+import { useTableSerialNumber, useRole } from 'hooks';
+
 const RenderData = ({ data }) => {
   const navigate = useNavigate();
   if (data?.length === 0) {
@@ -23,15 +24,17 @@ const RenderData = ({ data }) => {
       />
     );
   } else {
-    return <CorporateAccountsTable data={data} />;
+    return <CorporateAccountsTable data={data} useTableSerialNumber={useTableSerialNumber} />;
   }
 };
 
 export const Corporate = () => {
   const { data, isFetching } = useQuery({
     queryKey: ['accounts'],
-    queryFn: accountService.getAllAccounts
+    queryFn: () => accountService.getAllAccounts(isSystemAdmin)
   });
+
+  const { isSystemAdmin } = useRole();
 
   return (
     <div className="flex flex-col mt-7 p-5">
@@ -51,7 +54,7 @@ export const Corporate = () => {
             </Link>
           </div>
         </div>
-        <SearchFilter placeholder={'Search for corporate accounts...'} />
+
         <div className="mt-5">
           {isFetching ? (
             <ContentLoader viewBox="0 0 380 70">

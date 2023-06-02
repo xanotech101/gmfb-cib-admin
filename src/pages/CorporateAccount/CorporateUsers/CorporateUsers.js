@@ -14,6 +14,10 @@ export const CorporateUsersUnderCorporateAccount = () => {
   const [page, setPage] = useState(1);
   const { id } = useParams();
   const { state } = useLocation();
+  console.log(
+    '🚀 ~ file: CorporateUsers.js:17 ~ CorporateUsersUnderCorporateAccount ~ state:',
+    state
+  );
 
   const { data, isLoading } = useQuery({
     queryKey: ['getMyBranchUsers', id],

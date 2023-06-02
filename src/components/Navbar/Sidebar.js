@@ -14,6 +14,10 @@ import { Link } from 'react-router-dom';
 import { NavItem } from './NavItem';
 import { Avatar } from 'components/Avatar/Avatar';
 
+function classNames(...classes) {
+  return classes.filter(Boolean).join(' ');
+}
+
 export const Sidebar = () => {
   const token = localStorage.getItem('token');
   const { data } = useQuery({
@@ -30,9 +34,7 @@ export const Sidebar = () => {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [open, setOpen] = useState(false);
-  function classNames(...classes) {
-    return classes.filter(Boolean).join(' ');
-  }
+
   const userNavigation = [
     { name: 'Your Profile', href: 'profile' },
     { name: 'Settings', href: 'settings' },
