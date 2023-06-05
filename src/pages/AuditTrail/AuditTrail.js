@@ -8,6 +8,7 @@ import Pagination from 'components/Pagination/Pagination';
 import ContentLoader from 'react-content-loader';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import { useTableSerialNumber } from 'hooks';
+import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 
 const RenderData = ({ data, initialSerialNumber }) => {
   if (!data || data?.trails?.length === 0) {
@@ -25,21 +26,29 @@ const RenderData = ({ data, initialSerialNumber }) => {
 
 export const Audit = () => {
   const [page, setPage] = useState(1);
-
-  const { data, isFetching } = useQuery({
+  const [searchValue, setSearchValue] = useState(undefined);
+  const { data, isFetching, refetch } = useQuery({
     queryKey: ['getOrganizationAuditTrails', { page }],
-    queryFn: () => auditService.getOrganizationAuditTrails({ page }),
+    queryFn: () => auditService.getOrganizationAuditTrails({ page, type: searchValue }),
     onSuccess: (data) => {
       setPage(data?.meta?.page ? Number(data?.meta?.page) : 1);
     }
   });
-
+  console.log(data);
   const initialSerialNumber = useTableSerialNumber(page);
 
   return (
     <div className="p-5">
       <Container>
         <Heading>Audit Trail</Heading>
+        <div className="space-y-6">
+          <SearchFilter
+            placeholder={'Search by type....'}
+            value={searchValue}
+            setValue={setSearchValue}
+            onSearch={refetch}
+          />
+        </div>
         <p className="text-sm text-gray-700">Actions performed by users within the system</p>
         {isFetching ? (
           <div className="mt-5">

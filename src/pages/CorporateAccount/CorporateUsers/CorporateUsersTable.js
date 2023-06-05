@@ -8,7 +8,7 @@ import { SubHeading } from 'components/Header/SubHeading';
 import { Button } from 'components/Button/Button';
 import { DeleteUser } from 'services/delete';
 import { useState } from 'react';
-export const CorporateUsersTable = ({ users }) => {
+export const CorporateUsersTable = ({ users, initialSerialNumber }) => {
   const { Modal, showModal } = useModal();
   const [user, setUser] = useState(null);
   const { mutate } = useMutation({
@@ -62,7 +62,9 @@ export const CorporateUsersTable = ({ users }) => {
         <tbody className="divide-y divide-gray-200 bg-white">
           {users?.map((user, i) => (
             <tr key={user.email}>
-              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{i + 1}</td>
+              <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                {initialSerialNumber + i}
+              </td>
               <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
                 <div className="flex items-center">
                   <Avatar name={`${user.firstName} ${user.lastName}`} />

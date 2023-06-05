@@ -70,7 +70,7 @@ export const TransferRequestTable = ({ transactions }) => {
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                       <div className="text-gray-900 font-bold">
-                        {transaction?.beneficiaryBankName}llllll
+                        {transaction?.beneficiaryBankName}
                       </div>
                       <div>{transaction?.beneficiaryAccountNumber}</div>
                       <div>{transaction?.beneficiaryAccountName}</div>

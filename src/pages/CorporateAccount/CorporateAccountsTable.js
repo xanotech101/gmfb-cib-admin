@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { SplitButton } from 'components/Button/SplitButton';
 
-export const CorporateAccountsTable = ({ data }) => {
+export const CorporateAccountsTable = ({ data, initialSerialNumber }) => {
   const navigate = useNavigate();
 
   const actionItems = (account) => [
@@ -53,10 +53,10 @@ export const CorporateAccountsTable = ({ data }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 ">
-            {data.map((datum, i) => (
+            {data?.accounts?.map((datum, i) => (
               <tr key={datum._id}>
                 <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
-                  {i + 1}
+                  {initialSerialNumber + i}
                 </td>
                 <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
                   {datum.accountName}

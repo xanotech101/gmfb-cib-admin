@@ -9,8 +9,11 @@ import { accountService } from 'services';
 import { Button } from 'components/Button/Button';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import { useTableSerialNumber, useRole } from 'hooks';
+import { useState } from 'react';
+import Pagination from 'components/Pagination/Pagination';
+import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 
-const RenderData = ({ data }) => {
+const RenderData = ({ data, initialSerialNumber }) => {
   const navigate = useNavigate();
   if (data?.length === 0) {
     return (
@@ -24,18 +27,19 @@ const RenderData = ({ data }) => {
       />
     );
   } else {
-    return <CorporateAccountsTable data={data} useTableSerialNumber={useTableSerialNumber} />;
+    return <CorporateAccountsTable data={data} initialSerialNumber={initialSerialNumber} />;
   }
 };
 
 export const Corporate = () => {
-  const { data, isFetching } = useQuery({
-    queryKey: ['accounts', isSystemAdmin],
-    queryFn: () => accountService.getAllAccounts(isSystemAdmin)
-  });
-
   const { isSystemAdmin } = useRole();
-
+  const [searchValue, setSearchValue] = useState(undefined);
+  const [page, setPage] = useState(1);
+  const { data, isFetching, refetch } = useQuery({
+    queryKey: ['accounts', isSystemAdmin, page],
+    queryFn: () => accountService.getAllAccounts(isSystemAdmin, { page, name: searchValue })
+  });
+  const initialSerialNumber = useTableSerialNumber(page);
   return (
     <div className="flex flex-col mt-7 p-5">
       <Container>
@@ -54,15 +58,21 @@ export const Corporate = () => {
             </Link>
           </div>
         </div>
-
+        <SearchFilter
+          placeholder={'Search by name or email....'}
+          value={searchValue}
+          setValue={setSearchValue}
+          onSearch={refetch}
+        />
         <div className="mt-5">
           {isFetching ? (
             <ContentLoader viewBox="0 0 380 70">
               <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
             </ContentLoader>
           ) : (
-            <RenderData data={data ?? []} />
+            <RenderData data={data ?? []} initialSerialNumber={initialSerialNumber} />
           )}
+          <Pagination totalItems={data?.totalCount} handlePageClick={setPage} currentPage={page} />
         </div>
       </Container>
     </div>

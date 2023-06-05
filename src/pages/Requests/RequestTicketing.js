@@ -9,9 +9,10 @@ import { useQuery } from '@tanstack/react-query';
 import { useTableSerialNumber } from 'hooks';
 import Pagination from 'components/Pagination/Pagination';
 import { useState } from 'react';
+import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 
 const RenderData = ({ data, initialSerialNumber }) => {
-  if (data?.tickets?.length === 0 || !data) {
+  if (data?.tickets?.length === 0 || !data?.tickets) {
     return (
       <EmptyState
         title="No tickets found"
@@ -26,11 +27,12 @@ const RenderData = ({ data, initialSerialNumber }) => {
 
 export const RequestTicketing = () => {
   const [page, setPage] = useState(1);
-  const { data, isFetching } = useQuery({
-    queryKey: ['get-tickets'],
-    queryFn: ticketService.getTickets
+  const [searchValue, setSearchValue] = useState(undefined);
+  const { data, isFetching, isLoading, refetch } = useQuery({
+    queryKey: ['get-tickets', page],
+    queryFn: () => ticketService.getTickets({ page, topic: searchValue })
   });
-
+  console.log(data);
   const initialSerialNumber = useTableSerialNumber(page);
 
   return (
@@ -38,7 +40,13 @@ export const RequestTicketing = () => {
       <Container>
         <Heading>All Ticket Requests</Heading>
         <p>List of request made in the system.</p>
-        {isFetching ? (
+        <SearchFilter
+          placeholder={'Search by topic...'}
+          value={searchValue}
+          setValue={setSearchValue}
+          onSearch={refetch}
+        />
+        {isFetching || isLoading ? (
           <div className="mt-5">
             <ContentLoader viewBox="0 0 380 70">
               <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
