@@ -21,7 +21,7 @@ const cardDetails = [
     label: 'Number of transfers',
     value: `0 Transfer`,
     icon: BanknotesIcon,
-    route: '/transfers/transfer-made'
+    route: '/transfer-requests'
   }
 ];
 export const Cards = () => {
