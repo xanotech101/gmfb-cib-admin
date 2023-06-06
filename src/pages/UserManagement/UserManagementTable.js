@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Avatar } from 'components/Avatar/Avatar';
-import { CheckCircleIcon, EllipsisVerticalIcon } from '@heroicons/react/20/solid';
+import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { Dropdown } from 'flowbite-react';
 import { authService } from 'services';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -11,12 +11,16 @@ import { SubHeading } from 'components/Header/SubHeading';
 import { Button } from 'components/Button/Button';
 import { DisableAccount, EnableAccount } from 'services/enableDisable';
 import { notification } from 'utils';
+import { useNavigate } from 'react-router-dom';
 
-export const UserManagementTable = ({ users, initialSerialNumber }) => {
+export const UserManagementTable = ({ users, initialSerialNumber, page, isSystemAdmin }) => {
   console.log(users);
   const { Modal, showModal } = useModal();
   const [user, setUser] = useState(null);
   const [alert, setAlert] = useState(false);
+  const [toggle, setToggle] = useState(false);
+  const [index, setIndex] = useState(0);
+  const navigate = useNavigate();
   const { mutate } = useMutation({
     mutationFn: (email) => authService.resendVerificationLink(email)
   });
@@ -29,6 +33,7 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('all-users');
+        navigate('/user-management');
       },
       onError: ({ message }) => {
         alert(message);
@@ -42,11 +47,11 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('all-users');
+        queryClient.invalidateQueries('all-users', page, isSystemAdmin);
+        navigate('/user-management');
       },
-      onError: ({ message }) => {
+      onError: () => {
         queryClient.invalidateQueries('all-users');
-        alert(message);
       }
     }
   );
@@ -58,6 +63,7 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries('all-users');
+        navigate('/user-management');
       },
       onError: ({ message }) => {
         queryClient.invalidateQueries('all-users');
@@ -65,6 +71,14 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
       }
     }
   );
+
+  const handleClick = (index) => {
+    if (index && toggle === false) {
+      setToggle(true);
+    } else {
+      setToggle(false);
+    }
+  };
 
   return (
     <>
@@ -83,13 +97,13 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
                     <th
                       scope="col"
                       className="py-3.5 px-3 text-left text-sm font-semibold text-gray-900 w-[30%]">
-                      Name
+                      Email
                     </th>
 
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 w-[35%]">
-                      Email
+                      Name
                     </th>
                     <th
                       scope="col"
@@ -100,6 +114,11 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 w-[15%]">
                       Role
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 w-[15%]">
+                      Status
                     </th>
                     <th scope="col" className=" py-3.5 px-4 w-[5%]">
                       <span className="sr-only">Action</span>
@@ -112,6 +131,9 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
                       <td className=" px-3 py-4 text-sm text-gray-500 border">
                         {initialSerialNumber + i}
                       </td>
+                      <td className="px-3 py-4 text-sm text-gray-500 border break-all">
+                        {user?.email}
+                      </td>
                       <td className=" px-3 py-4 text-sm text-gray-500 border">
                         <div className="flex items-center">
                           <Avatar name={`${user?.firstName} ${user?.lastName}`} />
@@ -120,14 +142,23 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
                           </span>
                         </div>
                       </td>
-                      <td className="px-3 py-4 text-sm text-gray-500 border break-all">
-                        {user?.email}
-                      </td>
+
                       <td className="px-3 py-4 text-sm text-gray-500 border break-words">
                         {user?.gender}
                       </td>
                       <td className="px-3 py-4 text-sm text-gray-500 border break-words">
                         {user?.role}
+                      </td>
+                      <td className="px-3 py-4 text-sm text-gray-500 border">
+                        {user?.disabled ? (
+                          <span className="flex items-center gap-2 text-red-600">
+                            <Badge status="disabled"> Disabled</Badge>
+                          </span>
+                        ) : (
+                          <span className="flex items-center gap-2 text-green-600">
+                            <Badge status="enabled">Active</Badge>
+                          </span>
+                        )}
                       </td>
                       <td className="px-3 py-4 text-sm text-gray-500 border">
                         <Dropdown
@@ -144,6 +175,7 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
                               setUser(user);
                               showModal();
                               setAlert(false);
+                              setToggle(null);
                             }}>
                             View profile
                           </Dropdown.Item>
@@ -152,48 +184,40 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
                               showModal();
                               setUser(user);
                               setAlert(true);
+                              setToggle(null);
                             }}>
                             Delete user
                           </Dropdown.Item>
                           <Dropdown.Item
                             onClick={() => {
-                              Enable.mutate(user?._id);
+                              setToggle(false);
+                              setAlert(false);
+                              setUser(user);
+                              setIndex(i);
+                              showModal();
                             }}>
-                            <button
-                              disabled={user?.disabled === false}
+                            <span
                               className={`${
-                                !user?.disabled
-                                  ? 'cursor-not-allowed text-green-500'
-                                  : 'text-green-500'
+                                user?.disabled === false ? 'bg-green-300  rounded p-1' : ''
                               }`}>
                               {' '}
-                              {user?.disabled === false ? (
-                                <span className="flex items-center gap-2">
-                                  <CheckCircleIcon className="w-5 h-5" /> Enabled
-                                </span>
-                              ) : (
-                                'Enable'
-                              )}
-                            </button>
+                              Enable user
+                            </span>
                           </Dropdown.Item>
                           <Dropdown.Item
                             onClick={() => {
-                              Disable.mutate(user?._id);
+                              setAlert(false);
+                              setToggle(true);
+                              setUser(user);
+                              setIndex(i);
+                              showModal();
                             }}>
-                            <button
-                              disabled={user?.disabled === true}
+                            <span
                               className={`${
-                                user?.disabled ? 'cursor-not-allowed text-red-500' : 'text-red-500'
+                                user?.disabled === true ? 'bg-red-300  rounded p-1' : ''
                               }`}>
-                              {' '}
-                              {user?.disabled ? (
-                                <span className="flex items-center gap-2">
-                                  <CheckCircleIcon className="w-5 h-5" /> Disabled
-                                </span>
-                              ) : (
-                                'Disable'
-                              )}
-                            </button>
+                              Disable user
+                            </span>
                           </Dropdown.Item>
                         </Dropdown>
                       </td>
@@ -221,6 +245,52 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
                       showModal();
                     }}>
                     Delete
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      showModal();
+                    }}>
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            ) : toggle === true ? (
+              <div className="text-center ">
+                <SubHeading>Are you sure you want to disable this user?</SubHeading>
+                <p className="mt-4">Note this will stop the user from performing any action </p>
+                <div className="flex justify-center items-center mt-4 gap-6">
+                  <Button
+                    variant="danger"
+                    onClick={() => {
+                      handleClick(index);
+                      Disable.mutate(user?._id);
+                      showModal();
+                    }}>
+                    Disable
+                  </Button>
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      showModal();
+                    }}>
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            ) : toggle === false ? (
+              <div className="text-center ">
+                <SubHeading>Do you want to enable this user?</SubHeading>
+                <p className="mt-4">please be sure you want to enable user</p>
+                <div className="flex justify-center items-center mt-4 gap-6">
+                  <Button
+                    variant="success"
+                    onClick={() => {
+                      handleClick(index);
+                      Enable.mutate(user?._id);
+                      showModal();
+                    }}>
+                    Enable
                   </Button>
                   <Button
                     variant="outline"

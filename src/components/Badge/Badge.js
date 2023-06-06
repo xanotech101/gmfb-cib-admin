@@ -20,7 +20,9 @@ export const Badge = ({ children, status = 'approved' }) => {
             'disburse pending'
           ].includes(status),
           'bg-gray-200 text-gray-800 border-gray-600': status === 'pending'
-        }
+        },
+        { 'bg-green-200': status === 'enabled' },
+        { 'bg-red-200': status === 'disabled' }
       )}>
       {children}
     </span>
