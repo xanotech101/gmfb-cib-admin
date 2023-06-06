@@ -33,7 +33,7 @@ export const AllTransferRequests = () => {
   const [searchValue, setSearchValue] = useState(undefined);
   const [selectedStatus, setSelectedStatus] = useState({ id: 6, name: 'All', value: null });
   const { data, isLoading, refetch } = useQuery({
-    queryKey: ['all-transfers', page, selectedStatus.value],
+    queryKey: ['all-transfer-requests', page, selectedStatus.value],
     queryFn: () =>
       transactionService.getAllTransactions({
         page,

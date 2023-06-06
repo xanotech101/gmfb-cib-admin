@@ -7,8 +7,11 @@ import { transactionService } from 'services';
 import { TransferRequestTable } from './TransferRequestTable';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
+import { Filter } from './Filter';
+import { useTableSerialNumber } from 'hooks';
+import Pagination from 'components/Pagination/Pagination';
 
-const RenderData = ({ data }) => {
+const RenderData = ({ data, initialSerialNumber }) => {
   if (data?.requests?.length === 0) {
     return (
       <EmptyState
@@ -17,20 +20,32 @@ const RenderData = ({ data }) => {
       />
     );
   } else {
-    return <TransferRequestTable transactions={data?.requests ?? []} />;
+    return (
+      <TransferRequestTable
+        transactions={data?.requests ?? []}
+        initialSerialNumber={initialSerialNumber}
+      />
+    );
   }
 };
 
 export const TransferRequest = () => {
   const { id } = useParams();
+  const [page, setPage] = useState(1);
   const { state } = useLocation();
+  const [searchValue, setSearchValue] = useState(undefined);
   const [branchName] = useState(state?.data?.accountName);
+  const [selectedStatus, setSelectedStatus] = useState({ id: 6, name: 'All', value: null });
+  const initialSerialNumber = useTableSerialNumber(page);
 
-  const { data, isFetching } = useQuery({
-    queryKey: ['transaction-requests', id],
+  const { data, isFetching, refetch } = useQuery({
+    queryKey: ['transfer-requests', id, selectedStatus.value, page],
     queryFn: () =>
       transactionService.getTransactionPerOrganization({
-        branchId: id
+        branchId: id,
+        status: selectedStatus.value,
+        search: searchValue,
+        page
       })
   });
 
@@ -45,15 +60,30 @@ export const TransferRequest = () => {
               </h1>
               <p className="text-sm text-gray-700">List of transfer requests within the system</p>
             </div>
+            <div>
+              <Filter selectedStatus={selectedStatus} setSelectedStatus={setSelectedStatus} />
+            </div>
           </div>
-          <SearchFilter placeholder={'Search awaiting transfers...'} />
-          <div className="mt-5">
+          <div className="space-y-6">
+            <SearchFilter
+              placeholder={'Search by reference or amount....'}
+              value={searchValue}
+              setValue={setSearchValue}
+              onSearch={refetch}
+            />
             {isFetching ? (
               <ContentLoader viewBox="0 0 380 70">
                 <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
               </ContentLoader>
             ) : (
-              <RenderData data={data} />
+              <>
+                <RenderData data={data} initialSerialNumber={initialSerialNumber} />
+                <Pagination
+                  totalItems={data?.meta?.total ?? 0}
+                  handlePageClick={setPage}
+                  currentPage={page}
+                />
+              </>
             )}
           </div>
         </Container>

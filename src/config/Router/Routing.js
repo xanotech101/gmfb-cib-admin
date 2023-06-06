@@ -18,7 +18,7 @@ import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporate
 import { PrivateOutlet } from './PrivateOutLet';
 import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
 import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/TransferRequest';
-import { TransferRequestDetails } from 'pages/CorporateAccount/TransferRequest/TransferRequestDetails/TransferRequestDetails';
+import { TransferRequestDetails } from 'pages/TransferRequest/TransferRequestDetails/TransferRequestDetails';
 import { AllTransferRequests } from 'pages/TransferRequest/AllTransferRequests/AllTransferRequests';
 import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateDetails';
 import UpdateSecurityQuestion from 'pages/Settings/Security/UpdateSecurityQuestion';

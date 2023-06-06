@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import { Heading } from 'components/Header/Heading';
 import { Container } from 'components/Container/Container';
@@ -9,7 +10,6 @@ import { accountService } from 'services';
 import { Button } from 'components/Button/Button';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import { useTableSerialNumber, useRole } from 'hooks';
-import { useState } from 'react';
 import Pagination from 'components/Pagination/Pagination';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 
@@ -27,19 +27,27 @@ const RenderData = ({ data, initialSerialNumber }) => {
       />
     );
   } else {
-    return <CorporateAccountsTable data={data} initialSerialNumber={initialSerialNumber} />;
+    return (
+      <CorporateAccountsTable
+        data={data?.accounts ?? []}
+        initialSerialNumber={initialSerialNumber}
+      />
+    );
   }
 };
 
 export const Corporate = () => {
   const { isSystemAdmin } = useRole();
-  const [searchValue, setSearchValue] = useState(undefined);
   const [page, setPage] = useState(1);
+  const [searchValue, setSearchValue] = useState(undefined);
+
   const { data, isFetching, refetch } = useQuery({
-    queryKey: ['accounts', isSystemAdmin, page],
-    queryFn: () => accountService.getAllAccounts(isSystemAdmin, { page, name: searchValue })
+    queryKey: ['accounts', isSystemAdmin],
+    queryFn: () => accountService.getAllAccounts({ page, name: searchValue }, isSystemAdmin)
   });
+
   const initialSerialNumber = useTableSerialNumber(page);
+
   return (
     <div className="flex flex-col mt-7 p-5">
       <Container>
@@ -58,19 +66,28 @@ export const Corporate = () => {
             </Link>
           </div>
         </div>
+
         <SearchFilter
           placeholder={'Search by name or email....'}
           value={searchValue}
           setValue={setSearchValue}
           onSearch={refetch}
         />
+
         <div className="mt-5">
           {isFetching ? (
             <ContentLoader viewBox="0 0 380 70">
               <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
             </ContentLoader>
           ) : (
-            <RenderData data={data ?? []} initialSerialNumber={initialSerialNumber} />
+            <>
+              <RenderData data={data ?? []} initialSerialNumber={initialSerialNumber} />
+              <Pagination
+                totalItems={data?.meta?.total ?? 0}
+                handlePageClick={setPage}
+                currentPage={page}
+              />
+            </>
           )}
           <Pagination totalItems={data?.totalCount} handlePageClick={setPage} currentPage={page} />
         </div>

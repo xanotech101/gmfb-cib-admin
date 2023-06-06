@@ -3,7 +3,7 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 import { Container } from 'components/Container/Container';
 import classnames from 'classnames';
 
-export const VerifierTimeline = ({ verifier, decision }) => {
+export const AuthorizerTimeline = ({ authorizer, decision }) => {
   const icons = {
     approved: <CheckIcon className="h-5 w-5 text-white" aria-hidden="true" />,
     declined: <XMarkIcon className="h-5 w-5 text-white" aria-hidden="true" />,
@@ -13,7 +13,7 @@ export const VerifierTimeline = ({ verifier, decision }) => {
   return (
     <Container>
       <h2 id="timeline-title" className="text-lg font-medium text-gray-900">
-        Verifier
+        Authorizer
       </h2>
       <div className="flow-root mt-6">
         <ul role="list" className="-mb-8">
@@ -29,15 +29,14 @@ export const VerifierTimeline = ({ verifier, decision }) => {
                         'bg-red-500': decision?.status === 'declined',
                         'bg-green-500': decision?.status === 'approved'
                       }
-                    )}
-                  >
+                    )}>
                     {icons[decision?.status ?? 'pending']}
                   </span>
                 </div>
                 <div className="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
                   <div>
                     <div className="text-base text-gray-800 font-semibold -mt-1">
-                      {verifier?.firstName ?? ''} {verifier?.lastName ?? ''}
+                      {authorizer?.firstName ?? ''} {authorizer?.lastName ?? ''}
                       <p className="text-gray-500 mt-0.5 text-sm">{decision?.reason ?? ''}</p>
                     </div>
                   </div>
