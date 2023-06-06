@@ -17,7 +17,6 @@ export const CorporateAccountsTable = ({ data, initialSerialNumber }) => {
       action: () => navigate(`/accounts/${account._id}/users`, { state: { data: account } })
     }
   ];
-  console.log(data);
 
   return (
     <div className="p-1.5 w-full inline-block align-middle">
@@ -53,7 +52,7 @@ export const CorporateAccountsTable = ({ data, initialSerialNumber }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 ">
-            {data?.accounts?.map((datum, i) => (
+            {data?.map((datum, i) => (
               <tr key={datum._id}>
                 <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
                   {initialSerialNumber + i}
