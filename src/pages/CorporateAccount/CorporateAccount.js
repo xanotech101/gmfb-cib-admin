@@ -13,7 +13,7 @@ import { useTableSerialNumber, useRole } from 'hooks';
 import Pagination from 'components/Pagination/Pagination';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 
-const RenderData = ({ data }) => {
+const RenderData = ({ data, initialSerialNumber }) => {
   const navigate = useNavigate();
   if (data?.length === 0) {
     return (
@@ -30,7 +30,7 @@ const RenderData = ({ data }) => {
     return (
       <CorporateAccountsTable
         data={data?.accounts ?? []}
-        useTableSerialNumber={useTableSerialNumber}
+        initialSerialNumber={initialSerialNumber}
       />
     );
   }
@@ -45,6 +45,8 @@ export const Corporate = () => {
     queryKey: ['accounts', isSystemAdmin],
     queryFn: () => accountService.getAllAccounts({ page, name: searchValue }, isSystemAdmin)
   });
+
+  const initialSerialNumber = useTableSerialNumber(page);
 
   return (
     <div className="flex flex-col mt-7 p-5">
@@ -79,7 +81,7 @@ export const Corporate = () => {
             </ContentLoader>
           ) : (
             <>
-              <RenderData data={data ?? []} />
+              <RenderData data={data ?? []} initialSerialNumber={initialSerialNumber} />
               <Pagination
                 totalItems={data?.meta?.total ?? 0}
                 handlePageClick={setPage}
@@ -87,6 +89,7 @@ export const Corporate = () => {
               />
             </>
           )}
+          <Pagination totalItems={data?.totalCount} handlePageClick={setPage} currentPage={page} />
         </div>
       </Container>
     </div>

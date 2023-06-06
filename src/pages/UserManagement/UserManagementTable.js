@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Avatar } from 'components/Avatar/Avatar';
-import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
+import { CheckCircleIcon, EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { Dropdown } from 'flowbite-react';
 import { authService } from 'services';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
@@ -9,8 +9,11 @@ import { Badge } from 'components/Badge/Badge';
 import { DeleteUser } from 'services/delete';
 import { SubHeading } from 'components/Header/SubHeading';
 import { Button } from 'components/Button/Button';
+import { DisableAccount, EnableAccount } from 'services/enableDisable';
+import { notification } from 'utils';
 
 export const UserManagementTable = ({ users, initialSerialNumber }) => {
+  console.log(users);
   const { Modal, showModal } = useModal();
   const [user, setUser] = useState(null);
   const [alert, setAlert] = useState(false);
@@ -29,6 +32,36 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
       },
       onError: ({ message }) => {
         alert(message);
+      }
+    }
+  );
+
+  const Disable = useMutation(
+    (userid) => {
+      DisableAccount(userid);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('all-users');
+      },
+      onError: ({ message }) => {
+        queryClient.invalidateQueries('all-users');
+        alert(message);
+      }
+    }
+  );
+
+  const Enable = useMutation(
+    (userid) => {
+      EnableAccount(userid);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('all-users');
+      },
+      onError: ({ message }) => {
+        queryClient.invalidateQueries('all-users');
+        notification(message);
       }
     }
   );
@@ -121,6 +154,46 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
                               setAlert(true);
                             }}>
                             Delete user
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() => {
+                              Enable.mutate(user?._id);
+                            }}>
+                            <button
+                              disabled={user?.disabled === false}
+                              className={`${
+                                !user?.disabled
+                                  ? 'cursor-not-allowed text-green-500'
+                                  : 'text-green-500'
+                              }`}>
+                              {' '}
+                              {user?.disabled === false ? (
+                                <span className="flex items-center gap-2">
+                                  <CheckCircleIcon className="w-5 h-5" /> Enabled
+                                </span>
+                              ) : (
+                                'Enable'
+                              )}
+                            </button>
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            onClick={() => {
+                              Disable.mutate(user?._id);
+                            }}>
+                            <button
+                              disabled={user?.disabled === true}
+                              className={`${
+                                user?.disabled ? 'cursor-not-allowed text-red-500' : 'text-red-500'
+                              }`}>
+                              {' '}
+                              {user?.disabled ? (
+                                <span className="flex items-center gap-2">
+                                  <CheckCircleIcon className="w-5 h-5" /> Disabled
+                                </span>
+                              ) : (
+                                'Disable'
+                              )}
+                            </button>
                           </Dropdown.Item>
                         </Dropdown>
                       </td>

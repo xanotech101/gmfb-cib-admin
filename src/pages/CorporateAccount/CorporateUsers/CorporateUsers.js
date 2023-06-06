@@ -9,31 +9,37 @@ import Pagination from 'components/Pagination/Pagination';
 import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
+import { useTableSerialNumber } from 'hooks';
 
 export const CorporateUsersUnderCorporateAccount = () => {
   const [page, setPage] = useState(1);
+  const [searchValue, setSearchValue] = useState(undefined);
   const { id } = useParams();
   const { state } = useLocation();
   console.log(
     '🚀 ~ file: CorporateUsers.js:17 ~ CorporateUsersUnderCorporateAccount ~ state:',
     state
   );
-
-  const { data, isLoading } = useQuery({
-    queryKey: ['getMyBranchUsers', id],
+  console.log(state);
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['getMyBranchUsers', id, page],
     queryFn: () =>
       userService.getBranchUsers({
         branchId: id,
-        withPagination: true
+        withPagination: true,
+        search: searchValue
       }),
     enabled: !!id
   });
   console.log(data);
+  const initialSerialNumber = useTableSerialNumber(page);
   const RenderData = () => {
     if (data?.users?.length === 0) {
       return <EmptyState title="No users found within this branch" />;
     } else {
-      return <CorporateUsersTable users={data?.users ?? []} />;
+      return (
+        <CorporateUsersTable users={data?.users ?? []} initialSerialNumber={initialSerialNumber} />
+      );
     }
   };
 
@@ -46,8 +52,12 @@ export const CorporateUsersUnderCorporateAccount = () => {
             <span>{state?.accountName}</span>
           </strong>
         </SubHeading>
-
-        <SearchFilter placeholder={'Search for corporate users'} />
+        <SearchFilter
+          placeholder={'Search by email or name....'}
+          value={searchValue}
+          setValue={setSearchValue}
+          onSearch={refetch}
+        />
 
         <div className="mt-8 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
