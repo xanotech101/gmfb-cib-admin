@@ -96,15 +96,10 @@ export const UserManagementTable = ({ users, initialSerialNumber, page, isSystem
                     </th>
                     <th
                       scope="col"
-                      className="py-3.5 px-3 text-left text-sm font-semibold text-gray-900 w-[30%]">
-                      Email
-                    </th>
-
-                    <th
-                      scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 w-[35%]">
+                      className="py-3.5 px-3 text-left text-sm font-semibold text-gray-900 w-[15%]">
                       Name
                     </th>
+
                     <th
                       scope="col"
                       className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 w-[10%]">
@@ -112,12 +107,12 @@ export const UserManagementTable = ({ users, initialSerialNumber, page, isSystem
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 w-[15%]">
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 w-[7%]">
                       Role
                     </th>
                     <th
                       scope="col"
-                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 w-[15%]">
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 w-[5%]">
                       Status
                     </th>
                     <th scope="col" className=" py-3.5 px-4 w-[5%]">
@@ -131,9 +126,6 @@ export const UserManagementTable = ({ users, initialSerialNumber, page, isSystem
                       <td className=" px-3 py-4 text-sm text-gray-500 border">
                         {initialSerialNumber + i}
                       </td>
-                      <td className="px-3 py-4 text-sm text-gray-500 border break-all">
-                        {user?.email}
-                      </td>
                       <td className=" px-3 py-4 text-sm text-gray-500 border">
                         <div className="flex items-center">
                           <Avatar name={`${user?.firstName} ${user?.lastName}`} />
@@ -141,6 +133,7 @@ export const UserManagementTable = ({ users, initialSerialNumber, page, isSystem
                             {user?.firstName} {user?.lastName}
                           </span>
                         </div>
+                        <div className="mt-2"> {user?.email}</div>
                       </td>
 
                       <td className="px-3 py-4 text-sm text-gray-500 border break-words">
