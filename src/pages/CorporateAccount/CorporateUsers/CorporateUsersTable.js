@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useModal } from 'hooks';
 import { SubHeading } from 'components/Header/SubHeading';
 import { Button } from 'components/Button/Button';
-import { DeleteUser } from 'services/delete';
+// import { DeleteUser } from 'services/delete';
 import { useState } from 'react';
 import { DisableAccount, EnableAccount } from 'services/enableDisable';
 import { Badge } from 'components/Badge/Badge';
@@ -14,7 +14,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 export const CorporateUsersTable = ({ users, initialSerialNumber, page, isSystemAdmin }) => {
   const { Modal, showModal } = useModal();
   const [user, setUser] = useState(null);
-  const [alert, setAlert] = useState(false);
+  // const [alert, setAlert] = useState(false);
   const [toggle, setToggle] = useState(false);
   const [index, setIndex] = useState(0);
   const navigate = useNavigate();
@@ -25,18 +25,18 @@ export const CorporateUsersTable = ({ users, initialSerialNumber, page, isSystem
   });
   const queryClient = useQueryClient();
 
-  const deletePost = useMutation(
-    (userid) => {
-      DeleteUser(userid);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('all-users');
-        navigate(`/accounts/${id}/users`);
-      },
-      onError: () => {}
-    }
-  );
+  // const deletePost = useMutation(
+  //   (userid) => {
+  //     DeleteUser(userid);
+  //   },
+  //   {
+  //     onSuccess: () => {
+  //       queryClient.invalidateQueries('all-users');
+  //       navigate(`/accounts/${id}/users`);
+  //     },
+  //     onError: () => {}
+  //   }
+  // );
   const Disable = useMutation(
     (userid) => {
       DisableAccount(userid);
@@ -145,7 +145,7 @@ export const CorporateUsersTable = ({ users, initialSerialNumber, page, isSystem
                     </Dropdown.Item>
                   )}
 
-                  <Dropdown.Item
+                  {/* <Dropdown.Item
                     onClick={() => {
                       showModal();
                       setUser(user);
@@ -153,11 +153,11 @@ export const CorporateUsersTable = ({ users, initialSerialNumber, page, isSystem
                       setToggle(null);
                     }}>
                     Delete user
-                  </Dropdown.Item>
+                  </Dropdown.Item> */}
                   <Dropdown.Item
                     onClick={() => {
                       setToggle(false);
-                      setAlert(false);
+
                       setUser(user);
                       setIndex(i);
                       showModal();
@@ -170,7 +170,6 @@ export const CorporateUsersTable = ({ users, initialSerialNumber, page, isSystem
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
-                      setAlert(false);
                       setToggle(true);
                       setUser(user);
                       setIndex(i);
@@ -189,29 +188,7 @@ export const CorporateUsersTable = ({ users, initialSerialNumber, page, isSystem
       {Modal({
         children: (
           <>
-            {alert === true ? (
-              <div className="text-center ">
-                <SubHeading>Are you sure you want to delete this user?</SubHeading>
-                <p className="mt-4">Note this change is irreversible</p>
-                <div className="flex justify-center items-center mt-4 gap-6">
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      deletePost.mutate(user?._id);
-                      showModal();
-                    }}>
-                    Delete
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      showModal();
-                    }}>
-                    Cancel
-                  </Button>
-                </div>
-              </div>
-            ) : toggle === true ? (
+            {toggle === true ? (
               <div className="text-center ">
                 <SubHeading>Are you sure you want to disable this user?</SubHeading>
                 <p className="mt-4">Note this will stop the user from performing any action </p>

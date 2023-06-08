@@ -1,5 +1,3 @@
-import { Container } from 'components/Container/Container';
-import { SubHeading } from 'components/Header/SubHeading';
 import { Button } from 'components/Button/Button';
 import SecurityQuestionForm from 'components/SecurityQuestion/SecurityQuestionForm';
 import { useForm } from 'react-hook-form';
@@ -49,22 +47,13 @@ const UpdateSecurityQuestion = () => {
   };
 
   return (
-    <div className="space-y-8 w-400">
-      <Container>
-        <SubHeading>Update your security Questions</SubHeading>
-        <p className="mt-3 mb-4">Please be careful while choosing your security questions.</p>
-        <form className="space-y-6">
-          <SecurityQuestionForm
-            control={control}
-            errors={errors}
-            register={register}
-            watch={watch}
-          />
-          <Button type="button" isFullWidth disabled={isLoading} onClick={showModal}>
-            Submit
-          </Button>
-        </form>
-      </Container>
+    <>
+      <form className="space-y-6 mt-4">
+        <SecurityQuestionForm control={control} errors={errors} register={register} watch={watch} />
+        <Button type="button" disabled={isLoading} onClick={showModal}>
+          Update security questions
+        </Button>
+      </form>
       {Modal({
         children: (
           <div className="space-y-4">
@@ -81,7 +70,7 @@ const UpdateSecurityQuestion = () => {
           </div>
         )
       })}
-    </div>
+    </>
   );
 };
 

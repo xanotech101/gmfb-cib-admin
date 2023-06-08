@@ -1,11 +1,11 @@
-import { SubHeading } from 'components/Header/SubHeading';
-import { KeyIcon } from '@heroicons/react/24/outline';
 import { useForm } from 'react-hook-form';
 import { Input } from 'components/Form/Input/Input';
 import { Button } from 'components/Button/Button';
 import { useMutation } from '@tanstack/react-query';
 import { authService } from 'services';
 import { Container } from 'components/Container/Container';
+import { SubHeading } from 'components/Header/SubHeading';
+import UpdateSecurityQuestion from './UpdateSecurityQuestion';
 
 export const Security = () => {
   const {
@@ -25,14 +25,17 @@ export const Security = () => {
   const onSubmit = (data) => mutate(data);
 
   return (
-    <div className="">
-      <Container>
-        <SubHeading>Security Settings</SubHeading>
-        <p className="flex items-center my-6 gap-2 text-md">
-          Update Password
-          <KeyIcon width="20px" />
-        </p>
-        <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+    <Container>
+      <div className="grid grid-cols-12 gap-8 items-start">
+        <div className="col-span-12 md:col-span-4">
+          <SubHeading>Change password</SubHeading>
+          <p className="mt-1 text-sm leading-6 text-gray-500">
+            Update your password associated with your account.
+          </p>
+        </div>
+        <form
+          className="space-y-6 col-span-12 md:col-span-8 mt-4"
+          onSubmit={handleSubmit(onSubmit)}>
           <Input
             label="Old Password"
             type="password"
@@ -40,7 +43,6 @@ export const Security = () => {
             {...register('old_password', { required: true })}
             error={errors.password && 'Password is required'}
           />
-
           <Input
             label="New Password"
             type="password"
@@ -64,14 +66,27 @@ export const Security = () => {
               (errors.confirm_password?.message ?? 'Confirm Password is required')
             }
           />
-
-          <div className="pt-6">
-            <Button type="submit" disabled={isLoading} isFullWidth>
+          <div className="pt-2">
+            <Button type="submit" disabled={isLoading}>
               Change Password
             </Button>
           </div>
         </form>
-      </Container>
-    </div>
+      </div>
+
+      <hr className="my-8" />
+
+      <div className="grid grid-cols-12 gap-8 items-start">
+        <div className="col-span-12 md:col-span-4">
+          <SubHeading>Update your security Questions</SubHeading>
+          <p className="mt-1 text-sm leading-6 text-gray-500">
+            Please be careful while choosing your security questions.
+          </p>
+        </div>
+        <div className="col-span-12 md:col-span-8">
+          <UpdateSecurityQuestion />
+        </div>
+      </div>
+    </Container>
   );
 };
