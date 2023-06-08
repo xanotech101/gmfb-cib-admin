@@ -38,9 +38,12 @@ class AccountService {
     }
   }
 
-  async getAllAccounts() {
+  async getAllAccounts(params, isSystemAdmin) {
+    const url = isSystemAdmin
+      ? '/api/account/all_accounts'
+      : '/api/gcadmin/getAccount_oragnizationlabel/gc-admin';
     try {
-      const { data } = await http.get('/api/account/all_accounts');
+      const { data } = await http.get(url, { params });
       return data;
     } catch (error) {
       throw new Error(error);

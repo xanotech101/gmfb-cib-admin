@@ -6,9 +6,13 @@ import { EmptyState } from 'components/EmptyState/EmptyState';
 import { ticketService } from 'services';
 import ContentLoader from 'react-content-loader';
 import { useQuery } from '@tanstack/react-query';
+import { useTableSerialNumber } from 'hooks';
+import Pagination from 'components/Pagination/Pagination';
+import { useState } from 'react';
+import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 
-const RenderData = ({ data }) => {
-  if (data?.tickets?.length === 0 || !data) {
+const RenderData = ({ data, initialSerialNumber }) => {
+  if (data?.tickets?.length === 0 || !data?.tickets) {
     return (
       <EmptyState
         title="No tickets found"
@@ -17,31 +21,46 @@ const RenderData = ({ data }) => {
       />
     );
   } else {
-    return <RequestTable tickets={data?.tickets ?? []} />;
+    return <RequestTable tickets={data?.tickets ?? []} initialSerialNumber={initialSerialNumber} />;
   }
 };
 
 export const RequestTicketing = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ['get-tickets'],
-    queryFn: ticketService.getTickets
+  const [page, setPage] = useState(1);
+  const [searchValue, setSearchValue] = useState(undefined);
+  const { data, isFetching, isLoading, refetch } = useQuery({
+    queryKey: ['get-tickets', page],
+    queryFn: () => ticketService.getTickets({ page, topic: searchValue })
   });
+  console.log(data);
+  const initialSerialNumber = useTableSerialNumber(page);
 
   return (
     <div className="p-5">
       <Container>
-        <Heading>All Request</Heading>
-        <div className="flex justify-between  my-2  align-start lg:align-center flex-col lg:flex-row ">
-          <p>List of request made in the system.</p>
-        </div>
-        {isLoading ? (
+        <Heading>All Ticket Requests</Heading>
+        <p>List of request made in the system.</p>
+        <SearchFilter
+          placeholder={'Search by topic...'}
+          value={searchValue}
+          setValue={setSearchValue}
+          onSearch={refetch}
+        />
+        {isFetching || isLoading ? (
           <div className="mt-5">
             <ContentLoader viewBox="0 0 380 70">
               <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
             </ContentLoader>
           </div>
         ) : (
-          <RenderData data={data} />
+          <>
+            <RenderData data={data} initialSerialNumber={initialSerialNumber} />
+            <Pagination
+              totalItems={data?.meta?.total ?? 0}
+              handlePageClick={setPage}
+              currentPage={page}
+            />
+          </>
         )}
       </Container>
     </div>

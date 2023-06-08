@@ -9,27 +9,37 @@ import Pagination from 'components/Pagination/Pagination';
 import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
+import { useTableSerialNumber } from 'hooks';
 
 export const CorporateUsersUnderCorporateAccount = () => {
   const [page, setPage] = useState(1);
+  const [searchValue, setSearchValue] = useState(undefined);
   const { id } = useParams();
   const { state } = useLocation();
-
-  const { data, isLoading } = useQuery({
-    queryKey: ['getMyBranchUsers', id],
+  console.log(
+    '🚀 ~ file: CorporateUsers.js:17 ~ CorporateUsersUnderCorporateAccount ~ state:',
+    state
+  );
+  console.log(state);
+  const { data, isLoading, refetch, isFetching } = useQuery({
+    queryKey: ['getMyBranchUsers', id, page],
     queryFn: () =>
       userService.getBranchUsers({
         branchId: id,
-        withPagination: true
+        withPagination: true,
+        search: searchValue
       }),
     enabled: !!id
   });
   console.log(data);
+  const initialSerialNumber = useTableSerialNumber(page);
   const RenderData = () => {
     if (data?.users?.length === 0) {
       return <EmptyState title="No users found within this branch" />;
     } else {
-      return <CorporateUsersTable users={data?.users ?? []} />;
+      return (
+        <CorporateUsersTable users={data?.users ?? []} initialSerialNumber={initialSerialNumber} />
+      );
     }
   };
 
@@ -42,13 +52,17 @@ export const CorporateUsersUnderCorporateAccount = () => {
             <span>{state?.accountName}</span>
           </strong>
         </SubHeading>
-        <div className="w-[40%] mt-4">
-          <SearchFilter placeholder={'Search for corporate users'} />
-        </div>
+        <SearchFilter
+          placeholder={'Search by email or name....'}
+          value={searchValue}
+          setValue={setSearchValue}
+          onSearch={refetch}
+        />
+
         <div className="mt-8 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              {isLoading ? (
+              {isLoading || isFetching ? (
                 <ContentLoader viewBox="0 0 380 70">
                   <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
                 </ContentLoader>

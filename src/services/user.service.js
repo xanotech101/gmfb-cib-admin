@@ -16,7 +16,7 @@ class UserService {
       const response = await http.get('/api/users/allbranchusers', {
         params
       });
-      return response.data;
+      return response?.data;
     } catch (error) {
       throw new Error(error);
     }
@@ -33,9 +33,10 @@ class UserService {
     }
   }
 
-  async getAllUsers(params) {
+  async getAllUsers(params, isSystemAdmin) {
+    const url = isSystemAdmin ? '/api/users/all' : '/api/gcadmin/fetchAllusers';
     try {
-      const response = await http.get('/api/users/all', {
+      const response = await http.get(url, {
         params
       });
       return response.data;

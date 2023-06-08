@@ -1,12 +1,15 @@
 import { ClockIcon } from '@heroicons/react/24/outline';
 import { useQuery } from '@tanstack/react-query';
 import { EmptyState } from 'components/EmptyState/EmptyState';
+import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
+import Pagination from 'components/Pagination/Pagination';
+import { useTableSerialNumber } from 'hooks';
 import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import { Enquiry } from 'services/api_console.service';
 import { DateFormats, DateUtils } from 'utils';
 
-const RenderData = ({ data }) => {
+const RenderData = ({ data, initialSerialNumber }) => {
   if (data?.results?.length === 0 || !data) {
     return <EmptyState title="No Api created" description="You have not created any api yet." />;
   } else {
@@ -41,7 +44,7 @@ const RenderData = ({ data }) => {
           {data?.results?.map((datum, i) => (
             <tr key={datum?._id}>
               <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
-                {i + 1}
+                {initialSerialNumber + i}
               </td>
               <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
                 {datum?.organization_name.substring(0, 4)}
@@ -73,21 +76,29 @@ const RenderData = ({ data }) => {
 };
 
 export const ApiTable = () => {
-  const [page] = useState(1);
-  const { data, isLoading } = useQuery({
+  const [page, setPage] = useState(1);
+  const [searchValue, setSearchValue] = useState(undefined);
+  const { data, isLoading, isFetching, refetch } = useQuery({
     queryKey: ['console', page],
-    queryFn: () => Enquiry.getApiConsole({ page })
+    queryFn: () => Enquiry.getApiConsole({ page, name: searchValue })
   });
-
+  const initialSerialNumber = useTableSerialNumber(page);
   return (
     <>
-      {isLoading ? (
+      <SearchFilter
+        placeholder={'Search...'}
+        value={searchValue}
+        setValue={setSearchValue}
+        onSearch={refetch}
+      />
+      {isLoading || isFetching ? (
         <ContentLoader viewBox="0 0 380 70">
           <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
         </ContentLoader>
       ) : (
-        <RenderData data={data} />
+        <RenderData data={data} initialSerialNumber={initialSerialNumber} />
       )}
+      <Pagination totalItems={data?.meta?.total} handlePageClick={setPage} currentPage={page} />
     </>
   );
 };
