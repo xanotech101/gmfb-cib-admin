@@ -80,9 +80,9 @@ const RenderData = ({ data, initialSerialNumber }) => {
 export const BvnTable = () => {
   const [page, setPage] = useState(1);
   const [searchValue, setSearchValue] = useState(undefined);
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading, refetch, isFetching } = useQuery({
     queryKey: ['console', page],
-    queryFn: () => Enquiry.getApiConsole({ page, search: searchValue })
+    queryFn: () => Enquiry.getApiConsole({ page, name: searchValue })
   });
   const initialSerialNumber = useTableSerialNumber(page);
   return (
@@ -93,7 +93,7 @@ export const BvnTable = () => {
         setValue={setSearchValue}
         onSearch={refetch}
       />
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <ContentLoader viewBox="0 0 380 70">
           <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
         </ContentLoader>

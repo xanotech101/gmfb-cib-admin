@@ -21,7 +21,7 @@ export const CorporateUsersUnderCorporateAccount = () => {
     state
   );
   console.log(state);
-  const { data, isLoading, refetch } = useQuery({
+  const { data, isLoading, refetch, isFetching } = useQuery({
     queryKey: ['getMyBranchUsers', id, page],
     queryFn: () =>
       userService.getBranchUsers({
@@ -62,7 +62,7 @@ export const CorporateUsersUnderCorporateAccount = () => {
         <div className="mt-8 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              {isLoading ? (
+              {isLoading || isFetching ? (
                 <ContentLoader viewBox="0 0 380 70">
                   <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
                 </ContentLoader>

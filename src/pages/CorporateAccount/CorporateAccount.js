@@ -15,7 +15,7 @@ import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 
 const RenderData = ({ data, initialSerialNumber }) => {
   const navigate = useNavigate();
-  if (data?.length === 0) {
+  if (data?.length === 0 || !data) {
     return (
       <EmptyState
         title="No Corporate account found"

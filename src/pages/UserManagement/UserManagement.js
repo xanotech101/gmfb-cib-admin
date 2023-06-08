@@ -12,17 +12,19 @@ import { ExportCSV } from 'components/Export/ExportCsv';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 import { useTableSerialNumber, useRole } from 'hooks';
 
-const RenderData = ({ data, initialSerialNumber }) => {
+const RenderData = ({ data, initialSerialNumber, page, isSystemAdmin }) => {
   if (data?.requests?.length === 0 || !data) {
     return (
-      <EmptyState
-        title="No request found"
-        description="No request found, please check back later."
-      />
+      <EmptyState title="No user found" description="No user found, please check back later." />
     );
   } else {
     return (
-      <UserManagementTable initialSerialNumber={initialSerialNumber} users={data?.users ?? []} />
+      <UserManagementTable
+        initialSerialNumber={initialSerialNumber}
+        users={data?.users ?? []}
+        page={page}
+        isSystemAdmin={isSystemAdmin}
+      />
     );
   }
 };
@@ -38,6 +40,18 @@ export const UserManagement = () => {
   });
 
   const initialSerialNumber = useTableSerialNumber(page);
+  const csvData = data?.users.map((dat) => {
+    return {
+      ID: dat?._id,
+      EMAIL: dat?.email,
+      FIRSTNAME: dat?.firstName,
+      LASTNAME: dat?.lastName,
+      GENDER: dat?.gender,
+      STATUS: dat?.disabled ? 'disabled' : 'active',
+      PHONE_NO: dat?.phone,
+      ROLE: dat?.role
+    };
+  });
 
   return (
     <div className="p-5 mb-24">
@@ -48,7 +62,7 @@ export const UserManagement = () => {
             <p className="text-sm text-gray-700">List of users in the platform</p>
           </div>
           <div>
-            <ExportCSV fileName={'user data'} csvData={data?.users} name={'Export Users'} />
+            <ExportCSV fileName={'user data'} csvData={csvData} name={'Export Users'} />
           </div>
         </div>
 
@@ -67,7 +81,12 @@ export const UserManagement = () => {
           </div>
         ) : (
           <>
-            <RenderData data={data} initialSerialNumber={initialSerialNumber} />
+            <RenderData
+              data={data}
+              initialSerialNumber={initialSerialNumber}
+              page={page}
+              isSystemAdmin={isSystemAdmin}
+            />
             <Pagination
               totalItems={data?.meta?.total ?? 0}
               handlePageClick={setPage}

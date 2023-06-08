@@ -16,7 +16,7 @@ class UserService {
       const response = await http.get('/api/users/allbranchusers', {
         params
       });
-      return response.data;
+      return response?.data;
     } catch (error) {
       throw new Error(error);
     }
