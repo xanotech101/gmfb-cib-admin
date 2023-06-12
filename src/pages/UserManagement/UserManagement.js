@@ -38,9 +38,13 @@ export const UserManagement = () => {
     queryKey: ['all-users', page, isSystemAdmin],
     queryFn: () => userService.getAllUsers({ page, search: searchValue }, isSystemAdmin)
   });
-
+  const { data: csv } = useQuery({
+    queryKey: ['all-users', { withPagination: false }, isSystemAdmin],
+    queryFn: () => userService.getAllUsers({ withPagination: false }, isSystemAdmin)
+  });
+  console.log(csv);
   const initialSerialNumber = useTableSerialNumber(page);
-  const csvData = data?.users.map((dat) => {
+  const csvData = csv?.users?.map((dat) => {
     return {
       ID: dat?._id,
       EMAIL: dat?.email,

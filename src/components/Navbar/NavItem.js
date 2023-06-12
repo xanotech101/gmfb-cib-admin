@@ -24,7 +24,6 @@ export const NavItem = ({ closeSidebar }) => {
   const { Modal, showModal } = useModal();
   const { isSystemAdmin } = useRole();
 
-  const isSettings = /settings/i.test(window.location.pathname);
   const isApi = /api-console/i.test(window.location.pathname);
 
   return (
@@ -116,7 +115,7 @@ export const NavItem = ({ closeSidebar }) => {
         />
 
         <NavLinks
-          to={!isSettings ? 'settings/general' : 'settings'}
+          to={'settings/security'}
           icon={<CogIcon />}
           name="Settings"
           current={false}

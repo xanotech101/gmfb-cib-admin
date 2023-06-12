@@ -12,7 +12,7 @@ import { ErrorPage } from 'pages/ErrorPage/ErrorPage';
 import { Audit } from 'pages/AuditTrail/AuditTrail';
 import { authRoutes } from 'config/Router/routes/Auth.routes';
 import { Security } from 'pages/Settings/Security/Security';
-import { SettingsWrapper } from 'pages/Settings/SettingsWrapper';
+
 import { RequestTicketing } from 'pages/Requests/RequestTicketing';
 import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
 import { PrivateOutlet } from './PrivateOutLet';
@@ -21,7 +21,7 @@ import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/Transfer
 import { TransferRequestDetails } from 'pages/TransferRequest/TransferRequestDetails/TransferRequestDetails';
 import { AllTransferRequests } from 'pages/TransferRequest/AllTransferRequests/AllTransferRequests';
 import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateDetails';
-import UpdateSecurityQuestion from 'pages/Settings/Security/UpdateSecurityQuestion';
+
 import { RequestTicketingDetails } from 'pages/Requests/RequestDetails/RequestDetails';
 import { BvnTable } from 'pages/ApiConsole/ApiBvnUsage';
 import { ApiTable } from 'pages/ApiConsole/ApiUsage';
@@ -55,22 +55,13 @@ export const Routing = () => {
               <Route path="api-usage" element={<ApiTable />} />
             </Route>
           </Route>
-          <Route
-            element={
-              <SettingsWrapper>
-                <Outlet />
-              </SettingsWrapper>
-            }>
-            <Route path="settings">
-              <Route index element={<Settings />} />
-              <Route path="/settings/general" element={<Settings />} />
-              <Route path="general">
-                <Route index element={<Settings />} />
-                <Route path="update-security-question" element={<UpdateSecurityQuestion />} />
-              </Route>
-              <Route path="/settings/security" element={<Security />} />
-            </Route>
+
+          <Route path="settings">
+            <Route index element={<Settings />} />
+
+            <Route path="/settings/security" element={<Security />} />
           </Route>
+
           <Route path="accounts">
             <Route index element={<Corporate />} />
             <Route path="onboard" element={<OnboardCorporateAccount />} />
