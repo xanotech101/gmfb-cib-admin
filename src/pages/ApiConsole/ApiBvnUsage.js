@@ -1,4 +1,3 @@
-import { ClockIcon } from '@heroicons/react/24/outline';
 import { useQuery } from '@tanstack/react-query';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
@@ -6,8 +5,8 @@ import Pagination from 'components/Pagination/Pagination';
 import { useTableSerialNumber } from 'hooks';
 import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
-import { Enquiry } from 'services/api_console.service';
-import { DateFormats, DateUtils } from 'utils';
+import { apiUsageService } from 'services/apiUsage.service';
+import { BvnUsageTable } from './components/BvnUsageTable';
 
 const RenderData = ({ data, initialSerialNumber }) => {
   if (data?.results?.length === 0 || !data) {
@@ -15,75 +14,19 @@ const RenderData = ({ data, initialSerialNumber }) => {
       <EmptyState title="No BVN Api created" description="You have not created any bvn api yet." />
     );
   } else {
-    return (
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            <th
-              scope="col"
-              className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
-              S/N
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
-              Organization Name
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
-              Number of BVN Count
-            </th>
-
-            <th
-              scope="col"
-              className="px-6 py-3 text-xs font-bold text-left text-gray-500 uppercase">
-              time created
-            </th>
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-gray-200 ">
-          {data?.results?.map((datum, i) => (
-            <tr key={datum?._id}>
-              <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
-                {initialSerialNumber + i}
-              </td>
-              <td className="px-6 py-4 text-sm font-medium text-gray-800 whitespace-nowrap border">
-                {datum?.organization_name.substring(0, 4)}
-              </td>
-              <td className="px-6 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
-                {datum?.bvnCount} Count
-              </td>
-              <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap ">
-                <div className="mt-4 flex items-center text-sm text-gray-500 gap-2">
-                  <ClockIcon className=" h-5 w-5 flex-shrink-0  text-primary" aria-hidden="true" />
-                  <div>
-                    <p>
-                      {datum?.createdAt
-                        ? DateUtils.dateToString(
-                            new Date(datum.createdAt),
-                            DateFormats.frontendDateTime
-                          )
-                        : ''}
-                    </p>
-                  </div>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
+    return <BvnUsageTable data={data} initialSerialNumber={initialSerialNumber} />;
   }
 };
 
 export const BvnTable = () => {
   const [page, setPage] = useState(1);
   const [searchValue, setSearchValue] = useState(undefined);
+
   const { data, isLoading, refetch, isFetching } = useQuery({
     queryKey: ['console', page],
-    queryFn: () => Enquiry.getApiConsole({ page, name: searchValue })
+    queryFn: () => apiUsageService.getApiUsage({ page, name: searchValue })
   });
+
   const initialSerialNumber = useTableSerialNumber(page);
   return (
     <>
@@ -98,9 +41,11 @@ export const BvnTable = () => {
           <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
         </ContentLoader>
       ) : (
-        <RenderData data={data} initialSerialNumber={initialSerialNumber} />
+        <>
+          <RenderData data={data} initialSerialNumber={initialSerialNumber} />
+          <Pagination totalItems={data?.meta?.total} handlePageClick={setPage} currentPage={page} />
+        </>
       )}
-      <Pagination totalItems={data?.meta?.total} handlePageClick={setPage} currentPage={page} />
     </>
   );
 };

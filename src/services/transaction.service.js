@@ -1,10 +1,11 @@
+import { PER_PAGE } from 'constants/pagination';
 import http from 'plugins/axios';
 
 class TransactionService {
   async getTransactionPerOrganization(params) {
     try {
       const { data } = await http.get('/api/requests/all', {
-        params
+        params: { ...params, perPage: PER_PAGE }
       });
       return data;
     } catch (error) {
@@ -22,7 +23,7 @@ class TransactionService {
   async getAllTransactions(params) {
     try {
       const { data } = await http.get('/api/requests/backoffice/transfer-requests/all', {
-        params
+        params: { ...params, perPage: PER_PAGE }
       });
       return data;
     } catch (error) {

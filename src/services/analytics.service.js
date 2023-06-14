@@ -6,7 +6,6 @@ class AnalyticsService {
       const { data } = await http.get(`/api/requests/analysis/backoffice/${year}`);
       return data;
     } catch (error) {
-      // notification(error?.response?.data?.message ?? 'Something went wrong', 'error');
       throw new Error(error);
     }
   }
@@ -15,7 +14,6 @@ class AnalyticsService {
       const { data } = await http.get(`/api/requests/analysis/backoffice/dashboard`);
       return data;
     } catch (error) {
-      // notification(error?.response?.data?.message ?? 'Something went wrong', 'error');
       throw new Error(error);
     }
   }

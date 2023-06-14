@@ -49,14 +49,14 @@ export const TransferRequestsTable = ({ transactions, initialSerialNumber }) => 
                   </div>
                   <div>{transaction?.payerAccountNumber}</div>
                 </td>
-                <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
+                <td className="whitespace-nowrap p-3 text-sm border text-gray-900 font-bold">
                   {naira.format(transaction?.amount)}
                 </td>
                 <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
                   {transaction?.transactionReference}
                 </td>
                 <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
-                  <div className="text-gray-900 font-bold">{transaction?.beneficiaryBankName}</div>
+                  <div>{transaction?.beneficiaryBankName}</div>
                   <div>{transaction?.beneficiaryAccountNumber}</div>
                   <div>{transaction?.beneficiaryAccountName}</div>
                 </td>

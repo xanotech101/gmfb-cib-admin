@@ -6,23 +6,25 @@ export const Badge = ({ children, status = 'approved' }) => {
       className={classNames(
         'inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium capitalize border',
         {
-          'bg-red-100 text-red-800 border-red-600': ['declined', 'failed'].includes(status),
-          'bg-green-100 text-green-800 border-green-600': [
+          'bg-red-100 text-red-500 border-red-400': ['declined', 'failed', 'disabled'].includes(
+            status
+          ),
+          'bg-green-100 text-green-500 border-green-400': [
             'approved',
             'initiation',
             'authorisation',
             'authentication',
-            'successful'
+            'successful',
+            'enabled'
           ].includes(status),
-          'bg-blue-100 text-blue-800 border-blue-600': status === 'in progress',
-          'bg-yellow-100 text-yellow-800 border border-yellow-600': [
+          'bg-blue-100 text-blue-500 border-blue-400': status === 'in progress',
+          'bg-yellow-100 text-yellow-500 border border-yellow-400': [
             'awaiting verification',
-            'disburse pending'
+            'disburse pending',
+            'queued'
           ].includes(status),
-          'bg-gray-200 text-gray-800 border-gray-600': status === 'pending'
-        },
-        { 'bg-green-200': status === 'enabled' },
-        { 'bg-red-200': status === 'disabled' }
+          'bg-gray-100 text-gray-500 border-gray-400': status === 'pending'
+        }
       )}>
       {children}
     </span>

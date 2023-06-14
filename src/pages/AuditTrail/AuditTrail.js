@@ -49,7 +49,6 @@ export const Audit = () => {
             onSearch={refetch}
           />
         </div>
-        <p className="text-sm text-gray-700">Actions performed by users within the system</p>
         {isFetching ? (
           <div className="mt-5">
             <ContentLoader viewBox="0 0 380 70">

@@ -20,7 +20,7 @@ export class DateUtils {
   }
 
   static dateToString(date, toFormat) {
-    return DateTime.fromJSDate(date).toFormat(toFormat);
+    return DateTime.fromJSDate(new Date(date)).toFormat(toFormat);
   }
 
   static parse(dateString, format) {
