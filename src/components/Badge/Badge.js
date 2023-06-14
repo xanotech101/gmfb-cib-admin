@@ -15,7 +15,7 @@ export const Badge = ({ children, status = 'approved' }) => {
             'authorisation',
             'authentication',
             'successful',
-            'enabled'
+            'active'
           ].includes(status),
           'bg-blue-100 text-blue-500 border-blue-400': status === 'in progress',
           'bg-yellow-100 text-yellow-500 border border-yellow-400': [

@@ -33,8 +33,8 @@ class UserService {
     }
   }
 
-  async getAllUsers(params, isSystemAdmin) {
-    const url = isSystemAdmin ? '/api/users/all' : '/api/gcadmin/fetchAllusers';
+  async getAllUsers(params) {
+    const url = '/api/users/all';
     try {
       const response = await http.get(url, {
         params

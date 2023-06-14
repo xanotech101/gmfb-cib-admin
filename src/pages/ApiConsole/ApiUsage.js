@@ -44,7 +44,7 @@ export const ApiTable = () => {
       ) : (
         <>
           <RenderData data={data} initialSerialNumber={initialSerialNumber} />
-          <Pagination handlePageClick={setPage} currentPage={page} />
+          <Pagination handlePageClick={setPage} currentPage={page} totalItems={data?.meta?.total} />
         </>
       )}
     </>

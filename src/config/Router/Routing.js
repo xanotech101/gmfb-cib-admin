@@ -20,7 +20,6 @@ import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/Corporat
 import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/TransferRequest';
 import { TransferRequestDetails } from 'pages/TransferRequest/TransferRequestDetails/TransferRequestDetails';
 import { AllTransferRequests } from 'pages/TransferRequest/AllTransferRequests/AllTransferRequests';
-import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateDetails';
 
 import { RequestTicketingDetails } from 'pages/Requests/RequestDetails/RequestDetails';
 import { BvnTable } from 'pages/ApiConsole/ApiBvnUsage';
@@ -66,7 +65,6 @@ export const Routing = () => {
             <Route index element={<Corporate />} />
             <Route path="onboard" element={<OnboardCorporateAccount />} />
             <Route path="onboard/batch" element={<BatchUpload />} />
-            <Route path=":id/corporate-details" element={<CorporateDetails />} />
             <Route path=":id/users" element={<CorporateUsersUnderCorporateAccount />} />
             <Route path=":id/transfer-requests" element={<TransferRequest />} />
             <Route path=":id/transfer-requests/:id" element={<TransferRequestDetails />} />

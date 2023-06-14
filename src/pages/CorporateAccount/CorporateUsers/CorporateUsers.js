@@ -16,12 +16,8 @@ export const CorporateUsersUnderCorporateAccount = () => {
   const [searchValue, setSearchValue] = useState(undefined);
   const { id } = useParams();
   const { state } = useLocation();
-  console.log(
-    '🚀 ~ file: CorporateUsers.js:17 ~ CorporateUsersUnderCorporateAccount ~ state:',
-    state
-  );
-  console.log(state);
-  const { data, isLoading, refetch, isFetching } = useQuery({
+
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ['getMyBranchUsers', id, page],
     queryFn: () =>
       userService.getBranchUsers({
@@ -31,8 +27,9 @@ export const CorporateUsersUnderCorporateAccount = () => {
       }),
     enabled: !!id
   });
-  console.log(data);
+
   const initialSerialNumber = useTableSerialNumber(page);
+
   const RenderData = () => {
     if (data?.users?.length === 0) {
       return <EmptyState title="No users found within this branch" />;
@@ -62,22 +59,23 @@ export const CorporateUsersUnderCorporateAccount = () => {
         <div className="mt-8 flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              {isLoading || isFetching ? (
+              {isLoading ? (
                 <ContentLoader viewBox="0 0 380 70">
                   <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
                 </ContentLoader>
               ) : (
-                <RenderData />
+                <>
+                  <RenderData />
+                  <Pagination
+                    totalItems={data?.meta?.total ?? 0}
+                    handlePageClick={setPage}
+                    currentPage={page}
+                  />
+                </>
               )}
             </div>
           </div>
         </div>
-        <Pagination
-          totalItems={data?.meta?.total ?? 0}
-          handlePageClick={setPage}
-          itemsPerPage={data?.meta?.perPage}
-          currentPage={page}
-        />
       </Container>
     </div>
   );
