@@ -7,18 +7,24 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useModal } from 'hooks';
 import { Badge } from 'components/Badge/Badge';
 
-import { SubHeading } from 'components/Header/SubHeading';
-import { Button } from 'components/Button/Button';
-import { DisableAccount, EnableAccount } from 'services/enableDisable';
-import { notification } from 'utils';
-import { useNavigate } from 'react-router-dom';
+// import { DisableAccount, EnableAccount } from 'services/enableDisable';
+// import { notification } from 'utils';
+// import { useNavigate } from 'react-router-dom';
 
-export const UserManagementTable = ({ users, initialSerialNumber, page, isSystemAdmin }) => {
-  console.log(users);
+import Enabled from './Actions/Enable';
+import GenerateOtp from './Actions/GenerateOtp';
+import { EnableAccount } from 'services/enableDisable';
+import { useNavigate } from 'react-router-dom';
+import { notification } from 'utils';
+
+export const UserManagementTable = ({ users, initialSerialNumber }) => {
   const { Modal, showModal } = useModal();
+
+  // const { Modal: Modal2, showModal: showModal2 } = useModal();
   const [user, setUser] = useState(null);
   // const [alert, setAlert] = useState(false);
   const [toggle, setToggle] = useState(false);
+
   const [index, setIndex] = useState(0);
   const navigate = useNavigate();
   const { mutate } = useMutation({
@@ -40,21 +46,6 @@ export const UserManagementTable = ({ users, initialSerialNumber, page, isSystem
   //     }
   //   }
   // );
-
-  const Disable = useMutation(
-    (userid) => {
-      DisableAccount(userid);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('all-users', page, isSystemAdmin);
-        navigate('/user-management');
-      },
-      onError: () => {
-        queryClient.invalidateQueries('all-users');
-      }
-    }
-  );
 
   const Enable = useMutation(
     (userid) => {
@@ -226,51 +217,17 @@ export const UserManagementTable = ({ users, initialSerialNumber, page, isSystem
         children: (
           <>
             {toggle === true ? (
-              <div className="text-center ">
-                <SubHeading>Are you sure you want to disable this user?</SubHeading>
-                <p className="mt-4">Note this will stop the user from performing any action </p>
-                <div className="flex justify-center items-center mt-4 gap-6">
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      handleClick(index);
-                      Disable.mutate(user?._id);
-                      showModal();
-                    }}>
-                    Disable
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      showModal();
-                    }}>
-                    Cancel
-                  </Button>
-                </div>
-              </div>
+              <GenerateOtp userid={user?._id} user={user} users={users} />
             ) : toggle === false ? (
-              <div className="text-center ">
-                <SubHeading>Do you want to enable this user?</SubHeading>
-                <p className="mt-4">please be sure you want to enable user</p>
-                <div className="flex justify-center items-center mt-4 gap-6">
-                  <Button
-                    variant="success"
-                    onClick={() => {
-                      handleClick(index);
-                      Enable.mutate(user?._id);
-                      showModal();
-                    }}>
-                    Enable
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      showModal();
-                    }}>
-                    Cancel
-                  </Button>
-                </div>
-              </div>
+              <Enabled
+                enable={() => {
+                  handleClick(index);
+                  Enable.mutate(user?._id);
+                }}
+                cancel={() => {
+                  showModal();
+                }}
+              />
             ) : (
               <div className="space-y-6">
                 <h1 className="font-medium text-xl">Corporate user details</h1>
@@ -328,6 +285,15 @@ export const UserManagementTable = ({ users, initialSerialNumber, page, isSystem
         showCloseIcon: true,
         size: 'md'
       })}
+      {/* {Modal2({
+        children: (
+          <>
+            <GenerateOtp />
+          </>
+        ),
+        showCloseIcon: true,
+        size: 'md'
+      })} */}
     </>
   );
 };

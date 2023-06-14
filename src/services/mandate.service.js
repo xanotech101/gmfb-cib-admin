@@ -39,6 +39,17 @@ class MandateService {
       throw new Error(error);
     }
   }
+  async updateSwitch({ data }) {
+    try {
+      const response = await http.patch(`/api/mandate/updateMandateAuthorizerVerifiers`, {
+        ...data
+      });
+      return response;
+    } catch (error) {
+      notification(error?.response?.data?.message);
+      throw new Error(error);
+    }
+  }
 }
 
 export const mandateService = new MandateService();
