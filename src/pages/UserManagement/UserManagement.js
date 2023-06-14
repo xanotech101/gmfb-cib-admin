@@ -42,13 +42,14 @@ export const UserManagement = () => {
     queryKey: ['all-users', { withPagination: false }, isSystemAdmin],
     queryFn: () => userService.getAllUsers({ withPagination: false }, isSystemAdmin)
   });
-  console.log(csv);
+
   const initialSerialNumber = useTableSerialNumber(page);
   const csvData = csv?.users?.map((dat) => {
     return {
       ID: dat?._id,
       EMAIL: dat?.email,
       FIRSTNAME: dat?.firstName,
+
       LASTNAME: dat?.lastName,
       GENDER: dat?.gender,
       STATUS: dat?.disabled ? 'disabled' : 'active',

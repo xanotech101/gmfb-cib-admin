@@ -12,14 +12,30 @@ export const EnableAccount = async (_id) => {
     throw new Error(error);
   }
 };
-export const DisableAccount = async (_id) => {
+export const disableAccount = async (_id, data) => {
   try {
-    const data = await http.patch(`/api/users/disable_user_account/${_id}
-      `);
+    const response = await http.patch(
+      `/api/users/disable_user_account/${_id}
+      `,
+      { ...data }
+    );
     notification('user disabled successfully');
-    return data;
+    console.log(response, 'data');
+    return response;
   } catch (error) {
     notification(error.response.data.message);
+
+    throw new Error(error);
+  }
+};
+export const generateOtp = async () => {
+  try {
+    const data = await http.post('/api/otp/disableUserOtp');
+    notification(data.message);
+
+    return { data };
+  } catch (error) {
+    notification(error.message ?? 'Something went wrong');
     throw new Error(error);
   }
 };

@@ -8,7 +8,7 @@ import { SubHeading } from 'components/Header/SubHeading';
 import { Button } from 'components/Button/Button';
 // import { DeleteUser } from 'services/delete';
 import { useState } from 'react';
-import { DisableAccount, EnableAccount } from 'services/enableDisable';
+import { EnableAccount, disableAccount } from 'services/enableDisable';
 import { Badge } from 'components/Badge/Badge';
 import { useNavigate, useParams } from 'react-router-dom';
 export const CorporateUsersTable = ({ users, initialSerialNumber, page, isSystemAdmin }) => {
@@ -39,7 +39,7 @@ export const CorporateUsersTable = ({ users, initialSerialNumber, page, isSystem
   // );
   const Disable = useMutation(
     (userid) => {
-      DisableAccount(userid);
+      disableAccount(userid);
     },
     {
       onSuccess: () => {
