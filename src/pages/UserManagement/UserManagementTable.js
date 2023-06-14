@@ -22,7 +22,6 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
 
   // const { Modal: Modal2, showModal: showModal2 } = useModal();
   const [user, setUser] = useState(null);
-  // const [alert, setAlert] = useState(false);
   const [toggle, setToggle] = useState(false);
 
   const [index, setIndex] = useState(0);
