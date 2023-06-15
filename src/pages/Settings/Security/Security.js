@@ -27,9 +27,11 @@ export const Security = () => {
 
   return (
     <div className="p-5">
-      <Container>
+      <div className="mb-6">
         <Heading>Settings</Heading>
         <p className="mb-3 mt-2">Kindly make your changes below.</p>
+      </div>
+      <Container>
         <div className="grid grid-cols-12 gap-8 items-start">
           <div className="col-span-12 md:col-span-4">
             <SubHeading>Change password</SubHeading>
@@ -38,7 +40,7 @@ export const Security = () => {
             </p>
           </div>
           <form
-            className="space-y-6 col-span-12 md:col-span-8 mt-4"
+            className="space-y-6 col-span-12 md:col-span-8 lg:col-span-4 mt-4"
             onSubmit={handleSubmit(onSubmit)}>
             <Input
               label="Old Password"
@@ -87,7 +89,7 @@ export const Security = () => {
               Please be careful while choosing your security questions.
             </p>
           </div>
-          <div className="col-span-12 md:col-span-8">
+          <div className="col-span-12 md:col-span-8 lg:col-span-4">
             <UpdateSecurityQuestion />
           </div>
         </div>
