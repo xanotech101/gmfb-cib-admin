@@ -11,7 +11,7 @@ export const NotificationItem = ({ notification, onDelete }) => {
   const getPageUrl = () => {
     switch (notification.type) {
       case 'transaction':
-        return `/transaction-requests/${encodeURI(notification.identifier)}`;
+        return `/transfer-requests/${encodeURI(notification.identifier)}`;
       case 'ticket':
         return `/requests/${encodeURI(notification.identifier)}`;
       default:
