@@ -46,7 +46,7 @@ export const CorporateUsersUnderCorporateAccount = () => {
         <SubHeading>
           List of corporate users created within{' '}
           <strong>
-            <span>{state?.accountName}</span>
+            <span>{state?.data?.accountName}</span>
           </strong>
         </SubHeading>
         <SearchFilter

@@ -1,23 +1,9 @@
 import { useNavigate } from 'react-router-dom';
-import { SplitButton } from 'components/Button/SplitButton';
+import { Dropdown } from 'flowbite-react';
+import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 
 export const CorporateAccountsTable = ({ data, initialSerialNumber }) => {
   const navigate = useNavigate();
-
-  const actionItems = (account) => [
-    {
-      name: 'Transfer Request',
-      action: () =>
-        navigate(`/accounts/${account._id}/transfer-requests`, {
-          state: { data: account }
-        })
-    },
-    {
-      name: 'User Management',
-      action: () => navigate(`/accounts/${account._id}/users`, { state: { data: account } })
-    }
-  ];
-
   return (
     <div className="p-1.5 w-full inline-block align-middle">
       <div className="border rounded-lg">
@@ -66,16 +52,29 @@ export const CorporateAccountsTable = ({ data, initialSerialNumber }) => {
                 <td className="px-6 py-4 text-sm  font-medium text-gray-800 whitespace-nowrap border">
                   {datum.adminID?.email}
                 </td>
+
                 <td className="px-6 py-4 text-sm font-medium  whitespace-nowrap ">
-                  <SplitButton
-                    buttonText="View"
-                    items={actionItems(datum)}
-                    mainButtonAction={() => {
-                      navigate(`/accounts/${datum._id}/corporate-details`, {
-                        state: { data: datum }
-                      });
-                    }}
-                  />
+                  <Dropdown
+                    label={<EllipsisVerticalIcon className="h-5 w-5 text-gray-600" />}
+                    inline={true}
+                    arrowIcon={false}>
+                    <Dropdown.Item
+                      className="text-green-500"
+                      onClick={() => {
+                        navigate(`/accounts/${datum._id}/transfer-requests`, {
+                          state: { data: datum }
+                        });
+                      }}>
+                      Transfer requests
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      className="text-green-500"
+                      onClick={() => {
+                        navigate(`/accounts/${datum._id}/users`, { state: { data: datum } });
+                      }}>
+                      User management
+                    </Dropdown.Item>
+                  </Dropdown>
                 </td>
               </tr>
             ))}

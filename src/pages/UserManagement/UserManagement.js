@@ -29,6 +29,7 @@ const RenderData = ({ data, initialSerialNumber, page, isSystemAdmin }) => {
 export const UserManagement = () => {
   const { users, page, setPage, setSearchValue, searchValue, isDownloadingUsers, downloadUsers } =
     useUsers();
+  console.log('🚀 ~ file: UserManagement.js:31 ~ UserManagement ~ users:', users);
   const initialSerialNumber = useTableSerialNumber(page);
 
   return (

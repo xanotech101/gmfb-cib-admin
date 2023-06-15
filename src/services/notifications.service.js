@@ -3,7 +3,9 @@ import http from 'plugins/axios';
 class NotificationService {
   async geMyNotifications() {
     try {
-      const { data } = await http.get('/api/notifications/mine');
+      const { data } = await http.get('/api/notifications/mine', {
+        params: { perPage: 300 }
+      });
       return data;
     } catch (error) {
       throw new Error(error);
