@@ -3,53 +3,51 @@ import { Avatar } from 'components/Avatar/Avatar';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { Dropdown } from 'flowbite-react';
 import { authService } from 'services';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useModal } from 'hooks';
 import { Badge } from 'components/Badge/Badge';
+import { UserDetails } from './UserDetails';
+import { EnableUser } from '../Actions/EnableUser';
+import { DisableUser } from '../Actions/DisableUser';
+import { SwitchUser } from '../Actions/SwitchUser';
 
-import Enabled from '../Actions/Enable';
-import GenerateOtp from '../Actions/GenerateOtp';
-import { EnableAccount } from 'services/enableDisable';
-import { useNavigate } from 'react-router-dom';
-import { notification } from 'utils';
+const actionTypes = {
+  VIEW_PROFILE: 'VIEW_PROFILE',
+  ENABLE_USER: 'ENABLE_USER',
+  DISABLE_USER: 'DISABLE_USER',
+  SWITCH_USERS: 'SWITCH_USERS'
+};
+
+const Action = ({ user, actionType, cancel, setActionType, otp, setOtp }) => {
+  switch (actionType) {
+    case actionTypes.VIEW_PROFILE:
+      return <UserDetails user={user} />;
+    case actionTypes.ENABLE_USER:
+      return <EnableUser user={user} closeModal={cancel} otp={otp} setOtp={setOtp} />;
+    case actionTypes.DISABLE_USER:
+      return (
+        <DisableUser
+          user={user}
+          closeModal={cancel}
+          switchUsers={() => setActionType(actionTypes.SWITCH_USERS)}
+          setOtp={setOtp}
+          otp={otp}
+        />
+      );
+    default:
+      return <SwitchUser outgoingUser={user} closeModal={cancel} otp={otp} setOtp={setOtp} />;
+  }
+};
 
 export const UserManagementTable = ({ users, initialSerialNumber }) => {
   const { Modal, showModal } = useModal();
   const [user, setUser] = useState(null);
-  const [toggle, setToggle] = useState(false);
-
-  const [index, setIndex] = useState(0);
-  const navigate = useNavigate();
+  const [actionType, setActionType] = useState(null);
+  const [otp, setOtp] = useState(null);
 
   const { mutate } = useMutation({
     mutationFn: (email) => authService.resendVerificationLink(email)
   });
-
-  const queryClient = useQueryClient();
-
-  const Enable = useMutation(
-    (userid) => {
-      EnableAccount(userid);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('all-users');
-        navigate('/user-management');
-      },
-      onError: ({ message }) => {
-        queryClient.invalidateQueries('all-users');
-        notification(message);
-      }
-    }
-  );
-
-  const handleClick = (index) => {
-    if (index && toggle === false) {
-      setToggle(true);
-    } else {
-      setToggle(false);
-    }
-  };
 
   const getUserStatus = useCallback((isDisabled) => {
     return isDisabled ? 'disabled' : 'active';
@@ -84,7 +82,7 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
             </thead>
             <tbody className="divide-y divide-gray-200 bg-white text-sm text-gray-500">
               {users?.map((user, i) => (
-                <tr key={user?.email}>
+                <tr key={user?.email} className="hover:bg-gray-50">
                   <td className="p-3 border">{initialSerialNumber + i}</td>
                   <td className="p-3 border whitespace-nowrap">
                     <div className="flex items-center">
@@ -111,35 +109,40 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
                       arrowIcon={false}>
                       {!user.isVerified && (
                         <Dropdown.Item onClick={() => mutate(user.email)}>
-                          Resend Verification link
+                          Resend verification link
                         </Dropdown.Item>
                       )}
                       <Dropdown.Item
                         onClick={() => {
                           setUser(user);
+                          setActionType(actionTypes.VIEW_PROFILE);
                           showModal();
-                          setToggle(null);
                         }}>
                         View profile
                       </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => {
-                          setToggle(false);
-                          setUser(user);
-                          setIndex(i);
-                          showModal();
-                        }}>
-                        Enable user
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        onClick={() => {
-                          setToggle(true);
-                          setUser(user);
-                          setIndex(i);
-                          showModal();
-                        }}>
-                        Disable user
-                      </Dropdown.Item>
+                      {user?.disabled ? (
+                        <Dropdown.Item
+                          className="text-green-500"
+                          onClick={() => {
+                            setUser(user);
+                            setOtp(null);
+                            setActionType(actionTypes.ENABLE_USER);
+                            showModal();
+                          }}>
+                          Enable
+                        </Dropdown.Item>
+                      ) : (
+                        <Dropdown.Item
+                          className="text-red-500"
+                          onClick={() => {
+                            setUser(user);
+                            setOtp(null);
+                            setActionType(actionTypes.DISABLE_USER);
+                            showModal();
+                          }}>
+                          Disable
+                        </Dropdown.Item>
+                      )}
                     </Dropdown>
                   </td>
                 </tr>
@@ -150,72 +153,14 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
       </div>
       {Modal({
         children: (
-          <>
-            {toggle === true ? (
-              <GenerateOtp userid={user?._id} user={user} users={users} />
-            ) : toggle === false ? (
-              <Enabled
-                enable={() => {
-                  handleClick(index);
-                  Enable.mutate(user?._id);
-                }}
-                cancel={() => {
-                  showModal();
-                }}
-              />
-            ) : (
-              <div className="space-y-6">
-                <h1 className="font-medium text-xl">Corporate user details</h1>
-                <hr />
-                <div className="flex items-center justify-between">
-                  <p>Name</p>
-                  <p>
-                    <Avatar name={`${user?.firstName} ${user?.lastName}`} />
-                    <span className="ml-4 capitalize">
-                      {' '}
-                      {user?.firstName} {user?.lastName}
-                    </span>
-                  </p>
-                </div>
-                <hr />
-                <div className="flex items-center justify-between">
-                  <p>Account</p>
-                  <p> {user?.organizationId?.accountName}</p>
-                </div>
-                <hr />
-                <div className="flex items-center justify-between">
-                  <p>Email</p>
-                  <p> {user?.email}</p>
-                </div>
-                <hr />
-                <div className="flex items-center justify-between">
-                  <p>Phone number</p>
-                  <p> {user?.phone}</p>
-                </div>
-                <hr />
-                <div className="flex items-center justify-between">
-                  <p>Gender</p>
-                  <p className="capitalize">{user?.gender}</p>
-                </div>
-                <hr />
-                <div className="flex items-center justify-between">
-                  <p>Role</p>
-                  <p className="capitalize">{user?.role}</p>
-                </div>
-                <hr />
-                <div className="flex flex-col">
-                  <p>Privileges</p>
-                  <div className="capitalize flex flex-wrap">
-                    {user?.privileges?.map((privilege) => (
-                      <p key={privilege.name} className="mr-2 mt-3">
-                        <Badge status="approved">{privilege.name}</Badge>
-                      </p>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-          </>
+          <Action
+            user={user}
+            actionType={actionType}
+            cancel={showModal}
+            setActionType={setActionType}
+            otp={otp}
+            setOtp={setOtp}
+          />
         )
       })}
     </>

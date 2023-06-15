@@ -12,6 +12,7 @@ export const EnableAccount = async (_id) => {
     throw new Error(error);
   }
 };
+
 export const disableAccount = async (_id, data) => {
   try {
     const response = await http.patch(
@@ -28,6 +29,7 @@ export const disableAccount = async (_id, data) => {
     throw new Error(error);
   }
 };
+
 export const generateOtp = async () => {
   try {
     const data = await http.post('/api/otp/disableUserOtp');

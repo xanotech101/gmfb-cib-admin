@@ -33,6 +33,34 @@ export const useUsers = () => {
     }
   });
 
+  const enableUser = useMutation({
+    mutationFn: (payload) => userService.enableUser(payload),
+    onSuccess: (_, variables) => {
+      users.refetch();
+      variables.successCb();
+    }
+  });
+
+  const disableUser = useMutation({
+    mutationFn: (payload) => userService.disableUser(payload),
+    onSuccess: (_, variables) => {
+      users.refetch();
+      variables.successCb();
+    },
+    onError: (error, variables) => {
+      if (error?.status === 422) {
+        variables.switchUsers(error.data.message);
+      }
+    }
+  });
+
+  const switchUsers = useMutation({
+    mutationFn: (payload) => userService.switchUsers(payload),
+    onSuccess: (_, variables) => {
+      variables.successCb();
+    }
+  });
+
   return {
     users,
     page,
@@ -40,6 +68,9 @@ export const useUsers = () => {
     searchValue,
     setSearchValue,
     isDownloadingUsers,
-    downloadUsers
+    downloadUsers,
+    enableUser,
+    disableUser,
+    switchUsers
   };
 };

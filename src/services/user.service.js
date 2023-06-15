@@ -44,6 +44,41 @@ class UserService {
       throw new Error(error);
     }
   }
+
+  async enableUser({ id, otp }) {
+    try {
+      const data = await http.patch(`/api/users/enable/${id}`, { otp });
+      notification('User Enabled Successfully');
+      return data;
+    } catch (error) {
+      notification(error.response.data.message, 'error');
+      throw new Error(error);
+    }
+  }
+
+  async disableUser({ id, otp }) {
+    try {
+      const data = await http.patch(`/api/users/disable/${id}`, { otp });
+      notification('User Disabled Successfully');
+      return data;
+    } catch (error) {
+      if (error?.response?.status !== 422) {
+        notification(error.response.data.message, 'error');
+      }
+      throw error.response;
+    }
+  }
+
+  async switchUsers(payload) {
+    try {
+      const response = await http.patch('/api/mandate/updateMandateAuthorizerVerifiers', payload);
+      notification(response?.message);
+      return response;
+    } catch (error) {
+      notification(error.response.data.message, 'error');
+      throw new Error(error);
+    }
+  }
 }
 
 export const userService = new UserService();

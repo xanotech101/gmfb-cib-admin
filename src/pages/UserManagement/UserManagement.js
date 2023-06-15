@@ -6,7 +6,7 @@ import ContentLoader from 'react-content-loader';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 import { useTableSerialNumber } from 'hooks';
-import { useUsers } from './hooks/useUsers';
+import { useUsers } from '../../hooks/useUsers';
 import { Button } from 'components/Button/Button';
 
 const RenderData = ({ data, initialSerialNumber, page, isSystemAdmin }) => {

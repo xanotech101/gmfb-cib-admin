@@ -26,7 +26,7 @@ export const AuditTrailTable = ({ data, initialSerialNumber }) => {
             </thead>
             <tbody>
               {(data?.trails ?? []).map((trail, i) => (
-                <tr className="border  hover:bg-gray-50" key={trail._id}>
+                <tr className="border hover:bg-gray-50" key={trail._id}>
                   <td className=" px-3 py-4 text-sm text-gray-500 border">
                     {initialSerialNumber + i}
                   </td>
