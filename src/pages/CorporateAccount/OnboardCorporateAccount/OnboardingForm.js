@@ -10,6 +10,7 @@ import { Select } from 'components/Form/Select/Select';
 import classnames from 'classnames';
 import { useNavigate } from 'react-router-dom';
 import { ExclamationTriangleIcon } from '@heroicons/react/20/solid';
+import { data } from 'autoprefixer';
 
 const formStateOptions = {
   accountVerification: 'account-verification',
@@ -22,12 +23,14 @@ const OnboardingForm = () => {
   const [accountInfo, setAccountInfo] = useState(null);
   const debouncedValue = useDebounce(accountNumber, 800);
   const [formState, setFormState] = useState(formStateOptions.accountVerification);
+
   const [accountLookupError, setAccountLookError] = useState(null);
   const {
     register,
     handleSubmit,
     control,
     setValue,
+
     formState: { errors }
   } = useForm();
 
@@ -145,7 +148,10 @@ const OnboardingForm = () => {
                 <Input defaultValue={item} disabled />
               </div>
             ))}
-            <Button isFullWidth onClick={() => setFormState(formStateOptions.adminDetails)}>
+            <Button
+              isFullWidth
+              onClick={() => setFormState(formStateOptions.adminDetails)}
+              disabled={accountInfo?.organizationLabel === ''}>
               Next
             </Button>
           </>
@@ -175,6 +181,7 @@ const OnboardingForm = () => {
         <Input
           label="Phone number"
           id="phone_number"
+          placeholder="(+234)"
           {...register('phone', { required: true })}
           error={errors.phone && 'Phone number is required'}
         />

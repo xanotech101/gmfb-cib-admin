@@ -16,7 +16,7 @@ export const ForgotPasswordForm = ({ callback }) => {
       callback(message, false);
     },
     onError: (error) => {
-      const errorMessage = error.response?.data?.message ?? 'Something went wrong please try again';
+      const errorMessage = error.response?.data?.message ?? 'email not registered on this platform';
       callback(errorMessage, true);
     }
   });

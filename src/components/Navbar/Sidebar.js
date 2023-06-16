@@ -115,15 +115,18 @@ export const Sidebar = () => {
             <div className="ml-4 flex items-center md:ml-6">
               <button
                 type="button"
-                className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                <span className="sr-only">View notifications</span>
-                <BellIcon
-                  className="h-6 w-6"
-                  aria-hidden="true"
-                  onClick={() => {
-                    // setOpen(true);
-                  }}
-                />
+                onClick={() => {
+                  setOpen(true);
+                }}
+                className="rounded-full  p-1 text-gray-400 hover:text-gray-500 ">
+                <div className="p-5">
+                  <strong className="relative inline-flex items-center rounded border border-gray-200 px-2.5 py-1.5 text-xs  font-medium">
+                    <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-green-500 flex justify-center items-center items">
+                      <span className="text-white">{0}</span>
+                    </span>
+                    <BellIcon className="h-6 w-6 " aria-hidden="true" />
+                  </strong>
+                </div>
               </button>
 
               {/* Profile dropdown */}

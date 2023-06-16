@@ -5,7 +5,7 @@ class AuthService {
   async preLogin(payload) {
     try {
       const { data } = await http.post('/api/auth/pre_login', { ...payload });
-      notification(data?.message ?? 'Login successful');
+      notification(data?.message ?? 'Enter security question');
       return data;
     } catch (error) {
       notification(error.response.data.message, 'error');
@@ -57,7 +57,11 @@ class AuthService {
       const response = await http.post(`/api/auth/register_confirmation/${token}`);
       return response.data;
     } catch (error) {
-      notification(error.response.data.message ?? 'Something went wrong', 'error');
+      notification(
+        error.response.data.message ??
+          '  Account verification not successful. please check if link has expired or kindly regenerate verification link',
+        'error'
+      );
       throw new Error(error);
     }
   }
@@ -80,7 +84,11 @@ class AuthService {
       notification('Verification link sent successfully');
       return response.data;
     } catch (error) {
-      notification(error?.response?.data?.message ?? 'Something went wrong', 'error');
+      notification(
+        error?.response?.data?.message ??
+          ' Account verification not successful. please check if link has expired or kindly regenerate verification link',
+        'error'
+      );
       throw new Error(error);
     }
   }
