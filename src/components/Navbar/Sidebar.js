@@ -19,6 +19,9 @@ function classNames(...classes) {
 }
 
 export const Sidebar = () => {
+  const { notifications } = useStore();
+  const { deleteNotifications } = useNotifications();
+  const [currentNotifications, setCurrentNotifications] = useState([]);
   const token = localStorage.getItem('token');
   const { data } = useQuery({
     queryKey: ['userProfile'],
@@ -122,7 +125,7 @@ export const Sidebar = () => {
                 <div className="p-5">
                   <strong className="relative inline-flex items-center rounded border border-gray-200 px-2.5 py-1.5 text-xs  font-medium">
                     <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-green-500 flex justify-center items-center items">
-                      <span className="text-white">{0}</span>
+                      <span className="text-white">{currentNotifications?.length}</span>
                     </span>
                     <BellIcon className="h-6 w-6 " aria-hidden="true" />
                   </strong>
@@ -209,7 +212,14 @@ export const Sidebar = () => {
             <NavItem closeSidebar={() => setSidebarOpen(false)} />
           </div>
         </div>
-        <Notification open={open} setOpen={setOpen} />
+        <Notification
+          open={open}
+          setOpen={setOpen}
+          notifications={notifications}
+          deleteNotifications={deleteNotifications}
+          setCurrentNotifications={setCurrentNotifications}
+          currentNotifications={currentNotifications}
+        />
       </div>
       {Modal({
         children: <LogoutPrompt navigate={() => navigate('/')} closeModal={showModal} />,

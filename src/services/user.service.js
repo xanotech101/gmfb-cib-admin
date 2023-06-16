@@ -1,3 +1,4 @@
+import { PER_PAGE } from 'constants/pagination';
 import http from 'plugins/axios';
 import { notification } from 'utils';
 
@@ -14,7 +15,7 @@ class UserService {
   async getBranchUsers(params) {
     try {
       const response = await http.get('/api/users/allbranchusers', {
-        params
+        params: { ...params, perPage: PER_PAGE }
       });
       return response?.data;
     } catch (error) {
@@ -36,9 +37,7 @@ class UserService {
   async getAllUsers(params) {
     const url = '/api/users/all';
     try {
-      const response = await http.get(url, {
-        params
-      });
+      const response = await http.get(url, { params: { ...params, perPage: PER_PAGE } });
       return response.data;
     } catch (error) {
       throw new Error(error);

@@ -1,3 +1,4 @@
+import { PER_PAGE } from 'constants/pagination';
 import http from 'plugins/axios';
 import { notification } from 'utils';
 
@@ -38,12 +39,10 @@ class AccountService {
     }
   }
 
-  async getAllAccounts(params, isSystemAdmin) {
-    const url = isSystemAdmin
-      ? '/api/account/all_accounts'
-      : '/api/gcadmin/getAccount_oragnizationlabel/gc-admin';
+  async getAllAccounts(params) {
+    const url = '/api/account/all_accounts';
     try {
-      const { data } = await http.get(url, { params });
+      const { data } = await http.get(url, { params: { ...params, perPage: PER_PAGE } });
       return data;
     } catch (error) {
       throw new Error(error);
