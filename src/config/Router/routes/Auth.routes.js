@@ -1,6 +1,7 @@
 import { ForgotPassword } from 'pages/Auth/ForgotPassword/ForgotPassword';
 import { ResetPassword } from 'pages/Auth/ResetPassword/ResetPassword';
 import { Login } from 'pages/Auth/Login/Login';
+import Disabled from 'pages/Auth/Disabled/Disabled';
 
 const routes = [
   {
@@ -14,6 +15,10 @@ const routes = [
   {
     path: 'reset-password/:token',
     element: <ResetPassword />
+  },
+  {
+    path: 'auth/disabled-account',
+    element: <Disabled />
   }
 ];
 

@@ -1,20 +1,16 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { NotificationItem } from './NotificationItem';
-import { useModal } from 'hooks';
+import { useModal, useNotifications, useStore } from 'hooks';
 import { Button } from 'components/Button/Button';
 import { TrashIcon } from '@heroicons/react/20/solid';
 
-export const Notification = ({
-  open,
-  setOpen,
-  notifications,
-  setCurrentNotifications,
-  deleteNotifications,
-  currentNotifications
-}) => {
+export const Notification = ({ open, setOpen }) => {
   const { showModal, Modal } = useModal();
+  const { notifications } = useStore();
+  const { deleteNotifications } = useNotifications();
+  const [currentNotifications, setCurrentNotifications] = useState([]);
 
   return (
     <>

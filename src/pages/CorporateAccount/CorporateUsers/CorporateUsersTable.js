@@ -2,78 +2,18 @@ import { Avatar } from 'components/Avatar/Avatar';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
 import { Dropdown } from 'flowbite-react';
 import { authService } from 'services';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useModal } from 'hooks';
-import { SubHeading } from 'components/Header/SubHeading';
-import { Button } from 'components/Button/Button';
-// import { DeleteUser } from 'services/delete';
-import { useState } from 'react';
-import { EnableAccount, disableAccount } from 'services/enableDisable';
+import { useMutation } from '@tanstack/react-query';
 import { Badge } from 'components/Badge/Badge';
-import { useNavigate, useParams } from 'react-router-dom';
-export const CorporateUsersTable = ({ users, initialSerialNumber, page, isSystemAdmin }) => {
-  const { Modal, showModal } = useModal();
-  const [user, setUser] = useState(null);
-  // const [alert, setAlert] = useState(false);
-  const [toggle, setToggle] = useState(false);
-  const [index, setIndex] = useState(0);
-  const navigate = useNavigate();
-  const { id } = useParams();
+import { useCallback } from 'react';
 
+export const CorporateUsersTable = ({ users, initialSerialNumber }) => {
   const { mutate } = useMutation({
     mutationFn: (email) => authService.resendVerificationLink(email)
   });
-  const queryClient = useQueryClient();
+  const getUserStatus = useCallback((isDisabled) => {
+    return isDisabled ? 'disabled' : 'active';
+  }, []);
 
-  // const deletePost = useMutation(
-  //   (userid) => {
-  //     DeleteUser(userid);
-  //   },
-  //   {
-  //     onSuccess: () => {
-  //       queryClient.invalidateQueries('all-users');
-  //       navigate(`/accounts/${id}/users`);
-  //     },
-  //     onError: () => {}
-  //   }
-  // );
-  const Disable = useMutation(
-    (userid) => {
-      disableAccount(userid);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('all-users', page, isSystemAdmin);
-        navigate(`/accounts/${id}/users`);
-      },
-      onError: () => {
-        queryClient.invalidateQueries('all-users');
-      }
-    }
-  );
-
-  const Enable = useMutation(
-    (userid) => {
-      EnableAccount(userid);
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries('all-users');
-        navigate(`/accounts/${id}/users`);
-      },
-      onError: () => {
-        queryClient.invalidateQueries('all-users');
-      }
-    }
-  );
-
-  const handleClick = (index) => {
-    if (index && toggle === false) {
-      setToggle(true);
-    } else {
-      setToggle(false);
-    }
-  };
   return (
     <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
       <table className="min-w-full divide-y divide-gray-300">
@@ -124,15 +64,9 @@ export const CorporateUsersTable = ({ users, initialSerialNumber, page, isSystem
               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.gender}</td>
               <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{user.role}</td>
               <td className="px-3 py-4 text-sm text-gray-500 border">
-                {user?.disabled ? (
-                  <span className="flex items-center gap-2 text-red-600">
-                    <Badge status="disabled"> Disabled</Badge>
-                  </span>
-                ) : (
-                  <span className="flex items-center gap-2 text-green-600">
-                    <Badge status="enabled">Active</Badge>
-                  </span>
-                )}
+                <Badge status={getUserStatus(user?.disabled)}>
+                  {getUserStatus(user?.disabled)}
+                </Badge>
               </td>
               <td>
                 <Dropdown
@@ -144,104 +78,12 @@ export const CorporateUsersTable = ({ users, initialSerialNumber, page, isSystem
                       Resend Verification link
                     </Dropdown.Item>
                   )}
-
-                  {/* <Dropdown.Item
-                    onClick={() => {
-                      showModal();
-                      setUser(user);
-                      setAlert(true);
-                      setToggle(null);
-                    }}>
-                    Delete user
-                  </Dropdown.Item> */}
-                  <Dropdown.Item
-                    onClick={() => {
-                      setToggle(false);
-
-                      setUser(user);
-                      setIndex(i);
-                      showModal();
-                    }}>
-                    <span
-                      className={`${user?.disabled === false ? 'bg-green-300  rounded p-1' : ''}`}>
-                      {' '}
-                      Enable
-                    </span>
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    onClick={() => {
-                      setToggle(true);
-                      setUser(user);
-                      setIndex(i);
-                      showModal();
-                    }}>
-                    <span className={`${user?.disabled === true ? 'bg-red-300  rounded p-1' : ''}`}>
-                      Disable
-                    </span>
-                  </Dropdown.Item>
                 </Dropdown>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      {Modal({
-        children: (
-          <>
-            {toggle === true ? (
-              <div className="text-center ">
-                <SubHeading>Are you sure you want to disable this user?</SubHeading>
-                <p className="mt-4">Note this will stop the user from performing any action </p>
-                <div className="flex justify-center items-center mt-4 gap-6">
-                  <Button
-                    variant="danger"
-                    onClick={() => {
-                      handleClick(index);
-                      Disable.mutate(user?._id);
-                      showModal();
-                    }}>
-                    Disable
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      showModal();
-                    }}>
-                    Cancel
-                  </Button>
-                </div>
-              </div>
-            ) : toggle === false ? (
-              <div className="text-center ">
-                <SubHeading>Do you want to enable this user?</SubHeading>
-                <p className="mt-4">Please be sure you want to enable this user</p>
-                <div className="flex justify-center items-center mt-4 gap-6">
-                  <Button
-                    variant="success"
-                    onClick={() => {
-                      handleClick(index);
-                      Enable.mutate(user?._id);
-                      showModal();
-                    }}>
-                    Enable
-                  </Button>
-                  <Button
-                    variant="outline"
-                    onClick={() => {
-                      showModal();
-                    }}>
-                    Cancel
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              ''
-            )}
-          </>
-        ),
-        showCloseIcon: true,
-        size: 'md'
-      })}
     </div>
   );
 };

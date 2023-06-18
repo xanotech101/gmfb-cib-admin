@@ -23,7 +23,7 @@ const OnboardingForm = () => {
   const [accountInfo, setAccountInfo] = useState(null);
   const debouncedValue = useDebounce(accountNumber, 800);
   const [formState, setFormState] = useState(formStateOptions.accountVerification);
-
+  const [orgValue, setOrgValue] = useState('');
   const [accountLookupError, setAccountLookError] = useState(null);
   const {
     register,
@@ -33,7 +33,15 @@ const OnboardingForm = () => {
 
     formState: { errors }
   } = useForm();
-
+  const registerOptions = {
+    phone: {
+      required: 'phone is required',
+      minLength: {
+        value: 8,
+        message: 'Phone must be  11 characters'
+      }
+    }
+  };
   const { isFetching } = useQuery({
     queryFn: () => {
       setAccountInfo(null);
@@ -139,6 +147,10 @@ const OnboardingForm = () => {
                 value: _id
               }))}
               error={errors.organizationLabel && 'Organization Label is required'}
+              onChange={(e) => {
+                setOrgValue(e.target?.value);
+              }}
+              value={orgValue}
             />
             <hr />
             <p className="font-bold text-lg">Accounts</p>
@@ -151,7 +163,7 @@ const OnboardingForm = () => {
             <Button
               isFullWidth
               onClick={() => setFormState(formStateOptions.adminDetails)}
-              disabled={accountInfo?.organizationLabel === ''}>
+              disabled={orgValue === ''}>
               Next
             </Button>
           </>
@@ -181,9 +193,9 @@ const OnboardingForm = () => {
         <Input
           label="Phone number"
           id="phone_number"
-          placeholder="(+234)"
-          {...register('phone', { required: true })}
-          error={errors.phone && 'Phone number is required'}
+          placeholder="phone number must begin with 0 eg:(070)"
+          {...register('phone', { required: true, maxLength: 11, minLength: 11 })}
+          error={errors.phone && 'Phone number is required and must be 11 characters'}
         />
 
         <Input

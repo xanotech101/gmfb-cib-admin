@@ -21,10 +21,19 @@ class NotificationService {
       throw new Error(error);
     }
   }
+
   async markNotificationsAsRead(notifications) {
     try {
       const res = await http.put('/api/notifications', { notifications });
       return res;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  async getAllNotifications() {
+    try {
+      const response = await http.get('/api/notifications/unread/count');
+      return response;
     } catch (error) {
       throw new Error(error);
     }

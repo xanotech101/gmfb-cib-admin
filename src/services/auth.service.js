@@ -5,7 +5,7 @@ class AuthService {
   async preLogin(payload) {
     try {
       const { data } = await http.post('/api/auth/pre_login', { ...payload });
-      notification(data?.message ?? 'Enter security question');
+
       return data;
     } catch (error) {
       notification(error.response.data.message, 'error');

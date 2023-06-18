@@ -7,7 +7,7 @@ import { useModal } from 'hooks';
 import LogoutPrompt from 'pages/Auth/LogoutPrompt/LogoutPrompt';
 import { Bars3BottomLeftIcon, XMarkIcon, BellIcon } from '@heroicons/react/24/outline';
 import { useQuery } from '@tanstack/react-query';
-import { userService } from 'services';
+import { notificationService, userService } from 'services';
 import { useNotifications, useStore } from 'hooks';
 import { Notification } from 'components/Notification/Notification';
 import { Link } from 'react-router-dom';
@@ -19,9 +19,6 @@ function classNames(...classes) {
 }
 
 export const Sidebar = () => {
-  const { notifications } = useStore();
-  const { deleteNotifications } = useNotifications();
-  const [currentNotifications, setCurrentNotifications] = useState([]);
   const token = localStorage.getItem('token');
   const { data } = useQuery({
     queryKey: ['userProfile'],
@@ -48,6 +45,10 @@ export const Sidebar = () => {
   const handleLogout = () => {
     showModal();
   };
+  const { data: notify } = useQuery({
+    queryKey: ['count'],
+    queryFn: notificationService.getAllNotifications
+  });
 
   return (
     <div className="z-50">
@@ -123,9 +124,9 @@ export const Sidebar = () => {
                 }}
                 className="rounded-full  p-1 text-gray-400 hover:text-gray-500 ">
                 <div className="p-5">
-                  <strong className="relative inline-flex items-center rounded border border-gray-200 px-2.5 py-1.5 text-xs  font-medium">
-                    <span className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-green-500 flex justify-center items-center items">
-                      <span className="text-white">{currentNotifications?.length}</span>
+                  <strong className="relative inline-flex items-center  px-2.5 py-1.5 text-xs  font-medium">
+                    <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-green-500 flex justify-center items-center items">
+                      <span className="text-white">{notify?.data?.count ?? 0}</span>
                     </span>
                     <BellIcon className="h-6 w-6 " aria-hidden="true" />
                   </strong>
@@ -212,14 +213,7 @@ export const Sidebar = () => {
             <NavItem closeSidebar={() => setSidebarOpen(false)} />
           </div>
         </div>
-        <Notification
-          open={open}
-          setOpen={setOpen}
-          notifications={notifications}
-          deleteNotifications={deleteNotifications}
-          setCurrentNotifications={setCurrentNotifications}
-          currentNotifications={currentNotifications}
-        />
+        <Notification open={open} setOpen={setOpen} />
       </div>
       {Modal({
         children: <LogoutPrompt navigate={() => navigate('/')} closeModal={showModal} />,
