@@ -31,6 +31,7 @@ import { CorporateAccount } from 'pages/CorporateAccounts/CorporateAccount/Corpo
 import { Overview } from 'pages/CorporateAccounts/CorporateAccount/Overview/Overview';
 import { CorporateUsers } from 'pages/CorporateAccounts/CorporateAccount/CorporateUsers/CorporateUsers';
 import { TransferRequest } from 'pages/CorporateAccounts/CorporateAccount/TransferRequest/TransferRequest';
+import { MandateRule } from 'pages/CorporateAccounts/CorporateAccount/MandateRule/MandateRule';
 
 export const Routing = () => {
   return (
@@ -75,11 +76,11 @@ export const Routing = () => {
               <Route path="users" element={<CorporateUsers />} />
               <Route path="transfer-requests" element={<TransferRequest />} />
               <Route path="transfer-requests/:id" element={<TransferRequestDetails />} />
+              <Route path="mandate-rule" element={<MandateRule />} />
             </Route>
           </Route>
 
           <Route path="audit" element={<Audit />} />
-
           <Route path="requests">
             <Route index element={<RequestTicketing />} />
             <Route path=":id" element={<RequestTicketingDetails />} />

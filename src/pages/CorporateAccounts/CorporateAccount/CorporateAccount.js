@@ -9,7 +9,7 @@ const secondaryNavigation = [
   { name: 'Transaction History', href: 'transaction-history', current: false },
   { name: 'Audit Trails', href: 'audit-trails', current: false },
   { name: 'Transfer Request', href: 'transfer-requests', current: false },
-  { name: 'Mandate', href: 'mandate', current: false }
+  { name: 'Mandate', href: 'mandate-rule', current: false }
 ];
 
 export const CorporateAccount = () => {
