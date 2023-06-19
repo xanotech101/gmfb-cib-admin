@@ -3,9 +3,9 @@ import http from 'plugins/axios';
 import { notification } from 'utils';
 
 class AccountService {
-  async getAccountByAccountNo() {
+  async getAccountByAccountNo(accountNo) {
     try {
-      const { data } = await http.get('/api/bank/balance');
+      const { data } = await http.get(`/api/bank/balance/${accountNo}`);
       return data;
     } catch (error) {
       throw new Error(error);

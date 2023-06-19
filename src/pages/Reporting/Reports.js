@@ -6,7 +6,6 @@ import { useQuery } from '@tanstack/react-query';
 import { Container } from 'components/Container/Container';
 import { BanknotesIcon, CheckIcon, ClockIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { naira } from 'utils/currencyFormatter';
-import { ArrowDownOnSquareStackIcon } from '@heroicons/react/20/solid';
 import { analyticsService } from 'services';
 import DatePicker from 'react-datepicker';
 import { Label } from 'components/Form/Label/Label';
@@ -15,31 +14,25 @@ import ContentLoader from 'react-content-loader';
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'September'];
 const stats = [
   {
-    name: 'Total Successful Transactions',
-    stat: '0',
-    icon: ArrowDownOnSquareStackIcon,
-    bg: 'bg-blue-500'
-  },
-  {
-    name: 'Total Amount Disbursed',
+    name: 'Amount Disbursed',
     stat: naira.format('0'),
     icon: BanknotesIcon,
     bg: 'bg-orange-500'
   },
   {
-    name: 'Total  Pending Request',
+    name: 'Pending Request',
     stat: '0',
     icon: ClockIcon,
     bg: 'bg-yellow-500'
   },
   {
-    name: 'Total Declined Request',
+    name: 'Declined Request',
     stat: '0',
     icon: XMarkIcon,
     bg: 'bg-red-500'
   },
   {
-    name: 'Total Approved Request',
+    name: 'Approved Request',
     stat: '0',
     icon: CheckIcon,
     bg: 'bg-green-500'
@@ -72,12 +65,10 @@ export const Report = () => {
         }
       });
       setDisbursements(formattedData);
-      stats[0].stat = data.totalSuccessfulTransactions ?? 0;
-      stats[1].stat = naira.format(data.totalDisbursements?.amount ?? 0);
-      stats[2].stat = data.pendingRequests ?? 0;
-      stats[3].stat = data.totalDeclined ?? 0;
-      stats[4].stat = data.totalApproved ?? 0;
-      stats[5].stat = data.totalTransactions ?? 0;
+      stats[0].stat = naira.format(data.totalDisbursements?.amount ?? 0);
+      stats[1].stat = data.pendingRequests ?? 0;
+      stats[2].stat = data.totalDeclined ?? 0;
+      stats[3].stat = data.totalApproved ?? 0;
     }
   });
 
@@ -101,16 +92,11 @@ export const Report = () => {
 
         <dl className="grid grid-cols-12 gap-6 mb-8">
           {stats.map((item) => (
-            <div className="relative overflow-hidden col-span-4" key={item.id}>
+            <div className="relative overflow-hidden col-span-3" key={item.id}>
               <Container>
-                <dt>
-                  <div className={`absolute rounded-md p-3 ${item.bg}`}>
-                    <item.icon className="h-6 w-6 text-white" aria-hidden="true" />
-                  </div>
-                  <p className="ml-16 truncate text-sm font-medium text-gray-500">{item.name}</p>
-                </dt>
-                <dd className="ml-16 flex items-baseline">
-                  <h4 className="text-2xl font-bold tracking-tight text-gray-900">
+                <dd>
+                  <p className="truncate text-sm font-medium text-gray-500">{item.name}</p>
+                  <h4 className="text-xl font-bold tracking-tight text-gray-900 mt-1">
                     {isFetching ? '...' : item.stat}
                   </h4>
                 </dd>

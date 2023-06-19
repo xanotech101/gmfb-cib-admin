@@ -36,7 +36,7 @@ const RenderData = ({ data, initialSerialNumber }) => {
   }
 };
 
-export const Corporate = () => {
+export const CorporateAccounts = () => {
   const { isSystemAdmin } = useRole();
   const [page, setPage] = useState(1);
   const [searchValue, setSearchValue] = useState(undefined);
@@ -83,13 +83,12 @@ export const Corporate = () => {
             <>
               <RenderData data={data ?? []} initialSerialNumber={initialSerialNumber} />
               <Pagination
-                totalItems={data?.meta?.total ?? 0}
+                totalItems={data?.totalCount ?? 0}
                 handlePageClick={setPage}
                 currentPage={page}
               />
             </>
           )}
-          <Pagination totalItems={data?.totalCount} handlePageClick={setPage} currentPage={page} />
         </div>
       </Container>
     </div>

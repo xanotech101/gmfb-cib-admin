@@ -2,8 +2,8 @@ import { Button } from 'components/Button/Button';
 import GenerateOtp from './GenerateOtp';
 import { useUsers } from 'hooks/useUsers';
 
-export const DisableUser = ({ closeModal, user, switchUsers, setOtp, otp }) => {
-  const { disableUser } = useUsers();
+export const DisableUser = ({ closeModal, user, switchUsers, setOtp, otp, refetch }) => {
+  const { disableUser } = useUsers(refetch);
   const { mutate, isLoading } = disableUser;
 
   return (

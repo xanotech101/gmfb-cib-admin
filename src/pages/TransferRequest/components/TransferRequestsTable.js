@@ -6,29 +6,29 @@ export const TransferRequestsTable = ({ transactions, initialSerialNumber }) => 
   return (
     <div role="list" className="divide-y divide-gray-200">
       <div className="relative overflow-hidden mt-6">
-        <table className="w-full text-sm text-left text-gray-500">
+        <table className="w-full text-left text-sm font-semibold text-gray-900">
           <thead className="text-xs bg-gray-100 uppercase border text-black">
             <tr>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 S/N
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Account
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Amount
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Reference
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Beneficiary
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Approval Status
               </th>
 
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Transfer Status
               </th>
 

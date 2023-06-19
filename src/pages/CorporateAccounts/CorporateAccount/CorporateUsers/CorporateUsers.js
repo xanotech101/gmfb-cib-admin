@@ -1,24 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
-import { SubHeading } from 'components/Header/SubHeading';
-import { Container } from 'components/Container/Container';
 import { EmptyState } from 'components/EmptyState/EmptyState';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { userService } from 'services';
-import { CorporateUsersTable } from './CorporateUsersTable';
 import Pagination from 'components/Pagination/Pagination';
 import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 import { useTableSerialNumber } from 'hooks';
+import { UserManagementTable } from 'components/UserManagement/UserManagementTable';
 
-export const CorporateUsersUnderCorporateAccount = () => {
+export const CorporateUsers = () => {
   const [page, setPage] = useState(1);
   const [searchValue, setSearchValue] = useState(undefined);
   const { id } = useParams();
-  const { state } = useLocation();
 
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ['getMyBranchUsers', id, page],
+  const { data, isLoading, isFetching, refetch } = useQuery({
+    queryKey: ['get-branch-users', id, page],
     queryFn: () =>
       userService.getBranchUsers({
         branchId: id,
@@ -31,35 +28,36 @@ export const CorporateUsersUnderCorporateAccount = () => {
   const initialSerialNumber = useTableSerialNumber(page);
 
   const RenderData = () => {
-    if (data?.users?.length === 0) {
+    if (data?.users?.length === 0 || !data) {
       return <EmptyState title="No users found within this branch" />;
     } else {
       return (
-        <CorporateUsersTable users={data?.users ?? []} initialSerialNumber={initialSerialNumber} />
+        <UserManagementTable
+          initialSerialNumber={initialSerialNumber}
+          users={data?.users ?? []}
+          page={page}
+          refetch={refetch}
+        />
       );
     }
   };
 
   return (
-    <div className="p-6">
-      <Container>
-        <SubHeading>
-          List of corporate users created within{' '}
-          <strong>
-            <span>{state?.data?.accountName}</span>
-          </strong>
-        </SubHeading>
-        <SearchFilter
-          placeholder={'Search by email or name....'}
-          value={searchValue}
-          setValue={setSearchValue}
-          onSearch={refetch}
-        />
-
-        <div className="mt-8 flex flex-col">
+    <div className="px-10 space-y-6 mt-8">
+      <h3 className="text-xl font-medium leading-6 text-gray-900 mt-4">Users</h3>
+      <div>
+        {(data?.users?.length > 0 || searchValue) && (
+          <SearchFilter
+            placeholder={'Search by email or name....'}
+            value={searchValue}
+            setValue={setSearchValue}
+            onSearch={refetch}
+          />
+        )}
+        <div className="flex flex-col">
           <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              {isLoading ? (
+              {isLoading || isFetching ? (
                 <ContentLoader viewBox="0 0 380 70">
                   <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
                 </ContentLoader>
@@ -67,7 +65,7 @@ export const CorporateUsersUnderCorporateAccount = () => {
                 <>
                   <RenderData />
                   <Pagination
-                    totalItems={data?.meta?.total ?? 0}
+                    totalItems={data?.meta?.totalCount ?? 0}
                     handlePageClick={setPage}
                     currentPage={page}
                   />
@@ -76,9 +74,7 @@ export const CorporateUsersUnderCorporateAccount = () => {
             </div>
           </div>
         </div>
-      </Container>
+      </div>
     </div>
   );
 };
-
-export default CorporateUsersUnderCorporateAccount;

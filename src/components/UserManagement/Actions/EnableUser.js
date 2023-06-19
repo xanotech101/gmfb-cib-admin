@@ -2,8 +2,8 @@ import { Button } from 'components/Button/Button';
 import GenerateOtp from './GenerateOtp';
 import { useUsers } from 'hooks/useUsers';
 
-export const EnableUser = ({ closeModal, user, otp, setOtp }) => {
-  const { enableUser } = useUsers();
+export const EnableUser = ({ closeModal, user, otp, setOtp, refetch }) => {
+  const { enableUser } = useUsers(refetch);
 
   return (
     <div>

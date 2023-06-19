@@ -1,9 +1,7 @@
 /* eslint-disable react/no-children-prop */
 // TODO: Explore lazy loading and break into smaller files for easy access
 import { Route, Routes, Outlet } from 'react-router-dom';
-import { BatchUpload } from 'pages/CorporateAccount/BatchOnboard/BatchOnboard';
 import { Dashboard } from 'pages/Dashboard/Dashboard';
-import { Corporate } from 'pages/CorporateAccount/CorporateAccount';
 import { Report } from 'pages/Reporting/Reports';
 import { Settings } from 'pages/Settings/Settings';
 import { AuthLayout } from '../../components/Layout/AuthLayout';
@@ -14,10 +12,9 @@ import { authRoutes } from 'config/Router/routes/Auth.routes';
 import { Security } from 'pages/Settings/Security/Security';
 
 import { RequestTicketing } from 'pages/Requests/RequestTicketing';
-import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
+// import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
 import { PrivateOutlet } from './PrivateOutLet';
-import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
-import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/TransferRequest';
+// import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
 import { TransferRequestDetails } from 'pages/TransferRequest/TransferRequestDetails/TransferRequestDetails';
 import { AllTransferRequests } from 'pages/TransferRequest/AllTransferRequests/AllTransferRequests';
 
@@ -26,6 +23,14 @@ import { BvnTable } from 'pages/ApiConsole/ApiBvnUsage';
 import { ApiTable } from 'pages/ApiConsole/ApiUsage';
 import { Wrapper } from 'pages/ApiConsole/Wrapper';
 import { UserManagement } from 'pages/UserManagement/UserManagement';
+
+import { CorporateAccounts } from 'pages/CorporateAccounts/CorporateAccounts';
+import { OnboardCorporateAccount } from 'pages/CorporateAccounts/OnboardCorporateAccount/OnboardCorporateAccount';
+import { BatchUpload } from 'pages/CorporateAccounts/BatchOnboard/BatchOnboard';
+import { CorporateAccount } from 'pages/CorporateAccounts/CorporateAccount/CorporateAccount';
+import { Overview } from 'pages/CorporateAccounts/CorporateAccount/Overview/Overview';
+import { CorporateUsers } from 'pages/CorporateAccounts/CorporateAccount/CorporateUsers/CorporateUsers';
+import { TransferRequest } from 'pages/CorporateAccounts/CorporateAccount/TransferRequest/TransferRequest';
 
 export const Routing = () => {
   return (
@@ -62,12 +67,15 @@ export const Routing = () => {
           </Route>
 
           <Route path="accounts">
-            <Route index element={<Corporate />} />
+            <Route index element={<CorporateAccounts />} />
             <Route path="onboard" element={<OnboardCorporateAccount />} />
             <Route path="onboard/batch" element={<BatchUpload />} />
-            <Route path=":id/users" element={<CorporateUsersUnderCorporateAccount />} />
-            <Route path=":id/transfer-requests" element={<TransferRequest />} />
-            <Route path=":id/transfer-requests/:id" element={<TransferRequestDetails />} />
+            <Route path=":id" element={<CorporateAccount />}>
+              <Route path="overview" element={<Overview />} />
+              <Route path="users" element={<CorporateUsers />} />
+              <Route path="transfer-requests" element={<TransferRequest />} />
+              <Route path="transfer-requests/:id" element={<TransferRequestDetails />} />
+            </Route>
           </Route>
 
           <Route path="audit" element={<Audit />} />
