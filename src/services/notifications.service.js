@@ -29,6 +29,14 @@ class NotificationService {
       throw new Error(error);
     }
   }
+  async getAllUnreadNotifications() {
+    try {
+      const response = await http.get('/api/notifications/unread/count');
+      return response;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
 
 export const notificationService = new NotificationService();

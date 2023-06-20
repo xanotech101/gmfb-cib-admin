@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { Button } from 'components/Button/Button';
 import { Input } from 'components/Form/Input/Input';
 import { authService } from 'services';
@@ -45,6 +45,9 @@ export const ResetPasswordForm = () => {
           (errors.confirm_password?.message ?? 'Confirm Password is required')
         }
       />
+      <Link to={'/'} className="flex justify-end text-[#891c69] font-medium text-sm">
+        Back to login
+      </Link>
       <div className="pt-5">
         <Button disabled={isLoading} type="submit" isFullWidth>
           Create New Password
