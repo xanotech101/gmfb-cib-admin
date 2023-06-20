@@ -7,7 +7,7 @@ import { userService } from 'services';
 import { Button } from 'components/Button/Button';
 import { useUsers } from 'hooks/useUsers';
 
-export const SwitchUser = ({ outgoingUser, closeModal, otp }) => {
+export const SwitchUser = ({ outgoingUser, closeModal, otp, refetch }) => {
   const { data: authorizers } = useQuery({
     queryKey: ['authorizers'],
     queryFn: () =>
@@ -59,7 +59,7 @@ export const SwitchUser = ({ outgoingUser, closeModal, otp }) => {
     return transformData(usersList, privilege);
   }, [authorizers, verifiers, outgoingUser]);
 
-  const { switchUsers, disableUser } = useUsers();
+  const { switchUsers, disableUser } = useUsers(refetch);
 
   const {
     handleSubmit,

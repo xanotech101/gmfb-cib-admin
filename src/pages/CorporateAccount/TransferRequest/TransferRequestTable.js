@@ -48,13 +48,13 @@ export const TransferRequestTable = ({ transactions, initialSerialNumber }) => {
                   <div>{transaction?.payerAccountNumber}</div>
                 </td>
                 <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
-                  {naira.format(transaction?.amount)}
+                  <div className="text-gray-900 font-bold">{naira.format(transaction?.amount)}</div>
                 </td>
                 <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
                   {transaction?.transactionReference}
                 </td>
                 <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
-                  <div className="text-gray-900 font-bold">{transaction?.beneficiaryBankName}</div>
+                  <div>{transaction?.beneficiaryBankName}</div>
                   <div>{transaction?.beneficiaryAccountNumber}</div>
                   <div>{transaction?.beneficiaryAccountName}</div>
                 </td>

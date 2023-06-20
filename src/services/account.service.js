@@ -3,18 +3,20 @@ import http from 'plugins/axios';
 import { notification } from 'utils';
 
 class AccountService {
-  async getAccountByAccountNo() {
+  async getAccountByAccountNo(accountNo) {
     try {
-      const { data } = await http.get('/api/bank/balance');
+      const { data } = await http.get(`/api/bank/balance/${accountNo}`);
       return data;
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  async getTransactionHistory() {
+  async getTransactionHistory(accountNumber, params) {
     try {
-      const { data } = await http.get('/api/bank/history');
+      const { data } = await http.get(`/api/bank/history/${accountNumber}`, {
+        params
+      });
       return data;
     } catch (error) {
       throw new Error(error);
@@ -111,6 +113,15 @@ class AccountService {
       return data;
     } catch (error) {
       notification(error?.response?.data?.message, 'error');
+      throw new Error(error);
+    }
+  }
+
+  async getAccountStats(organizationId) {
+    try {
+      const data = await http.get(`/api/account/stats/${organizationId}`);
+      return data;
+    } catch (error) {
       throw new Error(error);
     }
   }

@@ -3,5 +3,6 @@ import { create } from 'zustand';
 export const useStore = create(() => ({
   user: null,
   notifications: [],
-  account: null
+  account: null,
+  currentOrganization: null
 }));

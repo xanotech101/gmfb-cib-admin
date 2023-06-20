@@ -32,7 +32,7 @@ export const RequestTicketing = () => {
     queryKey: ['get-tickets', page],
     queryFn: () => ticketService.getTickets({ page, topic: searchValue })
   });
-  console.log(data);
+
   const initialSerialNumber = useTableSerialNumber(page);
 
   return (

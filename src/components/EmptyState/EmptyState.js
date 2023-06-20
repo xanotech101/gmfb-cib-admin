@@ -3,14 +3,13 @@ import { Button } from 'components/Button/Button';
 
 export const EmptyState = ({ title, description, action }) => {
   return (
-    <div className="py-5 border rounded-lg mt-8 h-96 overflow-hidden flex flex-col items-center justify-center text-center">
+    <div className="py-5 border rounded-lg h-96 overflow-hidden flex flex-col items-center justify-center text-center">
       <svg
         className="mx-auto h-12 w-12 text-gray-400"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
-        aria-hidden="true"
-      >
+        aria-hidden="true">
         <path
           vectorEffect="non-scaling-stroke"
           strokeLinecap="round"

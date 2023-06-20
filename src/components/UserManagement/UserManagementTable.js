@@ -7,9 +7,9 @@ import { useMutation } from '@tanstack/react-query';
 import { useModal } from 'hooks';
 import { Badge } from 'components/Badge/Badge';
 import { UserDetails } from './UserDetails';
-import { EnableUser } from '../Actions/EnableUser';
-import { DisableUser } from '../Actions/DisableUser';
-import { SwitchUser } from '../Actions/SwitchUser';
+import { EnableUser } from './Actions/EnableUser';
+import { DisableUser } from './Actions/DisableUser';
+import { SwitchUser } from './Actions/SwitchUser';
 
 const actionTypes = {
   VIEW_PROFILE: 'VIEW_PROFILE',
@@ -18,12 +18,14 @@ const actionTypes = {
   SWITCH_USERS: 'SWITCH_USERS'
 };
 
-const Action = ({ user, actionType, cancel, setActionType, otp, setOtp }) => {
+const Action = ({ user, actionType, cancel, setActionType, otp, setOtp, refetch }) => {
   switch (actionType) {
     case actionTypes.VIEW_PROFILE:
       return <UserDetails user={user} />;
     case actionTypes.ENABLE_USER:
-      return <EnableUser user={user} closeModal={cancel} otp={otp} setOtp={setOtp} />;
+      return (
+        <EnableUser user={user} closeModal={cancel} otp={otp} setOtp={setOtp} refetch={refetch} />
+      );
     case actionTypes.DISABLE_USER:
       return (
         <DisableUser
@@ -32,14 +34,23 @@ const Action = ({ user, actionType, cancel, setActionType, otp, setOtp }) => {
           switchUsers={() => setActionType(actionTypes.SWITCH_USERS)}
           setOtp={setOtp}
           otp={otp}
+          refetch={refetch}
         />
       );
     default:
-      return <SwitchUser outgoingUser={user} closeModal={cancel} otp={otp} setOtp={setOtp} />;
+      return (
+        <SwitchUser
+          outgoingUser={user}
+          closeModal={cancel}
+          otp={otp}
+          setOtp={setOtp}
+          refetch={refetch}
+        />
+      );
   }
 };
 
-export const UserManagementTable = ({ users, initialSerialNumber }) => {
+export const UserManagementTable = ({ users, initialSerialNumber, refetch }) => {
   const { Modal, showModal } = useModal();
   const [user, setUser] = useState(null);
   const [actionType, setActionType] = useState(null);
@@ -85,7 +96,7 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
                 <tr key={user?.email} className="hover:bg-gray-50">
                   <td className="p-3 border">{initialSerialNumber + i}</td>
                   <td className="p-3 border whitespace-nowrap">
-                    <div className="flex items-center">
+                    <div className="flex items-start">
                       <Avatar name={`${user?.firstName} ${user?.lastName}`} />
                       <div className="pl-3">
                         <div className="text-gray-900 font-semibold capitalize break-words">
@@ -160,6 +171,7 @@ export const UserManagementTable = ({ users, initialSerialNumber }) => {
             setActionType={setActionType}
             otp={otp}
             setOtp={setOtp}
+            refetch={refetch}
           />
         )
       })}

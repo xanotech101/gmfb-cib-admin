@@ -1,15 +1,17 @@
 import { Container } from 'components/Container/Container';
-import { UserManagementTable } from './components/UserManagementTable';
+import { UserManagementTable } from 'components/UserManagement/UserManagementTable';
 import { Heading } from 'components/Header/Heading';
 import Pagination from 'components/Pagination/Pagination';
 import ContentLoader from 'react-content-loader';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
-import { useTableSerialNumber } from 'hooks';
-import { useUsers } from '../../hooks/useUsers';
+import { useConvertFileToJson, useTableSerialNumber } from 'hooks';
 import { Button } from 'components/Button/Button';
+import { useState } from 'react';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import { userService } from 'services';
 
-const RenderData = ({ data, initialSerialNumber, page, isSystemAdmin }) => {
+const RenderData = ({ data, initialSerialNumber, page, refetch }) => {
   if (data?.requests?.length === 0 || !data) {
     return (
       <EmptyState title="No user found" description="No user found, please check back later." />
@@ -20,16 +22,39 @@ const RenderData = ({ data, initialSerialNumber, page, isSystemAdmin }) => {
         initialSerialNumber={initialSerialNumber}
         users={data?.users ?? []}
         page={page}
-        isSystemAdmin={isSystemAdmin}
+        refetch={refetch}
       />
     );
   }
 };
 
 export const UserManagement = () => {
-  const { users, page, setPage, setSearchValue, searchValue, isDownloadingUsers, downloadUsers } =
-    useUsers();
-  console.log('🚀 ~ file: UserManagement.js:31 ~ UserManagement ~ users:', users);
+  const { convertJsonToExcel } = useConvertFileToJson();
+  const [page, setPage] = useState(1);
+  const [searchValue, setSearchValue] = useState(undefined);
+  const users = useQuery({
+    queryKey: ['all-users-paginated', page],
+    queryFn: () => userService.getAllUsers({ page, search: searchValue })
+  });
+  const { isLoading: isDownloadingUsers, mutate: downloadUsers } = useMutation({
+    mutationKey: ['all-users', { withPagination: false }],
+    mutationFn: () => userService.getAllUsers({ withPagination: false }),
+    onSuccess: (data) => {
+      const users = data?.users?.map((dat) => {
+        return {
+          ID: dat._id,
+          Email: dat.email,
+          Name: dat.firstName + ' ' + dat.lastName,
+          Gender: dat.gender,
+          Status: dat.disabled ? 'disabled' : 'active',
+          'Phone Number': dat.phone,
+          Role: dat.role,
+          Branch: dat.organizationId?.accountName
+        };
+      });
+      convertJsonToExcel(users, 'gcmfb-users');
+    }
+  });
   const initialSerialNumber = useTableSerialNumber(page);
 
   return (
@@ -55,7 +80,12 @@ export const UserManagement = () => {
           </div>
         ) : (
           <>
-            <RenderData data={users?.data} initialSerialNumber={initialSerialNumber} page={page} />
+            <RenderData
+              data={users?.data}
+              initialSerialNumber={initialSerialNumber}
+              page={page}
+              refetch={users.refetch}
+            />
             <Pagination
               totalItems={users?.data?.meta?.total ?? 0}
               handlePageClick={setPage}
