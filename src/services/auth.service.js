@@ -49,6 +49,7 @@ class AuthService {
       notification(response.message);
       return response;
     } catch (error) {
+      notification(error.response?.data?.message, 'error');
       throw new Error(error);
     }
   }
@@ -81,6 +82,19 @@ class AuthService {
       return response.data;
     } catch (error) {
       notification(error?.response?.data?.message ?? 'Something went wrong', 'error');
+      throw new Error(error);
+    }
+  }
+  async updateSecurityQuestion(payload) {
+    try {
+      const response = await http.patch('/api/settings/update_secrete_questions', payload);
+      notification(response?.data?.message ?? 'Security question updated successfully');
+      return response;
+    } catch (error) {
+      notification(
+        error.response?.data?.message ?? 'Unable to update security question, please try again',
+        'error'
+      );
       throw new Error(error);
     }
   }

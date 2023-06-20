@@ -12,13 +12,15 @@ const UpdateSecurityQuestion = () => {
     handleSubmit,
     control,
     watch,
+    reset,
     formState: { errors }
   } = useForm();
 
   const { showModal, Modal } = useModal();
   const { mutate, isLoading } = useMutation((data) => authService.updateSecurityQuestion(data), {
-    onSettled: () => {
+    onSuccess: () => {
       showModal();
+      reset();
     }
   });
 
