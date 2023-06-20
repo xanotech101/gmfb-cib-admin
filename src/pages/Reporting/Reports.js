@@ -92,7 +92,7 @@ export const Report = () => {
 
         <dl className="grid grid-cols-12 gap-6 mb-8">
           {stats.map((item) => (
-            <div className="relative overflow-hidden col-span-3" key={item.id}>
+            <div className="relative overflow-hidden col-span-3" key={item.name}>
               <Container>
                 <dd>
                   <p className="truncate text-sm font-medium text-gray-500">{item.name}</p>

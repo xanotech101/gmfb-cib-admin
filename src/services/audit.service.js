@@ -11,6 +11,17 @@ class AuditService {
       throw new Error(error);
     }
   }
+
+  async getAllAuditTrails(params) {
+    try {
+      const { data } = await http.get('/api/audit_trails/all', {
+        params: { ...params, perPage: PER_PAGE }
+      });
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
 
 export const auditService = new AuditService();

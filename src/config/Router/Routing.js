@@ -12,9 +12,7 @@ import { authRoutes } from 'config/Router/routes/Auth.routes';
 import { Security } from 'pages/Settings/Security/Security';
 
 import { RequestTicketing } from 'pages/Requests/RequestTicketing';
-// import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
 import { PrivateOutlet } from './PrivateOutLet';
-// import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
 import { TransferRequestDetails } from 'pages/TransferRequest/TransferRequestDetails/TransferRequestDetails';
 import { AllTransferRequests } from 'pages/TransferRequest/AllTransferRequests/AllTransferRequests';
 
@@ -27,11 +25,13 @@ import { UserManagement } from 'pages/UserManagement/UserManagement';
 import { CorporateAccounts } from 'pages/CorporateAccounts/CorporateAccounts';
 import { OnboardCorporateAccount } from 'pages/CorporateAccounts/OnboardCorporateAccount/OnboardCorporateAccount';
 import { BatchUpload } from 'pages/CorporateAccounts/BatchOnboard/BatchOnboard';
-import { CorporateAccount } from 'pages/CorporateAccounts/CorporateAccount/CorporateAccount';
-import { Overview } from 'pages/CorporateAccounts/CorporateAccount/Overview/Overview';
-import { CorporateUsers } from 'pages/CorporateAccounts/CorporateAccount/CorporateUsers/CorporateUsers';
-import { TransferRequest } from 'pages/CorporateAccounts/CorporateAccount/TransferRequest/TransferRequest';
-import { MandateRule } from 'pages/CorporateAccounts/CorporateAccount/MandateRule/MandateRule';
+import { CorporateAccount } from 'pages/CorporateAccount/CorporateAccount';
+import { Overview } from 'pages/CorporateAccount/Overview/Overview';
+import { CorporateUsers } from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
+import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/TransferRequest';
+import { MandateRule } from 'pages/CorporateAccount/CorporateMandateRule/CorporateMandateRule';
+import { CorporateAuditTrails } from 'pages/CorporateAccount/CorporateAuditTrails/CorporateAuditTrails';
+import { TransactionHistory } from 'pages/CorporateAccount/TransactionHistory/TransactionHistory';
 
 export const Routing = () => {
   return (
@@ -77,6 +77,8 @@ export const Routing = () => {
               <Route path="transfer-requests" element={<TransferRequest />} />
               <Route path="transfer-requests/:id" element={<TransferRequestDetails />} />
               <Route path="mandate-rule" element={<MandateRule />} />
+              <Route path="audit-trails" element={<CorporateAuditTrails />} />
+              <Route path="transaction-history" element={<TransactionHistory />} />
             </Route>
           </Route>
 

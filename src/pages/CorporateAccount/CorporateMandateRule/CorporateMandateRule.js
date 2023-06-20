@@ -3,9 +3,9 @@ import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import ContentLoader from 'react-content-loader';
 import { mandateService } from 'services';
-import { MandateRuleTable } from './MandateRuleTable';
+import { MandateRuleTable } from './CorporateMandateRuleTable';
 import { useModal } from 'hooks/useModal';
-import { MandateDetails } from './MandateRuleDetails';
+import { MandateDetails } from './CorporateMandateRuleDetails';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 import Pagination from 'components/Pagination/Pagination';
@@ -56,9 +56,6 @@ export const MandateRule = () => {
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
             <h1 className="text-xl font-semibold text-gray-900">Mandate Rules</h1>
-            <p className="text-sm text-gray-700 mt-2">
-              List of mandate rules made on this account.
-            </p>
           </div>
         </div>
 

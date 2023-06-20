@@ -40,8 +40,9 @@ const OnboardingForm = () => {
     queryKey: ['account-Info', debouncedValue],
     onSuccess: (data) => {
       if (data.status === 'Success') {
+        const fallbackName = `${data.data.LastName} ${data.data.OtherNames}`;
         setAccountInfo({
-          name: data.data.Name ?? '',
+          name: data.data.Name ?? fallbackName,
           email: data.data.Email,
           customerId: data.data.customerID,
           accountNumber: [debouncedValue]
