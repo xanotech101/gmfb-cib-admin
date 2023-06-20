@@ -10,3 +10,4 @@ export { useCustomerInfo } from './useCustomerInfo';
 export { useDebounce } from './useDebounce';
 export { useRole } from './useRole';
 export { useUsers } from './useUsers';
+export { useTransactionHistory } from './useTransactionHistory';

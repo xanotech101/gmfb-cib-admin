@@ -43,7 +43,7 @@ export const CorporateUsers = () => {
   };
 
   return (
-    <div className="px-10 space-y-6 mt-8">
+    <div className="px-10 space-y-6 py-8">
       <h3 className="text-xl font-medium leading-6 text-gray-900 mt-4">Users</h3>
       <div>
         {(data?.users?.length > 0 || searchValue) && (

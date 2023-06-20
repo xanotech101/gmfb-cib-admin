@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ArrowDownCircleIcon } from '@heroicons/react/20/solid';
 import { Badge } from 'components/Badge/Badge';
-import { ReceiptModal } from 'pages/CorporateAccount/TransactionHistory/ReceiptModal';
+import { ReceiptModal } from 'components/TransactionHistory/ReceiptModal';
 import { naira } from 'utils/currencyFormatter';
 import { DateUtils, DateFormats } from 'utils';
 

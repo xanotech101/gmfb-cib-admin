@@ -1,12 +1,12 @@
 import ContentLoader from 'react-content-loader';
-import { TransactionHistoryTable } from './components/TransactionHistoryTable';
+import { TransactionHistoryTable } from '../../../components/TransactionHistory/TransactionHistoryTable';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import { useModal, useStore } from 'hooks';
 import { Button } from 'components/Button/Button';
 import { ArrowDownIcon } from '@heroicons/react/20/solid';
 import { DatePickerComponent } from 'components/Form/DatePicker/DateTimePicker';
 import { useState } from 'react';
-import { useTransactionHistory } from './hooks/useTransactionHistory';
+import { useTransactionHistory } from 'hooks';
 import Pagination from 'components/Pagination/Pagination';
 
 export const RenderData = (data) => {
@@ -36,7 +36,7 @@ export const TransactionHistory = () => {
   );
 
   return (
-    <div className="px-10 space-y-6 mt-8">
+    <div className="px-10 space-y-6 py-8">
       <div className="flex justify-between items-center mt-4">
         <h3 className="text-xl font-medium leading-6 text-gray-900">Transaction History</h3>
         <Button

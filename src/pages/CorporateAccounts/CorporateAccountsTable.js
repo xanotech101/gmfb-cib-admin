@@ -46,15 +46,11 @@ export const CorporateAccountsTable = ({ data, initialSerialNumber }) => {
                     label={<EllipsisVerticalIcon className="h-5 w-5 text-gray-600" />}
                     inline={true}
                     arrowIcon={false}>
-                    <Dropdown.Item className="text-green-500" onClick={() => {}}>
-                      View Details
-                    </Dropdown.Item>
                     <Dropdown.Item
-                      className="text-green-500"
                       onClick={() => {
                         navigate(`/accounts/${datum._id}/overview`);
                       }}>
-                      Overview
+                      View details
                     </Dropdown.Item>
                   </Dropdown>
                 </td>
