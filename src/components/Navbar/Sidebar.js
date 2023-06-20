@@ -19,6 +19,7 @@ function classNames(...classes) {
 }
 
 export const Sidebar = () => {
+  const { notify } = useNotifications();
   const token = localStorage.getItem('token');
   const { data } = useQuery({
     queryKey: ['userProfile'],
@@ -113,17 +114,23 @@ export const Sidebar = () => {
           </button>
           <div className="flex flex-1 justify-end px-4">
             <div className="ml-4 flex items-center md:ml-6">
-              <button
-                type="button"
-                className="rounded-full bg-white p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+              <button type="button" className=" p-1 text-gray-400 hover:text-gray-500">
                 <span className="sr-only">View notifications</span>
-                <BellIcon
-                  className="h-6 w-6"
-                  aria-hidden="true"
-                  onClick={() => {
-                    setOpen(true);
-                  }}
-                />
+
+                <div className="p-5">
+                  <strong className="relative inline-flex items-center  px-2.5 py-1.5 text-xs  font-medium">
+                    <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full grooming-color flex justify-center items-center items">
+                      <span className="text-white">{notify?.data?.count ?? 0}</span>
+                    </span>
+                    <BellIcon
+                      className="h-6 w-6"
+                      aria-hidden="true"
+                      onClick={() => {
+                        setOpen(true);
+                      }}
+                    />
+                  </strong>
+                </div>
               </button>
 
               {/* Profile dropdown */}

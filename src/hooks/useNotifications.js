@@ -46,10 +46,14 @@ export const useNotifications = () => {
       notification('Something went wrong, try again', 'error');
     }
   });
-
+  const { data: notify } = useQuery({
+    queryKey: ['count'],
+    queryFn: notificationService.getAllUnreadNotifications
+  });
   return {
     notifications,
     deleteNotifications,
-    markNotificationsAsRead
+    markNotificationsAsRead,
+    notify
   };
 };
