@@ -22,7 +22,6 @@ export const LoginForm = ({ successCb, errorCb }) => {
       }
     }
   });
- 
 
   const onSubmit = (data) => mutate(data);
 

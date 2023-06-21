@@ -129,6 +129,29 @@ class AccountService {
       throw new Error(error);
     }
   }
+  async enableAccount({ id, otp }) {
+    try {
+      const data = await http.patch(`/api/account/enable/${id}`, { otp });
+      notification('Account Enabled Successfully');
+      return data;
+    } catch (error) {
+      notification(error.response.data.message, 'error');
+      throw new Error(error);
+    }
+  }
+
+  async disableAccount({ id, otp }) {
+    try {
+      const data = await http.patch(`/api/account/disable/${id}`, { otp });
+      notification('Account Disabled Successfully');
+      return data;
+    } catch (error) {
+      if (error?.response?.status !== 422) {
+        notification(error.response.data.message, 'error');
+      }
+      throw error.response;
+    }
+  }
 }
 
 export const accountService = new AccountService();
