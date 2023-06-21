@@ -1,6 +1,6 @@
 import { Badge } from 'components/Badge/Badge';
 import { SubHeading } from 'components/Header/SubHeading';
-import { DateUtils, DateFormats } from 'utils';
+import { formatDate } from 'utils';
 import { naira } from 'utils/currencyFormatter';
 
 export const TransactionDetailsList = ({ details }) => {
@@ -20,9 +20,7 @@ export const TransactionDetailsList = ({ details }) => {
         <div className="sm:col-span-1">
           <dt className="text-sm font-medium text-gray-500">Date Created</dt>
           <dd className="mt-1 text-sm text-gray-900">
-            {details?.createdAt
-              ? DateUtils.dateToString(new Date(details?.createdAt), DateFormats.frontendDateTime)
-              : ''}
+            {details?.createdAt && formatDate(details?.createdAt)}
           </dd>
         </div>
         <div className="sm:col-span-1">

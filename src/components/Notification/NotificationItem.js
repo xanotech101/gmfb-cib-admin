@@ -3,7 +3,7 @@ import { TrashIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 import { useNotifications } from 'hooks';
-import { DateUtils, DateFormats } from 'utils';
+import { formatDate } from 'utils';
 
 export const NotificationItem = ({ notification, onDelete }) => {
   const { markNotificationsAsRead } = useNotifications();
@@ -40,8 +40,7 @@ export const NotificationItem = ({ notification, onDelete }) => {
               View request
             </Link>
             <span className="text-xs text-gray-500">
-              {notification?.createdAt &&
-                DateUtils.dateToString(notification.createdAt, DateFormats.frontendDateTime)}
+              {notification?.createdAt && formatDate(notification.createdAt)}
             </span>
           </div>
         </div>

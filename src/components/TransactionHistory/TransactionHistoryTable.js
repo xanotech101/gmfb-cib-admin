@@ -3,7 +3,7 @@ import { ArrowDownCircleIcon } from '@heroicons/react/20/solid';
 import { Badge } from 'components/Badge/Badge';
 import { ReceiptModal } from 'components/TransactionHistory/ReceiptModal';
 import { naira } from 'utils/currencyFormatter';
-import { DateUtils, DateFormats } from 'utils';
+import { formatDate } from 'utils';
 
 export const TransactionHistoryTable = ({ transactions }) => {
   const [showReceiptModal, setShowReceiptModal] = useState(false);
@@ -55,12 +55,7 @@ export const TransactionHistoryTable = ({ transactions }) => {
                     {transaction?.ReferenceID}
                   </td>
                   <td className="whitespace-nowrap p-3 border capitalize">
-                    {transaction?.CurrentDate
-                      ? DateUtils.dateToString(
-                          new Date(transaction?.CurrentDate),
-                          DateFormats.frontendDateTime
-                        )
-                      : ''}
+                    {transaction?.CurrentDate && formatDate(transaction?.CurrentDate)}
                   </td>
                   <td className="whitespace-nowrap p-3 border capitalize">
                     {transaction?.Balance && naira.format(transaction?.Balance / 100)}

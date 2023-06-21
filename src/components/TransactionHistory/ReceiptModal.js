@@ -5,7 +5,7 @@ import { jsPDF } from 'jspdf';
 import { naira } from 'utils/currencyFormatter';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { CheckIcon } from '@heroicons/react/20/solid';
-import { DateFormats, DateUtils } from 'utils';
+import { formatDate } from 'utils';
 
 export const ReceiptModal = ({
   isOpen,
@@ -135,11 +135,7 @@ export const ReceiptModal = ({
                   <div className=" flex items-center space-x-2">
                     <span className="font-bold col-span-5">Date:</span>
                     <span className="font-normal">
-                      {invoiceInfo?.CurrentDate &&
-                        DateUtils.dateToString(
-                          invoiceInfo?.CurrentDate,
-                          DateFormats.frontendDateTime
-                        )}
+                      {invoiceInfo?.CurrentDate && formatDate(invoiceInfo?.CurrentDate)}
                     </span>
                   </div>
                   <hr />

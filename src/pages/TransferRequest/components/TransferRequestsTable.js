@@ -6,7 +6,7 @@ export const TransferRequestsTable = ({ transactions, initialSerialNumber }) => 
   return (
     <div role="list" className="divide-y divide-gray-200">
       <div className="relative overflow-hidden mt-6">
-        <table className="w-full text-left text-sm font-semibold text-gray-900">
+        <table className="w-full text-left text-sm text-gray-900">
           <thead className="text-xs bg-gray-100 uppercase border text-black">
             <tr>
               <th scope="col" className="p-3">
@@ -72,7 +72,7 @@ export const TransferRequestsTable = ({ transactions, initialSerialNumber }) => 
                 <td className="relative whitespace-nowrap p-3 text-sm font-medium border">
                   <Link
                     to={`/transfer-requests/${encodeURIComponent(transaction._id)}`}
-                    className="text-primary hover:text-indigo-900 ml-4">
+                    className="text-primary hover:text-indigo-900">
                     View
                   </Link>
                 </td>

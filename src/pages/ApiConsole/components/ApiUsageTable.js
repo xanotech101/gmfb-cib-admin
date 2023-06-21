@@ -1,4 +1,4 @@
-import { DateUtils, DateFormats } from 'utils';
+import { formatDate } from 'utils';
 import { ClockIcon } from '@heroicons/react/24/outline';
 
 export const ApiUsageTable = ({ data, initialSerialNumber }) => {
@@ -36,10 +36,7 @@ export const ApiUsageTable = ({ data, initialSerialNumber }) => {
             <td className="p-3 text-sm font-medium whitespace-nowrap border">
               <div className="mt-4 flex items-center text-sm text-gray-500 gap-2">
                 <ClockIcon className="h-5 w-5 flex-shrink-0 text-primary" aria-hidden="true" />
-                <div>
-                  {datum?.createdAt &&
-                    DateUtils.dateToString(datum.createdAt, DateFormats.frontendDateTime)}
-                </div>
+                <div>{datum?.createdAt && formatDate(datum.createdAt)}</div>
               </div>
             </td>
           </tr>
