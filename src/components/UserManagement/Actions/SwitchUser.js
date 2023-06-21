@@ -28,35 +28,40 @@ export const SwitchUser = ({ outgoingUser, closeModal, otp, refetch }) => {
     enabled: !!outgoingUser && outgoingUser?.privileges?.[0]?.name === 'verifier'
   });
 
-  const transformData = useCallback((data, privilege) => {
+  const transformData = useCallback((data) => {
     const users = [];
     data.forEach((user) => {
-      const privileges = user.privileges.map((privilege) => {
-        return privilege.name;
+      users.push({
+        label: `${user.firstName} ${user.lastName}`,
+        value: user._id
       });
-      if (privileges.includes(privilege)) {
-        users.push({
-          label: `${user.firstName} ${user.lastName}`,
-          value: user._id
-        });
-      }
     });
     return users;
   }, []);
 
-  const options = useMemo(() => {
-    const privilege = outgoingUser?.privileges?.[0]?.name;
-    let usersList = [];
-    if (privilege === 'authoriser') {
-      usersList = (authorizers ?? [])?.filter(
-        ({ _id, disabled }) => _id !== outgoingUser._id && !disabled
-      );
-    } else if (privilege === 'verifier') {
-      usersList = (verifiers ?? [])?.filter(
-        ({ _id, disabled }) => _id !== outgoingUser._id && !disabled
+  const sanitizeAuthorizers = useMemo(() => {
+    if (authorizers) {
+      return authorizers.filter(
+        (authorizer) =>
+          authorizer.isVerified && !authorizer.disabled && authorizer._id !== outgoingUser._id
       );
     }
-    return transformData(usersList, privilege);
+    return [];
+  }, [authorizers]);
+
+  const sanitizeVerifiers = useMemo(() => {
+    if (verifiers) {
+      return verifiers.filter(
+        (verifier) => verifier.isVerified && !verifier.disabled && verifier._id !== outgoingUser._id
+      );
+    }
+    return [];
+  }, [verifiers]);
+
+  const options = useMemo(() => {
+    const privilege = outgoingUser?.privileges?.[0]?.name;
+    const usersList = privilege === 'authoriser' ? sanitizeAuthorizers : sanitizeVerifiers;
+    return transformData(usersList);
   }, [authorizers, verifiers, outgoingUser]);
 
   const { switchUsers, disableUser } = useUsers(refetch);
