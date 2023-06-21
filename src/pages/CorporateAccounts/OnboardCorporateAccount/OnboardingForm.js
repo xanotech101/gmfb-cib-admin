@@ -23,7 +23,7 @@ const OnboardingForm = () => {
   const debouncedValue = useDebounce(accountNumber, 800);
   const [formState, setFormState] = useState(formStateOptions.accountVerification);
   const [accountLookupError, setAccountLookError] = useState(null);
-  const [orgValue, setOrgValue] = useState('');
+
   const {
     register,
     handleSubmit,
@@ -138,10 +138,6 @@ const OnboardingForm = () => {
                 value: _id
               }))}
               error={errors.organizationLabel && 'Organization Label is required'}
-              onChange={(e) => {
-                setOrgValue(e.target?.value);
-              }}
-              value={orgValue}
             />
             <hr />
             <p className="font-bold text-lg">Accounts</p>
@@ -151,10 +147,7 @@ const OnboardingForm = () => {
                 <Input defaultValue={item} disabled />
               </div>
             ))}
-            <Button
-              isFullWidth
-              onClick={() => setFormState(formStateOptions.adminDetails)}
-              disabled={orgValue === ''}>
+            <Button isFullWidth onClick={() => setFormState(formStateOptions.adminDetails)}>
               Next
             </Button>
           </>

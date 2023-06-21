@@ -13,7 +13,7 @@ import { useTableSerialNumber, useRole } from 'hooks';
 import Pagination from 'components/Pagination/Pagination';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 
-const RenderData = ({ data, initialSerialNumber }) => {
+const RenderData = ({ data, initialSerialNumber, refetch }) => {
   const navigate = useNavigate();
   if (data?.length === 0 || !data) {
     return (
@@ -31,6 +31,7 @@ const RenderData = ({ data, initialSerialNumber }) => {
       <CorporateAccountsTable
         data={data?.accounts ?? []}
         initialSerialNumber={initialSerialNumber}
+        refetch={refetch}
       />
     );
   }
@@ -81,7 +82,11 @@ export const CorporateAccounts = () => {
             </ContentLoader>
           ) : (
             <>
-              <RenderData data={data ?? []} initialSerialNumber={initialSerialNumber} />
+              <RenderData
+                data={data ?? []}
+                initialSerialNumber={initialSerialNumber}
+                refetch={refetch}
+              />
               <Pagination
                 totalItems={data?.totalCount ?? 0}
                 handlePageClick={setPage}
