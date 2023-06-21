@@ -23,15 +23,17 @@ const OnboardingForm = () => {
   const debouncedValue = useDebounce(accountNumber, 800);
   const [formState, setFormState] = useState(formStateOptions.accountVerification);
   const [accountLookupError, setAccountLookError] = useState(null);
-  const [orgValue, setOrgValue] = useState('');
+
   const {
     register,
     handleSubmit,
     control,
     setValue,
+    watch,
     formState: { errors }
   } = useForm();
-
+  const organizationLabelValue = watch('organizationLabel')?.value;
+  console.log(organizationLabelValue, 'label');
   const { isFetching } = useQuery({
     queryFn: () => {
       setAccountInfo(null);
@@ -138,10 +140,6 @@ const OnboardingForm = () => {
                 value: _id
               }))}
               error={errors.organizationLabel && 'Organization Label is required'}
-              onChange={(e) => {
-                setOrgValue(e.target?.value);
-              }}
-              value={orgValue}
             />
             <hr />
             <p className="font-bold text-lg">Accounts</p>
@@ -154,7 +152,7 @@ const OnboardingForm = () => {
             <Button
               isFullWidth
               onClick={() => setFormState(formStateOptions.adminDetails)}
-              disabled={orgValue === ''}>
+              disabled={!organizationLabelValue}>
               Next
             </Button>
           </>
