@@ -19,7 +19,7 @@ export const Badge = ({ children, status = 'approved' }) => {
           ].includes(status),
           'bg-blue-100 text-blue-500 border-blue-400': status === 'in progress',
           'bg-yellow-100 text-yellow-500 border border-yellow-400': [
-            'awaiting verification',
+            'awaiting authorization',
             'disburse pending',
             'queued'
           ].includes(status),
