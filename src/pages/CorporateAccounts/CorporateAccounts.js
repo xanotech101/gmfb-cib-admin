@@ -9,7 +9,7 @@ import { useQuery } from '@tanstack/react-query';
 import { accountService } from 'services';
 import { Button } from 'components/Button/Button';
 import { EmptyState } from 'components/EmptyState/EmptyState';
-import { useTableSerialNumber, useRole } from 'hooks';
+import { useTableSerialNumber } from 'hooks';
 import Pagination from 'components/Pagination/Pagination';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 import { isSystemAdmin } from 'utils/getUserRole';
@@ -40,12 +40,11 @@ const RenderData = ({ data, initialSerialNumber }) => {
 };
 
 export const CorporateAccounts = () => {
-  const { isSystemAdmin } = useRole();
   const [page, setPage] = useState(1);
   const [searchValue, setSearchValue] = useState(undefined);
 
   const { data, isFetching, refetch } = useQuery({
-    queryKey: ['accounts', isSystemAdmin],
+    queryKey: ['accounts', isSystemAdmin(), page],
     queryFn: () => accountService.getAllAccounts({ page, name: searchValue })
   });
 
@@ -60,7 +59,7 @@ export const CorporateAccounts = () => {
             <p className="text-sm text-gray-700">List of all corporate accounts.</p>
           </div>
 
-          {isSystemAdmin && (
+          {isSystemAdmin() && (
             <div>
               <Link to="/accounts/onboard">
                 <Button>

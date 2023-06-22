@@ -37,7 +37,7 @@ class UserService {
 
   async getAllUsers(params) {
     let url = '/api/users/all';
-    if (isGcAdmin) {
+    if (isGcAdmin()) {
       url = '/api/gcadmin/fetchAllusers';
     }
     try {

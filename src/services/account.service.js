@@ -44,7 +44,7 @@ class AccountService {
 
   async getAllAccounts(params) {
     let url = '/api/account/all_accounts';
-    if (isGcAdmin) {
+    if (isGcAdmin()) {
       url = '/api/gcadmin/accounts';
     }
     try {

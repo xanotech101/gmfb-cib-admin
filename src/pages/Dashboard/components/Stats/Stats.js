@@ -3,23 +3,24 @@ import { Container } from 'components/Container/Container';
 import { useNavigate } from 'react-router-dom';
 import { analyticsService } from 'services';
 import { useQuery } from '@tanstack/react-query';
+import { isGcAdmin } from 'utils/getUserRole';
 
 const cardDetails = [
   {
     label: 'Number of corporate account',
-    value: '0  Account',
+    value: '0  Accounts',
     icon: BriefcaseIcon,
     route: '/accounts'
   },
   {
     label: 'Number of users',
-    value: '0 User',
+    value: '0 Users',
     icon: UserCircleIcon,
     route: '/user-management'
   },
   {
     label: 'Number of transfers',
-    value: `0 Transfer`,
+    value: `0 Transfers`,
     icon: BanknotesIcon,
     route: '/transfer-requests'
   }
@@ -27,7 +28,7 @@ const cardDetails = [
 export const Cards = () => {
   const navigate = useNavigate();
   const { isFetching } = useQuery({
-    queryKey: ['dashboard-analytics'],
+    queryKey: ['dashboard-analytics', isGcAdmin()],
     queryFn: () => analyticsService.getDashboardAnalysis(),
     onSuccess: (data) => {
       cardDetails[0].value = `${data?.totalAccounts ?? 0}`;
