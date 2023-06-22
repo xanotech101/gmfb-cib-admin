@@ -4,21 +4,24 @@ import { useMutation } from '@tanstack/react-query';
 import { Button } from 'components/Button/Button';
 import { Input } from 'components/Form/Input/Input';
 import { authService } from 'services';
-
+import { useNavigate } from 'react-router-dom';
 export const LoginForm = ({ successCb, errorCb }) => {
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm();
-
+  const navigate = useNavigate();
   const { mutate, isLoading } = useMutation((data) => authService.preLogin(data), {
     onSuccess: (res, payload) => {
       successCb({ email: payload.email, questions: res.secretQuestion });
     },
     onError: (err, payload) => {
-      if (err?.message === 'User has not set up secret questions') {
+      if (err?.data?.message === 'User has not set up secret questions') {
         errorCb(payload.email);
+      }
+      if (err?.status === 422) {
+        navigate('/auth/disabled-account');
       }
     }
   });

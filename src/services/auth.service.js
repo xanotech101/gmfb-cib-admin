@@ -7,8 +7,11 @@ class AuthService {
       const { data } = await http.post('/api/auth/pre_login', { ...payload });
       return data;
     } catch (error) {
-      notification(error.response.data.message, 'error');
-      throw new Error(error.response.data.message);
+      if (error.response.status !== 422) {
+        notification(error.response.data.message, 'error');
+      }
+
+      throw error.response;
     }
   }
   async login(payload, errorCb) {
