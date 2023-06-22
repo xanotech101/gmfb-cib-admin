@@ -12,6 +12,7 @@ import { EmptyState } from 'components/EmptyState/EmptyState';
 import { useTableSerialNumber, useRole } from 'hooks';
 import Pagination from 'components/Pagination/Pagination';
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
+import { isSystemAdmin } from 'utils/getUserRole';
 
 const RenderData = ({ data, initialSerialNumber }) => {
   const navigate = useNavigate();
@@ -20,10 +21,12 @@ const RenderData = ({ data, initialSerialNumber }) => {
       <EmptyState
         title="No Corporate account found"
         description="No corporate account created yet, click on the button below to create one."
-        action={{
-          label: 'Create Corporate Account',
-          onClick: () => navigate('/accounts/onboard')
-        }}
+        action={
+          isSystemAdmin() && {
+            label: 'Create corporate account',
+            onClick: () => navigate('/accounts/onboard')
+          }
+        }
       />
     );
   } else {
@@ -43,7 +46,7 @@ export const CorporateAccounts = () => {
 
   const { data, isFetching, refetch } = useQuery({
     queryKey: ['accounts', isSystemAdmin],
-    queryFn: () => accountService.getAllAccounts({ page, name: searchValue }, isSystemAdmin)
+    queryFn: () => accountService.getAllAccounts({ page, name: searchValue })
   });
 
   const initialSerialNumber = useTableSerialNumber(page);
@@ -57,14 +60,16 @@ export const CorporateAccounts = () => {
             <p className="text-sm text-gray-700">List of all corporate accounts.</p>
           </div>
 
-          <div>
-            <Link to="/accounts/onboard">
-              <Button>
-                Create corporate account
-                <UserPlusIcon width="20px" className="ml-1" />
-              </Button>
-            </Link>
-          </div>
+          {isSystemAdmin && (
+            <div>
+              <Link to="/accounts/onboard">
+                <Button>
+                  Create corporate account
+                  <UserPlusIcon width="20px" className="ml-1" />
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
 
         <SearchFilter

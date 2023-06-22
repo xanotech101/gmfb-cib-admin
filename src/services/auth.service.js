@@ -24,6 +24,8 @@ class AuthService {
         localStorage.setItem('token', data?.token);
         http.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
       }
+
+      localStorage.setItem('cib-role', data?.user?.role);
       notification(data?.message ?? 'Login successful');
       return data;
     } catch (error) {

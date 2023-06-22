@@ -1,6 +1,7 @@
 import { PER_PAGE } from 'constants/pagination';
 import http from 'plugins/axios';
 import { notification } from 'utils';
+import { isGcAdmin } from 'utils/getUserRole';
 
 class AccountService {
   async getAccountByAccountNo(accountNo) {
@@ -42,7 +43,10 @@ class AccountService {
   }
 
   async getAllAccounts(params) {
-    const url = '/api/account/all_accounts';
+    let url = '/api/account/all_accounts';
+    if (isGcAdmin) {
+      url = '/api/gcadmin/accounts';
+    }
     try {
       const { data } = await http.get(url, { params: { ...params, perPage: PER_PAGE } });
       return data;
