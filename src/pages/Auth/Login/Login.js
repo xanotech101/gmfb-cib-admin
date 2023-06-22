@@ -19,9 +19,6 @@ export const Login = () => {
     if (err?.message === 'Incorrect answer') {
       setQuestion(err.data);
     }
-    if (err.message === "You don't have access to access this app, use the corporate portal") {
-      navigate('/auth/disabled-account');
-    }
   };
 
   return (
