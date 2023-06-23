@@ -33,7 +33,7 @@ const OnboardingForm = () => {
     formState: { errors }
   } = useForm();
   const organizationLabelValue = watch('organizationLabel')?.value;
-  console.log(organizationLabelValue, 'label');
+
   const { isFetching } = useQuery({
     queryFn: () => {
       setAccountInfo(null);
@@ -77,7 +77,8 @@ const OnboardingForm = () => {
         accountNumber: accountInfo.accountNumber,
         accountName: accountInfo.name,
         customerID: accountInfo.customerId,
-        email: data.account_email
+        email: data.account_email,
+        organizationLabel: data.organizationLabel.value
       },
       admin: {
         firstName: data.firstName,

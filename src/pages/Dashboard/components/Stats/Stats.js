@@ -3,7 +3,6 @@ import { Container } from 'components/Container/Container';
 import { useNavigate } from 'react-router-dom';
 import { analyticsService } from 'services';
 import { useQuery } from '@tanstack/react-query';
-import { isGcAdmin } from 'utils/getUserRole';
 
 const cardDetails = [
   {
@@ -28,7 +27,7 @@ const cardDetails = [
 export const Cards = () => {
   const navigate = useNavigate();
   const { isFetching } = useQuery({
-    queryKey: ['dashboard-analytics', isGcAdmin()],
+    queryKey: ['dashboard-analytics'],
     queryFn: () => analyticsService.getDashboardAnalysis(),
     onSuccess: (data) => {
       cardDetails[0].value = `${data?.totalAccounts ?? 0}`;
