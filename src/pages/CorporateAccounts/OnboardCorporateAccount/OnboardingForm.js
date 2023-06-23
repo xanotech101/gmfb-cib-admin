@@ -23,13 +23,16 @@ const OnboardingForm = () => {
   const debouncedValue = useDebounce(accountNumber, 800);
   const [formState, setFormState] = useState(formStateOptions.accountVerification);
   const [accountLookupError, setAccountLookError] = useState(null);
+
   const {
     register,
     handleSubmit,
     control,
     setValue,
+    watch,
     formState: { errors }
   } = useForm();
+  const organizationLabelValue = watch('organizationLabel')?.value;
 
   const { isFetching } = useQuery({
     queryFn: () => {
@@ -40,8 +43,9 @@ const OnboardingForm = () => {
     queryKey: ['account-Info', debouncedValue],
     onSuccess: (data) => {
       if (data.status === 'Success') {
+        const fallbackName = `${data.data.LastName} ${data.data.OtherNames}`;
         setAccountInfo({
-          name: data.data.Name ?? '',
+          name: data.data.Name ?? fallbackName,
           email: data.data.Email,
           customerId: data.data.customerID,
           accountNumber: [debouncedValue]
@@ -73,7 +77,8 @@ const OnboardingForm = () => {
         accountNumber: accountInfo.accountNumber,
         accountName: accountInfo.name,
         customerID: accountInfo.customerId,
-        email: data.account_email
+        email: data.account_email,
+        organizationLabel: data.organizationLabel.value
       },
       admin: {
         firstName: data.firstName,
@@ -145,7 +150,10 @@ const OnboardingForm = () => {
                 <Input defaultValue={item} disabled />
               </div>
             ))}
-            <Button isFullWidth onClick={() => setFormState(formStateOptions.adminDetails)}>
+            <Button
+              isFullWidth
+              onClick={() => setFormState(formStateOptions.adminDetails)}
+              disabled={!organizationLabelValue}>
               Next
             </Button>
           </>
@@ -175,8 +183,9 @@ const OnboardingForm = () => {
         <Input
           label="Phone number"
           id="phone_number"
-          {...register('phone', { required: true })}
-          error={errors.phone && 'Phone number is required'}
+          placeholder="phone number must begin with 0 eg:(070)"
+          {...register('phone', { required: true, maxLength: 11, minLength: 11 })}
+          error={errors.phone && 'Phone number is required and must be 11 digit'}
         />
 
         <Input

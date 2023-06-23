@@ -1,97 +1,112 @@
-import { useState } from 'react';
-import ContentLoader from 'react-content-loader';
-import { Heading } from 'components/Header/Heading';
-import { Container } from 'components/Container/Container';
-import { CorporateAccountsTable } from './CorporateAccountsTable';
-import { Link, useNavigate } from 'react-router-dom';
-import { UserPlusIcon } from '@heroicons/react/24/outline';
-import { useQuery } from '@tanstack/react-query';
-import { accountService } from 'services';
-import { Button } from 'components/Button/Button';
-import { EmptyState } from 'components/EmptyState/EmptyState';
-import { useTableSerialNumber, useRole } from 'hooks';
-import Pagination from 'components/Pagination/Pagination';
-import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
+import { Badge } from 'components/Badge/Badge';
+import { ChevronRightIcon, HomeIcon } from '@heroicons/react/20/solid';
+import { Outlet, NavLink, useParams, Link } from 'react-router-dom';
+import { useAccountDetails } from './hooks/useAccountDetails';
+import { Avatar } from 'components/Avatar/Avatar';
 
-const RenderData = ({ data, initialSerialNumber }) => {
-  const navigate = useNavigate();
-  if (data?.length === 0 || !data) {
-    return (
-      <EmptyState
-        title="No Corporate account found"
-        description="No corporate account created yet, click on the button below to create one."
-        action={{
-          label: 'Create Corporate Account',
-          onClick: () => navigate('/accounts/onboard')
-        }}
-      />
-    );
-  } else {
-    return (
-      <CorporateAccountsTable
-        data={data?.accounts ?? []}
-        initialSerialNumber={initialSerialNumber}
-      />
-    );
-  }
-};
+const secondaryNavigation = [
+  { name: 'Overview', href: 'overview', current: true },
+  { name: 'Users', href: 'users', current: false },
+  { name: 'Transaction History', href: 'transaction-history', current: false },
+  { name: 'Audit Trails', href: 'audit-trails', current: false },
+  { name: 'Transfer Request', href: 'transfer-requests', current: false },
+  { name: 'Mandate Rules', href: 'mandate-rule', current: false }
+];
 
-export const Corporate = () => {
-  const { isSystemAdmin } = useRole();
-  const [page, setPage] = useState(1);
-  const [searchValue, setSearchValue] = useState(undefined);
-
-  const { data, isFetching, refetch } = useQuery({
-    queryKey: ['accounts', isSystemAdmin],
-    queryFn: () => accountService.getAllAccounts({ page, name: searchValue }, isSystemAdmin)
-  });
-
-  const initialSerialNumber = useTableSerialNumber(page);
+export const CorporateAccount = () => {
+  const { accountDetails, accountBalance } = useAccountDetails();
+  const { id: accountId } = useParams();
 
   return (
-    <div className="flex flex-col mt-7 p-5">
-      <Container>
-        <div className="flex justify-between lg:items-center flex-col lg:flex-row">
-          <div className="mb-3">
-            <Heading>Corporate Accounts</Heading>
-            <p className="text-sm text-gray-700">List of all corporate accounts.</p>
+    <div className="min-h-screen bg-white">
+      <div className="ml-2">
+        <nav className="flex overflow-x-auto border-b border-t border-gray-200 py-4 fixed top-16 mb-16 w-full z-30 backdrop-blur h-16 items-center">
+          <ul
+            role="list"
+            className="flex min-w-full flex-none gap-x-6 px-4 text-sm font-medium leading-6 text-gray-500 sm:px-6 lg:px-8">
+            {secondaryNavigation.map((item) => (
+              <li key={item.name}>
+                <NavLink
+                  to={`/accounts/${accountId}/${item.href}`}
+                  className={({ isActive }) => (isActive ? 'text-primary font-semibold' : '')}>
+                  {item.name}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="border-gray-200 border-b px-8 pb-4 pt-20 space-y-6">
+          <div className="flex items-center justify-between">
+            <nav className="flex" aria-label="Breadcrumb">
+              <ol role="list" className="flex items-center space-x-4">
+                <li>
+                  <div className="text-gray-400 hover:text-gray-500">
+                    <HomeIcon className="h-5 w-5 flex-shrink-0" aria-hidden="true" />
+                    <span className="sr-only">Home</span>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-center">
+                    <ChevronRightIcon
+                      className="h-5 w-5 flex-shrink-0 text-gray-400"
+                      aria-hidden="true"
+                    />
+                    <Link
+                      to="/accounts"
+                      className="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">
+                      Accounts
+                    </Link>
+                  </div>
+                </li>
+                <li>
+                  <div className="flex items-center">
+                    <ChevronRightIcon
+                      className="h-5 w-5 flex-shrink-0 text-gray-400"
+                      aria-hidden="true"
+                    />
+                    <div className="text-gray-400 hover:text-gray-500 ml-4 text-sm">
+                      {accountDetails?.data?.accountName}
+                    </div>
+                  </div>
+                </li>
+              </ol>
+            </nav>
+            <Badge status="active">Active</Badge>
           </div>
-
-          <div>
-            <Link to="/accounts/onboard">
-              <Button>
-                Create corporate account
-                <UserPlusIcon width="20px" className="ml-1" />
-              </Button>
-            </Link>
+          <div className="mt-6 grid grid-cols-8 gap-6">
+            <div className="col-span-2">
+              <p className="text-sm font-medium text-gray-500 mt-1">Balance</p>
+              <h2 className="text-xl font-semibold text-gray-900">
+                NGN {accountBalance?.data && accountBalance?.data?.AvailableBalance}
+              </h2>
+            </div>
+            <div className="col-span-2">
+              <p className="text-sm font-medium text-gray-500 mt-1">Account number</p>
+              <h2 className="text-sm font-semibold text-gray-900">
+                {accountDetails?.data?.accountNumber?.[0]}
+              </h2>
+            </div>
+            {accountDetails?.data?.adminID?.firstName && (
+              <div className="col-span-2">
+                <p className="text-sm font-medium text-gray-500 mt-1">Admin</p>
+                <div className="flex items-center">
+                  <div className="pr-3 text-sm">
+                    <div className="text-gray-900 font-semibold capitalize break-words">
+                      {accountDetails?.data?.adminID?.firstName}{' '}
+                      {accountDetails?.data?.adminID?.lastName}
+                    </div>
+                    {accountDetails?.data?.adminID?.email}
+                  </div>
+                  <Avatar
+                    name={`${accountDetails?.data?.adminID?.firstName} ${accountDetails?.data?.adminID?.lastName}`}
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
-
-        <SearchFilter
-          placeholder={'Search by name or email....'}
-          value={searchValue}
-          setValue={setSearchValue}
-          onSearch={refetch}
-        />
-
-        <div className="mt-5">
-          {isFetching ? (
-            <ContentLoader viewBox="0 0 380 70">
-              <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
-            </ContentLoader>
-          ) : (
-            <>
-              <RenderData data={data ?? []} initialSerialNumber={initialSerialNumber} />
-              <Pagination
-                totalItems={data?.meta?.total ?? 0}
-                handlePageClick={setPage}
-                currentPage={page}
-              />
-            </>
-          )}
-          <Pagination totalItems={data?.totalCount} handlePageClick={setPage} currentPage={page} />
-        </div>
-      </Container>
+      </div>
+      <Outlet />
     </div>
   );
 };

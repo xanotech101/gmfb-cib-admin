@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { SubHeading } from 'components/Header/SubHeading.js';
 import { Button } from 'components/Button/Button';
 import { useTableSerialNumber } from 'hooks';
+import { isSystemAdmin } from 'utils/getUserRole.js';
 
 const RenderData = ({ data, initialSerialNumber }) => {
   if (data?.tickets?.length === 0 || !data?.tickets) {
@@ -32,7 +33,8 @@ export const Dashboard = () => {
     queryFn: () =>
       ticketService.getTickets({
         perPage: 10
-      })
+      }),
+    enabled: isSystemAdmin()
   });
 
   const initialSerialNumber = useTableSerialNumber(1);
@@ -46,23 +48,26 @@ export const Dashboard = () => {
             <Cards />
           </div>
         </div>
-        <Container>
-          <div className="flex lg:flex-row md:flex-row sm:flex-col flex-col justify-between lg:items-center md:items-center sm:items-start items-start space-y-4 ">
-            <SubHeading>Ticket Requests</SubHeading>
-            <Link to="/requests">
-              <Button variant="black">View all</Button>
-            </Link>
-          </div>
-          {isLoading ? (
-            <div className="mt-5">
-              <ContentLoader viewBox="0 0 380 70">
-                <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
-              </ContentLoader>
+
+        {isSystemAdmin() && (
+          <Container>
+            <div className="flex lg:flex-row md:flex-row sm:flex-col flex-col justify-between lg:items-center md:items-center sm:items-start items-start space-y-4 ">
+              <SubHeading>Ticket Requests</SubHeading>
+              <Link to="/requests">
+                <Button variant="black">View all</Button>
+              </Link>
             </div>
-          ) : (
-            <RenderData data={data} initialSerialNumber={initialSerialNumber} />
-          )}
-        </Container>
+            {isLoading ? (
+              <div className="mt-5">
+                <ContentLoader viewBox="0 0 380 70">
+                  <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
+                </ContentLoader>
+              </div>
+            ) : (
+              <RenderData data={data} initialSerialNumber={initialSerialNumber} />
+            )}
+          </Container>
+        )}
       </div>
     </div>
   );

@@ -94,5 +94,29 @@ export const useConvertFileToJson = () => {
     return csv;
   };
 
-  return { file, rows, columns, convertFile, clearFile, jsonArray, convertJsontoCSV };
+  const convertJsonToExcel = (json, fileName) => {
+    const worksheet = xlsx.utils.json_to_sheet(json);
+    const workbook = { Sheets: { data: worksheet }, SheetNames: ['data'] };
+    const excelBuffer = xlsx.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const blob = new Blob([excelBuffer], { type: 'application/vnd.ms-excel' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.setAttribute('hidden', '');
+    a.setAttribute('href', url);
+    a.setAttribute('download', `${fileName}.xlsx`);
+    document.body.appendChild(a);
+    a.click();
+    return excelBuffer;
+  };
+
+  return {
+    file,
+    rows,
+    columns,
+    convertFile,
+    clearFile,
+    jsonArray,
+    convertJsontoCSV,
+    convertJsonToExcel
+  };
 };

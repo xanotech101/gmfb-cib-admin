@@ -1,10 +1,9 @@
 import { MagnifyingGlassIcon, XCircleIcon } from '@heroicons/react/20/solid';
-import React from 'react';
 import { Input } from '../Input/Input';
 
 const SearchFilter = ({ placeholder, value, setValue, onSearch }) => {
   return (
-    <div className="relative mt-4 w-full md:w-2/5">
+    <div className="relative mt-4 w-full md:w-[300px]">
       <form
         onSubmit={(e) => {
           e.preventDefault();

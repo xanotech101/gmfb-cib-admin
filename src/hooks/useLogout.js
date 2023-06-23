@@ -7,6 +7,8 @@ export const useLogout = () => {
   const handleLogout = (state = {}) => {
     useStore.setState({ user: null });
     localStorage.removeItem('token');
+    localStorage.removeItem('cib-role');
+    localStorage.removeItem('account');
     navigate('/', { replace: true, state });
   };
 

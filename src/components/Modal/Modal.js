@@ -15,7 +15,7 @@ export const Modal = ({
     <Transition.Root show={open} as={Fragment}>
       <Dialog
         as="div"
-        className="relative z-10"
+        className="relative z-50"
         onClose={(state) => (dismissOnclickOutside ? setOpen(state) : {})}>
         <Transition.Child
           as={Fragment}

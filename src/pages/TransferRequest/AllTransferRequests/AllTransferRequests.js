@@ -41,7 +41,7 @@ export const AllTransferRequests = () => {
         search: searchValue
       })
   });
-  console.log(data);
+
   const initialSerialNumber = useTableSerialNumber(page);
 
   return (

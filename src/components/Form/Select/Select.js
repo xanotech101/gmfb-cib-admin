@@ -13,7 +13,9 @@ export const Select = ({ control, options, isMulti, name, error, label }) => {
           name={name}
           control={control}
           rules={{ required: true }}
-          render={({ field }) => <ReactSelect {...field} options={options} isMulti={isMulti} />}
+          render={({ field }) => (
+            <ReactSelect {...field} options={options} isMulti={isMulti} className="text-sm" />
+          )}
         />
       </div>
       {error && <ErrorMessage msg={error} />}

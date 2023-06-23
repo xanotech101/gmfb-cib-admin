@@ -1,9 +1,7 @@
 /* eslint-disable react/no-children-prop */
 // TODO: Explore lazy loading and break into smaller files for easy access
 import { Route, Routes, Outlet } from 'react-router-dom';
-import { BatchUpload } from 'pages/CorporateAccount/BatchOnboard/BatchOnboard';
 import { Dashboard } from 'pages/Dashboard/Dashboard';
-import { Corporate } from 'pages/CorporateAccount/CorporateAccount';
 import { Report } from 'pages/Reporting/Reports';
 import { Settings } from 'pages/Settings/Settings';
 import { AuthLayout } from '../../components/Layout/AuthLayout';
@@ -12,21 +10,28 @@ import { ErrorPage } from 'pages/ErrorPage/ErrorPage';
 import { Audit } from 'pages/AuditTrail/AuditTrail';
 import { authRoutes } from 'config/Router/routes/Auth.routes';
 import { Security } from 'pages/Settings/Security/Security';
-import { SettingsWrapper } from 'pages/Settings/SettingsWrapper';
+
 import { RequestTicketing } from 'pages/Requests/RequestTicketing';
-import { OnboardCorporateAccount } from 'pages/CorporateAccount/OnboardCorporateAccount/OnboardCorporateAccount';
 import { PrivateOutlet } from './PrivateOutLet';
-import CorporateUsersUnderCorporateAccount from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
-import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/TransferRequest';
 import { TransferRequestDetails } from 'pages/TransferRequest/TransferRequestDetails/TransferRequestDetails';
 import { AllTransferRequests } from 'pages/TransferRequest/AllTransferRequests/AllTransferRequests';
-import CorporateDetails from 'pages/CorporateAccount/CorporateDetails/CorporateDetails';
-import UpdateSecurityQuestion from 'pages/Settings/Security/UpdateSecurityQuestion';
+
 import { RequestTicketingDetails } from 'pages/Requests/RequestDetails/RequestDetails';
 import { BvnTable } from 'pages/ApiConsole/ApiBvnUsage';
 import { ApiTable } from 'pages/ApiConsole/ApiUsage';
 import { Wrapper } from 'pages/ApiConsole/Wrapper';
 import { UserManagement } from 'pages/UserManagement/UserManagement';
+
+import { CorporateAccounts } from 'pages/CorporateAccounts/CorporateAccounts';
+import { OnboardCorporateAccount } from 'pages/CorporateAccounts/OnboardCorporateAccount/OnboardCorporateAccount';
+import { BatchUpload } from 'pages/CorporateAccounts/BatchOnboard/BatchOnboard';
+import { CorporateAccount } from 'pages/CorporateAccount/CorporateAccount';
+import { Overview } from 'pages/CorporateAccount/Overview/Overview';
+import { CorporateUsers } from 'pages/CorporateAccount/CorporateUsers/CorporateUsers';
+import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/TransferRequest';
+import { MandateRule } from 'pages/CorporateAccount/CorporateMandateRule/CorporateMandateRule';
+import { CorporateAuditTrails } from 'pages/CorporateAccount/CorporateAuditTrails/CorporateAuditTrails';
+import { TransactionHistory } from 'pages/CorporateAccount/TransactionHistory/TransactionHistory';
 
 export const Routing = () => {
   return (
@@ -55,34 +60,29 @@ export const Routing = () => {
               <Route path="api-usage" element={<ApiTable />} />
             </Route>
           </Route>
-          <Route
-            element={
-              <SettingsWrapper>
-                <Outlet />
-              </SettingsWrapper>
-            }>
-            <Route path="settings">
-              <Route index element={<Settings />} />
-              <Route path="/settings/general" element={<Settings />} />
-              <Route path="general">
-                <Route index element={<Settings />} />
-                <Route path="update-security-question" element={<UpdateSecurityQuestion />} />
-              </Route>
-              <Route path="/settings/security" element={<Security />} />
-            </Route>
+
+          <Route path="settings">
+            <Route index element={<Settings />} />
+
+            <Route path="/settings/security" element={<Security />} />
           </Route>
+
           <Route path="accounts">
-            <Route index element={<Corporate />} />
+            <Route index element={<CorporateAccounts />} />
             <Route path="onboard" element={<OnboardCorporateAccount />} />
             <Route path="onboard/batch" element={<BatchUpload />} />
-            <Route path=":id/corporate-details" element={<CorporateDetails />} />
-            <Route path=":id/users" element={<CorporateUsersUnderCorporateAccount />} />
-            <Route path=":id/transfer-requests" element={<TransferRequest />} />
-            <Route path=":id/transfer-requests/:id" element={<TransferRequestDetails />} />
+            <Route path=":id" element={<CorporateAccount />}>
+              <Route path="overview" element={<Overview />} />
+              <Route path="users" element={<CorporateUsers />} />
+              <Route path="transfer-requests" element={<TransferRequest />} />
+              <Route path="transfer-requests/:id" element={<TransferRequestDetails />} />
+              <Route path="mandate-rule" element={<MandateRule />} />
+              <Route path="audit-trails" element={<CorporateAuditTrails />} />
+              <Route path="transaction-history" element={<TransactionHistory />} />
+            </Route>
           </Route>
 
           <Route path="audit" element={<Audit />} />
-
           <Route path="requests">
             <Route index element={<RequestTicketing />} />
             <Route path=":id" element={<RequestTicketingDetails />} />

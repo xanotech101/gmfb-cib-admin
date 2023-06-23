@@ -7,19 +7,19 @@ import { useQuery } from '@tanstack/react-query';
 const cardDetails = [
   {
     label: 'Number of corporate account',
-    value: '0  Account',
+    value: '0  Accounts',
     icon: BriefcaseIcon,
     route: '/accounts'
   },
   {
     label: 'Number of users',
-    value: '0 User',
+    value: '0 Users',
     icon: UserCircleIcon,
     route: '/user-management'
   },
   {
     label: 'Number of transfers',
-    value: `0 Transfer`,
+    value: `0 Transfers`,
     icon: BanknotesIcon,
     route: '/transfer-requests'
   }

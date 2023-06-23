@@ -7,33 +7,31 @@ export const TransferRequestTable = ({ transactions, initialSerialNumber }) => {
     <div role="list" className="divide-y divide-gray-200">
       <div className="relative overflow-hidden mt-6">
         <table className="w-full text-sm text-left text-gray-500">
-          <thead className="text-xs bg-gray-100 uppercase border text-black">
+          <thead className="text-xs bg-gray-100 uppercase border text-black font-semibold">
             <tr>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 S/N
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Account
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Amount
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Reference
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Beneficiary
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Approval Status
               </th>
-
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Transfer Status
               </th>
-
-              <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                <span className="sr-only">Edit</span>
+              <th scope="col" className="p-3">
+                <span className="sr-only">Action</span>
               </th>
             </tr>
           </thead>
@@ -50,13 +48,13 @@ export const TransferRequestTable = ({ transactions, initialSerialNumber }) => {
                   <div>{transaction?.payerAccountNumber}</div>
                 </td>
                 <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
-                  {naira.format(transaction?.amount)}
+                  <div className="text-gray-900 font-bold">{naira.format(transaction?.amount)}</div>
                 </td>
                 <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
                   {transaction?.transactionReference}
                 </td>
                 <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
-                  <div className="text-gray-900 font-bold">{transaction?.beneficiaryBankName}</div>
+                  <div>{transaction?.beneficiaryBankName}</div>
                   <div>{transaction?.beneficiaryAccountNumber}</div>
                   <div>{transaction?.beneficiaryAccountName}</div>
                 </td>

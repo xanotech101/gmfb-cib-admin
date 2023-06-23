@@ -1,24 +1,11 @@
-import React from 'react';
-import ReactDatePicker from 'react-datepicker';
-import { useState } from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
-import { Button } from 'components/Button/Button';
-import { Container } from 'components/Container/Container';
-const DateTimePicker = ({toggle}) => {
+import { DatePicker } from 'react-rainbow-components';
+import { Label } from '../Label/Label';
 
-  const [startDate, setStartDate] = useState(new Date());
+export const DatePickerComponent = ({ handleDate, label, value, id }) => {
   return (
-    <div
-     
-      className={`absolute top-[22%] z-30 hidden${toggle}`}>
-        <Container>
-      <ReactDatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-     <div className='mt-3'>
-     <Button isFullWidth>Download</Button>
-     </div>
-      </Container>
+    <div className="space-y-1">
+      <Label label={label} id={id} />
+      <DatePicker id={id} value={value} hideLabel onChange={handleDate} formatStyle="large" />
     </div>
   );
 };
-
-export default DateTimePicker;

@@ -29,7 +29,9 @@
     "file-saver": "^2.0.5",
     "flowbite": "^1.6.4",
     "flowbite-react": "^0.4.3",
+    "html-to-image": "^1.11.11",
     "json-to-csv-export": "^2.1.1",
+    "jspdf": "^2.5.1",
     "luxon": "^3.3.0",
     "nprogress": "^0.2.0",
     "papaparse": "^5.3.2",
@@ -42,6 +44,7 @@
     "react-hook-form": "^7.42.1",
     "react-idle-timer": "^5.5.3",
     "react-paginate": "^8.1.4",
+    "react-rainbow-components": "^1.32.0",
     "react-router-dom": "^6.6.1",
     "react-scripts": "5.0.1",
     "react-select": "^5.7.0",
@@ -89,5 +92,4 @@
     "react-datepicker": "^4.11.0",
     "tailwindcss": "^3.2.4"
   }
- 
 }

@@ -2,8 +2,6 @@ import Pagination from 'components/Pagination/Pagination';
 import { useState } from 'react';
 const postPerPage = 10;
 
-// 0068001101004223
-
 const DuplicateAccounts = ({ items }) => {
   const [page, setPage] = useState(1);
   const currentPage = items.slice(page * postPerPage - postPerPage, page * postPerPage);

@@ -29,7 +29,7 @@ export const Settings = () => {
     {
       title: 'Update Security Question',
       icon: <KeyIcon className="w-6 h-6 text-black" />,
-      to: '/settings/general/update-security-question',
+      to: '/settings/security',
       brief: 'update security questions'
     },
     {

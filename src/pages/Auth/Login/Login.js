@@ -15,6 +15,7 @@ export const Login = () => {
   const { Modal, showModal } = useModal();
 
   const handleLoginError = (err) => {
+    console.log(err);
     if (err?.message === 'Incorrect answer') {
       setQuestion(err.data);
     }

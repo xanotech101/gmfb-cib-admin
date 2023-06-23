@@ -6,29 +6,29 @@ export const TransferRequestsTable = ({ transactions, initialSerialNumber }) => 
   return (
     <div role="list" className="divide-y divide-gray-200">
       <div className="relative overflow-hidden mt-6">
-        <table className="w-full text-sm text-left text-gray-500">
+        <table className="w-full text-left text-sm text-gray-900">
           <thead className="text-xs bg-gray-100 uppercase border text-black">
             <tr>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 S/N
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Account
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Amount
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Reference
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Beneficiary
               </th>
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Approval Status
               </th>
 
-              <th scope="col" className="p-3 text-left text-sm font-semibold text-gray-900">
+              <th scope="col" className="p-3">
                 Transfer Status
               </th>
 
@@ -49,14 +49,14 @@ export const TransferRequestsTable = ({ transactions, initialSerialNumber }) => 
                   </div>
                   <div>{transaction?.payerAccountNumber}</div>
                 </td>
-                <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
+                <td className="whitespace-nowrap p-3 text-sm border text-gray-900 font-bold">
                   {naira.format(transaction?.amount)}
                 </td>
                 <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
                   {transaction?.transactionReference}
                 </td>
                 <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
-                  <div className="text-gray-900 font-bold">{transaction?.beneficiaryBankName}</div>
+                  <div>{transaction?.beneficiaryBankName}</div>
                   <div>{transaction?.beneficiaryAccountNumber}</div>
                   <div>{transaction?.beneficiaryAccountName}</div>
                 </td>
@@ -72,7 +72,7 @@ export const TransferRequestsTable = ({ transactions, initialSerialNumber }) => 
                 <td className="relative whitespace-nowrap p-3 text-sm font-medium border">
                   <Link
                     to={`/transfer-requests/${encodeURIComponent(transaction._id)}`}
-                    className="text-primary hover:text-indigo-900 ml-4">
+                    className="text-primary hover:text-indigo-900">
                     View
                   </Link>
                 </td>

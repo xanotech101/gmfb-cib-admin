@@ -5,11 +5,13 @@ class AuthService {
   async preLogin(payload) {
     try {
       const { data } = await http.post('/api/auth/pre_login', { ...payload });
-      notification(data?.message ?? 'Login successful');
       return data;
     } catch (error) {
-      notification(error.response.data.message, 'error');
-      throw new Error(error.response.data.message);
+      if (error.response.status !== 422) {
+        notification(error.response.data.message, 'error');
+      }
+
+      throw error.response;
     }
   }
   async login(payload, errorCb) {
@@ -25,6 +27,8 @@ class AuthService {
         localStorage.setItem('token', data?.token);
         http.defaults.headers.common['Authorization'] = `Bearer ${data?.token}`;
       }
+
+      localStorage.setItem('cib-role', data?.user?.role);
       notification(data?.message ?? 'Login successful');
       return data;
     } catch (error) {
@@ -49,6 +53,7 @@ class AuthService {
       notification(response.message);
       return response;
     } catch (error) {
+      notification(error.response?.data?.message, 'error');
       throw new Error(error);
     }
   }
@@ -57,7 +62,11 @@ class AuthService {
       const response = await http.post(`/api/auth/register_confirmation/${token}`);
       return response.data;
     } catch (error) {
-      notification(error.response.data.message ?? 'Something went wrong', 'error');
+      notification(
+        error.response.data.message ??
+          'Account verification not successful. please check if link has expired or kindly regenerate verification link',
+        'error'
+      );
       throw new Error(error);
     }
   }
@@ -81,6 +90,19 @@ class AuthService {
       return response.data;
     } catch (error) {
       notification(error?.response?.data?.message ?? 'Something went wrong', 'error');
+      throw new Error(error);
+    }
+  }
+  async updateSecurityQuestion(payload) {
+    try {
+      const response = await http.patch('/api/settings/update_secrete_questions', payload);
+      notification(response?.data?.message ?? 'Security question updated successfully');
+      return response;
+    } catch (error) {
+      notification(
+        error.response?.data?.message ?? 'Unable to update security question, please try again',
+        'error'
+      );
       throw new Error(error);
     }
   }

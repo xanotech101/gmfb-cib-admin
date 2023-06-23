@@ -1,10 +1,9 @@
 import React from 'react';
 import { BuildingOfficeIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { useStore } from 'hooks';
-import { Avatar } from 'components/Avatar/Avatar';
+
 export default function Header({ children }) {
   const { user } = useStore();
-  const name = `${user?.firstName} ${user?.lastName}`;
   const ID = user?._id;
   return (
     <div className="bg-white shadow">
@@ -14,9 +13,6 @@ export default function Header({ children }) {
             <div className="flex items-center">
               <div>
                 <div className="flex items-center">
-                  <div className="">
-                    <Avatar name={name} size={64} textSize="20" />
-                  </div>
                   <h1 className="ml-3 text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:leading-9">
                     Hello, {user?.firstName}
                   </h1>

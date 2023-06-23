@@ -11,7 +11,6 @@ export const RespondToSecurityQuestionForm = ({
   errorCb,
   requestPayload
 }) => {
-  console.log('🚀 ~ file: RespondToSecurityQuestionForm.js:14 ~ question:', question);
   const {
     register,
     handleSubmit,

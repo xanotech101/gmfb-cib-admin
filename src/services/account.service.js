@@ -1,19 +1,23 @@
+import { PER_PAGE } from 'constants/pagination';
 import http from 'plugins/axios';
 import { notification } from 'utils';
+import { isGcAdmin } from 'utils/getUserRole';
 
 class AccountService {
-  async getAccountByAccountNo() {
+  async getAccountByAccountNo(accountNo) {
     try {
-      const { data } = await http.get('/api/bank/balance');
+      const { data } = await http.get(`/api/bank/balance/${accountNo}`);
       return data;
     } catch (error) {
       throw new Error(error);
     }
   }
 
-  async getTransactionHistory() {
+  async getTransactionHistory(accountNumber, params) {
     try {
-      const { data } = await http.get('/api/bank/history');
+      const { data } = await http.get(`/api/bank/history/${accountNumber}`, {
+        params
+      });
       return data;
     } catch (error) {
       throw new Error(error);
@@ -38,12 +42,13 @@ class AccountService {
     }
   }
 
-  async getAllAccounts(params, isSystemAdmin) {
-    const url = isSystemAdmin
-      ? '/api/account/all_accounts'
-      : '/api/gcadmin/getAccount_oragnizationlabel/gc-admin';
+  async getAllAccounts(params) {
+    let url = '/api/account/all_accounts';
+    if (isGcAdmin()) {
+      url = '/api/gcadmin/accounts';
+    }
     try {
-      const { data } = await http.get(url, { params });
+      const { data } = await http.get(url, { params: { ...params, perPage: PER_PAGE } });
       return data;
     } catch (error) {
       throw new Error(error);
@@ -113,6 +118,38 @@ class AccountService {
     } catch (error) {
       notification(error?.response?.data?.message, 'error');
       throw new Error(error);
+    }
+  }
+
+  async getAccountStats(organizationId) {
+    try {
+      const data = await http.get(`/api/account/stats/${organizationId}`);
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  async enableAccount({ id, otp }) {
+    try {
+      const data = await http.patch(`/api/account/enable/${id}`, { otp });
+      notification('Account Enabled Successfully');
+      return data;
+    } catch (error) {
+      notification(error.response.data.message, 'error');
+      throw new Error(error);
+    }
+  }
+
+  async disableAccount({ id, otp }) {
+    try {
+      const data = await http.patch(`/api/account/disable/${id}`, { otp });
+      notification('Account Disabled Successfully');
+      return data;
+    } catch (error) {
+      if (error?.response?.status !== 422) {
+        notification(error.response.data.message, 'error');
+      }
+      throw error.response;
     }
   }
 }
