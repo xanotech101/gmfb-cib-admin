@@ -67,7 +67,7 @@ export const UserManagementTable = ({ users, initialSerialNumber, refetch }) => 
   return (
     <>
       <div role="list" className="divide-y divide-gray-200">
-        <div className="relative overflow-hidden">
+        <div className="relative  lg:overflow-hidden overflow-x-scroll">
           <table className="w-full text-sm text-left text-gray-500">
             <thead className="text-xs bg-gray-100 uppercase border text-black font-semibold">
               <tr>

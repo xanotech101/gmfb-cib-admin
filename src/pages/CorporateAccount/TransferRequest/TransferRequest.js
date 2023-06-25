@@ -47,7 +47,7 @@ export const TransferRequest = () => {
   });
 
   return (
-    <div className="px-10 space-y-6 mt-8 pb-12">
+    <div className="px-10 space-y-6 mt-8 pb-12 ">
       <div className="flex justify-between items-center">
         <h3 className="text-xl font-medium leading-6 text-gray-900 mt-4">Transfer Requests</h3>
         <div>
