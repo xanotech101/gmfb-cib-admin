@@ -70,7 +70,7 @@ class AccountService {
       notification(data?.message ?? 'Account created successfully');
       return data;
     } catch (error) {
-      notification(error.response.data.Message, 'error');
+      notification(error.response.data.Message ?? error?.response?.data?.message, 'error');
       throw new Error(error);
     }
   }
