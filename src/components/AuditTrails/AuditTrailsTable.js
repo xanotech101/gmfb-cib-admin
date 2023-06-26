@@ -2,7 +2,7 @@ export const AuditTrailsTable = ({ data, initialSerialNumber }) => {
   return (
     <div role="list" className="divide-y divide-gray-200">
       <div className="user-list">
-        <div className="relative overflow-auto mt-6">
+        <div className="relative  lg:overflow-hidden overflow-x-scroll mt-6">
           <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead className="text-xs bg-gray-100 uppercase border text-black">
               <tr>

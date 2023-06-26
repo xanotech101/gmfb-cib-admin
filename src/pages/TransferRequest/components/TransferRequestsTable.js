@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 export const TransferRequestsTable = ({ transactions, initialSerialNumber }) => {
   return (
     <div role="list" className="divide-y divide-gray-200">
-      <div className="relative overflow-hidden mt-6">
+      <div className="relative lg:overflow-hidden overflow-x-scroll mt-6">
         <table className="w-full text-left text-sm text-gray-900">
           <thead className="text-xs bg-gray-100 uppercase border text-black">
             <tr>
