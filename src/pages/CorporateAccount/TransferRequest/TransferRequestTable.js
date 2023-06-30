@@ -1,6 +1,7 @@
 import { Badge } from 'components/Badge/Badge';
 import { naira } from 'utils/currencyFormatter';
 import { Link } from 'react-router-dom';
+import { formatDate } from 'utils';
 
 export const TransferRequestTable = ({ transactions, initialSerialNumber }) => {
   return (
@@ -23,6 +24,9 @@ export const TransferRequestTable = ({ transactions, initialSerialNumber }) => {
               </th>
               <th scope="col" className="p-3">
                 Beneficiary
+              </th>
+              <th scope="col" className="p-3">
+                Date
               </th>
               <th scope="col" className="p-3">
                 Approval Status
@@ -58,7 +62,9 @@ export const TransferRequestTable = ({ transactions, initialSerialNumber }) => {
                   <div>{transaction?.beneficiaryAccountNumber}</div>
                   <div>{transaction?.beneficiaryAccountName}</div>
                 </td>
-
+                <td className=" p-3 text-sm text-gray-500 border">
+                  {transaction?.createdAt && formatDate(transaction?.createdAt)}
+                </td>
                 <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
                   <Badge status={transaction?.status}>{transaction?.status}</Badge>
                 </td>
