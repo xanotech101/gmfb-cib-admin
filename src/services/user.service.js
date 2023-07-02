@@ -82,6 +82,17 @@ class UserService {
       throw new Error(error);
     }
   }
+
+  async updateUserEmail(payload) {
+    try {
+      const response = await http.patch('/api/users/editEmail', payload);
+      notification('Email Updated Successfully');
+      return response;
+    } catch (error) {
+      notification(error.response.data.message, 'error');
+      throw new Error(error);
+    }
+  }
 }
 
 export const userService = new UserService();

@@ -10,12 +10,15 @@ import { UserDetails } from './UserDetails';
 import { EnableUser } from './Actions/EnableUser';
 import { DisableUser } from './Actions/DisableUser';
 import { SwitchUser } from './Actions/SwitchUser';
+import { UpdateEmail } from './Actions/UpdateEmail';
+import { isSystemAdmin } from 'utils/getUserRole.js';
 
 const actionTypes = {
   VIEW_PROFILE: 'VIEW_PROFILE',
   ENABLE_USER: 'ENABLE_USER',
   DISABLE_USER: 'DISABLE_USER',
-  SWITCH_USERS: 'SWITCH_USERS'
+  SWITCH_USERS: 'SWITCH_USERS',
+  UPDATE_EMAIL: 'UPDATE_EMAIL'
 };
 
 const Action = ({ user, actionType, cancel, setActionType, otp, setOtp, refetch }) => {
@@ -36,6 +39,10 @@ const Action = ({ user, actionType, cancel, setActionType, otp, setOtp, refetch 
           otp={otp}
           refetch={refetch}
         />
+      );
+    case actionTypes.UPDATE_EMAIL:
+      return (
+        <UpdateEmail user={user} closeModal={cancel} otp={otp} setOtp={setOtp} refetch={refetch} />
       );
     default:
       return (
@@ -131,27 +138,36 @@ export const UserManagementTable = ({ users, initialSerialNumber, refetch }) => 
                         }}>
                         View profile
                       </Dropdown.Item>
+                      {isSystemAdmin() && (
+                        <Dropdown.Item
+                          onClick={() => {
+                            setUser(user);
+                            setOtp(null);
+                            setActionType(actionTypes.UPDATE_EMAIL);
+                            showModal();
+                          }}>
+                          Update Email
+                        </Dropdown.Item>
+                      )}
                       {user?.disabled ? (
                         <Dropdown.Item
-                          className="text-green-500"
                           onClick={() => {
                             setUser(user);
                             setOtp(null);
                             setActionType(actionTypes.ENABLE_USER);
                             showModal();
                           }}>
-                          Enable
+                          <span className="text-green-600">Enable</span>
                         </Dropdown.Item>
                       ) : (
                         <Dropdown.Item
-                          className="text-red-500"
                           onClick={() => {
                             setUser(user);
                             setOtp(null);
                             setActionType(actionTypes.DISABLE_USER);
                             showModal();
                           }}>
-                          Disable
+                          <span className="text-red-600">Disable</span>
                         </Dropdown.Item>
                       )}
                     </Dropdown>

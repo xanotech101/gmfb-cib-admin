@@ -19,7 +19,7 @@ function classNames(...classes) {
 }
 
 export const Sidebar = () => {
-  const { notify } = useNotifications();
+  const { unreadNotificationsCount } = useNotifications();
   const token = localStorage.getItem('token');
   const { data } = useQuery({
     queryKey: ['userProfile'],
@@ -29,10 +29,6 @@ export const Sidebar = () => {
       useStore.setState({ user: data.user });
     }
   });
-
-  // fetch notifications
-  useNotifications();
-
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -113,25 +109,22 @@ export const Sidebar = () => {
             <Bars3BottomLeftIcon className="h-6 w-6 grooming-text" aria-hidden="true" />
           </button>
           <div className="flex flex-1 justify-end px-4">
-            <div className="ml-4 flex items-center md:ml-6">
-              <button type="button" className=" p-1 text-gray-400 hover:text-gray-500">
+            <div className="flex items-center">
+              <button type="button" className="relative text-gray-400 hover:text-gray-500">
                 <span className="sr-only">View notifications</span>
-
-                <div className="p-5">
-                  <strong className="relative inline-flex items-center  px-2.5 py-1.5 text-xs  font-medium">
-                    <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full grooming-color flex justify-center items-center items">
-                      <span className="text-white">{notify?.data?.count ?? 0}</span>
+                <div className="relative inline-flex items-center  px-2.5 py-1.5 text-xs  font-medium">
+                  {unreadNotificationsCount && (
+                    <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-primary flex justify-center items-center text-white text-[11px]">
+                      {unreadNotificationsCount?.data?.count > 99
+                        ? '99+'
+                        : unreadNotificationsCount?.data?.count}
                     </span>
-                    <BellIcon
-                      className="h-6 w-6"
-                      aria-hidden="true"
-                      onClick={() => {
-                        setOpen(true);
-                      }}
-                    />
-                  </strong>
+                  )}
+                  <BellIcon className="h-6 w-6" aria-hidden="true" onClick={() => setOpen(true)} />
                 </div>
               </button>
+
+              {console.log(unreadNotificationsCount?.count)}
 
               {/* Profile dropdown */}
               <Menu as="div" className="relative ml-3">

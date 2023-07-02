@@ -30,9 +30,18 @@ export const useUsers = (refetch) => {
     }
   });
 
+  const updateUserEmail = useMutation({
+    mutationFn: (payload) => userService.updateUserEmail(payload),
+    onSuccess: (_, variables) => {
+      refetch();
+      variables.successCb();
+    }
+  });
+
   return {
     enableUser,
     disableUser,
-    switchUsers
+    switchUsers,
+    updateUserEmail
   };
 };
