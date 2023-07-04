@@ -11,10 +11,6 @@ class AnalyticsService {
     }
   }
   async getDashboardAnalysis() {
-    console.log(
-      '🚀 ~ file: analytics.service.js:16 ~ AnalyticsService ~ getDashboardAnalysis ~ isGcAdmin():',
-      isGcAdmin()
-    );
     let url = '/api/requests/analysis/backoffice/dashboard';
     if (isGcAdmin()) {
       url = '/api/gcadmin/dashboard-analytics';

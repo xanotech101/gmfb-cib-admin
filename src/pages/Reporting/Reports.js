@@ -20,7 +20,7 @@ const stats = [
     bg: 'bg-orange-500'
   },
   {
-    name: 'Pending Request',
+    name: 'Disburse Pending',
     stat: '0',
     icon: ClockIcon,
     bg: 'bg-yellow-500'
