@@ -66,7 +66,7 @@ export const Report = () => {
       });
       setDisbursements(formattedData);
       stats[0].stat = naira.format(data.totalDisbursements?.amount ?? 0);
-      stats[1].stat = data.pendingRequests ?? 0;
+      stats[1].stat = data.pendingRequests?.count ?? 0;
       stats[2].stat = data.totalDeclined ?? 0;
       stats[3].stat = data.totalApproved ?? 0;
     }
