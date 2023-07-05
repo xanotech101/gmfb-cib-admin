@@ -1,11 +1,12 @@
 import { Badge } from 'components/Badge/Badge';
 import { naira } from 'utils/currencyFormatter';
 import { Link } from 'react-router-dom';
+import { formatDate } from 'utils';
 
 export const TransferRequestsTable = ({ transactions, initialSerialNumber }) => {
   return (
     <div role="list" className="divide-y divide-gray-200">
-      <div className="relative overflow-hidden mt-6">
+      <div className="relative lg:overflow-hidden overflow-x-scroll mt-6">
         <table className="w-full text-left text-sm text-gray-900">
           <thead className="text-xs bg-gray-100 uppercase border text-black">
             <tr>
@@ -23,6 +24,9 @@ export const TransferRequestsTable = ({ transactions, initialSerialNumber }) => 
               </th>
               <th scope="col" className="p-3">
                 Beneficiary
+              </th>
+              <th scope="col" className="p-3">
+                Date
               </th>
               <th scope="col" className="p-3">
                 Approval Status
@@ -49,18 +53,20 @@ export const TransferRequestsTable = ({ transactions, initialSerialNumber }) => 
                   </div>
                   <div>{transaction?.payerAccountNumber}</div>
                 </td>
-                <td className="whitespace-nowrap p-3 text-sm border text-gray-900 font-bold">
+                <td className=" p-3 text-sm border text-gray-900 font-bold">
                   {naira.format(transaction?.amount)}
                 </td>
-                <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
+                <td className=" p-3 text-sm text-gray-500 border">
                   {transaction?.transactionReference}
                 </td>
-                <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
+                <td className=" p-3 text-sm text-gray-500 border">
                   <div>{transaction?.beneficiaryBankName}</div>
                   <div>{transaction?.beneficiaryAccountNumber}</div>
                   <div>{transaction?.beneficiaryAccountName}</div>
                 </td>
-
+                <td className=" p-3 text-sm text-gray-500 border">
+                  {transaction?.createdAt && formatDate(transaction?.createdAt)}
+                </td>
                 <td className="whitespace-nowrap p-3 text-sm text-gray-500 border">
                   <Badge status={transaction?.status}>{transaction?.status}</Badge>
                 </td>
@@ -69,7 +75,7 @@ export const TransferRequestsTable = ({ transactions, initialSerialNumber }) => 
                   <Badge status={transaction?.transferStatus}>{transaction?.transferStatus}</Badge>
                 </td>
 
-                <td className="relative whitespace-nowrap p-3 text-sm font-medium border">
+                <td className="relative whitespace-nowrap p-4 text-sm font-medium border">
                   <Link
                     to={`/transfer-requests/${encodeURIComponent(transaction._id)}`}
                     className="text-primary hover:text-indigo-900">

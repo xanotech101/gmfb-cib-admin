@@ -2,9 +2,13 @@ import http from 'plugins/axios';
 import { notification } from 'utils';
 
 class OtpService {
-  async generateOtp(type) {
+  async generateOtp(type, payload = {}) {
+    let url = 'api/otp/generate';
+    if (type) {
+      url = `api/otp/${type}`;
+    }
     try {
-      const data = await http.post(`api/otp/${type}`);
+      const data = await http.post(url, payload);
       notification(data.message);
       return data;
     } catch (error) {

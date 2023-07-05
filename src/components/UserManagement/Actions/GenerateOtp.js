@@ -5,10 +5,10 @@ import { Input } from 'components/Form/Input/Input';
 import { useState } from 'react';
 import { otpService } from 'services';
 
-const GenerateOtp = ({ type, setOtp, children, otp }) => {
+const GenerateOtp = ({ type, setOtp, children, otp, payload }) => {
   const [generateOtp, setGenerateOtp] = useState(true);
   const handleOtpGeneration = useMutation({
-    mutationFn: () => otpService.generateOtp(type),
+    mutationFn: () => otpService.generateOtp(type, payload),
     onSuccess: () => {
       setGenerateOtp(false);
     },

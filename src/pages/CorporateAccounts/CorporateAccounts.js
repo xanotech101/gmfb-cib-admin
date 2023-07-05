@@ -73,7 +73,7 @@ export const CorporateAccounts = () => {
         </div>
 
         <SearchFilter
-          placeholder={'Search by name or email....'}
+          placeholder={'Search by account name....'}
           value={searchValue}
           setValue={setSearchValue}
           onSearch={refetch}
