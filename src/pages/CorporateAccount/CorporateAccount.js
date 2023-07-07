@@ -75,9 +75,9 @@ export const CorporateAccount = () => {
           </div>
           <div className="mt-6 grid grid-cols-8 gap-6">
             <div className="col-span-2">
-              <p className="text-sm font-medium text-gray-500 mt-1">Balance</p>
+              <p className="text-sm font-medium text-gray-500 mt-1">Withdrawable Balance</p>
               <h2 className="text-xl font-semibold text-gray-900">
-                NGN {accountBalance?.data && accountBalance?.data?.AvailableBalance}
+                NGN {accountBalance?.data && accountBalance?.data?.WithdrawableBalance}
               </h2>
             </div>
             <div className="col-span-2">

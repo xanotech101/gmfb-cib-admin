@@ -11,7 +11,20 @@ import DatePicker from 'react-datepicker';
 import { Label } from 'components/Form/Label/Label';
 import ContentLoader from 'react-content-loader';
 
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'September'];
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
 const stats = [
   {
     name: 'Amount Disbursed',
@@ -40,7 +53,7 @@ const stats = [
 ];
 
 export const Report = () => {
-  const [barType, setBarType] = useState('line');
+  const [barType, setBarType] = useState('bar');
   const [disbursements, setDisbursements] = useState([]);
   const [year, setYear] = useState(new Date());
 
@@ -66,7 +79,7 @@ export const Report = () => {
       });
       setDisbursements(formattedData);
       stats[0].stat = naira.format(data.totalDisbursements?.amount ?? 0);
-      stats[1].stat = data.pendingRequests ?? 0;
+      stats[1].stat = data.pendingRequest ?? 0;
       stats[2].stat = data.totalDeclined ?? 0;
       stats[3].stat = data.totalApproved ?? 0;
     }
@@ -136,45 +149,76 @@ export const Report = () => {
                       </div>
                     </div>
                   </div>
-
-                  {barType === 'line' && (
-                    <CChart
-                      type="line"
-                      id="lineChart"
-                      data={{
-                        labels: disbursements.map((disbursement) => disbursement.month),
-                        datasets: [
-                          {
-                            label: 'Cash Inflow',
-                            backgroundColor: '#891c69',
-                            borderColor: '#891c69',
-                            pointBackgroundColor: '#ea580c',
-                            pointBorderColor: '#ea580c',
-                            data: disbursements.map((disbursement) => disbursement.amount)
+                  <div className="h-[500px]">
+                    {barType === 'line' && (
+                      <CChart
+                        type="line"
+                        id="lineChart"
+                        data={{
+                          labels: disbursements.map((disbursement) => disbursement.month),
+                          datasets: [
+                            {
+                              label: 'Cash Outflow (₦)',
+                              backgroundColor: '#891c69',
+                              borderColor: '#891c69',
+                              pointBackgroundColor: '#ea580c',
+                              pointBorderColor: '#ea580c',
+                              data: disbursements.map((disbursement) => disbursement.amount)
+                            }
+                          ]
+                        }}
+                        height={500}
+                        options={{
+                          events: [],
+                          maintainAspectRatio: false,
+                          scales: {
+                            y: {
+                              ticks: {
+                                callback: function (value) {
+                                  return '₦' + value.toLocaleString();
+                                }
+                              }
+                            }
                           }
-                        ]
-                      }}
-                      labels="months"
-                    />
-                  )}
-                  {barType === 'bar' && (
-                    <CChart
-                      type="bar"
-                      id="barChart"
-                      data={{
-                        labels: disbursements?.map((disbursement) => disbursement.month),
-                        datasets: [
-                          {
-                            label: 'Cash Inflow',
-                            backgroundColor: '#891c69',
-                            borderColor: '#891c69',
-                            data: disbursements?.map((disbursement) => disbursement.amount)
+                        }}
+                        labels="months"
+                      />
+                    )}
+                    {barType === 'bar' && (
+                      <CChart
+                        type="bar"
+                        id="barChart"
+                        data={{
+                          labels: disbursements?.map((disbursement) => disbursement.month),
+                          datasets: [
+                            {
+                              label: 'Cash Outflow (₦)',
+                              backgroundColor: '#891c69',
+                              borderColor: '#891c69',
+                              data: disbursements?.map((disbursement) => disbursement.amount)
+                            }
+                          ]
+                        }}
+                        height={500}
+                        options={{
+                          events: [],
+                          barPercentage: 0.5,
+                          maintainAspectRatio: false,
+                          responsive: true,
+                          scales: {
+                            y: {
+                              ticks: {
+                                callback: function (value) {
+                                  return '₦' + value.toLocaleString();
+                                }
+                              }
+                            }
                           }
-                        ]
-                      }}
-                      labels="months"
-                    />
-                  )}
+                        }}
+                        labels="months"
+                      />
+                    )}
+                  </div>
                 </>
               )}
             </Container>
