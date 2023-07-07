@@ -8,6 +8,7 @@ import { useTransactionHistory, useStore } from 'hooks';
 import { EmptyState } from 'components/EmptyState/EmptyState';
 import { TransactionHistoryTable } from 'components/TransactionHistory/TransactionHistoryTable';
 import { Button } from 'components/Button/Button';
+import { naira } from 'utils/currencyFormatter';
 
 const stats = {
   totalUsers: { name: 'Number of users', value: '0' },
@@ -32,6 +33,7 @@ export const RenderData = (data) => {
 export const Overview = () => {
   const { id } = useParams();
   const [data, setData] = useState({ ...stats });
+  console.log('🚀 ~ file: Overview.js:35 ~ Overview ~ data:', data);
 
   const { currentOrganization } = useStore();
   const { transactions } = useTransactionHistory(
@@ -46,13 +48,11 @@ export const Overview = () => {
     enabled: !!id,
     // eslint-disable-next-line no-unused-vars
     onSuccess: ({ success, ...apiStats }) => {
-      const updatedData = data;
+      const updatedData = { ...data };
       Object.keys(apiStats).forEach((key) => {
-        if (key === 'totalAmountDisbursed') {
-          data[key].value = `₦${updatedData[key].toLocaleString()}`;
-        }
-        data[key].value = apiStats[key];
+        updatedData[key].value = apiStats[key];
       });
+      updatedData.totalAmountDisbursed.value = naira.format(apiStats.totalAmountDisbursed);
       setData(updatedData);
     }
   });

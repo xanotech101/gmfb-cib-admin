@@ -77,7 +77,7 @@ export const CorporateAccount = () => {
             <div className="col-span-2">
               <p className="text-sm font-medium text-gray-500 mt-1">Balance</p>
               <h2 className="text-xl font-semibold text-gray-900">
-                NGN {accountBalance?.data && accountBalance?.data?.AvailableBalance}
+                NGN {accountBalance?.data && accountBalance?.data?.WithdrawableBalance}
               </h2>
             </div>
             <div className="col-span-2">
