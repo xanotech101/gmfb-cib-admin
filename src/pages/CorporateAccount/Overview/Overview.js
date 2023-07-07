@@ -33,7 +33,6 @@ export const RenderData = (data) => {
 export const Overview = () => {
   const { id } = useParams();
   const [data, setData] = useState({ ...stats });
-  console.log('🚀 ~ file: Overview.js:35 ~ Overview ~ data:', data);
 
   const { currentOrganization } = useStore();
   const { transactions } = useTransactionHistory(
