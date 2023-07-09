@@ -43,10 +43,11 @@ export const CorporateAccountsTable = ({ data, initialSerialNumber, refetch }) =
   const [account, setAccount] = useState(null);
   const [actionType, setActionType] = useState(null);
   const [otp, setOtp] = useState(null);
+
   const getAccountStatus = useCallback((isDisabled) => {
     return isDisabled ? 'disabled' : 'active';
   }, []);
-  console.log(data);
+
   return (
     <div role="list" className="divide-y divide-gray-200">
       <div className="relative lg:overflow-hidden overflow-x-scroll mt-6">

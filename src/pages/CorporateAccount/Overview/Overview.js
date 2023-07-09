@@ -9,6 +9,7 @@ import { EmptyState } from 'components/EmptyState/EmptyState';
 import { TransactionHistoryTable } from 'components/TransactionHistory/TransactionHistoryTable';
 import { Button } from 'components/Button/Button';
 import { naira } from 'utils/currencyFormatter';
+import { useTableSerialNumber } from 'hooks/useTableSerialNumber';
 
 const stats = {
   totalUsers: { name: 'Number of users', value: '0' },
@@ -17,8 +18,8 @@ const stats = {
   totalAmountDisbursed: { name: 'Amount disbursed', value: '0' }
 };
 
-export const RenderData = (data) => {
-  if (!data?.data?.IsSuccessful || data?.data?.Message.length === 0) {
+export const RenderData = ({ data, initialSerialNumber }) => {
+  if (!data?.IsSuccessful || data?.Message.length === 0) {
     return (
       <EmptyState
         title="No transactions"
@@ -26,18 +27,23 @@ export const RenderData = (data) => {
       />
     );
   } else {
-    return <TransactionHistoryTable transactions={data?.data?.Message?.data ?? []} />;
+    return (
+      <TransactionHistoryTable
+        transactions={data?.Message?.data ?? []}
+        initialSerialNumber={initialSerialNumber}
+      />
+    );
   }
 };
 
 export const Overview = () => {
   const { id } = useParams();
   const [data, setData] = useState({ ...stats });
+  const initialSerialNumber = useTableSerialNumber(1);
 
   const { currentOrganization } = useStore();
   const { transactions } = useTransactionHistory(
-    { PageSize: 10 },
-    1,
+    { PageSize: 10, pageNo: 1 },
     currentOrganization?.accountNumber?.[0]
   );
 
@@ -95,7 +101,7 @@ export const Overview = () => {
               <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
             </ContentLoader>
           ) : (
-            <RenderData data={transactions.data} />
+            <RenderData data={transactions.data} initialSerialNumber={initialSerialNumber} />
           )}
         </div>
       </div>

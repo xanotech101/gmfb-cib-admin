@@ -41,6 +41,7 @@ export const AuditTrail = ({
     queryFn: () => queryFunc({ ...otherParams, page, type: searchValue }),
     enabled: shouldEnableQuery
   });
+
   const initialSerialNumber = useTableSerialNumber(page);
 
   return (
