@@ -3,6 +3,7 @@ import { ChevronRightIcon, HomeIcon } from '@heroicons/react/20/solid';
 import { Outlet, NavLink, useParams, Link } from 'react-router-dom';
 import { useAccountDetails } from './hooks/useAccountDetails';
 import { Avatar } from 'components/Avatar/Avatar';
+import { useCallback } from 'react';
 
 const secondaryNavigation = [
   { name: 'Overview', href: 'overview', current: true },
@@ -16,6 +17,10 @@ const secondaryNavigation = [
 export const CorporateAccount = () => {
   const { accountDetails, accountBalance } = useAccountDetails();
   const { id: accountId } = useParams();
+
+  const getAccountStatus = useCallback((isDisabled) => {
+    return isDisabled ? 'disabled' : 'active';
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -71,7 +76,9 @@ export const CorporateAccount = () => {
                 </li>
               </ol>
             </nav>
-            <Badge status="active">Active</Badge>
+            <Badge status={getAccountStatus(accountDetails?.data?.disabled)}>
+              {getAccountStatus(accountDetails?.data?.disabled)}
+            </Badge>
           </div>
           <div className="mt-6 grid grid-cols-8 gap-6">
             <div className="col-span-2">
