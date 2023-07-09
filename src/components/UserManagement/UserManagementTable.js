@@ -88,7 +88,7 @@ export const UserManagementTable = ({ users, initialSerialNumber, refetch }) => 
                   Gender
                 </th>
                 <th scope="col" className="p-3">
-                  Role
+                  Privilege
                 </th>
                 <th scope="col" className="p-3">
                   Status
@@ -114,7 +114,9 @@ export const UserManagementTable = ({ users, initialSerialNumber, refetch }) => 
                     </div>
                   </td>
                   <td className="p-3 border break-words capitalize">{user?.gender}</td>
-                  <td className="p-3 border break-words">{user?.role}</td>
+                  <td className="p-3 border break-words capitalize">
+                    {user?.privileges?.[0]?.name}
+                  </td>
                   <td className="p-3 border capitalize">
                     <Badge status={getUserStatus(user?.disabled)}>
                       {getUserStatus(user?.disabled)}
