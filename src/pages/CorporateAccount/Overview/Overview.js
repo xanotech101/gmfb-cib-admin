@@ -9,7 +9,6 @@ import { EmptyState } from 'components/EmptyState/EmptyState';
 import { TransactionHistoryTable } from 'components/TransactionHistory/TransactionHistoryTable';
 import { Button } from 'components/Button/Button';
 import { naira } from 'utils/currencyFormatter';
-import { useTableSerialNumber } from 'hooks/useTableSerialNumber';
 
 const stats = {
   totalUsers: { name: 'Number of users', value: '0' },
@@ -39,7 +38,6 @@ export const RenderData = ({ data, initialSerialNumber }) => {
 export const Overview = () => {
   const { id } = useParams();
   const [data, setData] = useState({ ...stats });
-  const initialSerialNumber = useTableSerialNumber(1);
 
   const { currentOrganization } = useStore();
   const { transactions } = useTransactionHistory(
@@ -101,7 +99,7 @@ export const Overview = () => {
               <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />
             </ContentLoader>
           ) : (
-            <RenderData data={transactions.data} initialSerialNumber={initialSerialNumber} />
+            <RenderData data={transactions.data} />
           )}
         </div>
       </div>
