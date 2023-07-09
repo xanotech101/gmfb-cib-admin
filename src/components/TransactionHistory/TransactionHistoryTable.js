@@ -5,7 +5,7 @@ import { ReceiptModal } from 'components/TransactionHistory/ReceiptModal';
 import { naira } from 'utils/currencyFormatter';
 import { formatDate } from 'utils';
 
-export const TransactionHistoryTable = ({ transactions, initialSerialNumber }) => {
+export const TransactionHistoryTable = ({ transactions, initialSerialNumber = 1 }) => {
   const [showReceiptModal, setShowReceiptModal] = useState(false);
   const [receiptData, setReceiptData] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
