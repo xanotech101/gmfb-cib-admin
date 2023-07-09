@@ -46,12 +46,7 @@ export const TransactionHistory = () => {
     <div className="px-10 space-y-6 py-8">
       <div className="flex justify-between items-center mt-4">
         <h3 className="text-xl font-medium leading-6 text-gray-900">Transaction History</h3>
-        <Button
-          variant="black"
-          type="button"
-          onClick={() => {
-            showModal();
-          }}>
+        <Button variant="black" type="button" onClick={showModal}>
           Generate Account Statement
         </Button>
       </div>
