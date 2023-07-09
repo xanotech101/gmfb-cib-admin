@@ -1,6 +1,11 @@
 import { useIdleTimer } from 'react-idle-timer';
 import { useLogout } from './useLogout';
 
+/**
+ * Tracks user inactivity and logs them out after 5 minutes
+ *
+ * @return {*}
+ */
 export const useInactivity = () => {
   const { handleLogout } = useLogout();
 
