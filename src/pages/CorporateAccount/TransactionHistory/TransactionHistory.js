@@ -8,9 +8,10 @@ import { DatePickerComponent } from 'components/Form/DatePicker/DateTimePicker';
 import { useState } from 'react';
 import { useTransactionHistory } from 'hooks';
 import Pagination from 'components/Pagination/Pagination';
+import { useTableSerialNumber } from 'hooks/useTableSerialNumber';
 
-export const RenderData = (data) => {
-  if (!data?.data?.IsSuccessful || data?.data?.Message.length === 0) {
+export const RenderData = ({ data, initialSerialNumber }) => {
+  if (!data?.IsSuccessful || data?.Message.length === 0) {
     return (
       <EmptyState
         title="No transactions"
@@ -18,7 +19,12 @@ export const RenderData = (data) => {
       />
     );
   } else {
-    return <TransactionHistoryTable transactions={data?.data?.Message?.data ?? []} />;
+    return (
+      <TransactionHistoryTable
+        transactions={data?.Message?.data ?? []}
+        initialSerialNumber={initialSerialNumber}
+      />
+    );
   }
 };
 
@@ -30,10 +36,11 @@ export const TransactionHistory = () => {
   const { currentOrganization } = useStore();
 
   const { accountStatement, transactions } = useTransactionHistory(
-    { PageSize: 50 },
-    page,
+    { PageSize: 50, pageNo: page },
     currentOrganization?.accountNumber?.[0]
   );
+
+  const initialSerialNumber = useTableSerialNumber(page);
 
   return (
     <div className="px-10 space-y-6 py-8">
@@ -55,12 +62,11 @@ export const TransactionHistory = () => {
           </ContentLoader>
         ) : (
           <>
-            <RenderData data={transactions.data} />
+            <RenderData data={transactions.data} initialSerialNumber={initialSerialNumber} />
             <Pagination
               totalItems={transactions?.data?.Message?.page?.totalCount ?? 0}
               handlePageClick={setPage}
               currentPage={page}
-              itemsPerPage={50}
             />
           </>
         )}

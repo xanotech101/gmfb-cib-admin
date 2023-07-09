@@ -5,7 +5,7 @@ import { ReceiptModal } from 'components/TransactionHistory/ReceiptModal';
 import { naira } from 'utils/currencyFormatter';
 import { formatDate } from 'utils';
 
-export const TransactionHistoryTable = ({ transactions }) => {
+export const TransactionHistoryTable = ({ transactions, initialSerialNumber }) => {
   const [showReceiptModal, setShowReceiptModal] = useState(false);
   const [receiptData, setReceiptData] = useState({});
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -46,7 +46,7 @@ export const TransactionHistoryTable = ({ transactions }) => {
             <tbody>
               {transactions?.map((transaction, i) => (
                 <tr key={transaction?.Id} className="border hover:bg-gray-50">
-                  <td className="whitespace-nowrap p-3 border">{i + 1}</td>
+                  <td className="whitespace-nowrap p-3 border">{initialSerialNumber + i}</td>
                   <td className="whitespace-nowrap p-3 border capitalize">{transaction?.Id}</td>
                   <td className="whitespace-nowrap p-3 border capitalize">
                     {transaction?.Amount && naira.format(transaction?.Amount / 100)}

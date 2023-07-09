@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { accountService } from 'services';
 import { notification } from 'utils';
 
-export const useTransactionHistory = (historyParams = {}, page, accountNumber) => {
+export const useTransactionHistory = (historyParams = {}, accountNumber) => {
   const { mutate: downloadAccountStatement, isLoading: downloading } = useMutation({
     mutationKey: ['downloadStatement'],
     mutationFn: (payload) =>
@@ -29,6 +29,8 @@ export const useTransactionHistory = (historyParams = {}, page, accountNumber) =
       payload.showModal();
     }
   });
+
+  const { pageNo: page } = historyParams;
 
   const transactions = useQuery({
     queryKey: ['transaction-history', accountNumber, page],
