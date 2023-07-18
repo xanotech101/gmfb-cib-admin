@@ -12,17 +12,6 @@ class ApiUsageService {
       throw new Error(error);
     }
   }
-  async getApi(_id, params) {
-    try {
-      const data = await http.get(`/api/thirdparty/thirdpartyAnalytics/${_id}`, {
-        params
-      });
-
-      return data;
-    } catch (error) {
-      throw new Error(error);
-    }
-  }
 }
 
 export const apiUsageService = new ApiUsageService();
