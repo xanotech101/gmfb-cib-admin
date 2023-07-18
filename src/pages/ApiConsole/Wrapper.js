@@ -15,7 +15,7 @@ export const Wrapper = ({ children }) => {
             <NavLink
               to="/api-console/api-usage"
               className={({ isActive }) => (isActive ? 'after relative px-2' : 'px-2')}>
-              API Usage
+              Name Enquiry
             </NavLink>
             <NavLink
               to="/api-console/bvn-usage"

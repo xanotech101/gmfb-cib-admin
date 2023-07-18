@@ -30,12 +30,15 @@ export const BvnTable = () => {
   const initialSerialNumber = useTableSerialNumber(page);
   return (
     <>
-      <SearchFilter
-        placeholder={'Search...'}
-        value={searchValue}
-        setValue={setSearchValue}
-        onSearch={refetch}
-      />
+      <div className="flex items-center justify-between">
+        <SearchFilter
+          placeholder={'Search...'}
+          value={searchValue}
+          setValue={setSearchValue}
+          onSearch={refetch}
+        />
+      </div>
+
       {isLoading || isFetching ? (
         <ContentLoader viewBox="0 0 380 70">
           <rect x="0" y="0" rx="5" ry="5" width="380" height="70" />

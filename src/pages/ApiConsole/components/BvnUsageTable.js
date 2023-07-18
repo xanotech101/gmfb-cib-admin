@@ -19,6 +19,9 @@ export const BvnUsageTable = ({ data, initialSerialNumber }) => {
           <th scope="col" className="p-3">
             time created
           </th>
+          <th scope="col" className="p-3">
+            <span className="sr-only">Action</span>
+          </th>
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200 ">
@@ -28,10 +31,10 @@ export const BvnUsageTable = ({ data, initialSerialNumber }) => {
               {initialSerialNumber + i}
             </td>
             <td className="p-3 text-sm font-medium text-gray-800 whitespace-nowrap border">
-              {datum?.organization_name.substring(0, 4)}
+              {datum?.organization_name}
             </td>
             <td className="p-3 text-sm  font-medium text-gray-800 whitespace-nowrap border">
-              {datum?.bvnCount} Count
+              {datum?.BvnCount} Count
             </td>
             <td className="p-3 text-sm font-medium  whitespace-nowrap border">
               <div className="mt-4 flex items-center text-sm text-gray-500 gap-2">
@@ -39,6 +42,7 @@ export const BvnUsageTable = ({ data, initialSerialNumber }) => {
                 <div>{datum?.createdAt && formatDate(datum.createdAt)}</div>
               </div>
             </td>
+            <td className="p-3 text-sm  font-medium text-gray-800 whitespace-nowrap border"></td>
           </tr>
         ))}
       </tbody>
