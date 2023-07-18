@@ -1,7 +1,7 @@
 import { formatDate } from 'utils';
 import { ClockIcon } from '@heroicons/react/24/outline';
 
-export const ApiUsageTable = ({ data, initialSerialNumber }) => {
+export const ApiUsageTable = ({ data, initialSerialNumber, total }) => {
   return (
     <table className="min-w-full divide-y divide-gray-200 text-left">
       <thead className="text-xs bg-gray-100 uppercase border text-black">
@@ -31,7 +31,7 @@ export const ApiUsageTable = ({ data, initialSerialNumber }) => {
               {datum?.organization_name}
             </td>
             <td className="p-3 text-sm  font-medium text-gray-800 whitespace-nowrap border">
-              {datum?.requestCount} Request
+              {total === '' || undefined || total?.length === 0 ? '0 Request' : `${total} Request`}
             </td>
             <td className="p-3 text-sm font-medium whitespace-nowrap border">
               <div className="mt-4 flex items-center text-sm text-gray-500 gap-2">

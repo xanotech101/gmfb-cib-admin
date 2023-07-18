@@ -23,9 +23,7 @@ export const NavItem = ({ closeSidebar }) => {
   const navigate = useNavigate();
   const { Modal, showModal } = useModal();
   const { isSystemAdmin } = useRole();
-
   const isApi = /api-console/i.test(window.location.pathname);
-
   return (
     <div className="h-[90%] overflow-y-auto side-bar">
       <nav className="flex-1 space-y-1 px-2 pb-4">
