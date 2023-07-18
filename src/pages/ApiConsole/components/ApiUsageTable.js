@@ -31,7 +31,7 @@ export const ApiUsageTable = ({ data, initialSerialNumber }) => {
               {datum?.organization_name}
             </td>
             <td className="p-3 text-sm  font-medium text-gray-800 whitespace-nowrap border">
-              {datum?.requestCount} Request
+              {datum?.NameEnquiryCount} Request
             </td>
             <td className="p-3 text-sm font-medium whitespace-nowrap border">
               <div className="mt-4 flex items-center text-sm text-gray-500 gap-2">
