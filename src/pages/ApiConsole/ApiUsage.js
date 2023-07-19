@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { EmptyState } from 'components/EmptyState/EmptyState';
-
 import ContentLoader from 'react-content-loader';
 import { apiUsageService } from 'services/apiUsage.service';
 import { ApiUsageTable } from './components/ApiUsageTable';
-
 import SearchFilter from 'components/Form/SearchFilter/SearchFilter';
 import { useState } from 'react';
 import { useTableSerialNumber } from 'hooks';
@@ -29,7 +27,7 @@ export const ApiTable = () => {
 
   const { data, isLoading, refetch, isFetching } = useQuery({
     queryKey: ['console', page],
-    queryFn: () => apiUsageService.getApiUsage({ page, name: searchValue })
+    queryFn: () => apiUsageService.getApiUsage({ page, search: searchValue })
   });
 
   const initialSerialNumber = useTableSerialNumber(page);

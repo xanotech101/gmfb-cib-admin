@@ -24,7 +24,7 @@ export const BvnTable = () => {
 
   const { data, isLoading, refetch, isFetching } = useQuery({
     queryKey: ['console', page],
-    queryFn: () => apiUsageService.getApiUsage({ page, name: searchValue })
+    queryFn: () => apiUsageService.getApiUsage({ page, search: searchValue })
   });
 
   const initialSerialNumber = useTableSerialNumber(page);
