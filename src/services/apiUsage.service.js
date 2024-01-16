@@ -12,6 +12,14 @@ class ApiUsageService {
       throw new Error(error);
     }
   }
+  async getApiUsageCount(id, params) {
+    try {
+      const data = await http.get(`/api/thirdparty/thirdpartyAnalytics/${id}`, { ...params });
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
 
 export const apiUsageService = new ApiUsageService();

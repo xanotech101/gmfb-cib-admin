@@ -1,6 +1,6 @@
 import http from 'plugins/axios';
 import { PER_PAGE } from 'constants/pagination';
-import { isGcAdmin } from 'utils/getUserRole';
+import { organizationLabel } from 'utils/getUserRole';
 class AuditService {
   async getOrganizationAuditTrails(params) {
     try {
@@ -15,8 +15,8 @@ class AuditService {
 
   async getAllAuditTrails(params) {
     let url = '/api/audit_trails/all';
-    if (isGcAdmin()) {
-      url = '/api/gcadmin/audit-trails';
+    if (organizationLabel()) {
+      url = '/api/organizationLabel/audit-trails';
     }
     try {
       const { data } = await http.get(url, {

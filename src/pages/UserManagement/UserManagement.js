@@ -10,7 +10,7 @@ import { Button } from 'components/Button/Button';
 import { useState } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { userService } from 'services';
-import { isGcAdmin } from 'utils/getUserRole';
+import { organizationLabel } from 'utils/getUserRole';
 
 const RenderData = ({ data, initialSerialNumber, page, refetch }) => {
   if (data?.requests?.length === 0 || !data) {
@@ -34,7 +34,7 @@ export const UserManagement = () => {
   const [page, setPage] = useState(1);
   const [searchValue, setSearchValue] = useState(undefined);
   const users = useQuery({
-    queryKey: ['all-users-paginated', page, isGcAdmin()],
+    queryKey: ['all-users-paginated', page, organizationLabel()],
     queryFn: () => userService.getAllUsers({ page, search: searchValue })
   });
   const { isLoading: isDownloadingUsers, mutate: downloadUsers } = useMutation({

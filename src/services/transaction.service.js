@@ -1,6 +1,6 @@
 import { PER_PAGE } from 'constants/pagination';
 import http from 'plugins/axios';
-import { isGcAdmin } from 'utils/getUserRole';
+import { organizationLabel } from 'utils/getUserRole';
 class TransactionService {
   async getTransactionPerOrganization(params) {
     try {
@@ -22,8 +22,8 @@ class TransactionService {
   }
   async getAllTransactions(params) {
     let url = '/api/requests/backoffice/transfer-requests/all';
-    if (isGcAdmin()) {
-      url = '/api/gcadmin/transferRequest';
+    if (organizationLabel()) {
+      url = '/api/organizationLabel/transferRequest';
     }
     try {
       const { data } = await http.get(url, {

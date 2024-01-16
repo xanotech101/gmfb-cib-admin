@@ -1,7 +1,7 @@
 import { PER_PAGE } from 'constants/pagination';
 import http from 'plugins/axios';
 import { notification } from 'utils';
-import { isGcAdmin } from 'utils/getUserRole';
+import { organizationLabel } from 'utils/getUserRole';
 
 class UserService {
   async getProfile() {
@@ -37,8 +37,8 @@ class UserService {
 
   async getAllUsers(params) {
     let url = '/api/users/all';
-    if (isGcAdmin()) {
-      url = '/api/gcadmin/fetchAllusers';
+    if (organizationLabel()) {
+      url = '/api/organizationLabel/fetchAllusers';
     }
     try {
       const response = await http.get(url, { params: { ...params, perPage: PER_PAGE } });

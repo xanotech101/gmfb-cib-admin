@@ -3,7 +3,7 @@ import { useStore } from './useStore';
 export const useRole = () => {
   const { user } = useStore();
   const isSystemAdmin = user?.role === 'system-admin';
-  const isGcAdmin = user?.role === 'gcadmin';
+  const organizationLabel = user?.role === 'entity';
 
-  return { isSystemAdmin, isGcAdmin };
+  return { isSystemAdmin, organizationLabel };
 };
