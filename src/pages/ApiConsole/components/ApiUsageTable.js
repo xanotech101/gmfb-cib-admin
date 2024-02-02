@@ -37,7 +37,6 @@ export const ApiUsageTable = ({ data, initialSerialNumber }) => {
     });
     convertJsonToExcel(breakdown, 'gcmfb-api-breakdown');
   };
-  console.log(totalCount?.analytics?.year);
   return (
     <table className="min-w-full divide-y divide-gray-200 text-left">
       <thead className="text-xs bg-gray-100 uppercase border text-black">

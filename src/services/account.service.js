@@ -93,7 +93,17 @@ class AccountService {
       throw new Error(error);
     }
   }
-
+  async getAccountStatement(accountNumber, params) {
+    try {
+      const { message } = await http.get(`/api/bank/statement/${accountNumber}`, {
+        params
+      });
+      return message;
+    } catch (error) {
+      notification(error.response.data.message, 'error');
+      throw new Error(error);
+    }
+  }
   async getAccountLabels() {
     try {
       const { data } = await http.get('/api/organization/all');
