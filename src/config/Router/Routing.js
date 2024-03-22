@@ -32,6 +32,7 @@ import { TransferRequest } from 'pages/CorporateAccount/TransferRequest/Transfer
 import { MandateRule } from 'pages/CorporateAccount/CorporateMandateRule/CorporateMandateRule';
 import { CorporateAuditTrails } from 'pages/CorporateAccount/CorporateAuditTrails/CorporateAuditTrails';
 import { TransactionHistory } from 'pages/CorporateAccount/TransactionHistory/TransactionHistory';
+import { TransactionUsage } from 'pages/ApiConsole/TransactionUsage';
 
 export const Routing = () => {
   return (
@@ -58,6 +59,7 @@ export const Routing = () => {
               <Route index element={<ApiTable />} />
               <Route path="bvn-usage" element={<BvnTable />} />
               <Route path="api-usage" element={<ApiTable />} />
+              <Route path="transfer-request" element={<TransactionUsage />} />
             </Route>
           </Route>
 

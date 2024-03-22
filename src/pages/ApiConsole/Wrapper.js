@@ -22,6 +22,11 @@ export const Wrapper = ({ children }) => {
               className={({ isActive }) => (isActive ? 'after relative px-2' : 'px-2')}>
               BVN Usage
             </NavLink>
+            <NavLink
+              to="/api-console/transfer-request"
+              className={({ isActive }) => (isActive ? 'after relative px-2' : 'px-2')}>
+              Transfer Request
+            </NavLink>
           </div>
           <div>{children}</div>
         </Container>
