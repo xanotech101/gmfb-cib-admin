@@ -8,14 +8,14 @@ import { useState } from 'react';
 import { Dropdown } from 'flowbite-react';
 import { TotalRequest } from './TotalRequest';
 
-export const ApiUsageTable = ({ data, initialSerialNumber }) => {
+export const TransactionUsageTable = ({ data, initialSerialNumber }) => {
   const { Modal, showModal } = useModal();
   const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [date, setDate] = useState(new Date());
 
   const params = {
-    requesttype: 'NameEnquiry',
+    requesttype: 'TransferRequest',
     date: date.getFullYear(),
     month: date.toLocaleString('en-US', { month: 'long' })
   };
@@ -71,7 +71,7 @@ export const ApiUsageTable = ({ data, initialSerialNumber }) => {
               {datum?.organization_name}
             </td>
             <td className="p-3 text-sm  font-medium text-gray-800 whitespace-nowrap border">
-              {datum?.NameEnquiryCount} Request
+              {datum?.TransferRequestCount} Transfer Request
             </td>
             <td className="p-3 text-sm font-medium whitespace-nowrap border">
               <div className="mt-4 flex items-center text-sm text-gray-500 gap-2">

@@ -12,7 +12,7 @@ export const isSystemAdmin = () => {
   return role === 'system-admin';
 };
 
-export const isGcAdmin = () => {
+export const organizationLabel = () => {
   const role = userRole();
-  return role === 'gcadmin';
+  return role === 'entity';
 };

@@ -1,7 +1,7 @@
 import { PER_PAGE } from 'constants/pagination';
 import http from 'plugins/axios';
 import { notification } from 'utils';
-import { isGcAdmin } from 'utils/getUserRole';
+import { organizationLabel } from 'utils/getUserRole';
 
 class AccountService {
   async getAccountByAccountNo(accountNo) {
@@ -44,8 +44,8 @@ class AccountService {
 
   async getAllAccounts(params) {
     let url = '/api/account/all_accounts';
-    if (isGcAdmin()) {
-      url = '/api/gcadmin/accounts';
+    if (organizationLabel()) {
+      url = '/api/organizationLabel/accounts';
     }
     try {
       const { data } = await http.get(url, { params: { ...params, perPage: PER_PAGE } });
@@ -93,7 +93,17 @@ class AccountService {
       throw new Error(error);
     }
   }
-
+  async getAccountStatement(accountNumber, params) {
+    try {
+      const { message } = await http.get(`/api/bank/statement/${accountNumber}`, {
+        params
+      });
+      return message;
+    } catch (error) {
+      notification(error.response.data.message, 'error');
+      throw new Error(error);
+    }
+  }
   async getAccountLabels() {
     try {
       const { data } = await http.get('/api/organization/all');
