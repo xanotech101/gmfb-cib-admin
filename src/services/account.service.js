@@ -136,7 +136,7 @@ class AccountService {
       const res = await http.delete('/api/users/remove/whiteListedAccounts', {
         data: { accounts }
       });
-      notification(res?.message);
+      notification(res?.message ?? 'Account number deleted successfully');
       return res;
     } catch (error) {
       notification(error?.response?.data?.message, 'error');
