@@ -10,7 +10,8 @@ import {
   BanknotesIcon,
   ArrowTopRightOnSquareIcon,
   EnvelopeOpenIcon,
-  UserCircleIcon
+  UserCircleIcon,
+  UserPlusIcon
 } from '@heroicons/react/24/outline';
 import { NavLinks } from './NavLink';
 import { useModal, useRole } from 'hooks';
@@ -18,7 +19,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import LogoutPrompt from 'pages/Auth/LogoutPrompt/LogoutPrompt';
 import { DropDownItems } from 'components/DropDown/DropDownItems';
 import { DropDown } from 'components/DropDown/DropDown';
-import { UserAdd } from 'iconsax-react';
 
 export const NavItem = ({ closeSidebar }) => {
   const navigate = useNavigate();
@@ -95,7 +95,7 @@ export const NavItem = ({ closeSidebar }) => {
         {isSystemAdmin && (
           <NavLinks
             to={'/whitelist'}
-            icon={<UserAdd />}
+            icon={<UserPlusIcon />}
             name="Account Whitelist"
             current={false}
             isActive
