@@ -112,7 +112,37 @@ class AccountService {
       throw new Error(error);
     }
   }
+  async getWhiteListedAccounts(params) {
+    try {
+      const { data } = await http.get('/api/users/all/whiteListedAccounts', { params });
 
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+  async whiteListAccount(payload) {
+    try {
+      const { data } = await http.post('/api/users/whiteListAccount', payload);
+      notification(data?.message ?? 'Account number whitelisted successfully');
+      return data;
+    } catch (error) {
+      notification(error?.response?.data?.message, 'error');
+      throw new Error(error);
+    }
+  }
+  async removewhiteListedAccount(accounts) {
+    try {
+      const res = await http.delete('/api/users/remove/whiteListedAccounts', {
+        data: { accounts }
+      });
+      notification(res?.message ?? 'Account number deleted successfully');
+      return res;
+    } catch (error) {
+      notification(error?.response?.data?.message, 'error');
+      throw new Error(error);
+    }
+  }
   async bulkUploadAccount({ file, organizationLabel }) {
     const formData = new FormData();
     formData.append('files', file);

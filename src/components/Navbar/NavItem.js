@@ -18,6 +18,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import LogoutPrompt from 'pages/Auth/LogoutPrompt/LogoutPrompt';
 import { DropDownItems } from 'components/DropDown/DropDownItems';
 import { DropDown } from 'components/DropDown/DropDown';
+import { UserAdd } from 'iconsax-react';
 
 export const NavItem = ({ closeSidebar }) => {
   const navigate = useNavigate();
@@ -91,7 +92,16 @@ export const NavItem = ({ closeSidebar }) => {
           isActive
           onClick={closeSidebar}
         />
-
+        {isSystemAdmin && (
+          <NavLinks
+            to={'/whitelist'}
+            icon={<UserAdd />}
+            name="Account Whitelist"
+            current={false}
+            isActive
+            onClick={closeSidebar}
+          />
+        )}
         {isSystemAdmin && (
           <NavLinks
             to={!isApi ? '/api-console/api-usage' : 'api-console'}

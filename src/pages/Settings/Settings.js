@@ -12,7 +12,7 @@ import {
 
 import { List } from 'components/List/List';
 import { Link } from 'react-router-dom';
-import { KeyIcon } from '@heroicons/react/24/outline';
+import { KeyIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 export const Settings = () => {
   const navigate = useNavigate();
   const { Modal, showModal } = useModal();
@@ -20,12 +20,12 @@ export const Settings = () => {
     showModal();
   };
   const SettingsData = [
-    // {
-    //   title: 'update profile',
-    //   icon: <UserCircleIcon className="w-6 h-6 text-black" />,
-    //   to: '/profile/edit-profile',
-    //   brief: 'Update existing profile details.'
-    // },
+    {
+      title: 'Whitelist account number',
+      icon: <UserCircleIcon className="w-6 h-6 text-black" />,
+      to: '/settings/whitelist',
+      brief: 'Whitelist account number.'
+    },
     {
       title: 'Update Security Question',
       icon: <KeyIcon className="w-6 h-6 text-black" />,
