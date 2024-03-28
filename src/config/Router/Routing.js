@@ -33,6 +33,7 @@ import { MandateRule } from 'pages/CorporateAccount/CorporateMandateRule/Corpora
 import { CorporateAuditTrails } from 'pages/CorporateAccount/CorporateAuditTrails/CorporateAuditTrails';
 import { TransactionHistory } from 'pages/CorporateAccount/TransactionHistory/TransactionHistory';
 import { TransactionUsage } from 'pages/ApiConsole/TransactionUsage';
+import { WhiteList } from 'pages/WhiteListAccount/WhiteList';
 
 export const Routing = () => {
   return (
@@ -42,6 +43,7 @@ export const Routing = () => {
       ))}
       <Route element={<PrivateOutlet />}>
         <Route element={<AuthLayout children={<Outlet />} />}>
+          <Route path="/whitelist" element={<WhiteList />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="reports" element={<Report />} />
           <Route path="user-management" element={<UserManagement />} />
