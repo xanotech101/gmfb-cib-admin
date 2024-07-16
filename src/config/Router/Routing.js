@@ -34,6 +34,7 @@ import { CorporateAuditTrails } from 'pages/CorporateAccount/CorporateAuditTrail
 import { TransactionHistory } from 'pages/CorporateAccount/TransactionHistory/TransactionHistory';
 import { TransactionUsage } from 'pages/ApiConsole/TransactionUsage';
 import { WhiteList } from 'pages/WhiteListAccount/WhiteList';
+import { APIKEY } from 'pages/ApiConsole/APIKey';
 
 export const Routing = () => {
   return (
@@ -62,12 +63,12 @@ export const Routing = () => {
               <Route path="bvn-usage" element={<BvnTable />} />
               <Route path="api-usage" element={<ApiTable />} />
               <Route path="transfer-request" element={<TransactionUsage />} />
+              <Route path="api-key" element={<APIKEY />} />
             </Route>
           </Route>
 
           <Route path="settings">
             <Route index element={<Settings />} />
-
             <Route path="/settings/security" element={<Security />} />
           </Route>
 
