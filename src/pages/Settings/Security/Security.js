@@ -28,7 +28,7 @@ export const Security = () => {
   return (
     <div className="p-5">
       <div className="mb-6">
-        <Heading>Settings</Heading>
+        <Heading>Security</Heading>
         <p className="mb-3 mt-2">Kindly make your changes below.</p>
       </div>
       <Container>

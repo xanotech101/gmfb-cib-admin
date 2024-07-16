@@ -27,6 +27,11 @@ export const Wrapper = ({ children }) => {
               className={({ isActive }) => (isActive ? 'after relative px-2' : 'px-2')}>
               Transfer Request
             </NavLink>
+            <NavLink
+              to="/api-console/api-key"
+              className={({ isActive }) => (isActive ? 'after relative px-2' : 'px-2')}>
+              API Key
+            </NavLink>
           </div>
           <div>{children}</div>
         </Container>
