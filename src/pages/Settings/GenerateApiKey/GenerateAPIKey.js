@@ -27,30 +27,7 @@ export const APIKEY = () => {
       organization_name: data?.organization_name?.value
     });
   };
-  // async function hashAndStoreData(key, data) {
 
-  //   const encoder = new TextEncoder();
-  //   const dataUint8Array = encoder.encode(data);
-
-  //   const hashBuffer = await crypto.subtle.digest('SHA-256', dataUint8Array);
-
-  //   const hashArray = Array.from(new Uint8Array(hashBuffer));
-  //   const hashHex = hashArray.map((byte) => byte.toString(16).padStart(2, '0')).join('');
-
-  //   localStorage.setItem(key, hashHex);
-  // }
-
-  // async function getData(key) {
-  //   return localStorage.getItem(key);
-  // }
-
-  // hashAndStoreData(key, haha).then(() => {
-  //   console.log('Data hashed and stored in localStorage');
-
-  //   getData(key).then((hashedData) => {
-  //     console.log('Retrieved hashed data:', hashedData);
-  //   });
-  // });
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
