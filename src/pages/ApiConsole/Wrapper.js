@@ -9,7 +9,7 @@ export const Wrapper = ({ children }) => {
         <Container>
           <div className="mx-3 my-2">
             <Heading>API Console</Heading>
-            <p>List of all BVN and API usage</p>
+            <p>List of all Name Enquiry API and BVN Usage.</p>
           </div>
           <div className="flex gap-4 font-medium capitalize my-4 border py-3 fit rounded shadow bg-gray-100">
             <NavLink
