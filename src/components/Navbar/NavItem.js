@@ -26,7 +26,7 @@ export const NavItem = ({ closeSidebar }) => {
   const { isSystemAdmin } = useRole();
   const isApi = /api-console/i.test(window.location.pathname);
   return (
-    <div className="h-[90%] overflow-y-auto side-bar">
+    <div className="h-[90vh] overflow-y-auto side-bar">
       <nav className="flex-1 space-y-1 px-2 pb-4">
         <NavLinks to="/dashboard" name="Dashboard" icon={<HomeIcon />} current={true} />
         <NavLinks
@@ -130,7 +130,6 @@ export const NavItem = ({ closeSidebar }) => {
           isActive
           onClick={closeSidebar}
         />
-
         <p
           className="group flex items-center px-2 py-5 text-sm font-medium rounded-md text-white mt-5 relative cursor-pointer"
           onClick={() => {

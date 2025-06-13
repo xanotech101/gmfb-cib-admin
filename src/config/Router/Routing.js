@@ -3,13 +3,14 @@
 import { Route, Routes, Outlet } from 'react-router-dom';
 import { Dashboard } from 'pages/Dashboard/Dashboard';
 import { Report } from 'pages/Reporting/Reports';
-import { Settings } from 'pages/Settings/Settings';
 import { AuthLayout } from '../../components/Layout/AuthLayout';
 import { Profile } from 'pages/Profile/Profile';
 import { ErrorPage } from 'pages/ErrorPage/ErrorPage';
 import { Audit } from 'pages/AuditTrail/AuditTrail';
 import { authRoutes } from 'config/Router/routes/Auth.routes';
 import { Security } from 'pages/Settings/Security/Security';
+import { Providers } from 'pages/Settings/Providers/Providers';
+import { SettingsWrapper } from 'pages/Settings/SettingsWrapper';
 
 import { RequestTicketing } from 'pages/Requests/RequestTicketing';
 import { PrivateOutlet } from './PrivateOutLet';
@@ -67,9 +68,14 @@ export const Routing = () => {
             </Route>
           </Route>
 
-          <Route path="settings">
-            <Route index element={<Settings />} />
+          <Route
+            element={
+              <SettingsWrapper>
+                <Outlet />
+              </SettingsWrapper>
+            }>
             <Route path="/settings/security" element={<Security />} />
+            <Route path="/settings/providers" element={<Providers />} />
           </Route>
 
           <Route path="accounts">
