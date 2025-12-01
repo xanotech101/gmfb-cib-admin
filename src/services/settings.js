@@ -18,6 +18,24 @@ class SettingsService {
       throw new Error(error);
     }
   }
+
+  async getTransferProviders() {
+    try {
+      const { data } = await http.get('/api/settings/transfer_providers');
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
+  async updateTransferProvider(providerId) {
+    try {
+      const { data } = await http.put(`/api/settings/transfer_providers/${providerId}`);
+      return data;
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
 }
 
 export const settingsService = new SettingsService();

@@ -7,6 +7,8 @@ export { notificationService } from './notifications.service';
 export { otpService } from './otp.service';
 export { privilegeService } from './privilege.service';
 export { securityService } from './security.service';
-export { transactionService } from './transaction.service';
+export { settingsService } from './settings';
 export { ticketService } from './ticket.service';
+export { transactionService } from './transaction.service';
 export { userService } from './user.service';
+
