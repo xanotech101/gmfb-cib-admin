@@ -1,18 +1,16 @@
 // TODO: refactor navigation
-import { Dialog, Transition, Menu } from '@headlessui/react';
-import { Fragment, useState } from 'react';
-import { Logo } from 'components/Logo/Logo';
-import { useNavigate } from 'react-router-dom';
-import { useModal } from 'hooks';
-import LogoutPrompt from 'pages/Auth/LogoutPrompt/LogoutPrompt';
-import { Bars3BottomLeftIcon, XMarkIcon, BellIcon } from '@heroicons/react/24/outline';
+import { Dialog, Menu, Transition } from '@headlessui/react';
+import { Bars3BottomLeftIcon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useQuery } from '@tanstack/react-query';
-import { userService } from 'services';
-import { useNotifications, useStore } from 'hooks';
-import { Notification } from 'components/Notification/Notification';
-import { Link } from 'react-router-dom';
-import { NavItem } from './NavItem';
 import { Avatar } from 'components/Avatar/Avatar';
+import { Logo } from 'components/Logo/Logo';
+import { Notification } from 'components/Notification/Notification';
+import { useModal, useNotifications, useStore } from 'hooks';
+import LogoutPrompt from 'pages/Auth/LogoutPrompt/LogoutPrompt';
+import { Fragment, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { userService } from 'services';
+import { NavItem } from './NavItem';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
